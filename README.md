@@ -15,7 +15,7 @@ Finalmente, los usuarios podrán comentar sus impresiones de las piezas/accesori
 
 #Equipo
 
-Roberto	Brown Cabo
-Randall Barrientos Alva
-José Javier	Meiriño MIgens
-Omar Khanji Dobosh
+* Roberto	Brown Cabo
+* Randall Barrientos Alva
+* José Javier	Meiriño MIgens
+* Omar Khanji Dobosh
