@@ -1,17 +1,16 @@
 #Introduccion
-GoCar es una aplicación web de compra-venta de coches de segunda mano, además de venta de piezas y accesorios para coches.
-
-Además de poder comprar accesorios y piezas nuevas, lo usuarios podrán publicar anuncios de venta de vehículos para vender su coche. Además podrán marcar coches como "favoritos" para tener una lista de las ofertas que más les gusten.
+GoCar es una aplicación web donde los usuarios pueden subir viñetas, comentarlas y añadarlas a favoritos.
+* Parte pública: Los usuarios podrán ver viñetas posteadas
+* Parte privada: Los usuarios podrán registrarse para publicar viñetas, favoritearlas y dejar comentarios
 
 Finalmente, los usuarios podrán comentar sus impresiones de las piezas/accesorios, además de las ofertas de venta de coches.
 
 #Entidades
 * Usuarios
-* Coches
-* Piezas y accesorios
+* Viñetas
 * Comentarios
-* Deseados
-* Carro de compra
+* Favoritas
+* Publicaciones
 
 #Equipo
 
