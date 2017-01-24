@@ -1,5 +1,5 @@
 #Introduccion
-GoCar es una aplicación web donde los usuarios pueden subir viñetas, comentarlas y añadarlas a favoritos.
+CuantoMeme (Nombre provisional) es una aplicación web donde los usuarios pueden subir viñetas, comentarlas y añadarlas a favoritos.
 * Parte pública: Los usuarios podrán ver viñetas posteadas
 * Parte privada: Los usuarios podrán registrarse para publicar viñetas, favoritearlas y dejar comentarios
 
