@@ -3,7 +3,7 @@ CuantoMeme (Nombre provisional) es una aplicación web donde los usuarios pueden
 * Parte pública: Los usuarios podrán ver viñetas posteadas
 * Parte privada: Los usuarios podrán registrarse para publicar viñetas, favoritearlas y dejar comentarios
 
-Finalmente, los usuarios podrán comentar sus impresiones de las piezas/accesorios, además de las ofertas de venta de coches.
+Finalmente, los usuarios podrán comentar sus impresiones de las viñetas.
 
 #Entidades
 * Usuarios
