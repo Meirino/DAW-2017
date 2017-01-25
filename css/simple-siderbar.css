@@ -4,7 +4,11 @@
 
 /* Toggle Styles */
 li{
+<<<<<<< HEAD
    list-style-type: none;
+=======
+   list-style-type: none;
+>>>>>>> DAW-2017/master
 }
 
 #wrapper {
@@ -50,4 +54,8 @@ li{
         width: 250px;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> DAW-2017/master
