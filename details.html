@@ -3,6 +3,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link type="text/css" rel="stylesheet" href="css/details.css">
 </head>
 <body>
     <div id="wrapper" class="container-fluid">
@@ -54,7 +55,7 @@
                     <!-- Cosas -->
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <div class="well clearfix">
                     <div class="container-fluid">
                       <div class="row">
@@ -75,22 +76,49 @@
                          </div>
                       </div>
                       <div class="row">
-                        <div class="form-group">
-                            <label for="comment">Comenta:</label>
-                            <textarea class="form-control" rows="5" id="comment"></textarea>
-                            <button class="btn btn-lg">Enviar</button>
-                        </div>
+                        <!-- Añadir comentario -->
                       </div>
                       <div id="comentarios" class="row">
-                          <div id="comentario" class="row">
-                              <p><label>Anónimo dijo:</label></p>
-                              <div class="well"><p>Está genial</p></div>
-                          </div>
+                        <legend>Comentarios <div class="badge">2</div></legend>
+                         <ul>
+                             <li>
+                                 <div id="comentario" class="contauner-fluid">
+                                     <div class="row">
+                                         <div class="col-md-1">
+                                              <a href="#">
+                                                  <img class="avatar" src="http://i2.kym-cdn.com/photos/images/facebook/000/926/994/729.gif" height="50px" width="50px">
+                                              </a>
+                                          </div>
+                                          <div class="col-md-11">
+                                              <div class="well ComentarioTexto">
+                                                  Está muy chido, le dejo mis dieses
+                                              </div>
+                                          </div>
+                                     </div>
+                                  </div>
+                             </li>
+                             <li>
+                                 <div id="comentario" class="contauner-fluid">
+                                     <div class="row">
+                                         <div class="col-md-1">
+                                              <a href="#">
+                                                  <img class="avatar" src="http://i2.kym-cdn.com/photos/images/facebook/000/926/994/729.gif" height="50px" width="50px">
+                                              </a>
+                                          </div>
+                                          <div class="col-md-11">
+                                              <div class="well ComentarioTexto">
+                                                  Está muy chido, le dejo mis dieses
+                                              </div>
+                                          </div>
+                                     </div>
+                                  </div>
+                             </li>
+                         </ul>
                       </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="well clearfix">
                     <!-- Lista de publicaciones -->
                 </div>

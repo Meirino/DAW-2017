@@ -1,0 +1,12 @@
+ul {
+    list-style-type: none;
+}
+
+.comentarioTexto {
+    background-color: white;
+    border-radius: 50px;
+}
+
+.avatar {
+    border-radius: 20px;
+}
