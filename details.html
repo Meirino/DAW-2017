@@ -53,45 +53,76 @@
             <div class="col-md-3">
                 <div class="well clearfix">
                     <!-- Cosas -->
+                    <div id="sidebar-wrapper">
+                        <h1>Categorías</h1>
+                        <ul class="nav" id="side-menu">
+                            <li>
+                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Troll</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Yao Ming<span class="fa arrow"></span></a>
+                            </li>
+                            <li>
+                                <a href="tables.html"><i class="fa fa-table fa-fw"></i> Me gusta</a>
+                            </li>
+                            <li>
+                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Mentí</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> FAP<span class="fa arrow"></span></a>
+                            </li>
+                            <li>
+                                <a href="tables.html"><i class="fa fa-table fa-fw"></i> Inglip</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="well clearfix">
                     <div class="container-fluid">
-                      <div class="row">
+                      <div id="meme" class="row">
                         <div class="card">
-                            <img class="card-img-top img-rounded" src="http://i2.kym-cdn.com/photos/images/facebook/000/226/471/cf9.png" alt="MAGA">
+                            <img class="card-img-top img-rounded" src="http://i2.kym-cdn.com/photos/images/facebook/000/226/471/cf9.png" alt="kek">
                             <div class="card-block">
                                 <h3 class="card-title">Mira este meme</h3>
                                 <p class="card-text">Este es un texto de relleno para que se pueda ver como se comporta el estilo de la tarjeta.</p>
                             </div>
                          </div>
                       </div>
-                      <div class="row">
-                         <div class="btn-group" role="group">
-                            <button class="btn btn-warning">Añadir a favoritos</button>
-                            <button class="btn btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span> Me gusta <span class="badge">42</span></button>
-                            <button class="btn btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span> Lo odio <span class="badge">2</span></button>
-                            <br>
-                         </div>
+                      <div id="social" class="row">
+                        <hr>
+                        <button type="button" class="btn btn-warning btn-circle btn-lg"><i class="glyphicon glyphicon-star"></i></button>
+                        <button type="button" class="btn btn-success btn-circle btn-lg"><i class="glyphicon glyphicon-thumbs-up"></i><div class="badge">30</div></button>
+                        <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="glyphicon glyphicon-thumbs-down"></i><div class="badge">5</div></button>
+                        <br>
+                        <br>
                       </div>
                       <div class="row">
+                       <legend>Comentar</legend>
                         <!-- Añadir comentario -->
+                            <div class="input-group">
+                                <input class="form-control" placeholder="¿Qué tienes que decir?" type="text">
+                                <span class="input-group-addon">
+                                    <button type="submit"><i class="glyphicon glyphicon-pencil"></i> Enviar</button>
+                                </span>
+                            </div>
+                            <br>
                       </div>
                       <div id="comentarios" class="row">
                         <legend>Comentarios <div class="badge">2</div></legend>
-                         <ul>
+                         <ul class="ListaComentatios">
                              <li>
                                  <div id="comentario" class="contauner-fluid">
                                      <div class="row">
                                          <div class="col-md-1">
                                               <a href="#">
-                                                  <img class="avatar" src="http://i2.kym-cdn.com/photos/images/facebook/000/926/994/729.gif" height="50px" width="50px">
+                                                  <img class="avatar" src="http://i2.kym-cdn.com/photos/images/facebook/000/926/994/729.gif" height="60px" width="60px">
                                               </a>
                                           </div>
                                           <div class="col-md-11">
                                               <div class="well ComentarioTexto">
-                                                  Está muy chido, le dejo mis dieses
+                                                  pole
                                               </div>
                                           </div>
                                      </div>
@@ -102,12 +133,28 @@
                                      <div class="row">
                                          <div class="col-md-1">
                                               <a href="#">
-                                                  <img class="avatar" src="http://i2.kym-cdn.com/photos/images/facebook/000/926/994/729.gif" height="50px" width="50px">
+                                                  <img class="avatar" src="https://lh3.googleusercontent.com/BzPqjhKpLNjaaRMaaFKUkzjg07tvd0YzF_GZwpIazf3b6EnMrGI4ug56VPFkTDJWxC3g" height="60px" width="60px">
                                               </a>
                                           </div>
                                           <div class="col-md-11">
                                               <div class="well ComentarioTexto">
-                                                  Está muy chido, le dejo mis dieses
+                                                  10/10 me encanta
+                                              </div>
+                                          </div>
+                                     </div>
+                                  </div>
+                             </li>
+                             <li>
+                                 <div id="comentario" class="contauner-fluid">
+                                     <div class="row">
+                                         <div class="col-md-1">
+                                              <a href="#">
+                                                  <img class="avatar" src="https://i1.sndcdn.com/avatars-000182086510-rn5fm8-t500x500.jpg" height="60px" width="60px">
+                                              </a>
+                                          </div>
+                                          <div class="col-md-11">
+                                              <div class="well ComentarioTexto">
+                                                  Es ofensivamente bueno, sigue así
                                               </div>
                                           </div>
                                      </div>
@@ -121,6 +168,31 @@
             <div class="col-md-3">
                 <div class="well clearfix">
                     <!-- Lista de publicaciones -->
+                    <div id="sidebar-wrapper">
+                        <h2>Más populares</h2>
+                        <ul class="nav" id="side-menu">
+                            <li>
+                                <a href="index.html">
+                                    <div class="card">
+                                        <img class="card-img-top img-thumbnail" src="http://i0.kym-cdn.com/photos/images/facebook/000/125/918/RMUBQ.png">
+                                        <div class="card-block">
+                                            <h4>Calling a taxi</h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html">
+                                    <div class="card">
+                                        <img class="card-img-top img-thumbnail" src="https://i.ytimg.com/vi/_mBU0hA0_WY/hqdefault.jpg">
+                                        <div class="card-block">
+                                            <h4>The exam</h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
