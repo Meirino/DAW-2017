@@ -1,5 +1,4 @@
-<html>
-    <head>
+<head>
     <meta charset="utf-8">
     <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootrstrap_mod.css" rel="stylesheet">
@@ -8,128 +7,98 @@
     <script src="auth0-variables.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <link href="css/simple-siderbar.css" rel="stylesheet">
-        <script src="app.js"></script>
-
-
+    <script src="app.js"></script>
 </head>
-    <body>
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-          <!-- El logotipo y el icono que despliega el menú se agrupan para mostrarlos mejor en los dispositivos móviles -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-              <span class="sr-only">Desplegar navegación</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Logotipo</a>
-          </div>
 
-
-          <!-- Agrupar los enlaces de navegación, los formularios y cualquier otro elemento que se pueda ocultar al minimizar la barra -->
-          <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Inicio</a></li>
-              <li><a href="#">Perfil</a></li>
-              <li><a href="#">Favoritos</a></li>
-            </ul>
-
-            <form class="navbar-form navbar-left" role="search">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Buscar">
-              </div>
-              <button type="submit" class="btn btn-default">Buscar</button>
-            </form>
-
-            <ul class="nav navbar-nav navbar-right">
-
-              <li><a ><span  type="submit" class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-              <li>
-                  <button type="submit" id="btn-login">Sign In</button>
-            </ul>
-          </div>
+<body>
+    <section>
+        <nav class="navbar navbar-header navbar-fixed-top" role="navigation">
+            <!-- El logotipo y el icono que despliega el menú se agrupan
+       para mostrarlos mejor en los dispositivos móviles -->
+            <section>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Desplegar navegación</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="#">Logotipo</a>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Inicio</a></li>
+                        <li><a href="#">Perfil</a></li>
+                        <li><a href="#">Favoritos</a></li>
+                    </ul>
+                </div>
+            </section>
+            <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+       otro elemento que se pueda ocultar al minimizar la barra -->
+            <section id="message">
+                <div class="navbar-header" id="message"> <img alt="avatar" id="avatar" style="display:none;">
+                    <h1>Welcome <span id="nickname"></span></h1>
+                </div>
+            </section>
+            <section>
+                <div class="navbar-header" id="right">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Buscar"> </div>
+                        <button type="submit" class="btn btn-default">Buscar</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a id="btn-identification" type="submit" class="btn btn-sm btn-info"> <span class="glyphicon glyphicon-log-in"></span>Identificate </a>
+                        </li>
+                                                <li>
+                            <a id="btn-logout" type="submit" class="btn btn-sm btn-info" style="display:none;"> <span class="glyphicon glyphicon-log-out"></span>Salir </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
         </nav>
-        <div id="wrapper">
-            <!-- Sidebar -->
-            <div id="sidebar-wrapper">
-                <h1> Categorías</h1>
-                <ul class="nav" id="side-menu">
-                    <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Troll</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Yao Ming<span class="fa arrow"></span></a>
-                    </li>
-                    <li>
-                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Me gusta</a>
-                    </li>
-                    <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Mentí</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> FAP<span class="fa arrow"></span></a>
-                    </li>
-                    <li>
-                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Inglip</a>
-                    </li>
-                </ul>
-            </div>
-                    <!-- /.sidebar-collapse -->
-                <!-- /.navbar-static-side -->
-
-            <!-- /#sidebar-wrapper -->
-            <div class="well clearfix" >Basic Well
-                <ul>
-                    <li>
-                        <div class="card">
-
-                                <!--Title-->
-                                <h2 class="card-title">Montaña chula juas</h2>
-                                    <!--Card image-->
-                                    <img class="img-fluid" src="http://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%282%29.jpg" alt="Card image cap">
-                                    <!--/.Card image-->
-
-                                <!--Card content-->
-                                <div class="card-block">
-
-                                    <!--Text-->
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Button</a>
-                                </div>
-        <!--/.Card content-->
-
-
-                        </div>
-                    </li>
-                    <li>
-                                            <div class="card">
-
-                                <!--Title-->
-                                <h2 class="card-title">Montaña chula juas</h2>
-                                    <!--Card image-->
-                                    <img class="img-fluid" src="http://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%282%29.jpg" alt="Card image cap">
-                                    <!--/.Card image-->
-
-                                <!--Card content-->
-                                <div class="card-block">
-
-                                    <!--Text-->
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Button</a>
-                                </div>
-        <!--/.Card content-->
-
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                        <a href="#">Acción #3</a>
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
+    </section>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <h1> Categorías</h1>
+            <ul class="nav" id="side-menu">
+                <li> <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Troll</a> </li>
+                <li> <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Yao Ming<span class="fa arrow"></span></a> </li>
+                <li> <a href="tables.html"><i class="fa fa-table fa-fw"></i> Me gusta</a> </li>
+                <li> <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Mentí</a> </li>
+                <li> <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> FAP<span class="fa arrow"></span></a> </li>
+                <li> <a href="tables.html"><i class="fa fa-table fa-fw"></i> Inglip</a> </li>
+            </ul>
         </div>
-
-    </body>
-</html>
+        <!-- /.sidebar-collapse -->
+        <!-- /.navbar-static-side -->
+        <!-- /#sidebar-wrapper -->
+        <div class="well clearfix">Basic Well
+            <ul>
+                <li>
+                    <div class="card">
+                        <!--Title-->
+                        <h2 class="card-title">Montaña chula juas</h2>
+                        <!--Card image--><img class="img-fluid" src="http://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%282%29.jpg" alt="Card image cap">
+                        <!--/.Card image-->
+                        <!--Card content-->
+                        <div class="card-block">
+                            <!--Text-->
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> <a href="#" class="btn btn-primary">Button</a> </div>
+                        <!--/.Card content-->
+                    </div>
+                </li>
+                <li>
+                    <div class="card">
+                        <!--Title-->
+                        <h2 class="card-title">Montaña chula juas</h2>
+                        <!--Card image--><img class="img-fluid" src="http://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%282%29.jpg" alt="Card image cap">
+                        <!--/.Card image-->
+                        <!--Card content-->
+                        <div class="card-block">
+                            <!--Text-->
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> <a href="#" class="btn btn-primary">Button</a> </div>
+                        <!--/.Card content-->
+                    </div>
+                </li>
+                <li>
+                    <div> <a href="#">Acción #3</a> </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
