@@ -7,24 +7,8 @@ li{
    list-style-type: none;
 }
 
-#wrapper {
-    padding-left: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
 
-.well{
-    margin-top: 83;
-    vertical-align: middle;
-}
-.card{
-    vertical-align: middle;
-}
-.img-fluid{
-    vertical-align: middle;
-}
+
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;

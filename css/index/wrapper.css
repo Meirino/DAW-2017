@@ -1,0 +1,8 @@
+li:nth-child(6) {
+   list-style-type: none;
+}
+.well{
+    position: relative;
+    top: 83px;
+    vertical-align: middle;
+}
