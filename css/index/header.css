@@ -29,3 +29,6 @@
 .col-md-2 {
     width: 128px;
 }
+.card > img {
+    margin: auto;
+}
