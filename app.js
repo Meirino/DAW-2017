@@ -42,10 +42,12 @@ window.addEventListener('load', function() {
 
   var show_profile_info = function(profile) {
     var avatar = document.getElementById('avatar');
+    var welcome = document.getElementById('welcome')
     document.getElementById('nickname').textContent = profile.nickname;
     btn_login.style.display = "none";
     avatar.src = profile.picture;
     avatar.style.display = "block";
+    welcome.style.display = "block"
     btn_logout.style.display = "block";
   };
 
