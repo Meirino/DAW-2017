@@ -20,3 +20,12 @@
     color: white;
     margin-left: 25px;
 }
+/*
+ div button {
+    width: 490px;
+}
+*/
+@media (min-width: 992px)
+.col-md-2 {
+    width: 128px;
+}

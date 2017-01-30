@@ -4,5 +4,5 @@ li:nth-child(6) {
 .well{
     position: relative;
     top: 83px;
-    vertical-align: middle;
+    text-align: center;
 }
