@@ -4,3 +4,18 @@
 .jumbotron > h1 {
     text-align: center;
 }
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 30px;
+}
+.jumbotron {
+    padding-right: 150px;
+    padding-left: 150px;
+}
+#user-name {
+    display: none;
+}
