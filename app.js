@@ -5,7 +5,7 @@ window.addEventListener('load', function() {
   // buttons
   var btn_login = document.getElementById('btn-login');
   var btn_logout = document.getElementById('btn-logout');
-
+  var btn_user_info = document.getElementById('user-info');
   btn_login.addEventListener('click', function() {
     lock.show();
   });
@@ -47,6 +47,7 @@ window.addEventListener('load', function() {
     avatar.src = profile.picture;
     avatar.style.display = "block";
     btn_logout.style.display = "block";
+    btn_user_info.style.display = "block";
   };
 
   var logout = function() {

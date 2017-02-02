@@ -16,9 +16,8 @@
     padding-right: 150px;
     padding-left: 150px;
 }
-#user-name {
-    display: none;
-}
+
 #btn-login {
+    display: block;
     background-color: black;
 }
