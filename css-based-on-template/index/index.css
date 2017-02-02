@@ -16,7 +16,9 @@
     padding-right: 150px;
     padding-left: 150px;
 }
-
+.jumbotron > .img-responsive{
+    padding-bottom: 25px
+}
 #btn-login {
     display: block;
     background-color: black;
