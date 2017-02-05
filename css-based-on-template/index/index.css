@@ -32,3 +32,13 @@
 #page-wrapper {
     background-color: #f5f5f5;
 }
+
+.navbar-brand {
+    margin-left: 50px;
+    margin-top: -10px;
+    width: 300px;
+    height: 75px;
+    background-image: url(/img/logo/logo4.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
