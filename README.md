@@ -18,3 +18,6 @@ Finalmente, los usuarios podrán comentar sus impresiones de las viñetas.
 * Randall Barrientos Alva
 * José Javier	Meiriño MIgens
 * Omar Khanji Dobosh
+
+#Diagrama de navegación
+<img src="https://github.com/Meirino/DAW-2017/blob/master/img/diagrama/diagrama.png" >
