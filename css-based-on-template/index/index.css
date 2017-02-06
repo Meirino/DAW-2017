@@ -26,9 +26,11 @@
 .jumbotron > .img-responsive{
     padding-bottom: 25px
 }
+#btn-login {
+    display: block;
+    background-color: black;
+}
 
 #page-wrapper {
     background-color: #f5f5f5;
 }
-
-
