@@ -27,16 +27,14 @@
 
 <body>
     <div id="wrapper">
-             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
-                <a class="navbar-brand" href="index.html"></a> 
-                </div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <a class="navbar-brand" href="index.html"></a>
+            </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-
-
                 <li id="user-info" class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" id="nickname"><i class="fa fa-user"></i><b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li> <a><i class="fa fa-fw fa-user"></i> Profile</a> </li>
@@ -46,13 +44,12 @@
                     </ul>
                 </li>
                 <li> <a id="btn-login" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-user"></span> Identificate</a> </li>
-
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li> <a href="index.html"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> </li>
-                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Categorias <i class="fa fa-fw fa-caret-down"></i></a>
+                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li> <a href="#">Inglip</a> </li>
                             <li> <a href="#">Yaoming</a> </li>
@@ -87,24 +84,214 @@
                         <p><i class="fa fa-envelope-o" aria-hidden="true"></i> Meirino94@gmail.com</p>
                     </div>
                     <div class="col-md-9">
-                        <div>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#seguidos">Seguidos</a></li>
+                            <li><a data-toggle="tab" href="#vinetas">Viñetas de seguidos</a></li>
+                            <li><a data-toggle="tab" href="#favoritas">Viñetas favoritas</a></li>
+                            <li><a data-toggle="tab" href="#publicadas">Viñetas publicadas</a></li>
+                            <li><a data-toggle="tab" href="#publicar">Publicar una viñeta</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="seguidos" class="tab-pane fade in active">
+                                <h3>Gente a la que sigues <span class="badge">4</span></h3>
+                                <hr>
+                                <div class="col-md-4">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#"> <img class="media-object avatar" src="http://static.tvtropes.org/pmwiki/pub/images/dcf24b387fc935b72d73b26c0951fe96.png" alt="Meirino94"> </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Driver11</h4>
+                                            <button class="btn btn-sm">Dejar de seguir</button>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#"> <img class="media-object avatar" src="https://store.playstation.com/store/api/chihiro/00_09_000/container/US/en/999/UP0082-ULUS10566_00-AVAD12FFLIGHTNIN/1470701594000/image?_version=00_09_000&platform=chihiro&w=225&h=225&bg_color=000000&opacity=100" alt="Meirino94"> </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Lightning80</h4>
+                                            <button class="btn btn-sm">Dejar de seguir</button>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-left media-middle">
+                                            <a href="#"> <img class="media-object avatar" src="https://static-resource.np.community.playstation.net/avatar/3RD/30004.png" alt="Meirino94"> </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Pepito95</h4>
+                                            <button class="btn btn-sm">Dejar de seguir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="vinetas" class="tab-pane fade">
+                                <h3>Viñetas de gente a la que sigues <span class="badge">3</span></h3>
+                                <hr>
+                                <div class="container-fluid">
+                                    <div class="col-md-9">
+                                        <div class="jumbotron">
+                                            <p>Autor: <small><a href="#">Pepito95</a></small></p>
+                                            <h1>Hello, world!</h1> <img class="img-responsive" src="../img/vinetas/imgres.jpg">
+                                            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+                                            <div id="categoria" class=""><small>Tags: <a href="#">LOL</a></small></div>
+                                            <div id="social" class="row">
+                                                <hr>
+                                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                                <a href="details2.html">
+                                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">3</span></button>
+                                                </a>
+                                                <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                                    <div class="badge">30</div>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                                    <div class="badge">5</div>
+                                                </button>
+                                                <br>
+                                                <br> </div>
+                                        </div>
+                                        <div class="jumbotron">
+                                            <p>Autor: <small><a href="#">Pepito95</a></small></p>
+                                            <h1>Hello, world!</h1> <img class="img-responsive" src="../img/vinetas/vineta1.jpg">
+                                            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+                                            <p> </p>
+                                            <div id="categoria" class=""><small>Tags: <a href="#">LOL</a></small></div>
+                                            <div id="social" class="row">
+                                                <hr>
+                                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                                <a href="details2.html">
+                                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">3</span></button>
+                                                </a>
+                                                <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                                    <div class="badge">30</div>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                                    <div class="badge">5</div>
+                                                </button>
+                                                <br>
+                                                <br> </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                            <div id="favoritas" class="tab-pane fade">
+                                <h3>Viñetas favoritas <span class="badge">3</span></h3>
+                                <hr>
+                                <div class="container-fluid">
+                                    <div class="col-md-9">
+                                        <div class="jumbotron">
+                                            <p>Autor: <small><a href="#">Pepito95</a></small></p>
+                                            <h1>Hello, world!</h1> <img class="img-responsive" src="../img/vinetas/imgres.jpg">
+                                            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+                                            <div id="categoria" class=""><small>Tags: <a href="#">LOL</a></small></div>
+                                            <div id="social" class="row">
+                                                <hr>
+                                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                                <a href="details2.html">
+                                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">3</span></button>
+                                                </a>
+                                                <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                                    <div class="badge">30</div>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                                    <div class="badge">5</div>
+                                                </button>
+                                                <br>
+                                                <br> </div>
+                                        </div>
+                                        <div class="jumbotron">
+                                            <p>Autor: <small><a href="#">Pepito95</a></small></p>
+                                            <h1>Hello, world!</h1> <img class="img-responsive" src="../img/vinetas/vineta1.jpg">
+                                            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+                                            <p> </p>
+                                            <div id="categoria" class=""><small>Tags: <a href="#">LOL</a></small></div>
+                                            <div id="social" class="row">
+                                                <hr>
+                                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                                <a href="details2.html">
+                                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">3</span></button>
+                                                </a>
+                                                <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                                    <div class="badge">30</div>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                                    <div class="badge">5</div>
+                                                </button>
+                                                <br>
+                                                <br> </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                            <div id="publicadas" class="tab-pane fade">
+                                <h3>Viñetas publicadas por ti <span class="badge">3</span></h3>
+                                <hr>
+                                <div class="container-fluid">
+                                    <div class="col-md-9">
+                                        <div class="jumbotron">
+                                            <p>Autor: <small><a href="#">Pepito95</a></small></p>
+                                            <h1>Hello, world!</h1> <img class="img-responsive" src="../img/vinetas/imgres.jpg">
+                                            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+                                            <div id="categoria" class=""><small>Tags: <a href="#">LOL</a></small></div>
+                                            <div id="social" class="row">
+                                                <hr>
+                                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                                <a href="details2.html">
+                                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">3</span></button>
+                                                </a>
+                                                <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                                    <div class="badge">30</div>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                                    <div class="badge">5</div>
+                                                </button>
+                                                <br>
+                                                <br> </div>
+                                        </div>
+                                        <div class="jumbotron">
+                                            <p>Autor: <small><a href="#">Pepito95</a></small></p>
+                                            <h1>Hello, world!</h1> <img class="img-responsive" src="../img/vinetas/vineta1.jpg">
+                                            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+                                            <p> </p>
+                                            <div id="categoria" class=""><small>Tags: <a href="#">LOL</a></small></div>
+                                            <div id="social" class="row">
+                                                <hr>
+                                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                                <a href="details2.html">
+                                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">3</span></button>
+                                                </a>
+                                                <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                                    <div class="badge">30</div>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                                    <div class="badge">5</div>
+                                                </button>
+                                                <br>
+                                                <br> </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                            <div id="publicar" class="tab-pane fade">
+                            <br>
+                            <legend>¡Publica tu propia viñeta!</legend>
                             <form action="action_page.php">
                                 <label for="fname">Título</label>
                                 <input type="text" id="fname" name="firstname">
                                 <label for="lname">Comentario</label>
                                 <input type="text" id="lname" name="lastname">
-                                <label for="country">Categoria</label>
-                                <select id="country" name="country">
-                                    <option value="australia">LOL</option>
-                                    <option value="canada">Pepe</option>
-                                    <option value="usa">Inglip</option>
-                                </select>
+                                <label for="country">Tags</label>
+                                <input type="text" id="tags" name="tags">
                                 <label>Archivo</label>
                                 <input type="file">
                                 <input type="submit" value="Submit">
                             </form>
                         </div>
-                    </div>
+                        </div>
+                        <!--  --></div>
                 </div>
                 <!-- /.row -->
             </div>
