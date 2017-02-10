@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin - Bootstrap Admin Template</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/css-based-on-template/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css-based-on-template/sb-admin.css" rel="stylesheet">
+    <link href="/css-based-on-template/index/index.css" rel="stylesheet">
+    <link href="css-based-on-template/navbar.css" rel="stylesheet" type="text/css">
+    <!-- Custom Fonts -->
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="//cdn.auth0.com/js/lock/10.3.0/lock.min.js"></script>
+    <script src="auth0-variables.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <a class="navbar-brand" href="index.html"></a>
+                </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+
+
+                <li id="user-info" class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" id="nickname"><i class="fa fa-user"></i><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li> <a><i class="fa fa-fw fa-user"></i> Profile</a> </li>
+                        <li> <a><i class="fa fa-fw fa-gear"></i> Settings</a> </li>
+                        <li class="divider"></li>
+                        <li> <a id="btn-logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a> </li>
+                    </ul>
+                </li>
+                <li> <a id="btn-login" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-user"></span> Identificate</a> </li>
+
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li> <a href="index.html"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> </li>
+                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Categorias <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li> <a href="#">Inglip</a> </li>
+                            <li> <a href="#">Yaoming</a> </li>
+                            <li> <a href="#">Es gratis</a> </li>
+                            <li> <a href="categoria.html">LOL</a> </li>
+                            <li> <a href="#">Feels</a> </li>
+                            <li> <a href="#">Feels bad man</a> </li>
+                            <li> <a href="#">Feels good man</a> </li>
+                        </ul>
+                    </li>
+                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#perfil"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Perfil <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="perfil" class="collapse">
+                            <li> <a href="perfil_resumen.html">Resumen</a> </li>
+                            <li> <a href="perfil_publicaciones.html">Publicados</a> </li>
+                            <li> <a href="perfil_fav.html">Favoritos</a> </li>
+                            <li> <a href="perfil_seguimientos2.html">Seguidos</a> </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <h1>Categoria: <small>Lol</small></h1>
+                <hr>
+                <div class="jumbotron">
+                    <p>Autor: <small><a href="#">Pepito95</a></small></p>
+                    <h1>Cultivar memes</h1> <img class="img-responsive" src="http://magafeed.com/wp-content/uploads/2016/09/pepefarm.png">
+                    <p>Cultivar memes es un modo de vida como otro cualquiera.</p>
+                    <div id="categoria" class=""><small>Categoria: <a href="#">LOL</a></small></div>
+                    <div id="social" class="row">
+                        <hr>
+                        <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                        <a href="details2.html"><button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">3</span>
+                        </button></a>
+                        <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                            <div class="badge">30</div>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                            <div class="badge">5</div>
+                        </button>
+                        <br>
+                        <br> </div>
+                </div>
+                <div class="jumbotron">
+                    <p>Autor: <small><a href="#">Pepito95</a></small></p>
+                    <h1>Smug Pepe</h1> <img class="img-responsive" src="http://i3.kym-cdn.com/photos/images/facebook/000/862/065/0e9.jpg">
+                    <p>Cuando te das cuenta de que todo te ha salido bien.</p>
+                    <p> </p>
+                    <div id="categoria" class=""><small>Categoria: <a href="#">LOL</a></small></div>
+                    <div id="social" class="row">
+                        <hr>
+                        <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                        <a href="details2.html"><button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">3</span>
+                        </button></a>
+                        <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                            <div class="badge">30</div>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                            <div class="badge">5</div>
+                        </button>
+                        <br>
+                        <br> </div>
+                </div>
+                <div class="jumbotron">
+                    <p>Autor: <small><a href="#">Pepito95</a></small></p>
+                    <h1>Navidades</h1> <img class="img-responsive" src="http://68.media.tumblr.com/638290c61bc04d1de402252c9e0bb5d3/tumblr_nlfbj5kgKp1uqb95ao1_1280.jpg">
+                    <p>¡Feliz navidad!</p>
+                    <div id="categoria" class=""><small>Categoria: <a href="#">LOL</a></small></div>
+                    <div id="social" class="row">
+                        <hr>
+                        <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                        <a href="details2.html"><button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">3</span>
+                        </button></a>
+                        <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                            <div class="badge">30</div>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                            <div class="badge">5</div>
+                        </button>
+                        <br>
+                        <br> </div>
+                </div>
+                <div class="jumbotron">
+                    <p>Autor: <small><a href="#">Pepito95</a></small></p>
+                    <h1>Buen post</h1> <img class="img-responsive" src="http://i0.kym-cdn.com/entries/icons/facebook/000/017/188/pepe_meme'd.jpg">
+                    <p>Cuando alguien sube una viñeta excelente.</p>
+                    <div id="categoria" class=""><small>Categoria: <a href="#">LOL</a></small></div>
+                    <div id="social" class="row">
+                        <hr>
+                        <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                        <a href="details2.html"><button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">3</span>
+                        </button></a>
+                        <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                            <div class="badge">30</div>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                            <div class="badge">5</div>
+                        </button>
+                        <br>
+                        <br> </div>
+                </div>
+                <div class="jumbotron">
+                    <p>Autor: <small><a href="#">Pepito95</a></small></p>
+                    <h1>Americano</h1> <img class="img-responsive" src="https://pbs.twimg.com/media/CJFUunRUcAAxC9Q.jpg">
+                    <p>Un pepe americano.</p>
+                    <div id="categoria" class=""><small>Categoria: <a href="#">LOL</a></small></div>
+                    <div id="social" class="row">
+                        <hr>
+                        <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                        <a href="details2.html"><button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">3</span>
+                        </button></a>
+                        <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                            <div class="badge">30</div>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                            <div class="badge">5</div>
+                        </button>
+                        <br>
+                        <br> </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
