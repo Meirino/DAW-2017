@@ -1,15 +1,22 @@
 package com.practicaDAW2017.CuantoMeme;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
 
+@Entity
 public class Vineta {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
 	private String titulo;
 	private String autor;
 	private String descripcion;
 	private String tag;
 	private String Url;
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Comentario> comentarios;
 	private int nComentatios;
 	
@@ -22,7 +29,7 @@ public class Vineta {
 		this.setDescripcion(descrp);
 		this.setTag(tag);
 		this.setImgUrl(Url);
-		this.setComentarios(null);
+		this.setComentarios(new ArrayList<Comentario>());
 		this.setnComentatios();
 	}
 	
@@ -33,7 +40,8 @@ public class Vineta {
 		this.setDescripcion(descrp);
 		this.setTag(tag);
 		this.setImgUrl(Url);
-		this.setComentarios(comentarios);
+		this.setComentarios(new ArrayList<Comentario>());
+		this.comentarios.addAll(comentarios);
 	}
 
 	public String getTitulo() {
@@ -102,5 +110,9 @@ public class Vineta {
 		} else {
 			this.nComentatios = this.comentarios.size();
 		}
+	}
+	
+	public void anadirComentario(Comentario comentario) {
+		this.comentarios.add(comentario);
 	}
 }

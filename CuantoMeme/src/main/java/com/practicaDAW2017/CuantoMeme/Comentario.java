@@ -1,7 +1,12 @@
 package com.practicaDAW2017.CuantoMeme;
 
+import javax.persistence.*;
+
+@Entity
 public class Comentario {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long ID;
 	private String Autor;
 	private String Comentario;
@@ -11,6 +16,8 @@ public class Comentario {
 		this.setAutor(autor);
 		this.setComentario(texto);
 	}
+	
+	public Comentario() {}
 
 	public String getAutor() {
 		return Autor;
