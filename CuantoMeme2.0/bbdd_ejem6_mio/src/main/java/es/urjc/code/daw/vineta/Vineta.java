@@ -33,6 +33,9 @@ public class Vineta {
 	private String titulo;
 	
 	@JsonView(BasicAtt.class)
+	private String URL;
+	
+	@JsonView(BasicAtt.class)
 	private String descripcion;
 	
 	
@@ -50,11 +53,11 @@ public class Vineta {
 	
 	protected Vineta(){}
 	
-	public Vineta(String titulo, String descripcion){
+	public Vineta(String titulo, String descripcion, String URL){
 		super();
 		this.titulo = titulo;
 		this.descripcion = descripcion;
-		
+		this.URL = URL;
 	}
 
 	public String getTitulo() {

@@ -33,6 +33,9 @@ public class User {
 	
 	private String password;
 	
+	@JsonView(BasicAtt.class)
+	private String email;
+	
 	@JsonView(VinetaAtt.class)	
 	@OneToMany(mappedBy="autor")
 	private List<Vineta> viñetas = new ArrayList<>();
@@ -48,9 +51,10 @@ public class User {
 	
 	protected User(){}
 	
-	public User(String username, String password){
+	public User(String username, String password, String email){
 		this.username = username;
 		this.password = password;
+		this.email = email;
 	}
 
 	
@@ -92,6 +96,14 @@ public class User {
 
 	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

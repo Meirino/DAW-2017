@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,11 +41,11 @@ public class CMControler {
 	@PostConstruct
 	public void init(){
 		
-		User usuario1 = new User("joaquin", "joa");
-		User usuario2 = new User("paco", "paquito");
+		User usuario1 = new User("joaquin", "joa", "cuantomeme1@gmail.com");
+		User usuario2 = new User("paco", "paquito", "cuantomeme2@gmail.com");
 		
-		Vineta v1 = new Vineta("vineta1", "des1");
-		Vineta v2 = new Vineta("vineta2", "des2");
+		Vineta v1 = new Vineta("vineta1", "des1", "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
+		Vineta v2 = new Vineta("vineta2", "des2", "http://www.leragecomics.com/wp-content/uploads/2011/04/VzxVF-640x546.png");
 		
 		v1.setAutor(usuario1);
 		v2.setAutor(usuario2);
@@ -87,6 +88,12 @@ public class CMControler {
 	@RequestMapping("/usuarios/")
 	public List<User> getusuarios(){
 		return this.userrepository.findAll();
+	}
+	
+	@JsonView(UserView.class)
+	@RequestMapping("/usuarios/{id}")
+	public User getusuario(@PathVariable int id){
+		return this.userrepository.findOne((long) id);
 	}
 	
 	@JsonView(ComentarioView.class)
