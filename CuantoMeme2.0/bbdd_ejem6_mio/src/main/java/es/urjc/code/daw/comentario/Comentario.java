@@ -18,7 +18,7 @@ public class Comentario {
 	public interface BasicAtt {}
 	public interface UserAtt {}
 	public interface VinetaAtt {}
-
+	
 	@Id
 	@JsonView(BasicAtt.class)
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -91,5 +91,5 @@ public class Comentario {
 	}
 	
 	
-		
+	
 }

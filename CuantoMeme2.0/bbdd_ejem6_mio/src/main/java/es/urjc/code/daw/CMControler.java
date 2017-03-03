@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import es.urjc.code.daw.tag.Tag;
+import es.urjc.code.daw.tag.TagRepository;
 import es.urjc.code.daw.comentario.Comentario;
 import es.urjc.code.daw.comentario.ComentarioRepository;
 import es.urjc.code.daw.user.*;
@@ -17,42 +19,91 @@ import es.urjc.code.daw.vineta.*;
 
 @RestController
 public class CMControler {
-	interface VinetaView extends Vineta.BasiAtt, Vineta.UserAtt, User.BasicAtt{}
+	
+	interface VinetaView extends Vineta.BasicAtt, Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
 	interface UserView extends User.BasicAtt, User.VinetaAtt, User.ComentarioAtt, Comentario.BasicAtt{}
-	interface ComentarioView extends Comentario.BasicAtt, Comentario.UserAtt, User.BasicAtt, Comentario.VinetaAtt, Vineta.BasiAtt{}
+	interface ComentarioView extends Comentario.BasicAtt, Comentario.UserAtt, User.BasicAtt, Comentario.VinetaAtt, Vineta.BasicAtt{}
+	
 	@Autowired
 	private UserRepository userrepository;
-	@Autowired
-	private VinetaRepository vinetarepository;
+
 	
 	@Autowired
 	private ComentarioRepository comentariorepository;
 	
+	@Autowired
+	private VinetaRepository vinetarepository;
+	@Autowired
+	private TagRepository tagrepository;
+	
 	@PostConstruct
 	public void init(){
+		
 		User usuario1 = new User("joaquin", "joa");
 		User usuario2 = new User("paco", "paquito");
-		
-		this.userrepository.save(usuario1);
-		this.userrepository.save(usuario2);
 		
 		Vineta v1 = new Vineta("vineta1", "des1");
 		Vineta v2 = new Vineta("vineta2", "des2");
 		
 		v1.setAutor(usuario1);
-		v2.setAutor(usuario1);
+		v2.setAutor(usuario2);
+		
+		this.userrepository.save(usuario1);
+		this.userrepository.save(usuario2);
+		this.vinetarepository.save(v1);
+		this.vinetarepository.save(v2);
+		
+		Tag t1 = new Tag("Lol");
+		Tag t2 = new Tag("Lol2");
+		Tag t3 = new Tag("Lol3");
+		
+		this.tagrepository.save(t1);
+		this.tagrepository.save(t2);
+		this.tagrepository.save(t3);
+		
+		v1.getTags().add(t1);
+		v1.getTags().add(t2);
+		v2.getTags().add(t1);
+		v2.getTags().add(t3);
 		
 		this.vinetarepository.save(v1);
 		this.vinetarepository.save(v2);
-
 		
 		Comentario c1 = new Comentario("12/12/2015", "mi primer comentario");
 		c1.setAutor_comentario(usuario1);
 		c1.setVineta(v1);
 		this.comentariorepository.save(c1);
-		//this.userrepository.save(usuario2);
+		/*
+		
+		Tag t1 = new Tag("Lol");
+		Tag t2 = new Tag("Lol2");
+		Tag t3 = new Tag("Lol3");
+		
+		Comentario c1 = new Comentario("12/12/2015", "mi primer comentario");
 		
 
+		
+		this.tagrepository.save(t1);
+		this.tagrepository.save(t2);
+		this.tagrepository.save(t3);
+		
+		v1.getTags().add(t1);
+		v1.getTags().add(t2);
+		v2.getTags().add(t1);
+		v2.getTags().add(t3);
+		
+		v1.setAutor(usuario1);
+		v2.setAutor(usuario1);
+		
+		c1.setAutor_comentario(usuario1);
+		c1.setVineta(v1);
+		
+		
+		this.comentariorepository.save(c1);
+		this.vinetarepository.save(v1);
+		this.vinetarepository.save(v2);
+
+*/
 
 	}
 
