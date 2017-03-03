@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Cuánto meme!</title>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link href="css-based-on-template/sb-admin.css" rel="stylesheet">
+    <link href="css-based-on-template/index/index.css" rel="stylesheet">
+    <link href="css-based-on-template/navbar.css" rel="stylesheet" type="text/css">
+    <!-- Custom Fonts -->
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="//cdn.auth0.com/js/lock/10.3.0/lock.min.js"></script>
+    <script src="auth0-variables.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <a class="navbar-brand" href="index.html"></a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li> <a id="btn-login" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-user"></span> Identificate</a> </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li> <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> </li>
+                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li> <a href="/tag/inglip">Inglip</a> </li>
+                            <li> <a href="/tag/yaoming">Yaoming</a> </li>
+                            <li> <a href="/tag/esgratis">Es gratis</a> </li>
+                            <li> <a href="/tag/LOL">LOL</a> </li>
+                            <li> <a href="/tag/feels">Feels</a> </li>
+                            <li> <a href="/tag/feelsbadman">Feels bad man</a> </li>
+                            <li> <a href="/tag/feelsgoodman">Feels good man</a> </li>
+                        </ul>
+                    </li>
+                    <li><a href="/perfil"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Perfil</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <h1>¡Bienvenido a CuantoMeme!</h1>
+                <hr>
+                <div class="container-fluid">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-9">
+                        {{#vinetas}}
+                        <div class="jumbotron">
+                            <p>Autor: <small><a href="#">{{autor}}</a></small></p>
+                            <h1>{{titulo}}</h1>
+                            <img class="img-responsive" src="{{Url}}">
+                            <p>{{descripcion}}</p>
+                            <div id="categoria" class=""><small>Categoria: <a href="/tag/{{tag}}">{{tag}}</a></small></div>
+                            <div id="social" class="row">
+                                <hr>
+                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                <a href="/vineta/{{id}}">
+                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">{{nComentatios}}</span></button>
+                                </a>
+                                <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                    <div class="badge">0</div>
+                                </button>
+                                <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                    <div class="badge">0</div>
+                                </button>
+                                <br>
+                                <br> 
+                            </div>
+                        </div>
+                        {{/vinetas}}
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>

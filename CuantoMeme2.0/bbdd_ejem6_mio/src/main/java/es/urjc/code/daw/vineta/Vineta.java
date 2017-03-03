@@ -44,8 +44,6 @@ public class Vineta {
 	@OneToMany(mappedBy="vineta")
 	private List<Comentario> comentarios = new ArrayList<>(); 
 	
-	
-	
 	@JsonView(TagAtt.class)
 	@ManyToMany
 	private List<Tag> tags = new ArrayList<>();

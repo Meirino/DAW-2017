@@ -23,16 +23,17 @@ public class CMControler {
 	interface VinetaView extends Vineta.BasicAtt, Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
 	interface UserView extends User.BasicAtt, User.VinetaAtt, User.ComentarioAtt, Comentario.BasicAtt{}
 	interface ComentarioView extends Comentario.BasicAtt, Comentario.UserAtt, User.BasicAtt, Comentario.VinetaAtt, Vineta.BasicAtt{}
+	interface TagView extends Tag.BasicAtt {}
 	
 	@Autowired
 	private UserRepository userrepository;
 
-	
 	@Autowired
 	private ComentarioRepository comentariorepository;
 	
 	@Autowired
 	private VinetaRepository vinetarepository;
+	
 	@Autowired
 	private TagRepository tagrepository;
 	
@@ -73,38 +74,6 @@ public class CMControler {
 		c1.setAutor_comentario(usuario1);
 		c1.setVineta(v1);
 		this.comentariorepository.save(c1);
-		/*
-		
-		Tag t1 = new Tag("Lol");
-		Tag t2 = new Tag("Lol2");
-		Tag t3 = new Tag("Lol3");
-		
-		Comentario c1 = new Comentario("12/12/2015", "mi primer comentario");
-		
-
-		
-		this.tagrepository.save(t1);
-		this.tagrepository.save(t2);
-		this.tagrepository.save(t3);
-		
-		v1.getTags().add(t1);
-		v1.getTags().add(t2);
-		v2.getTags().add(t1);
-		v2.getTags().add(t3);
-		
-		v1.setAutor(usuario1);
-		v2.setAutor(usuario1);
-		
-		c1.setAutor_comentario(usuario1);
-		c1.setVineta(v1);
-		
-		
-		this.comentariorepository.save(c1);
-		this.vinetarepository.save(v1);
-		this.vinetarepository.save(v2);
-
-*/
-
 	}
 
 	
@@ -124,5 +93,11 @@ public class CMControler {
 	@RequestMapping("/comentarios/")
 	public List<Comentario> getcomentarios(){
 		return this.comentariorepository.findAll();
+	}
+	
+	@JsonView(TagView.class)
+	@RequestMapping("/tags/")
+	public List<Tag> getTags(){
+		return this.tagrepository.findAll();
 	}
 }
