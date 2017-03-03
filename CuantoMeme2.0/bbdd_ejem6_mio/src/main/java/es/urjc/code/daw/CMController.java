@@ -121,4 +121,10 @@ public class CMController {
 		model.addAttribute("lista", this.tagrepository.findByNombre(nombre).getVinetas());
 		return "tagIndex";
 	}
+	
+	@RequestMapping("/perfil/{id}")
+	public String perfil(Model model, @PathVariable int id) {
+		model.addAttribute("usuario", this.userrepository.findOne((long) id));
+		return "perfil";
+	}
 }
