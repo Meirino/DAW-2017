@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.urjc.code.daw.comentario.Comentario;
@@ -73,7 +74,7 @@ public class UserController {
 		this.comentariorepository.save(c1);
 	}
 	
-	@RequestMapping("/login")
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model, HttpSession sesion, @RequestParam String username, @RequestParam String password) {		
 		User user = null;
 		try{
@@ -94,7 +95,7 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping("/registro")
+	@RequestMapping(value = "/registro", method = RequestMethod.POST)
 	public String login(Model model, HttpSession sesion, @RequestParam String username, User usuario) {		
 		this.userrepository.save(usuario);
 		sesion.setAttribute("user", usuario);
