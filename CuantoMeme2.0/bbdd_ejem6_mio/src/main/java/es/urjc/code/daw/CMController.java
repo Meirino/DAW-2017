@@ -127,4 +127,9 @@ public class CMController {
 		model.addAttribute("usuario", this.userrepository.findOne((long) id));
 		return "perfil";
 	}
+	
+	@RequestMapping("/subida")
+	public String subida(Model model) {
+		return "subida";
+	}
 }
