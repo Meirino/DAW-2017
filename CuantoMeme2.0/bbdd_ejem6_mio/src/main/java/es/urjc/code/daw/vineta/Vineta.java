@@ -150,5 +150,10 @@ public class Vineta {
 		this.creationdate = created_date;
 	}
 	
-	
+	public void like(){
+		this.likes++;
+	}
+	public void dislike(){
+		this.dislikes++;
+	}
 }

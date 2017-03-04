@@ -68,12 +68,12 @@ public class UserController {
 		this.vinetarepository.save(v1);
 		this.vinetarepository.save(v2);
 		
-		Comentario c1 = new Comentario("12/12/2015", "mi primer comentario");
+		Comentario c1 = new Comentario("mi primer comentario");
 		c1.setAutor_comentario(usuario1);
 		c1.setVineta(v1);
 		this.comentariorepository.save(c1);
 	}
-	
+	/*--------------------------Autenticacion--------------------------*/
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model, HttpSession sesion, @RequestParam String username, @RequestParam String password) {		
 		User user = null;
@@ -103,17 +103,60 @@ public class UserController {
 		return "user_test";
 		
 	}
+	
+	/*------------------Comentarios-------------------------*/
+	@RequestMapping(value = "/crearComentario/vineta/{id}", method = RequestMethod.POST)
+	public String crearComentario(Model model, HttpSession sesion,@PathVariable long id, @RequestParam String comentario) {
+		System.out.println("he entrado a crear un comentario");
+		if (sesion.getAttribute("user")!= null){
+			System.out.println("estas loggeado");
+			Comentario comen = new Comentario(comentario);
+			Vineta vineta = this.vinetarepository.findOne(id);
+			comen.setAutor_comentario((User)sesion.getAttribute("user"));
+			comen.setVineta(vineta);
+			this.comentariorepository.save(comen);
+			
+		}else{
+			return "usuario no registrado"; //Cambiar a una pagina que diga que el usuario no esta registrado
+		}
+		model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
+		return "index";
+	}
+	
+	/*------------------Vinetas-------------------------*/
+	@RequestMapping("/vineta/{id}")
+	public String detalles(Model model, @PathVariable long id) {
+		model.addAttribute("vineta", this.vinetarepository.findOne((long) id));
+		return "detalles";
+	}
+	
+	@RequestMapping(value = "/likevineta/{id}")
+	public String likeVineta(Model model, @PathVariable long id) {
+		System.out.println("llego a lie vineta con el id "+ id);
+		Vineta vineta = this.vinetarepository.findOne(id);
+		vineta.like();
+		this.vinetarepository.save(vineta);
+		return "index";
+	}
+	
+	@RequestMapping(value = "/dislikevineta/{id}")
+	public String dislikeVineta(Model model, @PathVariable long id) {
+		Vineta vineta = this.vinetarepository.findOne(id);
+		vineta.dislike();
+		this.vinetarepository.save(vineta);
+		return "index";
+	}
+	
+	
+	
+	/*----------------------------s-------------------------*/
+	
 	@RequestMapping("/")
 	public String viñetas(Model model) {
 		model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
 		return "index";
 	}
-	
-	@RequestMapping("/vineta/{id}")
-	public String detalles(Model model, @PathVariable int id) {
-		model.addAttribute("vineta", this.vinetarepository.findOne((long) id));
-		return "detalles";
-	}
+
 	
 	@RequestMapping("/tag/{nombre}")
 	public String detalles(Model model, @PathVariable String nombre) {

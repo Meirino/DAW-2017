@@ -115,28 +115,39 @@
                                 <div class="col-md-10">
                                     <hr>
                                     <div id="icons-social">
-                                        <button type="button" class="btn btn-warning btn-circle btn-xl"><span class="fa fa-star" aria-hidden="true"></span></button>
-                                        <button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-thumbs-up"></i>
-                                            <div class="badge">30</div>
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-circle btn-xl"><i class="fa fa-thumbs-down"></i>
-                                            <div class="badge">5</div>
-                                        </button>
-                                        <br>
-                                        <br> </div>
+										<button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                		<a href="/vineta/{{id}}">
+                                    		<button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i></button>
+                                		</a>
+                                
+                                		<button type="button" onclick="location.href='/likevineta/{{id}}'"  class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                    		<div class="badge">
+                                    			{{vineta.likes}}
+                                    		</div>
+                                		</button>
+                                
+                                <Form action = dislikevineta/{{id}}>
+                                <button type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                    <div class="badge">{{vineta.dislikes}}</div>
+                                </button>
+                                </Form>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <legend>Comentar</legend>
                                 <!-- Añadir comentario -->
                                 <div class="input-group">
-                                    <input class="form-control" placeholder="¿Qué tienes que decir?" type="text"> <span class="input-group-addon">
+                                <form action="/crearComentario/vineta/{{id}}" method=post>
+                                    <input class="form-control" placeholder="¿Qué tienes que decir?" type="text" name="comentario"> <span class="input-group-addon">
                                         <button type="submit"><i class="glyphicon glyphicon-pencil"></i> Enviar</button>
-                                    </span> </div>
-                                <br> </div>
+                                    </span> 
+                                </form>
+                                  </div>
+                               	 <br> 
+                              </div>
                             <div id="comentarios" class="row">
                                 <legend>Comentarios
-                                    <div class="badge">{{vineta.nComentatios}}</div>
                                 </legend>
                                 <ul class="ListaComentatios">
                                     {{#vineta.comentarios}}
@@ -147,8 +158,8 @@
                                                     <a href="#"><img class="avatar" src="http://i2.kym-cdn.com/photos/images/facebook/000/926/994/729.gif" height="65px" width="65px"></a>
                                                 </div>
                                                 <div class="col-md-11">
-                                                    <small>{{Autor}}</small>
-                                                    <div class="well ComentarioTexto">{{Comentario}}</div>
+                                                    <small>{{autor_comentario.username}}</small>
+                                                    <div class="well ComentarioTexto">{{comentario}}</div>
                                                 </div>
                                             </div>
                                         </div>
