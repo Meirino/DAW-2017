@@ -2,6 +2,10 @@ package es.urjc.code.daw;
 
 import es.urjc.code.daw.storage.StorageFileNotFoundException;
 import es.urjc.code.daw.storage.StorageService;
+import es.urjc.code.daw.tag.*;
+import es.urjc.code.daw.vineta.Vineta;
+import es.urjc.code.daw.vineta.VinetaRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -14,12 +18,19 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @Controller
 public class FileUploadController {
 
     private final StorageService storageService;
+    
+    @Autowired
+	private VinetaRepository vinetarepository;
+    
+    @Autowired
+	private TagRepository tagrepository;
 
     @Autowired
     public FileUploadController(StorageService storageService) {
@@ -46,9 +57,10 @@ public class FileUploadController {
     }
 
     @RequestMapping(value = "/subida", method = RequestMethod.POST)
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
-
+    public String handleFileUpload(Vineta viñeta,@RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes) {
+    	
+    	viñeta.setURL("/static/"+file.getOriginalFilename());
+    	this.vinetarepository.save(viñeta);
         storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");

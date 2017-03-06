@@ -57,7 +57,7 @@ public class Vineta {
 		super();
 		this.titulo = titulo;
 		this.descripcion = descripcion;
-		this.URL = URL;
+		this.setURL(URL);
 	}
 
 	public String getTitulo() {
@@ -98,6 +98,14 @@ public class Vineta {
 
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
+	}
+
+	public String getURL() {
+		return URL;
+	}
+
+	public void setURL(String uRL) {
+		URL = uRL;
 	}
 	
 	
