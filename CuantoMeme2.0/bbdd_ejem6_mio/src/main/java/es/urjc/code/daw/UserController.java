@@ -136,7 +136,7 @@ public class UserController {
 		Vineta vineta = this.vinetarepository.findOne(id);
 		vineta.like();
 		this.vinetarepository.save(vineta);
-		return "index";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/dislikevineta/{id}")
@@ -144,7 +144,7 @@ public class UserController {
 		Vineta vineta = this.vinetarepository.findOne(id);
 		vineta.dislike();
 		this.vinetarepository.save(vineta);
-		return "index";
+		return "redirect:/";
 	}
 	
 	
