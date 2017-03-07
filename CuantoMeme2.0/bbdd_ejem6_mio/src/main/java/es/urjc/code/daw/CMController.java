@@ -1,4 +1,4 @@
-/*package es.urjc.code.daw;
+package es.urjc.code.daw;
 
 import javax.annotation.PostConstruct;
 
@@ -96,4 +96,4 @@ public class CMController {
 		model.addAttribute("usuario", this.userrepository.findOne((long) id));
 		return "perfil";
 	}
-}*/
+  }

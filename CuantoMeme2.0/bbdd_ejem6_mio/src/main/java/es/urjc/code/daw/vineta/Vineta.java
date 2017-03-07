@@ -66,6 +66,7 @@ public class Vineta {
 		super();
 		this.titulo = titulo;
 		this.descripcion = descripcion;
+
 		this.URL = URL;
 		this.creationdate = new Date();
 	}
@@ -117,7 +118,7 @@ public class Vineta {
 	public void setId(long id) {
 		this.id = id;
 	}
-
+  
 	public String getURL() {
 		return URL;
 	}
