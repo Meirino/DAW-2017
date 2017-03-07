@@ -4,6 +4,8 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,12 +36,12 @@ public class UserController {
 	
 	@Autowired
 	private TagRepository tagrepository;
-	
+
 	@PostConstruct
 	public void init(){
 		
-		User usuario1 = new User("joaquin", "joa", "cuantomeme1@gmail.com");
-		User usuario2 = new User("paco", "paquito", "cuantomeme2@gmail.com");
+		User usuario1 = new User("joaquin", "joa", "cuantomeme1@gmail.com", "ROLE_ADMIN");
+		User usuario2 = new User("paco", "paquito", "cuantomeme2@gmail.com", "ROLE_ADMIN");
 		
 		Vineta v1 = new Vineta("bbvineta1", "des1", "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
 		Vineta v2 = new Vineta("aavineta2", "des2", "http://www.leragecomics.com/wp-content/uploads/2011/04/VzxVF-640x546.png");
@@ -74,25 +76,18 @@ public class UserController {
 		this.comentariorepository.save(c1);
 	}
 	/*--------------------------Autenticacion--------------------------*/
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Model model, HttpSession sesion, @RequestParam String username, @RequestParam String password) {		
-		User user = null;
-		try{
-		user = this.userrepository.findByUsername(username);}
-		catch(Exception e){
-			System.out.println("no existe ese usuario");
-			return null;
-		}
-
-		boolean valid_pass = (user.getPassword().equals(password));
-		if (valid_pass) {
-			sesion.setAttribute("user", user);
-		}else{
-			System.out.println("pass incorrecta");
-		}
-		model.addAttribute("user", sesion.getAttribute("user"));
-		return "user_test";
-		
+	@RequestMapping("/login")
+	public String login() {		
+		return "login";
+	}
+	
+	@RequestMapping("/loginerror")
+	public String loginError() {		
+		return "loginerror";
+	}
+	@RequestMapping("/logout")
+	public String logout() {		
+		return "index";
 	}
 	
 	@RequestMapping(value = "/registro", method = RequestMethod.POST)
@@ -166,9 +161,27 @@ public class UserController {
 	}
 	
 	@RequestMapping("/perfil/{id}")
-	public String perfil(Model model, @PathVariable int id) {
-		model.addAttribute("usuario", this.userrepository.findOne((long) id));
+	public String perfil(Model model, @PathVariable long id) {
+		  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	      String name = auth.getName();
+	      if (name != "anonymousUser") {
+	    		  User usuario = this.userrepository.findByUsername(name);
+	    		  if (usuario.getId() == id){
+	    			  model.addAttribute("owner_profile", true);
+	    		  }else{
+	    			  model.addAttribute("owner_profile", false);
+	    			  model.addAttribute("usuario", usuario);
+	    		  }
+	      }else{
+	    	  model.addAttribute("owner_profile", false);
+	      }
 		return "perfil";
+	}
+	
+	@RequestMapping("/vinetas")
+	public String vinetas(Model model) {
+		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		return "index";
 	}
 
 }
