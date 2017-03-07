@@ -69,38 +69,7 @@ public class CMController {
 		c2.setAutor_comentario(usuario3);
 		c2.setVineta(v3);
 		this.comentariorepository.save(c2);
-		/*
 		
-		Tag t1 = new Tag("Lol");
-		Tag t2 = new Tag("Lol2");
-		Tag t3 = new Tag("Lol3");
-		
-		Comentario c1 = new Comentario("12/12/2015", "mi primer comentario");
-		
-
-		
-		this.tagrepository.save(t1);
-		this.tagrepository.save(t2);
-		this.tagrepository.save(t3);
-		
-		v1.getTags().add(t1);
-		v1.getTags().add(t2);
-		v2.getTags().add(t1);
-		v2.getTags().add(t3);
-		
-		v1.setAutor(usuario1);
-		v2.setAutor(usuario1);
-		
-		c1.setAutor_comentario(usuario1);
-		c1.setVineta(v1);
-		
-		
-		this.comentariorepository.save(c1);
-		this.vinetarepository.save(v1);
-		this.vinetarepository.save(v2);
-
-*/
-
 	}
 	
 	@RequestMapping("/")
@@ -127,9 +96,4 @@ public class CMController {
 		model.addAttribute("usuario", this.userrepository.findOne((long) id));
 		return "perfil";
 	}
-	
-	@RequestMapping("/subida")
-	public String subida(Model model) {
-		return "subida";
-	}
-}
+  }

@@ -2,6 +2,9 @@ package es.urjc.code.daw.comentario;
 
 import es.urjc.code.daw.user.*;
 import es.urjc.code.daw.vineta.*;
+
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +28,7 @@ public class Comentario {
 	private long id;
 	
 	@JsonView(BasicAtt.class)
-	private String fecha;
+	private Date fecha;
 	
 	@JsonView(BasicAtt.class)
 	private String comentario;
@@ -43,9 +46,9 @@ public class Comentario {
 	
 	protected Comentario(){}
 
-	public Comentario(String fecha, String comentario) {
+	public Comentario(String comentario) {
 		super();
-		this.fecha = fecha;
+		this.fecha = new Date();
 		this.comentario = comentario;
 	}
 
@@ -57,11 +60,11 @@ public class Comentario {
 		this.id = id;
 	}
 
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
