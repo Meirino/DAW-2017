@@ -178,6 +178,13 @@ public class UserController {
 		return "perfil";
 	}
 	
+	@RequestMapping("/perfil2/{id}")
+	public String perfil2(Model model, @PathVariable long id) {
+		User usuario = this.userrepository.findOne(id);
+		model.addAttribute("usuario", usuario);
+		return "perfil";
+	}
+	
 	@RequestMapping("/vinetas")
 	public String vinetas(Model model) {
 		model.addAttribute("vinetas", this.vinetarepository.findAll());
