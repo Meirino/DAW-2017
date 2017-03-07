@@ -1,4 +1,4 @@
-/*package es.urjc.code.daw;
+package es.urjc.code.daw;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class CMControler {
 	@PostConstruct
 	public void init(){
 		
-		User usuario1 = new User("joaquin", "joa", "cuantomeme1@gmail.com");
+		/*User usuario1 = new User("joaquin", "joa", "cuantomeme1@gmail.com");
 		User usuario2 = new User("paco", "paquito", "cuantomeme2@gmail.com");
 		
 		Vineta v1 = new Vineta("vineta1", "des1", "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
@@ -71,41 +71,40 @@ public class CMControler {
 		this.vinetarepository.save(v1);
 		this.vinetarepository.save(v2);
 		
-		Comentario c1 = new Comentario("12/12/2015", "mi primer comentario");
+		Comentario c1 = new Comentario("mi primer comentario");
 		c1.setAutor_comentario(usuario1);
 		c1.setVineta(v1);
-		this.comentariorepository.save(c1);
+		this.comentariorepository.save(c1);*/
 	}
 
 	
 	@JsonView(VinetaView.class)
-	@RequestMapping("/vinetas/")
+	@RequestMapping("/api/vinetas/")
 	public List<Vineta> getvinetas(){
 		return this.vinetarepository.findAll();
 	}
 	
 	@JsonView(UserView.class)
-	@RequestMapping("/usuarios/")
+	@RequestMapping("/api/usuarios/")
 	public List<User> getusuarios(){
 		return this.userrepository.findAll();
 	}
 	
 	@JsonView(UserView.class)
-	@RequestMapping("/usuarios/{id}")
+	@RequestMapping("/api/usuarios/{id}")
 	public User getusuario(@PathVariable int id){
 		return this.userrepository.findOne((long) id);
 	}
 	
 	@JsonView(ComentarioView.class)
-	@RequestMapping("/comentarios/")
+	@RequestMapping("/api/comentarios/")
 	public List<Comentario> getcomentarios(){
 		return this.comentariorepository.findAll();
 	}
 	
 	@JsonView(TagView.class)
-	@RequestMapping("/tags/")
+	@RequestMapping("/api/tags/")
 	public List<Tag> getTags(){
 		return this.tagrepository.findAll();
 	}
 }
-*/

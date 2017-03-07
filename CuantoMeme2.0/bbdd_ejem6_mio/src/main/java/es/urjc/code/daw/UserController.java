@@ -40,40 +40,40 @@ public class UserController {
 	@PostConstruct
 	public void init(){
 		
-		User usuario1 = new User("joaquin", "joa", "cuantomeme1@gmail.com", "ROLE_ADMIN");
-		User usuario2 = new User("paco", "paquito", "cuantomeme2@gmail.com", "ROLE_ADMIN");
+		User usuario3 = new User("pepe", "pepito", "cuantomeme3@gmail.com");
+		User usuario4 = new User("jose", "josito", "cuantomeme4@gmail.com");
 		
-		Vineta v1 = new Vineta("bbvineta1", "des1", "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
-		Vineta v2 = new Vineta("aavineta2", "des2", "http://www.leragecomics.com/wp-content/uploads/2011/04/VzxVF-640x546.png");
+		Vineta v3 = new Vineta("vineta3", "des3", "http://i2.kym-cdn.com/photos/images/facebook/000/125/918/RMUBQ.png");
+		Vineta v4 = new Vineta("vineta4", "des4", "http://i0.kym-cdn.com/photos/images/newsfeed/000/125/163/ragek.jpg?1318992465");
 		
-		v1.setAutor(usuario1);
-		v2.setAutor(usuario2);
+		v3.setAutor(usuario3);
+		v4.setAutor(usuario4);
 		
-		this.userrepository.save(usuario1);
-		this.userrepository.save(usuario2);
-		this.vinetarepository.save(v1);
-		this.vinetarepository.save(v2);
+		this.userrepository.save(usuario3);
+		this.userrepository.save(usuario4);
+		this.vinetarepository.save(v3);
+		this.vinetarepository.save(v4);
 		
-		Tag t1 = new Tag("Lol");
-		Tag t2 = new Tag("Lol2");
-		Tag t3 = new Tag("Lol3");
+		Tag t4 = new Tag("Trolldad");
+		Tag t5 = new Tag("Inglip");
+		Tag t6 = new Tag("Yaoming");
 		
-		this.tagrepository.save(t1);
-		this.tagrepository.save(t2);
-		this.tagrepository.save(t3);
+		this.tagrepository.save(t4);
+		this.tagrepository.save(t5);
+		this.tagrepository.save(t6);
 		
-		v1.getTags().add(t1);
-		v1.getTags().add(t2);
-		v2.getTags().add(t1);
-		v2.getTags().add(t3);
+		v3.getTags().add(t4);
+		v3.getTags().add(t5);
+		v4.getTags().add(t4);
+		v4.getTags().add(t6);
 		
-		this.vinetarepository.save(v1);
-		this.vinetarepository.save(v2);
+		this.vinetarepository.save(v3);
+		this.vinetarepository.save(v4);
 		
-		Comentario c1 = new Comentario("mi primer comentario");
-		c1.setAutor_comentario(usuario1);
-		c1.setVineta(v1);
-		this.comentariorepository.save(c1);
+		Comentario c2 = new Comentario("pole");
+		c2.setAutor_comentario(usuario3);
+		c2.setVineta(v3);
+		this.comentariorepository.save(c2);
 	}
 	/*--------------------------Autenticacion--------------------------*/
 	@RequestMapping("/login")

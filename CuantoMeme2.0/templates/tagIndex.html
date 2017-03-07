@@ -11,14 +11,11 @@
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link href="css-based-on-template/sb-admin.css" rel="stylesheet">
-    <link href="css-based-on-template/index/index.css" rel="stylesheet">
-    <link href="css-based-on-template/navbar.css" rel="stylesheet" type="text/css">
+    <link href="/css-based-on-template/sb-admin.css" rel="stylesheet">
+    <link href="/css-based-on-template/index/index.css" rel="stylesheet">
+    <link href="/css-based-on-template/navbar.css" rel="stylesheet" type="text/css">
     <!-- Custom Fonts -->
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="//cdn.auth0.com/js/lock/10.3.0/lock.min.js"></script>
-    <script src="auth0-variables.js"></script>
-    <script src="app.js"></script>
 </head>
 
 <body>
@@ -59,21 +56,21 @@
                 <h1>¡Bienvenido a CuantoMeme!</h1>
                 <hr>
                 <div class="container-fluid">
-                    <h3>Tag: {{tag}}</h3>
+                    <h3>Tag: {{tag.nombre}}</h3>
                     <div class="col-md-1"></div>
                     <div class="col-md-9">
                         {{#lista}}
                         <div class="jumbotron">
-                            <p>Autor: <small><a href="#">{{autor}}</a></small></p>
+                            <p>Autor: <small><a href="#">{{autor.username}}</a></small></p>
                             <h1>{{titulo}}</h1>
-                            <img class="img-responsive" src="{{Url}}">
+                            <img class="img-responsive" src="{{URL}}">
                             <p>{{descripcion}}</p>
-                            <div id="categoria" class=""><small>Categoria: <a href="/tag/{{tag}}">{{tag}}</a></small></div>
+                            <div id="categoria" class=""><small>Categoria: <a href="/tag/{{tag}}">{{tag.nombre}}</a></small></div>
                             <div id="social" class="row">
                                 <hr>
                                 <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
                                 <a href="/vineta/{{id}}">
-                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">{{nComentatios}}</span></button>
+                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">{{comentarios}}</span></button>
                                 </a>
                                 <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
                                     <div class="badge">0</div>
@@ -96,9 +93,9 @@
     </div>
     <!-- /#wrapper -->
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="/js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>

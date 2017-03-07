@@ -11,14 +11,12 @@
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link href="css-based-on-template/sb-admin.css" rel="stylesheet">
-    <link href="css-based-on-template/index/index.css" rel="stylesheet">
-    <link href="css-based-on-template/navbar.css" rel="stylesheet" type="text/css">
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <link href="/css-based-on-template/sb-admin.css" rel="stylesheet" type="text/css">
+    <link href="/css-based-on-template/navbar.css" rel="stylesheet" type="text/css">
     <!-- Custom Fonts -->
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="//cdn.auth0.com/js/lock/10.3.0/lock.min.js"></script>
-    <script src="auth0-variables.js"></script>
-    <script src="app.js"></script>
+
 </head>
 
 <body>
@@ -63,23 +61,28 @@
                     <div class="col-md-9">
                         {{#vinetas}}
                         <div class="jumbotron">
-                            <p>Autor: <small><a href="/perfil/{{autor.id}}">{{autor.username}}</a></small></p>
+                            <p>Autor: <small><a href="#">{{autor.username}}</a></small></p>
                             <h1>{{titulo}}</h1>
                             <img class="img-responsive" src="{{URL}}">
                             <p>{{descripcion}}</p>
-                            <div id="categoria" class=""><small>Categoria: {{#tags}} <a href="/tag/{{nombre}}">{{nombre}}</a> {{/tags}} </small></div>
+                            <div id="categoria" class=""><small>Categoria: {{#vinetas.tags}} <a href="/tag/{{nombre}}">{{nombre}}</a> {{/vinetas.tags}} </small></div>
                             <div id="social" class="row">
                                 <hr>
                                 <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
                                 <a href="/vineta/{{id}}">
                                     <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i></button>
                                 </a>
-                                <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
-                                    <div class="badge">0</div>
+                                
+                                <button type="button" onclick="location.href='/likevineta/{{id}}'"  class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                    <div class="badge">{{likes}}</div>
                                 </button>
-                                <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
-                                    <div class="badge">0</div>
+                                
+                                <Form action = dislikevineta/{{id}}>
+                                <button type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                    <div class="badge">{{dislikes}}</div>
                                 </button>
+                                </Form>
+                                
                                 <br>
                                 <br> 
                             </div>
@@ -95,9 +98,9 @@
     </div>
     <!-- /#wrapper -->
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="/js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>
