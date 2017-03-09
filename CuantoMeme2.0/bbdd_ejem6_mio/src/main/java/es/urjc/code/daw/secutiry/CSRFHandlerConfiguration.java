@@ -1,4 +1,4 @@
-/*package es.urjc.code.daw.secutiry;
+package es.urjc.code.daw.secutiry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,4 +29,4 @@ class CSRFHandlerInterceptor extends HandlerInterceptorAdapter {
 		CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
     	modelAndView.addObject("token", token.getToken());    	
     }
-}*/
+}

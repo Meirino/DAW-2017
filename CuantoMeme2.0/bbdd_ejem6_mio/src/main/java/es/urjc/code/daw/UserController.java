@@ -89,15 +89,27 @@ public class UserController {
 	public String logout() {		
 		return "index";
 	}
-	
-	@RequestMapping(value = "/registro", method = RequestMethod.POST)
-	public String login(Model model, HttpSession sesion, @RequestParam String username, User usuario) {		
-		this.userrepository.save(usuario);
-		sesion.setAttribute("user", usuario);
-		model.addAttribute("user", sesion.getAttribute("user"));
-		return "user_test";
-		
+	@RequestMapping("/signup")
+	public String signup() {		
+		return "signup";
 	}
+	@RequestMapping("/profile")
+	public String profile() {		
+		return "perfil";
+	}
+	
+	@RequestMapping(value = "/signupuser", method = RequestMethod.POST)
+	public String login(Model model, HttpSession sesion, User usuario) {
+		System.out.println(usuario.getUsername());
+		System.out.println(usuario.getEmail());
+		System.out.println(usuario.getPasswordHash());
+//		System.out.println(usuario.getRoles());
+		this.userrepository.save(usuario);
+		//Authentication auth = SecurityContextHolder.createEmptyContext().setAuthentication(authentication);
+
+		return "redirect:/";		
+	}
+
 	
 	/*------------------Comentarios-------------------------*/
 	@RequestMapping(value = "/crearComentario/vineta/{id}", method = RequestMethod.POST)

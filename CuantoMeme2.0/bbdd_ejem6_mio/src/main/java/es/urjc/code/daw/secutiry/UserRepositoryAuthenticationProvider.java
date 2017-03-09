@@ -31,16 +31,17 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 		}
 
 		String password = (String) auth.getCredentials();
+		System.out.println(new BCryptPasswordEncoder().matches(password, user.getPasswordHash()));
 		if (!new BCryptPasswordEncoder().matches(password, user.getPasswordHash())) {
 			throw new BadCredentialsException("Wrong password");
 		}
-
+		/*
 		List<GrantedAuthority> roles = new ArrayList<>();
 		for (String role : user.getRoles()) {
 			roles.add(new SimpleGrantedAuthority(role));
-		}
+		}*/
 
-		return new UsernamePasswordAuthenticationToken(user.getUsername(), password, roles);
+		return new UsernamePasswordAuthenticationToken(user.getUsername(), password);//, roles);
 	}
 
 	@Override

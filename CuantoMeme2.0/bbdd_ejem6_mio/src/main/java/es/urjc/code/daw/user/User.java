@@ -53,10 +53,10 @@ public class User {
 	@JsonView(ComentarioAtt.class)
 	@OneToMany(mappedBy="autor_comentario")
 	private List<Comentario> comentarios = new ArrayList<>();
-	
+	/*
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
-	
+	*/
 	public String getPasswordHash() {
 		return passwordHash;
 	}
@@ -64,22 +64,24 @@ public class User {
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
-
+	/*
 	public List<String> getRoles() {
 		return roles;
 	}
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
-	}
+	}*/
 
 	protected User(){}
 	
-	public User(String username, String password, String email, String... roles){
+	public User(String username, String password, String email){
 		this.username = username;
 		this.passwordHash  = new BCryptPasswordEncoder().encode(password);
 		this.email = email;
-		this.roles = new ArrayList<>(Arrays.asList(roles));
+		/*
+		this.roles = new ArrayList<>(Arrays.asList());
+		this.roles.add("ROLE_USER");*/
 	}
 
 	
@@ -131,9 +133,7 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return passwordHash;
-	}
+
 
 	public void setPassword(String password) {
 		this.passwordHash = password;
