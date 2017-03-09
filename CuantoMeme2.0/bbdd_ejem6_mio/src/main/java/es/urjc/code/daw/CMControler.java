@@ -41,7 +41,7 @@ public class CMControler {
 	@PostConstruct
 	public void init(){
 		
-		/*User usuario1 = new User("joaquin", "joa", "cuantomeme1@gmail.com");
+		User usuario1 = new User("joaquin", "joa", "cuantomeme1@gmail.com");
 		User usuario2 = new User("paco", "paquito", "cuantomeme2@gmail.com");
 		
 		Vineta v1 = new Vineta("vineta1", "des1", "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
@@ -74,7 +74,7 @@ public class CMControler {
 		Comentario c1 = new Comentario("mi primer comentario");
 		c1.setAutor_comentario(usuario1);
 		c1.setVineta(v1);
-		this.comentariorepository.save(c1);*/
+		this.comentariorepository.save(c1);
 	}
 
 	

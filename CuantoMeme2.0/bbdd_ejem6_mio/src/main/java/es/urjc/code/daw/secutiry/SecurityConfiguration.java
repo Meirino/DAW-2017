@@ -23,6 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/loginerror").permitAll();
         http.authorizeRequests().antMatchers("/registro").permitAll();
         http.authorizeRequests().antMatchers("/signup").permitAll();
+        http.authorizeRequests().antMatchers("/api/vinetas/").permitAll();
         //http.authorizeRequests().antMatchers("/registro").permitAll();
 
         //http.authorizeRequests().antMatchers("/logout").permitAll();
