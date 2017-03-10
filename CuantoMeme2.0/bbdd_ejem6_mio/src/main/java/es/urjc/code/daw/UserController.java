@@ -169,11 +169,10 @@ public class UserController {
 	
 	@RequestMapping(value = "/likevineta/{id}")
 	public String likeVineta(Model model, @PathVariable long id) {
-		System.out.println("llego a lie vineta con el id "+ id);
 		Vineta vineta = this.vinetarepository.findOne(id);
 		vineta.like();
 		this.vinetarepository.save(vineta);
-		return "redirect:/";
+		return "redirect:/vineta/"+id;
 	}
 	
 	@RequestMapping(value = "/dislikevineta/{id}")
@@ -181,7 +180,7 @@ public class UserController {
 		Vineta vineta = this.vinetarepository.findOne(id);
 		vineta.dislike();
 		this.vinetarepository.save(vineta);
-		return "redirect:/";
+		return "redirect:/vineta/"+id;
 	}
 	
 	

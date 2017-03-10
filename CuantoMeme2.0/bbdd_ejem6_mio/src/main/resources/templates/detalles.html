@@ -149,12 +149,12 @@
                                     			{{vineta.likes}}
                                     		</div>
                                 		</button>
+                                	<button type="button" onclick="location.href='/dislikevineta/{{id}}'"  class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                    		<div class="badge">
+                                    			{{vineta.dislikes}}
+                                    		</div>
+                                	</button>
                                 
-                                <Form action = dislikevineta/{{id}}>
-                                <button type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
-                                    <div class="badge">{{vineta.dislikes}}</div>
-                                </button>
-                                </Form>
                                     </div>
                                 </div>
                             </div>
