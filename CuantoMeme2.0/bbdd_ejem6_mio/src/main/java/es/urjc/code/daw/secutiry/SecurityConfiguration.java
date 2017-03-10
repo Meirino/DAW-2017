@@ -23,22 +23,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/loginerror").permitAll();
         http.authorizeRequests().antMatchers("/registro").permitAll();
         http.authorizeRequests().antMatchers("/signup").permitAll();
-        http.authorizeRequests().antMatchers("/api/vinetas/").permitAll();
-        //http.authorizeRequests().antMatchers("/registro").permitAll();
-
-        //http.authorizeRequests().antMatchers("/logout").permitAll();
-
+        http.formLogin().defaultSuccessUrl("/home").permitAll();
        
-
         // Private pages (all other pages)
-        http.authorizeRequests().antMatchers("/profile").authenticated();//.hasAnyRole("USER");
-        //http.authorizeRequests().antMatchers("/admin").hasAnyRole("ADMIN");
-
+        http.authorizeRequests().antMatchers("/home").hasAnyRole("USER");
         // Login form
         http.formLogin().loginPage("/login");
         http.formLogin().usernameParameter("username");
         http.formLogin().passwordParameter("password");
-        http.formLogin().defaultSuccessUrl("/");
+        http.formLogin().defaultSuccessUrl("/home");
         http.formLogin().failureUrl("/loginerror");
 
         // Logout

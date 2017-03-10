@@ -13,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+
 import es.urjc.code.daw.user.*;
 
 @Component
@@ -21,6 +22,9 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private UserComponent userComponent;
+	
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
 
@@ -31,17 +35,18 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 		}
 
 		String password = (String) auth.getCredentials();
-		System.out.println(new BCryptPasswordEncoder().matches(password, user.getPasswordHash()));
 		if (!new BCryptPasswordEncoder().matches(password, user.getPasswordHash())) {
 			throw new BadCredentialsException("Wrong password");
 		}
-		/*
+
+		userComponent.setLoggedUser(user);
+		
 		List<GrantedAuthority> roles = new ArrayList<>();
 		for (String role : user.getRoles()) {
 			roles.add(new SimpleGrantedAuthority(role));
-		}*/
+		}
 
-		return new UsernamePasswordAuthenticationToken(user.getUsername(), password);//, roles);
+		return new UsernamePasswordAuthenticationToken(user.getUsername(), password, roles);
 	}
 
 	@Override

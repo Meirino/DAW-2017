@@ -1,6 +1,9 @@
 package es.urjc.code.daw;
 
+import java.security.Principal;
+
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,7 @@ import es.urjc.code.daw.user.User;
 import es.urjc.code.daw.user.UserRepository;
 import es.urjc.code.daw.vineta.Vineta;
 import es.urjc.code.daw.vineta.VinetaRepository;
+import es.urjc.code.daw.user.*;
 
 @Controller
 public class UserController {
@@ -36,12 +40,15 @@ public class UserController {
 	
 	@Autowired
 	private TagRepository tagrepository;
+	
+	@Autowired
+	private UserComponent userComponent;
 
 	@PostConstruct
 	public void init(){
 		
-		User usuario3 = new User("pepe", "pepito", "cuantomeme3@gmail.com");
-		User usuario4 = new User("jose", "josito", "cuantomeme4@gmail.com");
+		User usuario3 = new User("pepe", "pepito", "cuantomeme3@gmail.com", "ROLE_USER");
+		User usuario4 = new User("jose", "josito", "cuantomeme4@gmail.com", "ROLE_USER");
 		
 		Vineta v3 = new Vineta("vineta3", "des3", "http://i2.kym-cdn.com/photos/images/facebook/000/125/918/RMUBQ.png");
 		Vineta v4 = new Vineta("vineta4", "des4", "http://i0.kym-cdn.com/photos/images/newsfeed/000/125/163/ragek.jpg?1318992465");
@@ -93,20 +100,21 @@ public class UserController {
 	public String signup() {		
 		return "signup";
 	}
-	@RequestMapping("/profile")
-	public String profile() {		
+	@RequestMapping("/home")
+	public String profile(Model model, HttpServletRequest request) {
+		Principal p = request.getUserPrincipal();
+    	User user = userrepository.findByUsername(p.getName());
+    	System.out.println(userComponent.isLoggedUser());
+		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		model.addAttribute("usuario_logged", user);    
+		model.addAttribute("usuario", user);
 		return "perfil";
 	}
 	
 	@RequestMapping(value = "/signupuser", method = RequestMethod.POST)
-	public String login(Model model, HttpSession sesion, User usuario) {
-		System.out.println(usuario.getUsername());
-		System.out.println(usuario.getEmail());
-		System.out.println(usuario.getPasswordHash());
-//		System.out.println(usuario.getRoles());
+	public String login(Model model, HttpSession sesion, @RequestParam String username, @RequestParam String password, @RequestParam String email ) {
+		User usuario = new User(username, password, email,"ROLE_USER" );
 		this.userrepository.save(usuario);
-		//Authentication auth = SecurityContextHolder.createEmptyContext().setAuthentication(authentication);
-
 		return "redirect:/";		
 	}
 
@@ -126,7 +134,7 @@ public class UserController {
 		}else{
 			return "usuario no registrado"; //Cambiar a una pagina que diga que el usuario no esta registrado
 		}
-		model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
+		//model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
 		return "index";
 	}
 	
@@ -160,7 +168,7 @@ public class UserController {
 	
 	@RequestMapping("/")
 	public String viñetas(Model model) {
-		model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
+		//model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
 		return "index";
 	}
 
@@ -173,29 +181,23 @@ public class UserController {
 	}
 	
 	@RequestMapping("/perfil/{id}")
-	public String perfil(Model model, @PathVariable long id) {
-		  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	      String name = auth.getName();
-	      if (name != "anonymousUser") {
-	    		  User usuario = this.userrepository.findByUsername(name);
-	    		  if (usuario.getId() == id){
-	    			  model.addAttribute("owner_profile", true);
-	    		  }else{
-	    			  model.addAttribute("owner_profile", false);
-	    			  model.addAttribute("usuario", usuario);
-	    		  }
-	      }else{
-	    	  model.addAttribute("owner_profile", false);
-	      }
+	public String perfil(Model model, @PathVariable long id, HttpServletRequest request) {
+		  User usuario = this.userrepository.findOne(id);
+		  model.addAttribute("usuario", usuario);
+		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		  /*
+		  if (userComponent.isLoggedUser()){
+			  Principal p = request.getUserPrincipal();
+		      User user = userrepository.findByUsername(p.getName());
+		      model.addAttribute("usuario_logged", user);
+		  }else{
+			  model.addAttribute("usuario_logged", new User("por defecto", "pass", "asd", "Role_User"));
+		  }
+		   */
+		  
 		return "perfil";
 	}
 	
-	@RequestMapping("/perfil2/{id}")
-	public String perfil2(Model model, @PathVariable long id) {
-		User usuario = this.userrepository.findOne(id);
-		model.addAttribute("usuario", usuario);
-		return "perfil";
-	}
 	
 	@RequestMapping("/vinetas")
 	public String vinetas(Model model) {

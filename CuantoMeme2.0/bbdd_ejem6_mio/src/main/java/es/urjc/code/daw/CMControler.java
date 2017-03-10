@@ -5,6 +5,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -80,9 +82,16 @@ public class CMControler {
 	
 	@JsonView(VinetaView.class)
 	@RequestMapping("/api/vinetas/")
+	public Page<Vineta> getvinetas(Pageable page){
+		return this.vinetarepository.findAllByOrderByCreationdateDesc(page);
+	}
+	@JsonView(VinetaView.class)
+	@RequestMapping("/api/vinetas2/")
 	public List<Vineta> getvinetas(){
 		return this.vinetarepository.findAll();
 	}
+
+	
 	
 	@JsonView(UserView.class)
 	@RequestMapping("/api/usuarios/")
