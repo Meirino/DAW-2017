@@ -196,6 +196,7 @@ public class UserController {
 			model.addAttribute("usuario", usuario);
 		}
 		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "index";
 	}
 

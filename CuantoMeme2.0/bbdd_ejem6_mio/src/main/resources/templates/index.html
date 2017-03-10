@@ -74,16 +74,12 @@
                     <li> <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
-                            <li> <a href="/tag/inglip">Inglip</a> </li>
-                            <li> <a href="/tag/yaoming">Yaoming</a> </li>
-                            <li> <a href="/tag/esgratis">Es gratis</a> </li>
-                            <li> <a href="/tag/LOL">LOL</a> </li>
-                            <li> <a href="/tag/feels">Feels</a> </li>
-                            <li> <a href="/tag/feelsbadman">Feels bad man</a> </li>
-                            <li> <a href="/tag/feelsgoodman">Feels good man</a> </li>
+                        	{{#tags_mas_usados}}
+                            <li> <a href="/tag/{{nombre}}">{{nombre}}</a> </li>
+							{{/tags_mas_usados}}
                         </ul>
                     </li>
-                    <li><a href="/perfil"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Perfil</a></li>
+                    <li><a href="/home"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Perfil</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
