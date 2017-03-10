@@ -27,6 +27,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
        
         // Private pages (all other pages)
         http.authorizeRequests().antMatchers("/home").hasAnyRole("USER");
+        http.authorizeRequests().antMatchers("/crearComentario/vineta/{id}").hasAnyRole("USER");
+        
         // Login form
         http.formLogin().loginPage("/login");
         http.formLogin().usernameParameter("username");

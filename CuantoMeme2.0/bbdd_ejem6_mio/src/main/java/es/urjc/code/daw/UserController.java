@@ -106,7 +106,7 @@ public class UserController {
     	User user = userrepository.findByUsername(p.getName());
     	System.out.println(userComponent.isLoggedUser());
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
-		model.addAttribute("usuario_logged", user);    
+		//model.addAttribute("usuario_logged", user);    
 		model.addAttribute("usuario", user);
 		return "perfil";
 	}
@@ -118,24 +118,40 @@ public class UserController {
 		return "redirect:/";		
 	}
 
-	
+	@RequestMapping("/perfil/{id}")
+	public String perfil(Model model, @PathVariable long id, HttpServletRequest request) {
+		  User usuario = this.userrepository.findOne(id);
+		  model.addAttribute("usuario", usuario);
+		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		  /*
+		  if (userComponent.isLoggedUser()){
+			  Principal p = request.getUserPrincipal();
+		      User user = userrepository.findByUsername(p.getName());
+		      model.addAttribute("usuario_logged", user);
+		  }else{
+			  model.addAttribute("usuario_logged", new User("por defecto", "pass", "asd", "Role_User"));
+		  }
+		   */
+		  
+		return "perfil";
+	}
 	/*------------------Comentarios-------------------------*/
 	@RequestMapping(value = "/crearComentario/vineta/{id}", method = RequestMethod.POST)
-	public String crearComentario(Model model, HttpSession sesion,@PathVariable long id, @RequestParam String comentario) {
+	public String crearComentario(Model model, HttpSession sesion,@PathVariable long id, @RequestParam String comentario, HttpServletRequest request ) {
 		System.out.println("he entrado a crear un comentario");
-		if (sesion.getAttribute("user")!= null){
-			System.out.println("estas loggeado");
-			Comentario comen = new Comentario(comentario);
-			Vineta vineta = this.vinetarepository.findOne(id);
-			comen.setAutor_comentario((User)sesion.getAttribute("user"));
-			comen.setVineta(vineta);
-			this.comentariorepository.save(comen);
+		if (userComponent.isLoggedUser()){
+			  Principal p = request.getUserPrincipal();
+		      User user = userrepository.findByUsername(p.getName());
+		      Comentario c = new Comentario(comentario);
+		      c.setAutor_comentario(user);
+		      c.setVineta(this.vinetarepository.findOne(id));
+		      this.comentariorepository.save(c);
+		      return "redirect:/vineta/"+id;
 			
 		}else{
-			return "usuario no registrado"; //Cambiar a una pagina que diga que el usuario no esta registrado
+			return "redirect:/login";
 		}
-		//model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
-		return "index";
+
 	}
 	
 	/*------------------Vinetas-------------------------*/
@@ -180,23 +196,7 @@ public class UserController {
 		return "tagIndex";
 	}
 	
-	@RequestMapping("/perfil/{id}")
-	public String perfil(Model model, @PathVariable long id, HttpServletRequest request) {
-		  User usuario = this.userrepository.findOne(id);
-		  model.addAttribute("usuario", usuario);
-		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
-		  /*
-		  if (userComponent.isLoggedUser()){
-			  Principal p = request.getUserPrincipal();
-		      User user = userrepository.findByUsername(p.getName());
-		      model.addAttribute("usuario_logged", user);
-		  }else{
-			  model.addAttribute("usuario_logged", new User("por defecto", "pass", "asd", "Role_User"));
-		  }
-		   */
-		  
-		return "perfil";
-	}
+
 	
 	
 	@RequestMapping("/vinetas")
