@@ -168,7 +168,7 @@ public class UserController {
 	
 	@RequestMapping("/")
 	public String viñetas(Model model) {
-		//model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
+		model.addAttribute("vinetas", this.vinetarepository.findAll());
 		return "index";
 	}
 
