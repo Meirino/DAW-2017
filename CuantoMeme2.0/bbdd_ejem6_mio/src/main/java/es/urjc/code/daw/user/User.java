@@ -55,14 +55,58 @@ public class User {
 	private List<User> seguidores = new ArrayList<>();
 	
 	@JsonView(ComentarioAtt.class)
-	@OneToMany(mappedBy="autor_comentario")
+	@OneToMany(mappedBy="autor_comentario")//, cascade=CascadeType.ALL)
 	private List<Comentario> comentarios = new ArrayList<>();
 	
+
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 	
+	@JsonView(VinetaAtt.class)
 	@ManyToMany
 	private List<Vineta> vinetas_favoritas = new ArrayList<>();
+	
+	@JsonView(VinetaAtt.class)
+	@ManyToMany
+	private List<Vineta> vinetas_gustadas = new ArrayList<>();
+	
+	@JsonView(VinetaAtt.class)
+	@ManyToMany
+	private List<Vineta> vinetas_odiadas = new ArrayList<>();
+	
+	protected User(){}
+	
+	public User(String username, String password, String email, String... roles){
+		this.username = username;
+		this.passwordHash  = new BCryptPasswordEncoder().encode(password);
+		this.email = email;
+		this.roles = new ArrayList<>(Arrays.asList(roles));
+	}
+
+	
+	public String getAvatarURL() {
+		return AvatarURL;
+	}
+
+	public void setAvatarURL(String avatarURL) {
+		AvatarURL = avatarURL;
+	}
+
+	public List<Vineta> getVinetas_subidas() {
+		return vinetas_subidas;
+	}
+
+	public void setVinetas_subidas(List<Vineta> vinetas_subidas) {
+		this.vinetas_subidas = vinetas_subidas;
+	}
+
+	public List<Vineta> getVinetas_favoritas() {
+		return vinetas_favoritas;
+	}
+
+	public void setVinetas_favoritas(List<Vineta> vinetas_favoritas) {
+		this.vinetas_favoritas = vinetas_favoritas;
+	}
 	
 	
 	public String getPasswordHash() {
@@ -81,14 +125,6 @@ public class User {
 		this.roles = roles;
 	}
 
-	protected User(){}
-	
-	public User(String username, String password, String email, String... roles){
-		this.username = username;
-		this.passwordHash  = new BCryptPasswordEncoder().encode(password);
-		this.email = email;
-		this.roles = new ArrayList<>(Arrays.asList(roles));
-	}
 
 	public List<User> getSeguidores() {
 		return seguidores;
@@ -143,6 +179,23 @@ public class User {
 	public void setPassword(String password) {
 		this.passwordHash = password;
 	}
+
+	public List<Vineta> getVinetas_gustadas() {
+		return vinetas_gustadas;
+	}
+
+	public void setVinetas_gustadas(List<Vineta> vinetas_gustadas) {
+		this.vinetas_gustadas = vinetas_gustadas;
+	}
+
+	public List<Vineta> getVinetas_odiadas() {
+		return vinetas_odiadas;
+	}
+
+	public void setVinetas_odiadas(List<Vineta> vinetas_odiadas) {
+		this.vinetas_odiadas = vinetas_odiadas;
+	}
+	
 	
 	
 }

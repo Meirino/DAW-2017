@@ -60,6 +60,18 @@ public class Vineta {
 	@ManyToMany
 	private List<Tag> tags = new ArrayList<>();
 	
+	@JsonView(UserAtt.class)
+	@ManyToMany(mappedBy="vinetas_favoritas")
+	private List<User> users_fav = new ArrayList<>();
+	
+	@JsonView(UserAtt.class)
+	@ManyToMany(mappedBy="vinetas_gustadas")
+	private List<User> users_likes = new ArrayList<>();
+	
+	@JsonView(UserAtt.class)
+	@ManyToMany(mappedBy="vinetas_odiadas")
+	private List<User> users_dislikes = new ArrayList<>();
+	
 	protected Vineta(){}
 	
 	public Vineta(String titulo, String descripcion, String URL){
@@ -70,6 +82,16 @@ public class Vineta {
 		this.URL = URL;
 		this.creationdate = new Date();
 	}
+
+	
+	public Date getCreationdate() {
+		return creationdate;
+	}
+
+	public void setCreationdate(Date creationdate) {
+		this.creationdate = creationdate;
+	}
+
 
 	public String getTitulo() {
 		return titulo;
@@ -157,4 +179,5 @@ public class Vineta {
 	public void dislike(){
 		this.dislikes++;
 	}
+	
 }
