@@ -156,8 +156,14 @@ public class UserController {
 	
 	/*------------------Vinetas-------------------------*/
 	@RequestMapping("/vineta/{id}")
-	public String detalles(Model model, @PathVariable long id) {
+	public String detalles(Model model, @PathVariable long id, HttpServletRequest request) {
 		model.addAttribute("vineta", this.vinetarepository.findOne((long) id));
+		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		if (userComponent.isLoggedUser()){
+			Principal p = request.getUserPrincipal();
+	    	User usuario = userrepository.findByUsername(p.getName());
+			model.addAttribute("usuario", usuario);
+		}
 		return "detalles";
 	}
 	
