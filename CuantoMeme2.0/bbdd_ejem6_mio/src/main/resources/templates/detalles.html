@@ -107,6 +107,7 @@
                                         <div class="card-block text-center">
                                             <h2>{{vineta.titulo}}</h2>
                                             <p class="card-text text-center">{{vineta.descripcion}}</p>
+                                            <p> {{#vineta.tags}} <a href="/tags/{{nombre}}">{{nombre}}</a> {{/vineta.tags}} </p>
                                         </div>
                                     </div>
                                 </div>
@@ -115,15 +116,14 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-md-2">
-                                                <button class="btn autor">
+                                                <button class="btn autor"><a href="/perfil/{{vineta.autor.id}}">
                                                     <div id="autor" class="card text-center"> 
-                                                        <img id="avatarAutor" class="card-img-top img-responsive img-center" src="https://pbs.twimg.com/profile_images/648889317503336449/MU7PrqD_.jpg">
+                                                        <img id="avatarAutor" class="card-img-top img-responsive img-center" src="https://gamersoutreach.org/files/brand-assets/avatar.jpg">
                                                         <div class="card-block">
                                                             <h3 class="card-title">{{vineta.autor.username}}</h3>
-                                                            <button class="btn btn-sm"><i class="fa fa-check" aria-hidden="true"></i> Le sigues</button>
                                                         </div>
                                                     </div>
-                                                </button>
+                                                </a></button>
                                             </div>
                                             <div class="col-md-8"> </div>
                                         </div>
@@ -159,9 +159,7 @@
                                 <!-- Añadir comentario -->
                                 <div class="input-group">
                                 <form action="/crearComentario/vineta/{{id}}" method=post>
-                                    <input class="form-control" placeholder="¿Qué tienes que decir?" type="text" name="comentario"> <span class="input-group-addon">
-                                        <button type="submit"><i class="glyphicon glyphicon-pencil"></i> Enviar</button>
-                                    </span> 
+                                    <input class="form-control" placeholder="¿Qué tienes que decir?" type="text" name="comentario"><input class="btn" type="submit" value="Enviar">
                                     <input type="hidden" name="_csrf" value="{{token}}"/>           
                                 </form>
                                   </div>
@@ -176,7 +174,7 @@
                                         <div id="comentario" class="contauner-fluid">
                                             <div class="row">
                                                 <div class="col-md-1">
-                                                    <a href="#"><img class="avatar" src="http://i2.kym-cdn.com/photos/images/facebook/000/926/994/729.gif" height="65px" width="65px"></a>
+                                                    <a href="#"><img class="avatar" src="https://gamersoutreach.org/files/brand-assets/avatar.jpg" height="65px" width="65px"></a>
                                                 </div>
                                                 <div class="col-md-11">
                                                     <small>{{autor_comentario.username}}</small>

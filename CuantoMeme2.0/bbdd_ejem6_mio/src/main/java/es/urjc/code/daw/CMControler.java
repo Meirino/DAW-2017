@@ -105,6 +105,12 @@ public class CMControler {
 		return this.userrepository.findOne((long) id);
 	}
 	
+	@JsonView(UserView.class)
+	@RequestMapping("/api/usuariosByName/{nombre}")
+	public User getusuariobyname(@PathVariable String nombre){
+		return this.userrepository.findByUsername(nombre);
+	}
+	
 	@JsonView(ComentarioView.class)
 	@RequestMapping("/api/comentarios/")
 	public List<Comentario> getcomentarios(){

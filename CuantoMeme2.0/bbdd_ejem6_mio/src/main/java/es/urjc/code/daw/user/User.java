@@ -41,6 +41,9 @@ public class User {
 	@JsonView(BasicAtt.class)
 	private String email;
 	
+	@JsonView(BasicAtt.class)
+	private String AvatarURL;
+	
 	@JsonView(VinetaAtt.class)	
 	@OneToMany(mappedBy="autor")
 	private List<Vineta> viñetas = new ArrayList<>();

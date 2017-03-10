@@ -1,13 +1,81 @@
-<html>
-<body>
-<form action="/login" method="post">
+<!DOCTYPE html>
+<html lang="en">
 
- <p>Username</p>
- <input type='text' name='username'/> 
- <p>Password</p>
-  <input type='password' name='password'/> 
-  <input type='submit' value='Login'/>
-  <input type="hidden" name="_csrf" value="{{token}}"/>
-</form>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Cuánto meme!</title>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <link href="/css-based-on-template/sb-admin.css" rel="stylesheet" type="text/css">
+    <link href="/css-based-on-template/navbar.css" rel="stylesheet" type="text/css">
+    <!-- Custom Fonts -->
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <h1>¡Bienvenido a CuantoMeme!</h1>
+                <hr>
+                <div class="container-fluid">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-9">
+                        <div class="jumbotron">
+                            <form action="login" method="post">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <p>
+                                                    <label>Nombre de usuario:</label>
+                                                </p>
+                                                <input type='text' name='username' />
+                                                <p>
+                                                    <label>Contraseña:</label>
+                                                </p>
+                                                <input type='password' name='password' />
+                                            </div>
+                                            <p></p>
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button class="button btn btn-block"><a href="http://localhost:8181">Atrás</a></button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button class="button btn btn-block" type='submit'>Login</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="_csrf" value="{{token}}" />
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
 </body>
+
 </html>
