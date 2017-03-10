@@ -188,7 +188,13 @@ public class UserController {
 	/*----------------------------s-------------------------*/
 	
 	@RequestMapping("/")
-	public String viñetas(Model model) {
+	public String viñetas(Model model, HttpServletRequest request) {
+		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		if (userComponent.isLoggedUser()){
+			Principal p = request.getUserPrincipal();
+	    	User usuario = userrepository.findByUsername(p.getName());
+			model.addAttribute("usuario", usuario);
+		}
 		model.addAttribute("vinetas", this.vinetarepository.findAll());
 		return "index";
 	}
