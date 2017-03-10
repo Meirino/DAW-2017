@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -46,7 +47,7 @@ public class User {
 	
 	@JsonView(VinetaAtt.class)	
 	@OneToMany(mappedBy="autor")
-	private List<Vineta> viñetas = new ArrayList<>();
+	private List<Vineta> vinetas_subidas = new ArrayList<>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="Usuario_Seguidores")
@@ -59,6 +60,10 @@ public class User {
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
+	
+	@ManyToMany
+	private List<Vineta> vinetas_favoritas = new ArrayList<>();
+	
 	
 	public String getPasswordHash() {
 		return passwordHash;
@@ -110,11 +115,11 @@ public class User {
 	}
 
 	public List<Vineta> getViñetas() {
-		return viñetas;
+		return vinetas_subidas;
 	}
 
 	public void setViñetas(List<Vineta> viñetas) {
-		this.viñetas = viñetas;
+		this.vinetas_subidas = viñetas;
 	}
 
 	public List<Comentario> getComentarios() {
