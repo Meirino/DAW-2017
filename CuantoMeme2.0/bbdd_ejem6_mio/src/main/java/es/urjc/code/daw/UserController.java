@@ -201,7 +201,13 @@ public class UserController {
 
 	
 	@RequestMapping("/tag/{nombre}")
-	public String detalles(Model model, @PathVariable String nombre) {
+	public String detalles(Model model, @PathVariable String nombre, HttpServletRequest request) {
+		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		if (userComponent.isLoggedUser()){
+			Principal p = request.getUserPrincipal();
+	    	User usuario = userrepository.findByUsername(p.getName());
+			model.addAttribute("usuario", usuario);
+		}
 		model.addAttribute("tag",this.tagrepository.findByNombre(nombre));
 		model.addAttribute("lista", this.tagrepository.findByNombre(nombre).getVinetas());
 		return "tagIndex";
