@@ -62,6 +62,7 @@
                          <li>             
                         	<form action="/logout" method="post">
                         		<input class="fa fa-fw fa-power-off" type="submit" value="Sign Out" />
+                        		<input type="hidden" name="_csrf" value="{{token}}"/>
 							</form>
 						</li>
                     </ul>

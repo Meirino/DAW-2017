@@ -46,7 +46,7 @@ public class User {
 	private String AvatarURL;
 	
 	@JsonView(VinetaAtt.class)	
-	@OneToMany(mappedBy="autor")//, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="autor", cascade=CascadeType.ALL)//, cascade=CascadeType.ALL)
 	private List<Vineta> vinetas_subidas = new ArrayList<>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
