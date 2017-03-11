@@ -23,7 +23,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/loginerror").permitAll();
         http.authorizeRequests().antMatchers("/registro").permitAll();
         http.authorizeRequests().antMatchers("/signup").permitAll();
-        http.formLogin().defaultSuccessUrl("/home").permitAll();
        
         // Private pages (all other pages)
         http.authorizeRequests().antMatchers("/home").hasAnyRole("USER");
@@ -33,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin().loginPage("/login");
         http.formLogin().usernameParameter("username");
         http.formLogin().passwordParameter("password");
-        http.formLogin().defaultSuccessUrl("/home");
+        //http.formLogin().defaultSuccessUrl("/home");
         http.formLogin().failureUrl("/loginerror");
 
         // Logout

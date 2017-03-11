@@ -99,24 +99,21 @@
                             <p>{{descripcion}}</p>
                             <div id="categoria" class=""><small>Categoria: {{#vinetas.tags}} <a href="/tag/{{nombre}}">{{nombre}}</a> {{/vinetas.tags}} </small></div>
                             <div id="social" class="row">
-                                <hr>
-                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
                                 <a href="/vineta/{{id}}">
                                     <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i></button>
                                 </a>
+ 								<button type="button" onclick="location.href='/hacerfavorita/{{id}}'" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
                                 
-                                <button type="button" onclick="location.href='/likevineta/{{id}}'"  class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
-                                    <div class="badge">{{likes}}</div>
+                             	<button type="button" onclick="location.href='/likevineta/{{id}}'"  class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                 	<div class="badge">
+                                    	{{likes}}
+                                   	</div>
                                 </button>
-                                
-                                <Form action = dislikevineta/{{id}}>
-                                <button type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
-                                    <div class="badge">{{dislikes}}</div>
+                                <button type="button" onclick="location.href='/dislikevineta/{{id}}'"  class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                    <div class="badge">
+                                    	{{dislikes}}
+                                   	</div>
                                 </button>
-                                </Form>
-                                
-                                <br>
-                                <br> 
                             </div>
                         </div>
                         {{/vinetas}}
