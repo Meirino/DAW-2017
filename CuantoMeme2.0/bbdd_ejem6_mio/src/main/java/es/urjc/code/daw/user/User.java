@@ -46,7 +46,7 @@ public class User {
 	private String AvatarURL;
 	
 	@JsonView(VinetaAtt.class)	
-	@OneToMany(mappedBy="autor")
+	@OneToMany(mappedBy="autor")//, cascade=CascadeType.ALL)
 	private List<Vineta> vinetas_subidas = new ArrayList<>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
@@ -81,6 +81,7 @@ public class User {
 		this.passwordHash  = new BCryptPasswordEncoder().encode(password);
 		this.email = email;
 		this.roles = new ArrayList<>(Arrays.asList(roles));
+		this.vinetas_subidas.add(new Vineta("vineta", "des", "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif"));
 	}
 
 	
@@ -194,6 +195,18 @@ public class User {
 
 	public void setVinetas_odiadas(List<Vineta> vinetas_odiadas) {
 		this.vinetas_odiadas = vinetas_odiadas;
+	}
+	
+	public void addVineta(Vineta v){
+		this.vinetas_subidas.add(v);
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", passwordHash=" + passwordHash + ", email=" + email
+				+ ", AvatarURL=" + AvatarURL + ", vinetas_subidas=" + vinetas_subidas + ", seguidores=" + seguidores
+				+ ", comentarios=" + comentarios + ", roles=" + roles + ", vinetas_favoritas=" + vinetas_favoritas
+				+ ", vinetas_gustadas=" + vinetas_gustadas + ", vinetas_odiadas=" + vinetas_odiadas + "]";
 	}
 	
 	

@@ -179,5 +179,37 @@ public class Vineta {
 	public void dislike(){
 		this.dislikes++;
 	}
+
+	public List<User> getUsers_fav() {
+		return users_fav;
+	}
+
+	public void setUsers_fav(List<User> users_fav) {
+		this.users_fav = users_fav;
+	}
+
+	public List<User> getUsers_likes() {
+		return users_likes;
+	}
+
+	public void setUsers_likes(List<User> users_likes) {
+		this.users_likes = users_likes;
+	}
+
+	public List<User> getUsers_dislikes() {
+		return users_dislikes;
+	}
+
+	public void setUsers_dislikes(List<User> users_dislikes) {
+		this.users_dislikes = users_dislikes;
+	}
+
+	@Override
+	public String toString() {
+		return "Vineta [id=" + id + ", titulo=" + titulo + ", creationdate=" + creationdate + ", URL=" + URL
+				+ ", likes=" + likes + ", dislikes=" + dislikes + ", descripcion=" + descripcion + ", autor=" + autor
+				+ ", comentarios=" + comentarios + ", tags=" + tags + ", users_fav=" + users_fav + ", users_likes="
+				+ users_likes + ", users_dislikes=" + users_dislikes + "]";
+	}
 	
 }
