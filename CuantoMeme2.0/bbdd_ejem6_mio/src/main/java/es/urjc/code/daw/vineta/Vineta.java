@@ -60,6 +60,18 @@ public class Vineta {
 	@ManyToOne
 	private Tag tags = null;
 	
+	@JsonView(UserAtt.class)
+	@ManyToMany(mappedBy="vinetas_favoritas")
+	private List<User> users_fav = new ArrayList<>();
+	
+	@JsonView(UserAtt.class)
+	@ManyToMany(mappedBy="vinetas_gustadas")
+	private List<User> users_likes = new ArrayList<>();
+	
+	@JsonView(UserAtt.class)
+	@ManyToMany(mappedBy="vinetas_odiadas")
+	private List<User> users_dislikes = new ArrayList<>();
+	
 	protected Vineta(){}
 	
 	public Vineta(String titulo, String descripcion, String URL){
@@ -70,6 +82,16 @@ public class Vineta {
 		this.URL = URL;
 		this.creationdate = new Date();
 	}
+
+	
+	public Date getCreationdate() {
+		return creationdate;
+	}
+
+	public void setCreationdate(Date creationdate) {
+		this.creationdate = creationdate;
+	}
+
 
 	public String getTitulo() {
 		return titulo;
@@ -157,4 +179,37 @@ public class Vineta {
 	public void dislike(){
 		this.dislikes++;
 	}
+
+	public List<User> getUsers_fav() {
+		return users_fav;
+	}
+
+	public void setUsers_fav(List<User> users_fav) {
+		this.users_fav = users_fav;
+	}
+
+	public List<User> getUsers_likes() {
+		return users_likes;
+	}
+
+	public void setUsers_likes(List<User> users_likes) {
+		this.users_likes = users_likes;
+	}
+
+	public List<User> getUsers_dislikes() {
+		return users_dislikes;
+	}
+
+	public void setUsers_dislikes(List<User> users_dislikes) {
+		this.users_dislikes = users_dislikes;
+	}
+
+	@Override
+	public String toString() {
+		return "Vineta [id=" + id + ", titulo=" + titulo + ", creationdate=" + creationdate + ", URL=" + URL
+				+ ", likes=" + likes + ", dislikes=" + dislikes + ", descripcion=" + descripcion + ", autor=" + autor
+				+ ", comentarios=" + comentarios + ", tags=" + tags + ", users_fav=" + users_fav + ", users_likes="
+				+ users_likes + ", users_dislikes=" + users_dislikes + "]";
+	}
+	
 }

@@ -1,5 +1,6 @@
 package es.urjc.code.daw;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -24,7 +25,7 @@ import es.urjc.code.daw.vineta.*;
 public class CMControler {
 	
 	interface VinetaView extends Vineta.BasicAtt, Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
-	interface UserView extends User.BasicAtt, User.VinetaAtt, User.ComentarioAtt, Comentario.BasicAtt{}
+	interface UserView extends User.BasicAtt, User.VinetaAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt{}
 	interface ComentarioView extends Comentario.BasicAtt, Comentario.UserAtt, User.BasicAtt, Comentario.VinetaAtt, Vineta.BasicAtt{}
 	interface TagView extends Tag.BasicAtt {}
 	
@@ -40,14 +41,27 @@ public class CMControler {
 	@Autowired
 	private TagRepository tagrepository;
 	
+
 	@PostConstruct
 	public void init(){
-		
+		/*
 		User usuario1 = new User("joaquin", "joa", "cuantomeme1@gmail.com");
-		User usuario2 = new User("paco", "paquito", "cuantomeme2@gmail.com");
+		Vineta v1 = new Vineta("vineta1", "des1", "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
+		v1.setAutor(usuario1);
+		this.userrepository.save(usuario1);
+		this.vinetarepository.save(v1);
 		
+		
+		
+			
+		}*/
+		
+
+		/*
 		Vineta v1 = new Vineta("vineta1", "des1", "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
 		Vineta v2 = new Vineta("vineta2", "des2", "http://www.leragecomics.com/wp-content/uploads/2011/04/VzxVF-640x546.png");
+		
+		
 		
 		v1.setAutor(usuario1);
 		v2.setAutor(usuario2);
@@ -76,7 +90,7 @@ public class CMControler {
 		Comentario c1 = new Comentario("mi primer comentario");
 		c1.setAutor_comentario(usuario1);
 		c1.setVineta(v1);
-		this.comentariorepository.save(c1);
+		this.comentariorepository.save(c1);*/
 	}
 
 	
@@ -90,8 +104,8 @@ public class CMControler {
 	public List<Vineta> getvinetas(){
 		return this.vinetarepository.findAll();
 	}
-
-	@JsonView(UserView.class)
+	
+	@JsonView(User.BasicAtt.class)
 	@RequestMapping("/api/usuarios/")
 	public List<User> getusuarios(){
 		return this.userrepository.findAll();

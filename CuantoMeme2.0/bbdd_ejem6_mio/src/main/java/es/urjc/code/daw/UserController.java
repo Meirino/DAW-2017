@@ -1,6 +1,9 @@
 package es.urjc.code.daw;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -43,10 +46,15 @@ public class UserController {
 	
 	@Autowired
 	private UserComponent userComponent;
-
+	
+	private List<User> users_generated = new ArrayList<>();
+	private List<Vineta> vinetas_generated = new ArrayList<>();
+	private List<Tag> tags_generated = new ArrayList<>();
+	private List<Comentario> comentarios_generated = new ArrayList<>();
+	
+	
 	@PostConstruct
 	public void init(){
-		
 		User usuario3 = new User("pepe", "pepito", "cuantomeme3@gmail.com", "ROLE_USER");
 		User usuario4 = new User("jose", "josito", "cuantomeme4@gmail.com", "ROLE_USER");
 		
