@@ -52,93 +52,10 @@ public class UserController {
 	private List<Tag> tags_generated = new ArrayList<>();
 	private List<Comentario> comentarios_generated = new ArrayList<>();
 	
-	static final int NUSERS = 10;
-	static final int NTAGS = 10;
-	static final int NVINETAS = 40;
-	static final int NCOMENTARIOS = 30;
+	
 	@PostConstruct
 	public void init(){
-		for(int i= 0; i<NUSERS; i++){
-			User u = new User("usuario_"+i, "usuario_"+i, "cuantomeme"+i+"@gmail.com", "ROLE_USER");
-			this.users_generated.add(u);
-			//this.userrepository.save(u);
-		}
-		for(int i= 0; i<NVINETAS; i++){
-			Vineta v = new Vineta("vineta"+i, "des"+i, "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
-			this.vinetas_generated.add(v);
-			//this.vinetarepository.save(v);
-		}
-		for(int i= 0; i<NTAGS; i++){
-			Tag t = new Tag("Lol"+i);
-			this.tags_generated.add(t);
-			//this.tagrepository.save(t);
-		}
-		for(int i= 0; i<NCOMENTARIOS; i++){
-			Comentario c = new Comentario("El comentario "+i);
-			this.comentarios_generated.add(c);
-			//this.comentariorepository.save(c);
-		}
-		//Metiendo likes de forma aleatoria
-		for (Vineta v: this.vinetas_generated.subList(0, 19)){
-			/*Forma de guardar un many to many.
-			1. Se fuarda el secundario
-			2. Al primario se añade el secundario
-			3. Se guarda el primario
-			*/
-			this.vinetarepository.save(v);
-			int id_user = (int) (Math.random() * NUSERS);
-			User user = this.users_generated.get(id_user);
-			user.getVinetas_gustadas().add(v);
-			this.userrepository.save(user);
-			
-		}
-		/*Mismo metodo para dislike. Hay que ver porque mete mas de la cuenta, ya que en total
-		 * vinetasodiadas+ vinetasgustadas debe ser 40*/
-		/*
-		for (Vineta v: this.vinetas_generated.subList(19, NVINETAS)){
-			
-			this.vinetarepository.save(v);
-			int id_user = (int) (Math.random() * NUSERS);
-			User user = this.users_generated.get(id_user);
-			user.getVinetas_odiadas().add(v);
-			this.userrepository.save(user);
-			
-		}*/
-		/*
-		User usuario3 = new User("pepe", "pepito", "cuantomeme3@gmail.com", "ROLE_USER");
-		User usuario4 = new User("jose", "josito", "cuantomeme4@gmail.com", "ROLE_USER");
-		
-		Vineta v3 = new Vineta("vineta3", "des3", "http://i2.kym-cdn.com/photos/images/facebook/000/125/918/RMUBQ.png");
-		Vineta v4 = new Vineta("vineta4", "des4", "http://i0.kym-cdn.com/photos/images/newsfeed/000/125/163/ragek.jpg?1318992465");
-		
-		v3.setAutor(usuario3);
-		v4.setAutor(usuario4);
-		
-		this.userrepository.save(usuario3);
-		this.userrepository.save(usuario4);
-		this.vinetarepository.save(v3);
-		this.vinetarepository.save(v4);
-		
-		Tag t4 = new Tag("Trolldad");
-		Tag t5 = new Tag("Inglip");
-		Tag t6 = new Tag("Yaoming");
-		
-		this.tagrepository.save(t4);
-		this.tagrepository.save(t5);
-		this.tagrepository.save(t6);
-		
-		v3.getTags().add(t4);
-		v3.getTags().add(t5);
-		v4.getTags().add(t4);
-		v4.getTags().add(t6);
-		
-		this.vinetarepository.save(v3);
-		this.vinetarepository.save(v4);
-		
-		Comentario c2 = new Comentario("pole");
-		c2.setAutor_comentario(usuario3);
-		c2.setVineta(v3);
-		this.comentariorepository.save(c2);*/
+
 	}
 	/*--------------------------Autenticacion--------------------------*/
 	@RequestMapping("/login")
