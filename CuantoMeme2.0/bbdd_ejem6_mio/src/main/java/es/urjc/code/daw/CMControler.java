@@ -7,9 +7,12 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -96,13 +99,24 @@ public class CMControler {
 	
 	@JsonView(VinetaView.class)
 	@RequestMapping("/api/vinetas/")
-	public Page<Vineta> getvinetas(Pageable page){
-		return this.vinetarepository.findAllByOrderByCreationdateDesc(page);
+	public Page<Vineta> getvinetas(@RequestParam int page, @RequestParam int size){
+		System.out.println(page);
+		System.out.println(size);
+	    Pageable pageable = new PageRequest(page, size) ;
+	    Page<Vineta> pageResult = this.vinetarepository.findAll(pageable);
+		//System.out.println(this.vinetarepository.findAll());
+		//System.out.println(this.vinetarepository.findAll(page));
+		return pageResult;
 	}
 	@JsonView(VinetaView.class)
 	@RequestMapping("/api/vinetas2/")
-	public List<Vineta> getvinetas(){
+	public List<Vineta> getvinetas2(){
 		return this.vinetarepository.findAll();
+	}
+	@JsonView(VinetaView.class)
+	@RequestMapping("/api/vinetas3/")
+	public Page<Vineta> getvinetas3(Pageable page){
+		return this.vinetarepository.findAll(page);
 	}
 	@JsonView(Vineta.BasicAtt.class)
 	@RequestMapping("/api/vineta/{id}")

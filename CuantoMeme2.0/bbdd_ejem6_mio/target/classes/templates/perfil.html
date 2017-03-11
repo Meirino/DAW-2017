@@ -46,7 +46,7 @@
                     <ul class="dropdown-menu">
                         <li> <a href="/home"><i class="fa fa-fw fa-user"></i> Profile</a> </li>
                         <li class="divider"></li>
-                        <li> </li>
+                        <li class="divider"></li>
                         <li>
                          <form action="/logout" method="post">
                           <input class="fa fa-fw fa-power-off" type="submit" value="Sign Out" />
@@ -58,19 +58,22 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li> <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> </li>
+                    <li> <a href="/"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Inicio</a> </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
-                            <li> <a href="#">Inglip</a> </li>
-                            <li> <a href="#">Yaoming</a> </li>
-                            <li> <a href="#">Es gratis</a> </li>
-                            <li> <a href="categoria.html">LOL</a> </li>
-                            <li> <a href="#">Feels</a> </li>
-                            <li> <a href="#">Feels bad man</a> </li>
-                            <li> <a href="#">Feels good man</a> </li>
+                        {{#tags_mas_usados}}
+                            <li> <a href="/tag/id">{{nombre}}</a> </li>
+                        {{/tags_mas_usados}}
                         </ul>
                     </li>
-                    <li> <a href=""><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Perfil</a></li>
+                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-home" aria-hidden="true"></i> Home <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo2" class="collapse">
+                            <li> <a href="/home">Mi perfil</a> </li>
+                            <li> <a href="/misfavoritos">Mis favoritos</a> </li>
+                            <li> <a href="/mislikes">Mis likes</a> </li>
+							<li> <a href="/misdislikes">Mis dislikes</a> </li>
+                        </ul>
+                    </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#busq"><i class="fa fa-search fa-1x" aria-hidden="true"></i> Busqueda <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="busq" class="collapse">
                             <li><form action="/busqueda">
@@ -145,7 +148,7 @@
                             <div class="container-fluid">
                                 <div class="col-md-12"> {{#usuario.viñetas}}
                                     <div class="jumbotron">
-                                        <p>Autor: <small><a href="#">{{autor.username}}</a></small></p>
+                                        <p>Autor: <small><a href="/perfil/{{autor.id}}">{{autor.username}}</a></small></p>
                                         <h1>{{titulo}}</h1> <img class="img-responsive" src="{{URL}}">
                                         <p>{{descripcion}}</p>
                                         <div id="categoria" class=""><small>Tags: {{#tags}} <a href="/tag/{{nombre}}">{{nombre}}</a> {{/tags}} </small></div>

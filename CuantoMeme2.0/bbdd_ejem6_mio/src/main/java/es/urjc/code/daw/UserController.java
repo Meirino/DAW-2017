@@ -118,7 +118,7 @@ public class UserController {
 		return "signup";
 	}
 	@RequestMapping("/home")
-	public String profile(Model model, HttpServletRequest request) {
+	public String home(Model model, HttpServletRequest request) {
 		//Sistema de ""Recomendación""
 		//Creo un número aleatorio entre 0 y el número de viñetas que existen
 		Random randomGenerator = new Random();
@@ -134,6 +134,56 @@ public class UserController {
 		model.addAttribute("recomendados", this.vinetarepository.findOne((long) randomInt));
 		return "perfil";
 	}
+	@RequestMapping("/misfavoritos")
+	public String misfavoritos(Model model, HttpServletRequest request) {
+		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		model.addAttribute("mensaje", "Tus viñetas mas favoritas!");
+		if (userComponent.isLoggedUser()){
+			Principal p = request.getUserPrincipal();
+	    	User usuario = userrepository.findByUsername(p.getName());
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("vinetas", usuario.getVinetas_favoritas() );
+			model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+		}
+		else{
+			return "redirect:/login";
+		}
+
+		return "index";
+	}
+	
+	@RequestMapping("/mislikes")
+	public String mislikes(Model model, HttpServletRequest request) {
+		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		model.addAttribute("mensaje", "Las vinetas que mas te gustan");
+		if (userComponent.isLoggedUser()){
+			Principal p = request.getUserPrincipal();
+	    	User usuario = userrepository.findByUsername(p.getName());
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("vinetas", usuario.getVinetas_gustadas());
+			model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+		}
+		else{
+			return "redirect:/login";
+		}
+		return "index";
+	}
+	@RequestMapping("/misdislikes")
+	public String misdislikes(Model model, HttpServletRequest request) {
+		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		model.addAttribute("mensaje", "Las vinetas que mas odias");
+		if (userComponent.isLoggedUser()){
+			Principal p = request.getUserPrincipal();
+	    	User usuario = userrepository.findByUsername(p.getName());
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("vinetas", usuario.getVinetas_odiadas());
+			model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+		}
+		else{
+			return "redirect:/login";
+		}
+		return "index";
+	}
 	
 	@RequestMapping(value = "/signupuser", method = RequestMethod.POST)
 	public String login(Model model, HttpSession sesion, @RequestParam String username, @RequestParam String password, @RequestParam String email ) {
@@ -147,15 +197,6 @@ public class UserController {
 		  User usuario = this.userrepository.findOne(id);
 		  model.addAttribute("usuario", usuario);
 		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
-		  /*
-		  if (userComponent.isLoggedUser()){
-			  Principal p = request.getUserPrincipal();
-		      User user = userrepository.findByUsername(p.getName());
-		      model.addAttribute("usuario_logged", user);
-		  }else{
-			  model.addAttribute("usuario_logged", new User("por defecto", "pass", "asd", "Role_User"));
-		  }
-		   */
 		  model.addAttribute("owner",false);
 		  
 		return "perfil";
@@ -185,27 +226,31 @@ public class UserController {
 	public String detalles(Model model, @PathVariable long id) {
 		model.addAttribute("vineta", this.vinetarepository.findOne((long) id));
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
-		/*
-		if (userComponent.isLoggedUser()){
-			Principal p = request.getUserPrincipal();
-	    	User usuario = userrepository.findByUsername(p.getName());
-			model.addAttribute("usuario", usuario);
-		}*/
 		return "detalles";
 	}
 	
 	@RequestMapping(value = "/likevineta/{id}")
 	public String likeVineta(Model model, @PathVariable long id, HttpServletRequest request ) {
-		System.out.println("he entrado a dar like");
 		String page = this.requestCurrentPage(request);
+		boolean is_liked_before = false;
 		if (userComponent.isLoggedUser()){
 			  Principal p = request.getUserPrincipal();
 		      User user = userrepository.findByUsername(p.getName());
 		      Vineta v = vinetarepository.findOne(id);
-		      user.getVinetas_gustadas().add(v);
-		      v.like();
-		      this.vinetarepository.save(v);
-		      this.userrepository.save(user);
+		      
+		      for(User u2:v.getUsers_likes()){
+		    	  is_liked_before = (u2.getId()==user.getId());
+		    	  if (is_liked_before){
+		    		  break;
+		    	  }
+		      }
+		      if(!is_liked_before){
+			      user.getVinetas_gustadas().add(v);
+			      v.like();
+			      this.vinetarepository.save(v);
+			      this.userrepository.save(user);
+		      }
+
 		      return "redirect:"+page;
 			
 		}else{
@@ -215,17 +260,28 @@ public class UserController {
 	
 	@RequestMapping(value = "/dislikevineta/{id}")
 	public String dislikeVineta(Model model, @PathVariable long id, HttpServletRequest request) {
-		System.out.println("he entrado a dar dislike");
 		String page = this.requestCurrentPage(request);
+		boolean is_disliked_before = false;
 		if (userComponent.isLoggedUser()){
 			  Principal p = request.getUserPrincipal();
 		      User user = userrepository.findByUsername(p.getName());
 		      Vineta v = vinetarepository.findOne(id);
-		      user.getVinetas_odiadas().add(v);
-		      v.dislike();
-		      this.vinetarepository.save(v);
-		      this.userrepository.save(user);
-		      return "redirect:"+page;			
+		      
+		      for(User u2:v.getUsers_dislikes()){
+		    	  is_disliked_before = (u2.getId()==user.getId());
+		    	  if (is_disliked_before){
+		    		  break;
+		    	  }
+		      }
+		      if(!is_disliked_before){
+			      user.getVinetas_odiadas().add(v);
+			      v.dislike();
+			      this.vinetarepository.save(v);
+			      this.userrepository.save(user);
+		      }
+
+		      return "redirect:"+page;
+			
 		}else{
 			return "redirect:/login";
 		}
@@ -233,18 +289,26 @@ public class UserController {
 	
 	@RequestMapping(value = "/hacerfavorita/{id}")
 	public String hacerfavorita(Model model, @PathVariable long id, HttpServletRequest request) {
-		System.out.println("la hago favorita");
 		String page = this.requestCurrentPage(request);
-
+		boolean is_favorited_before = false;
 		if (userComponent.isLoggedUser()){
 			  Principal p = request.getUserPrincipal();
 		      User user = userrepository.findByUsername(p.getName());
 		      Vineta v = vinetarepository.findOne(id);
-		      user.getVinetas_favoritas().add(v);
-		      //v.like();
-		      //this.vinetarepository.save(v);
-		      this.userrepository.save(user);
-		      return "redirect:"+page;			
+		      for(User u2:v.getUsers_fav()){
+		    	  is_favorited_before = (u2.getId()==user.getId());
+		    	  if (is_favorited_before){
+		    		  break;
+		    	  }
+		      }
+		      if(!is_favorited_before){
+			      user.getVinetas_favoritas().add(v);
+			      this.vinetarepository.save(v);
+			      this.userrepository.save(user);
+		      }
+
+		      return "redirect:"+page;
+			
 		}else{
 			return "redirect:/login";
 		}
@@ -257,6 +321,7 @@ public class UserController {
 	@RequestMapping("/")
 	public String viñetas(Model model, HttpServletRequest request) {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		model.addAttribute("mensaje", "¡Bienvenido a CuantoMeme!");
 		if (userComponent.isLoggedUser()){
 			Principal p = request.getUserPrincipal();
 	    	User usuario = userrepository.findByUsername(p.getName());
