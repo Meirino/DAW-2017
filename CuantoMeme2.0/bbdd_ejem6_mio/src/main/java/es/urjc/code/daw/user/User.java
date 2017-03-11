@@ -60,6 +60,14 @@ public class User {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 	
+	public String getAvatarURL() {
+		return AvatarURL;
+	}
+
+	public void setAvatarURL(String avatarURL) {
+		AvatarURL = avatarURL;
+	}
+
 	public String getPasswordHash() {
 		return passwordHash;
 	}
@@ -82,6 +90,7 @@ public class User {
 		this.username = username;
 		this.passwordHash  = new BCryptPasswordEncoder().encode(password);
 		this.email = email;
+		this.AvatarURL = "https://gamersoutreach.org/files/brand-assets/avatar.jpg";
 		this.roles = new ArrayList<>(Arrays.asList(roles));
 	}
 

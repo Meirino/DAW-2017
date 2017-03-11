@@ -84,7 +84,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3 text-center"> <img width="150px" class="img-responsive avatar-sombra" src="https://gamersoutreach.org/files/brand-assets/avatar.jpg">
+                <div class="col-md-3 text-center"> <img width="150px" class="img-responsive avatar-sombra" src="{{usuario.AvatarURL}}">
                     <h2 class="">{{usuario.username}}</h2>
                     <p><i class="fa fa-envelope-o" aria-hidden="true"></i>{{usuario.email}}</p>
                 </div>
@@ -92,8 +92,13 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#favoritas">Viñetas favoritas</a></li>
                         <li><a data-toggle="tab" href="#publicadas">Viñetas publicadas</a></li>
+                        {{#owner}}
                         <li><a data-toggle="tab" href="#publicar">Publicar una viñeta</a></li>
+                        {{/owner}}
                         <li><a data-toggle="tab" href="#buscar">Buscar una viñeta</a></li>
+                        {{#owner}}
+                        <li><a data-toggle="tab" href="#avatar">Cambiar avatar</a></li>
+                        {{/owner}}
                     </ul>
                     <div class="tab-content">
                         <div id="favoritas" class="tab-pane fade">
@@ -151,35 +156,51 @@
                                     </div> {{/usuario.viñetas}}
                                     <!--<div class="col-md-3"></div>--></div>
                             </div>
-                            <div id="publicar" class="tab-pane fade">
-                                <br>
-                                <legend>¡Publica tu propia viñeta!</legend>
-                                <form action="action_page.php">
-                                    <label for="fname">Título</label>
-                                    <input type="text" id="fname" name="firstname">
-                                    <label for="lname">Comentario</label>
-                                    <input type="text" id="lname" name="lastname">
-                                    <label for="country">Tags</label>
-                                    <input type="text" id="tags" name="tags">
-                                    <label>Archivo</label>
-                                    <input type="file">
-                                    <input type="submit" value="Submit"> </form>
-                            </div>
-                            <div id="buscar" class="tab-pane fade">
-                                <h2>Búsqueda</h2>
-                                <div>
-                                    <div class="input-group col-md-12">
-                                        <input type="text" class="form-control input-lg" placeholder="¿Qué viñeta quieres buscar?" />
-                                        <select>
-                                            <option value="titulo">Buscar por título</option>
-                                            <option value="autor">Buscar por autor</option>
-                                            <option value="tags">Buscar por tags</option>
-                                        </select>
-                                        <button type="submit" class="btn btn-info btn-lg">Buscar</button>
-                                    </div>
+                        </div>
+                        {{#owner}} 
+                        <div id="publicar" class="tab-pane fade">
+                            <br>
+                            <legend>¡Publica tu propia viñeta!</legend>
+                            <form action="/subida" method="post" enctype="multipart/form-data">
+                                <input type="hidden" value="9999" name="id">
+                                <label for="fname">Título</label>
+                                <input type="text" id="fname" name="titulo">
+                                <label for="lname">Comentario</label>
+                                <input type="text" id="lname" name="desc">
+                                <label for="country">Tags</label>
+                                <input type="text" id="tags" name="tags">
+                                <label>Archivo</label>
+                                <input type="file" name="file">
+                                <input type="submit" value="Submit">
+                                <input type="hidden" name="_csrf" value="{{token}}">
+                                </form> 
+                        </div>
+                        {{/owner}}
+                        <div id="buscar" class="tab-pane fade">
+                            <h2>Búsqueda</h2>
+                            <div>
+                                <div class="input-group col-md-12">
+                                    <input type="text" class="form-control input-lg" placeholder="¿Qué viñeta quieres buscar?" />
+                                    <select>
+                                        <option value="titulo">Buscar por título</option>
+                                        <option value="autor">Buscar por autor</option>
+                                        <option value="tags">Buscar por tags</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-info btn-lg">Buscar</button>
                                 </div>
                             </div>
                         </div>
+                        {{#owner}}
+                        <div id="avatar" class="tab-pane fade">
+                           <h2>Cambiar avatar</h2>
+                            <form action="/subidaAvatar" method="post" enctype="multipart/form-data">
+                                <label>Avatar (No más de 1mb): </label>
+                                <input type="file" name="file">
+                                <input type="submit" value="Submit">
+                                <input type="hidden" name="_csrf" value="{{token}}">
+                            </form>
+                        </div>
+                        {{/owner}}
                     </div>
                 </div>
                 <!-- /.row -->

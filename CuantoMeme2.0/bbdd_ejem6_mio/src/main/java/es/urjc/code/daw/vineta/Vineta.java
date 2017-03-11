@@ -57,8 +57,8 @@ public class Vineta {
 	private List<Comentario> comentarios = new ArrayList<>(); 
 	
 	@JsonView(TagAtt.class)
-	@ManyToMany
-	private List<Tag> tags = new ArrayList<>();
+	@ManyToOne
+	private Tag tags = null;
 	
 	protected Vineta(){}
 	
@@ -103,11 +103,11 @@ public class Vineta {
 		this.comentarios = comentarios;
 	}
 
-	public List<Tag> getTags() {
+	public Tag getTags() {
 		return tags;
 	}
 
-	public void setTags(List<Tag> tags) {
+	public void setTags(Tag tags) {
 		this.tags = tags;
 	}
 

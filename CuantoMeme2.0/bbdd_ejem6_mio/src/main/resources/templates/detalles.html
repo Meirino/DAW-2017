@@ -115,10 +115,10 @@
                                     <legend>Autor</legend>
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-md-2">
+                                            <div class="col-md-4">
                                                 <button class="btn autor"><a href="/perfil/{{vineta.autor.id}}">
                                                     <div id="autor" class="card text-center"> 
-                                                        <img id="avatarAutor" class="card-img-top img-responsive img-center" src="https://gamersoutreach.org/files/brand-assets/avatar.jpg">
+                                                        <img id="avatarAutor" class="card-img-top img-responsive img-center avatar" src="{{vineta.autor.AvatarURL}}">
                                                         <div class="card-block">
                                                             <h3 class="card-title">{{vineta.autor.username}}</h3>
                                                         </div>
@@ -174,7 +174,7 @@
                                         <div id="comentario" class="contauner-fluid">
                                             <div class="row">
                                                 <div class="col-md-1">
-                                                    <a href="#"><img class="avatar" src="https://gamersoutreach.org/files/brand-assets/avatar.jpg" height="65px" width="65px"></a>
+                                                    <a href="#"><img class="avatar avatarUsuario" src="{{autor_comentario.AvatarURL}}" height="75px" width="75px"></a>
                                                 </div>
                                                 <div class="col-md-11">
                                                     <small>{{autor_comentario.username}}</small>

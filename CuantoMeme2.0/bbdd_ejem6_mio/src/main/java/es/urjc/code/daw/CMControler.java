@@ -65,10 +65,10 @@ public class CMControler {
 		this.tagrepository.save(t2);
 		this.tagrepository.save(t3);
 		
-		v1.getTags().add(t1);
-		v1.getTags().add(t2);
-		v2.getTags().add(t1);
-		v2.getTags().add(t3);
+		v1.setTags(t1);
+		v1.setTags(t2);
+		v2.setTags(t1);
+		v2.setTags(t3);
 		
 		this.vinetarepository.save(v1);
 		this.vinetarepository.save(v2);
@@ -91,8 +91,6 @@ public class CMControler {
 		return this.vinetarepository.findAll();
 	}
 
-	
-	
 	@JsonView(UserView.class)
 	@RequestMapping("/api/usuarios/")
 	public List<User> getusuarios(){
@@ -121,5 +119,11 @@ public class CMControler {
 	@RequestMapping("/api/tags/")
 	public List<Tag> getTags(){
 		return this.tagrepository.findAll();
+	}
+	
+	@JsonView(TagView.class)
+	@RequestMapping("/api/tags/{nombre}")
+	public Tag getTagsByName(@PathVariable String nombre){
+		return this.tagrepository.findByNombre(nombre);
 	}
 }

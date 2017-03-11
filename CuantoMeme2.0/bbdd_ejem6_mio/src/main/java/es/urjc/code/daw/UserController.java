@@ -69,10 +69,10 @@ public class UserController {
 		this.tagrepository.save(t5);
 		this.tagrepository.save(t6);
 		
-		v3.getTags().add(t4);
-		v3.getTags().add(t5);
-		v4.getTags().add(t4);
-		v4.getTags().add(t6);
+		v3.setTags(t4);
+		v3.setTags(t5);
+		v4.setTags(t4);
+		v4.setTags(t6);
 		
 		this.vinetarepository.save(v3);
 		this.vinetarepository.save(v4);
@@ -108,6 +108,7 @@ public class UserController {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		//model.addAttribute("usuario_logged", user);    
 		model.addAttribute("usuario", user);
+		model.addAttribute("owner",true);
 		return "perfil";
 	}
 	
@@ -132,6 +133,7 @@ public class UserController {
 			  model.addAttribute("usuario_logged", new User("por defecto", "pass", "asd", "Role_User"));
 		  }
 		   */
+		  model.addAttribute("owner",false);
 		  
 		return "perfil";
 	}

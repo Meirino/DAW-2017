@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import es.urjc.code.daw.vineta.Vineta;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -25,7 +26,7 @@ public class Tag {
 	@JsonView(BasicAtt.class)
 	private String nombre;
 	
-	@ManyToMany(mappedBy="tags")
+	@OneToMany(mappedBy="tags")
 	private List<Vineta> vinetas = new ArrayList<>();
 	
 	protected Tag(){}
