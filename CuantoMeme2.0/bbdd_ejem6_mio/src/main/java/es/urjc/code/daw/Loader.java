@@ -1,4 +1,4 @@
-package es.urjc.code.daw;
+/*package es.urjc.code.daw;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class Loader {
 			2. Al primario se añade el secundario
 			3. Se guarda el primario
 			*/
-			this.vinetarepository.save(v);
+/*			this.vinetarepository.save(v);
 			int id_user = (int) (Math.random() * NUSERS);
 			User user = this.users_generated.get(id_user);
 			user.getVinetas_odiadas().add(v);
@@ -98,20 +98,20 @@ public class Loader {
 			2. Al primario se añade el secundario
 			3. Se guarda el primario
 			*/
-			this.vinetarepository.save(v);
+/*			this.vinetarepository.save(v);
 			int id_user = (int) (Math.random() * NUSERS);
 			User user = this.users_generated.get(id_user);
 			user.getVinetas_gustadas().add(v);
 			this.userrepository.save(user);
 			
-		}
+/*		}
 		for (Vineta v: this.vinetas_generated.subList(26,40)){
 			/*Forma de guardar un many to many.
 			1. Se fuarda el secundario
 			2. Al primario se añade el secundario
 			3. Se guarda el primario
 			*/
-			this.vinetarepository.save(v);
+/*			this.vinetarepository.save(v);
 			int id_user = (int) (Math.random() * NUSERS);
 			User user = this.users_generated.get(id_user);
 			user.getVinetas_favoritas().add(v);
@@ -120,5 +120,4 @@ public class Loader {
 		}
 
 	}
-}
-
+}*/

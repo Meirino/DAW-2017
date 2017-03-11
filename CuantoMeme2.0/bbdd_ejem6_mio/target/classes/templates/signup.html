@@ -1,0 +1,15 @@
+<html>
+
+<body>
+    <form action="/signupuser" method="post">
+        <p>Username</p>
+        <input type='text' name='username' />
+        <p>Password</p>
+        <input type='password' name='password' />
+        <p>Email</p>
+        <input type="email" name="email">
+        <input type='submit' value='Registrarse' />
+        <input type="hidden" name="_csrf" value="{{token}}" /> </form>
+</body>
+
+</html>
