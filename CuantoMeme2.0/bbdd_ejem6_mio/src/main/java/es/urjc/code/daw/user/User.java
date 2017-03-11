@@ -46,7 +46,7 @@ public class User {
 	private String AvatarURL;
 	
 	@JsonView(VinetaAtt.class)	
-	@OneToMany(mappedBy="autor")//, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="autor", cascade=CascadeType.ALL)//, cascade=CascadeType.ALL)
 	private List<Vineta> vinetas_subidas = new ArrayList<>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
@@ -81,6 +81,7 @@ public class User {
 		this.passwordHash  = new BCryptPasswordEncoder().encode(password);
 		this.email = email;
 		this.roles = new ArrayList<>(Arrays.asList(roles));
+		this.AvatarURL = "http://blog.davidbyrnedesign.com/wp-content/uploads/2015/04/twitter-avatar.jpg";
 	}
 	
 	public String getAvatarURL() {

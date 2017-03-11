@@ -1,4 +1,4 @@
-/*package es.urjc.code.daw;
+package es.urjc.code.daw;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class Loader {
 	private List<Tag> tags_generated = new ArrayList<>();
 	private List<Comentario> comentarios_generated = new ArrayList<>();
 	
-	static final int NUSERS = 5;
+	static final int NUSERS = 10;
 	static final int NTAGS = 10;
 	static final int NVINETAS = 40;
 	static final int NCOMENTARIOS = 30;
@@ -78,14 +78,38 @@ public class Loader {
 			this.comentarios_generated.add(c);
 			//this.comentariorepository.save(c);
 		}
+		for (Vineta v: this.vinetas_generated){
+			/*Subida a 1:N
+			 * Se guarda el secundario
+			 * al primario se le asocia el secndario
+			 * se guarda el primario
+			 * */
+			//Esta te sube todo bien a la bd pero algo falla en la api
+			int id_user = (int) (Math.random() * NUSERS);
+			User user = this.users_generated.get(id_user);
+			v.setAutor(user);
+			//user.addVineta(v);
+			this.userrepository.save(user);
+			this.vinetarepository.save(v);
+			/*
+			 * Con esto salen las vinetas subidas en la api pero algo va mal y en la tabla vinetas
+			 * salen mas entrasd con vinetas duplicadas
+			int id_user = (int) (Math.random() * NUSERS);
+			User user = this.users_generated.get(id_user);
+			v.setAutor(user);
+			user.addVineta(v);
+			this.userrepository.save(user);*/
+		}
+		
+		/*
 		//Metiendo likes de forma aleatoria
 		for (Vineta v: this.vinetas_generated.subList(0, 13)){
-			/*Forma de guardar un many to many.
+			Forma de guardar un many to many.
 			1. Se fuarda el secundario
 			2. Al primario se añade el secundario
 			3. Se guarda el primario
-			*/
-/*			this.vinetarepository.save(v);
+			
+			this.vinetarepository.save(v);
 			int id_user = (int) (Math.random() * NUSERS);
 			User user = this.users_generated.get(id_user);
 			user.getVinetas_odiadas().add(v);
@@ -93,31 +117,23 @@ public class Loader {
 			
 		}
 		for (Vineta v: this.vinetas_generated.subList(13,26)){
-			/*Forma de guardar un many to many.
-			1. Se fuarda el secundario
-			2. Al primario se añade el secundario
-			3. Se guarda el primario
-			*/
-/*			this.vinetarepository.save(v);
+
+			this.vinetarepository.save(v);
 			int id_user = (int) (Math.random() * NUSERS);
 			User user = this.users_generated.get(id_user);
 			user.getVinetas_gustadas().add(v);
 			this.userrepository.save(user);
 			
-/*		}
+		}
 		for (Vineta v: this.vinetas_generated.subList(26,40)){
-			/*Forma de guardar un many to many.
-			1. Se fuarda el secundario
-			2. Al primario se añade el secundario
-			3. Se guarda el primario
-			*/
-/*			this.vinetarepository.save(v);
+
+			this.vinetarepository.save(v);
 			int id_user = (int) (Math.random() * NUSERS);
 			User user = this.users_generated.get(id_user);
 			user.getVinetas_favoritas().add(v);
 			this.userrepository.save(user);
 			
-		}
+		}*/
 
 	}
-}*/
+}

@@ -104,6 +104,11 @@ public class CMControler {
 	public List<Vineta> getvinetas(){
 		return this.vinetarepository.findAll();
 	}
+	@JsonView(Vineta.BasicAtt.class)
+	@RequestMapping("/api/vineta/{id}")
+	public Vineta getvineta(@PathVariable long id){
+		return this.vinetarepository.findOne(id);
+	}
 	
 	@JsonView(User.BasicAtt.class)
 	@RequestMapping("/api/usuarios/")
