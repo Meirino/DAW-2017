@@ -31,60 +31,52 @@
                 <a class="navbar-brand" href="index.html"></a>
             </div>
             <!-- Top Menu Items -->
-<ul class="nav navbar-right top-nav">
-             	{{#anonymous}}
-	           	<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Identificate <b class="caret"></b></a>
+            <ul class="nav navbar-right top-nav"> {{#anonymous}}
+                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Identificate <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a href="/login.html"><i class="fa fa-sign-in"></i> Log in </a>
-                        </li>
-
+                        <li> <a href="/login.html"><i class="fa fa-sign-in"></i> Log in </a> </li>
                         <li class="divider"></li>
+                        <li> <a href="/signup.html"><i class="fa fa-sign-in"></i> Sign up</a> </li>
+                    </ul>
+                </li> {{/anonymous}} {{^anonymous}}
+                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Mi perfil<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li> <a href="/home"><i class="fa fa-fw fa-user"></i> Profile</a> </li>
+                        <li class="divider"></li>
+                        <li> </li>
                         <li>
-                            <a href="/signup.html"><i class="fa fa-sign-in"></i> Sign up</a>
+                         <form action="/logout" method="post">
+                          <input class="fa fa-fw fa-power-off" type="submit" value="Sign Out" />
+                          <input type="hidden" name="_csrf" value="{{token}}"/>
+       </form>
                         </li>
                     </ul>
-                </li>
-                {{/anonymous}}
-                {{^anonymous}}
-           	     <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Mi perfil<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="/home"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-
-                        <li class="divider"></li>
-                        <li>
-                            
-                        </li>
-                         <li>             
-                        	<form action="/logout" method="post">
-                        		<input class="fa fa-fw fa-power-off" type="submit" value="Sign Out" />
-                        		<input type="hidden" name="_csrf" value="{{token}}"/>
-							</form>
-						</li>
-                    </ul>
-                </li>
-                {{/anonymous}}
-            </ul>
+                </li> {{/anonymous}} </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li> <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
-                            <li> <a href="/tag/inglip">Inglip</a> </li>
-                            <li> <a href="/tag/yaoming">Yaoming</a> </li>
-                            <li> <a href="/tag/esgratis">Es gratis</a> </li>
-                            <li> <a href="/tag/LOL">LOL</a> </li>
-                            <li> <a href="/tag/feels">Feels</a> </li>
-                            <li> <a href="/tag/feelsbadman">Feels bad man</a> </li>
-                            <li> <a href="/tag/feelsgoodman">Feels good man</a> </li>
+                            <li> <a href="#">Inglip</a> </li>
+                            <li> <a href="#">Yaoming</a> </li>
+                            <li> <a href="#">Es gratis</a> </li>
+                            <li> <a href="categoria.html">LOL</a> </li>
+                            <li> <a href="#">Feels</a> </li>
+                            <li> <a href="#">Feels bad man</a> </li>
+                            <li> <a href="#">Feels good man</a> </li>
                         </ul>
                     </li>
-                    <li><a href="/perfil"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Perfil</a></li>
+                    <li> <a href=""><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Perfil</a></li>
+                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#busq"><i class="fa fa-search fa-1x" aria-hidden="true"></i> Busqueda <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="busq" class="collapse">
+                            <li><form action="/busqueda">
+                                <p style="color:white">Buscar por título:</p>
+                                <input class="input-sm" type="text" name="nombre">
+                                <button class="btn btn-sm" type="submit">Buscar</button>
+                            </form></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
