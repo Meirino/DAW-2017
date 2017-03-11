@@ -131,6 +131,7 @@ public class UserController {
 		//model.addAttribute("usuario_logged", user);    
 		model.addAttribute("usuario", user);
 		model.addAttribute("owner",true);
+		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		model.addAttribute("recomendados", this.vinetarepository.findOne((long) randomInt));
 		return "perfil";
 	}
@@ -198,7 +199,8 @@ public class UserController {
 		  model.addAttribute("usuario", usuario);
 		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		  model.addAttribute("owner",false);
-		  
+		  model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+
 		return "perfil";
 	}
 	/*------------------Comentarios--------------------------*/
@@ -226,6 +228,8 @@ public class UserController {
 	public String detalles(Model model, @PathVariable long id) {
 		model.addAttribute("vineta", this.vinetarepository.findOne((long) id));
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+
 		return "detalles";
 	}
 	
@@ -352,4 +356,13 @@ public class UserController {
 		return "index";
 	}
 
+	
+	@RequestMapping("/busqueda/")
+	public String busqueda(@RequestParam("busq") String text,@RequestParam("value") String campo){
+		/*
+		 * si value == titulo -> finbytitulo(text):
+		 * 
+		 * */
+		return "";
+	}
 }

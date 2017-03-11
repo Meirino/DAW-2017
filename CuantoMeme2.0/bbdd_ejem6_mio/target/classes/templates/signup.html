@@ -1,15 +1,46 @@
 <html>
 
+<head>
+    <!-- Bootstrap Core CSS -->
+    <link href="/css-based-on-template/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css-based-on-template/sb-admin.css" rel="stylesheet">
+    <link href="/css-based-on-template/navbar.css" rel="stylesheet" type="text/css">
+    <!-- Custom Fonts -->
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/css-based-on-template/perfil/dashboard.css" rel="stylesheet" type="text/css">
+    
+    <style>
+        background-color: "white";
+    </style>
+</head>
+
 <body>
-    <form action="/signupuser" method="post">
-        <p>Username</p>
-        <input type='text' name='username' />
-        <p>Password</p>
-        <input type='password' name='password' />
-        <p>Email</p>
-        <input type="email" name="email">
-        <input type='submit' value='Registrarse' />
-        <input type="hidden" name="_csrf" value="{{token}}" /> </form>
+    <div class="jumbotron">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <form class="text-centered" action="/signupuser" method="post">
+                            <p><legend>Nombre de usuario</legend></p>
+                            <input class="" type='text' name='username' />
+                            <p><legend>Contraseña</legend></p>
+                            <input type='password' name='password' />
+                            <p><legend>Correo</legend></p>
+                            <input type="email" name="email">
+                            <p></p>
+                            <input class="btn btn-block" type='submit' value='Registrarse' />
+                            <br>
+                            <a href="/"><button class="btn btn-block">Atrás</button></a>
+                            <input type="hidden" name="_csrf" value="{{token}}" />
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
