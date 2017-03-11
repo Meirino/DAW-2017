@@ -201,7 +201,7 @@ public class UserController {
 		  
 		return "perfil";
 	}
-	/*------------------Comentarios-------------------------*/
+	/*------------------Comentarios--------------------------*/
 	@RequestMapping(value = "/crearComentario/vineta/{id}", method = RequestMethod.POST)
 	public String crearComentario(Model model, HttpSession sesion,@PathVariable long id, @RequestParam String comentario, HttpServletRequest request ) {
 		System.out.println("he entrado a crear un comentario");
@@ -315,7 +315,6 @@ public class UserController {
 	}
 	
 	
-	
 	/*----------------------------s-------------------------*/
 	
 	@RequestMapping("/")
@@ -345,8 +344,6 @@ public class UserController {
 		model.addAttribute("lista", this.tagrepository.findByNombre(nombre).getVinetas());
 		return "tagIndex";
 	}
-	
-
 	
 	
 	@RequestMapping("/vinetas")
