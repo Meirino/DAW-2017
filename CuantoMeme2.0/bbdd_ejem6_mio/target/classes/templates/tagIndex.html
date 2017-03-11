@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Cuánto meme!</title>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link href="/css-based-on-template/sb-admin.css" rel="stylesheet">
+    <link href="/css-based-on-template/index/index.css" rel="stylesheet">
+    <link href="/css-based-on-template/navbar.css" rel="stylesheet" type="text/css">
+    <!-- Custom Fonts -->
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="/css-based-on-template/perfil/dashboard.css" rel="stylesheet" type="text/css">
+	 <link href="/css-based-on-template/perfil/perfil.css" rel="stylesheet" type="text/css">
+	
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <a class="navbar-brand" href="index.html"></a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav"> {{#anonymous}}
+                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Identificate <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li> <a href="/login.html"><i class="fa fa-sign-in"></i> Log in </a> </li>
+                        <li class="divider"></li>
+                        <li> <a href="/signup.html"><i class="fa fa-sign-in"></i> Sign up</a> </li>
+                    </ul>
+                </li> {{/anonymous}} {{^anonymous}}
+                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Mi perfil<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li> <a href="/home"><i class="fa fa-fw fa-user"></i> Profile</a> </li>
+                        <li class="divider"></li>
+                        <li class="divider"></li>
+                        <li>
+                         <form action="/logout" method="post">
+                          <input class="fa fa-fw fa-power-off" type="submit" value="Sign Out" />
+                          <input type="hidden" name="_csrf" value="{{token}}"/>
+       </form>
+                        </li>
+                    </ul>
+                </li> {{/anonymous}} </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li> <a href="/"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Inicio</a> </li>
+                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                        {{#tags_mas_usados}}
+                            <li> <a href="/tag/id">{{nombre}}</a> </li>
+                        {{/tags_mas_usados}}
+                        </ul>
+                    </li>
+                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-home" aria-hidden="true"></i> Home <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo2" class="collapse">
+                            <li> <a href="/home">Mi perfil</a> </li>
+                            <li> <a href="/misfavoritos">Mis favoritos</a> </li>
+                            <li> <a href="/mislikes">Mis likes</a> </li>
+							<li> <a href="/misdislikes">Mis dislikes</a> </li>
+                        </ul>
+                    </li>
+                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#busq"><i class="fa fa-search fa-1x" aria-hidden="true"></i> Busqueda <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="busq" class="collapse">
+                            <li><form action="/busqueda">
+                                <p style="color:white">Buscar por título:</p>
+                                <input class="input-sm" type="text" name="nombre">
+                                <button class="btn btn-sm" type="submit">Buscar</button>
+                            </form></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <h1>¡Bienvenido a CuantoMeme!</h1>
+                <hr>
+                <div class="container-fluid">
+                    <h3>Tag: {{tag.nombre}}</h3>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-9">
+                        {{#lista}}
+                        <div class="jumbotron">
+                            <p>Autor: <small><a href="/perfil/{{autor.id}}">{{autor.username}}</a></small></p>
+                            <h1>{{titulo}}</h1>
+                            <img class="img-responsive" src="{{URL}}">
+                            <p>{{descripcion}}</p>
+                            <div id="categoria" class=""><small>Categoria: <a href="/tag/{{tag}}">{{tag.nombre}}</a></small></div>
+                            <div id="social" class="row">
+                                <hr>
+                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                <a href="/vineta/{{id}}">
+                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">{{comentarios}}</span></button>
+                                </a>
+                                <button type="button" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                    <div class="badge">0</div>
+                                </button>
+                                <button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                    <div class="badge">0</div>
+                                </button>
+                                <br>
+                                <br> 
+                            </div>
+                        </div>
+                        {{/lista}}
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+
+</html>
