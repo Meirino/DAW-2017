@@ -81,6 +81,7 @@ public class User {
 		this.passwordHash  = new BCryptPasswordEncoder().encode(password);
 		this.email = email;
 		this.roles = new ArrayList<>(Arrays.asList(roles));
+		this.AvatarURL = "http://blog.davidbyrnedesign.com/wp-content/uploads/2015/04/twitter-avatar.jpg";
 	}
 	
 	public String getAvatarURL() {

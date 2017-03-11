@@ -98,11 +98,11 @@
                     <div class="col-md-9">
                         {{#lista}}
                         <div class="jumbotron">
-                            <p>Autor: <small><a href="#">{{autor.username}}</a></small></p>
+                            <p>Autor: <small><a href="/perfil/{{autor.id}}">{{autor.username}}</a></small></p>
                             <h1>{{titulo}}</h1>
                             <img class="img-responsive" src="{{URL}}">
                             <p>{{descripcion}}</p>
-                            <div id="categoria" class=""><small>Categoria: <a href="/tag/{{tag}}">{{tag.nombre}}</a></small></div>
+                            <div id="categoria" class=""><small>Categoria: <a href="/tag/{{tag.nombre}}">{{tag.nombre}}</a></small></div>
                             <div id="social" class="row">
                                 <hr>
                                 <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>

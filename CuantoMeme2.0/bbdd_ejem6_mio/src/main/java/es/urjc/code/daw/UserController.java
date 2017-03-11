@@ -110,6 +110,12 @@ public class UserController {
 	}
 	@RequestMapping("/home")
 	public String profile(Model model, HttpServletRequest request) {
+		
+		//Sistema de ""Recomendación""
+		//Creo un número aleatorio entre 0 y el número de viñetas que existen
+		Random randomGenerator = new Random();
+		int randomInt = randomGenerator.nextInt(this.vinetarepository.findAll().size())+1;
+		
 		Principal p = request.getUserPrincipal();
     	User user = userrepository.findByUsername(p.getName());
     	System.out.println(userComponent.isLoggedUser());
@@ -117,6 +123,7 @@ public class UserController {
 		//model.addAttribute("usuario_logged", user);    
 		model.addAttribute("usuario", user);
 		model.addAttribute("owner",true);
+		model.addAttribute("recomendados", this.vinetarepository.findOne((long) randomInt));
 		return "perfil";
 	}
 	

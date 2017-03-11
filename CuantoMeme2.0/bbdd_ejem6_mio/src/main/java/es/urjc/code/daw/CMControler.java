@@ -44,24 +44,15 @@ public class CMControler {
 
 	@PostConstruct
 	public void init(){
-		/*
 		User usuario1 = new User("joaquin", "joa", "cuantomeme1@gmail.com");
+		User usuario2 = new User("Raul", "raul94", "cuantomeme1@gmail.com");
+		
 		Vineta v1 = new Vineta("vineta1", "des1", "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
 		v1.setAutor(usuario1);
 		this.userrepository.save(usuario1);
 		this.vinetarepository.save(v1);
 		
-		
-		
-			
-		}*/
-		
-
-		/*
-		Vineta v1 = new Vineta("vineta1", "des1", "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
 		Vineta v2 = new Vineta("vineta2", "des2", "http://www.leragecomics.com/wp-content/uploads/2011/04/VzxVF-640x546.png");
-		
-		
 		
 		v1.setAutor(usuario1);
 		v2.setAutor(usuario2);
@@ -90,7 +81,7 @@ public class CMControler {
 		Comentario c1 = new Comentario("mi primer comentario");
 		c1.setAutor_comentario(usuario1);
 		c1.setVineta(v1);
-		this.comentariorepository.save(c1);*/
+		this.comentariorepository.save(c1);
 	}
 
 	
