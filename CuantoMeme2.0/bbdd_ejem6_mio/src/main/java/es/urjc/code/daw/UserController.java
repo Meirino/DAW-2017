@@ -1,8 +1,6 @@
 package es.urjc.code.daw;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
@@ -10,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,11 +42,7 @@ public class UserController {
 	
 	@Autowired
 	private UserComponent userComponent;
-	
-	private List<User> users_generated = new ArrayList<>();
-	private List<Vineta> vinetas_generated = new ArrayList<>();
-	private List<Tag> tags_generated = new ArrayList<>();
-	private List<Comentario> comentarios_generated = new ArrayList<>();
+
 	
 	
 	@PostConstruct
@@ -90,15 +82,9 @@ public class UserController {
 		c2.setVineta(v3);
 		this.comentariorepository.save(c2);
 	}
+	
 	/*--------------------------Autenticacion--------------------------*/
-	public String requestCurrentPage(HttpServletRequest request){
-	    String referrer = request.getHeader("Referer");
-	    if(referrer!=null){
-	        request.getSession().setAttribute("url_prior_login", referrer);
-	    }
-	    System.out.println(referrer);
-	    return referrer;
-	}
+
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request) {	
 		this.requestCurrentPage(request);
@@ -117,6 +103,24 @@ public class UserController {
 	public String signup() {		
 		return "signup";
 	}
+	
+	@RequestMapping(value = "/signupuser", method = RequestMethod.POST)
+	public String login(Model model, HttpSession sesion, @RequestParam String username, @RequestParam String password, @RequestParam String email ) {
+		User usuario = new User(username, password, email,"ROLE_USER" );
+		this.userrepository.save(usuario);
+		return "redirect:/";		
+	}
+
+	/*------------------------Usuario----------------------------------*/
+	public String requestCurrentPage(HttpServletRequest request){
+	    String referrer = request.getHeader("Referer");
+	    if(referrer!=null){
+	        request.getSession().setAttribute("url_prior_login", referrer);
+	    }
+	    System.out.println(referrer);
+	    return referrer;
+	}
+	
 	@RequestMapping("/home")
 	public String home(Model model, HttpServletRequest request) {
 		//Sistema de ""Recomendación""
@@ -139,59 +143,39 @@ public class UserController {
 	public String misfavoritos(Model model, HttpServletRequest request) {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "Tus viñetas mas favoritas!");
-		if (userComponent.isLoggedUser()){
-			Principal p = request.getUserPrincipal();
-	    	User usuario = userrepository.findByUsername(p.getName());
-			model.addAttribute("usuario", usuario);
-			model.addAttribute("vinetas", usuario.getVinetas_favoritas() );
-			model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
-		}
-		else{
-			return "redirect:/login";
-		}
-
+		Principal p = request.getUserPrincipal();
+    	User usuario = userrepository.findByUsername(p.getName());
+		model.addAttribute("usuario", usuario);
+		model.addAttribute("vinetas", usuario.getVinetas_favoritas() );
+		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "index";
+
 	}
 	
 	@RequestMapping("/mislikes")
 	public String mislikes(Model model, HttpServletRequest request) {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "Las vinetas que mas te gustan");
-		if (userComponent.isLoggedUser()){
-			Principal p = request.getUserPrincipal();
-	    	User usuario = userrepository.findByUsername(p.getName());
-			model.addAttribute("usuario", usuario);
-			model.addAttribute("vinetas", usuario.getVinetas_gustadas());
-			model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
-		}
-		else{
-			return "redirect:/login";
-		}
+		Principal p = request.getUserPrincipal();
+    	User usuario = userrepository.findByUsername(p.getName());
+		model.addAttribute("usuario", usuario);
+		model.addAttribute("vinetas", usuario.getVinetas_gustadas());
+		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "index";
 	}
+	
 	@RequestMapping("/misdislikes")
 	public String misdislikes(Model model, HttpServletRequest request) {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "Las vinetas que mas odias");
-		if (userComponent.isLoggedUser()){
-			Principal p = request.getUserPrincipal();
-	    	User usuario = userrepository.findByUsername(p.getName());
-			model.addAttribute("usuario", usuario);
-			model.addAttribute("vinetas", usuario.getVinetas_odiadas());
-			model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
-		}
-		else{
-			return "redirect:/login";
-		}
+		Principal p = request.getUserPrincipal();
+    	User usuario = userrepository.findByUsername(p.getName());
+		model.addAttribute("usuario", usuario);
+		model.addAttribute("vinetas", usuario.getVinetas_odiadas());
+		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "index";
 	}
 	
-	@RequestMapping(value = "/signupuser", method = RequestMethod.POST)
-	public String login(Model model, HttpSession sesion, @RequestParam String username, @RequestParam String password, @RequestParam String email ) {
-		User usuario = new User(username, password, email,"ROLE_USER" );
-		this.userrepository.save(usuario);
-		return "redirect:/";		
-	}
 
 	@RequestMapping("/perfil/{id}")
 	public String perfil(Model model, @PathVariable long id, HttpServletRequest request) {
@@ -206,24 +190,23 @@ public class UserController {
 	/*------------------Comentarios--------------------------*/
 	@RequestMapping(value = "/crearComentario/vineta/{id}", method = RequestMethod.POST)
 	public String crearComentario(Model model, HttpSession sesion,@PathVariable long id, @RequestParam String comentario, HttpServletRequest request ) {
-		System.out.println("he entrado a crear un comentario");
-		String page = this.requestCurrentPage(request);
-		if (userComponent.isLoggedUser()){
-			  Principal p = request.getUserPrincipal();
-		      User user = userrepository.findByUsername(p.getName());
-		      Comentario c = new Comentario(comentario);
-		      c.setAutor_comentario(user);
-		      c.setVineta(this.vinetarepository.findOne(id));
-		      this.comentariorepository.save(c);
-		      return "redirect:"+page;
-			
-		}else{
-			return "redirect:/login";
-		}
-
+		  String page = this.requestCurrentPage(request);  
+		  Principal p = request.getUserPrincipal();
+	      User user = userrepository.findByUsername(p.getName());
+	      Comentario c = new Comentario(comentario);
+	      c.setAutor_comentario(user);
+	      c.setVineta(this.vinetarepository.findOne(id));
+	      this.comentariorepository.save(c);
+	      return "redirect:"+page;
 	}
 	
 	/*------------------Vinetas-------------------------*/
+	@RequestMapping("/vinetas")
+	public String vinetas(Model model) {
+		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		return "index";
+	}
+	
 	@RequestMapping("/vineta/{id}")
 	public String detalles(Model model, @PathVariable long id) {
 		model.addAttribute("vineta", this.vinetarepository.findOne((long) id));
@@ -235,106 +218,69 @@ public class UserController {
 	
 	@RequestMapping(value = "/likevineta/{id}")
 	public String likeVineta(Model model, @PathVariable long id, HttpServletRequest request ) {
-		String page = this.requestCurrentPage(request);
-		boolean is_liked_before = false;
-		if (userComponent.isLoggedUser()){
-			  Principal p = request.getUserPrincipal();
-		      User user = userrepository.findByUsername(p.getName());
-		      Vineta v = vinetarepository.findOne(id);
-		      
-		      for(User u2:v.getUsers_likes()){
-		    	  is_liked_before = (u2.getId()==user.getId());
-		    	  if (is_liked_before){
-		    		  break;
-		    	  }
-		      }
-		      if(!is_liked_before){
-			      user.getVinetas_gustadas().add(v);
-			      v.like();
-			      this.vinetarepository.save(v);
-			      this.userrepository.save(user);
-		      }
-
-		      return "redirect:"+page;
-			
-		}else{
-			return "redirect:/login";
-		}
+		  String page = this.requestCurrentPage(request);
+		  boolean is_liked_before = false;
+		  Principal p = request.getUserPrincipal();
+	      User user = userrepository.findByUsername(p.getName());
+	      Vineta v = vinetarepository.findOne(id);      
+	      for(User u2:v.getUsers_likes()){
+	    	  is_liked_before = (u2.getId()==user.getId());
+	    	  if (is_liked_before){
+	    		  break;
+	    	  }
+	      }
+	      if(!is_liked_before){
+		      user.getVinetas_gustadas().add(v);
+		      v.like();
+		      this.vinetarepository.save(v);
+		      this.userrepository.save(user);
+	      }	      
+	      return "redirect:"+page;
 	}
 	
 	@RequestMapping(value = "/dislikevineta/{id}")
 	public String dislikeVineta(Model model, @PathVariable long id, HttpServletRequest request) {
 		String page = this.requestCurrentPage(request);
 		boolean is_disliked_before = false;
-		if (userComponent.isLoggedUser()){
-			  Principal p = request.getUserPrincipal();
-		      User user = userrepository.findByUsername(p.getName());
-		      Vineta v = vinetarepository.findOne(id);
-		      
-		      for(User u2:v.getUsers_dislikes()){
-		    	  is_disliked_before = (u2.getId()==user.getId());
-		    	  if (is_disliked_before){
-		    		  break;
-		    	  }
-		      }
-		      if(!is_disliked_before){
-			      user.getVinetas_odiadas().add(v);
-			      v.dislike();
-			      this.vinetarepository.save(v);
-			      this.userrepository.save(user);
-		      }
-
-		      return "redirect:"+page;
-			
-		}else{
-			return "redirect:/login";
-		}
+		Principal p = request.getUserPrincipal();
+        User user = userrepository.findByUsername(p.getName());
+        Vineta v = vinetarepository.findOne(id);
+		for(User u2:v.getUsers_dislikes()){
+		    is_disliked_before = (u2.getId()==user.getId());
+		   	if (is_disliked_before){
+		    	  break;
+		    }
+		  }
+		  if(!is_disliked_before){
+			 user.getVinetas_odiadas().add(v);
+	         v.dislike();
+   	         this.vinetarepository.save(v);
+		     this.userrepository.save(user);
+		   }
+		  return "redirect:"+page;
 	}
 	
 	@RequestMapping(value = "/hacerfavorita/{id}")
 	public String hacerfavorita(Model model, @PathVariable long id, HttpServletRequest request) {
 		String page = this.requestCurrentPage(request);
 		boolean is_favorited_before = false;
-		if (userComponent.isLoggedUser()){
-			  Principal p = request.getUserPrincipal();
-		      User user = userrepository.findByUsername(p.getName());
-		      Vineta v = vinetarepository.findOne(id);
-		      for(User u2:v.getUsers_fav()){
-		    	  is_favorited_before = (u2.getId()==user.getId());
-		    	  if (is_favorited_before){
-		    		  break;
-		    	  }
-		      }
-		      if(!is_favorited_before){
-			      user.getVinetas_favoritas().add(v);
-			      this.vinetarepository.save(v);
-			      this.userrepository.save(user);
-		      }
-
-		      return "redirect:"+page;
-			
-		}else{
-			return "redirect:/login";
-		}
+		Principal p = request.getUserPrincipal();
+	    User user = userrepository.findByUsername(p.getName());
+	    Vineta v = vinetarepository.findOne(id);
+	    for(User u2:v.getUsers_fav()){
+	  	  is_favorited_before = (u2.getId()==user.getId());
+	   	  if (is_favorited_before){
+	   		  break;
+    	}	      }
+	    if(!is_favorited_before){
+	      user.getVinetas_favoritas().add(v);
+	      this.vinetarepository.save(v);
+	      this.userrepository.save(user);
+	    }
+	    return "redirect:"+page;
 	}
 	
-	
-	/*----------------------------s-------------------------*/
-	
-	@RequestMapping("/")
-	public String viñetas(Model model, HttpServletRequest request) {
-		model.addAttribute("anonymous", !userComponent.isLoggedUser());
-		model.addAttribute("mensaje", "¡Bienvenido a CuantoMeme!");
-		if (userComponent.isLoggedUser()){
-			Principal p = request.getUserPrincipal();
-	    	User usuario = userrepository.findByUsername(p.getName());
-			model.addAttribute("usuario", usuario);
-		}
-		model.addAttribute("vinetas", this.vinetarepository.findAll());
-		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
-		return "index";
-	}
-
+	/*----------------------------Tags-------------------------*/
 	
 	@RequestMapping("/tag/{nombre}")
 	public String detalles(Model model, @PathVariable String nombre, HttpServletRequest request) {
@@ -350,14 +296,20 @@ public class UserController {
 
 		return "tagIndex";
 	}
-	
-	
-	@RequestMapping("/vinetas")
-	public String vinetas(Model model) {
+	/*----------------------------Global-------------------------*/
+	@RequestMapping("/")
+	public String viñetas(Model model, HttpServletRequest request) {
+		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		model.addAttribute("mensaje", "¡Bienvenido a CuantoMeme!");
+		if (userComponent.isLoggedUser()){
+			Principal p = request.getUserPrincipal();
+	    	User usuario = userrepository.findByUsername(p.getName());
+			model.addAttribute("usuario", usuario);
+		}
 		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "index";
 	}
-
 	
 	@RequestMapping(value = "/busqueda")
 	 public String search(@RequestParam("nombre") String texto, Model model) {
