@@ -1,4 +1,4 @@
-package es.urjc.code.daw;
+package es.urjc.code.daw.api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import es.urjc.code.daw.user.*;
 import es.urjc.code.daw.vineta.*;
 
 @RestController
-public class CMControler {
+public class CMRestControler {
 	
 	interface VinetaView extends Vineta.BasicAtt, Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
 	interface UserView extends User.BasicAtt, User.VinetaAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt{}
