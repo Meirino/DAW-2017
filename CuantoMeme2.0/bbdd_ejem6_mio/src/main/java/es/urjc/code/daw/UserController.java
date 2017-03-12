@@ -346,6 +346,8 @@ public class UserController {
 		}
 		model.addAttribute("tag",this.tagrepository.findByNombre(nombre));
 		model.addAttribute("lista", this.tagrepository.findByNombre(nombre).getVinetas());
+		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+
 		return "tagIndex";
 	}
 	
