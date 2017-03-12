@@ -359,12 +359,11 @@ public class UserController {
 	}
 
 	
-	@RequestMapping("/busqueda/")
-	public String busqueda(@RequestParam("busq") String text,@RequestParam("value") String campo){
-		/*
-		 * si value == titulo -> finbytitulo(text):
-		 * 
-		 * */
-		return "";
-	}
+	@RequestMapping(value = "/busqueda")
+	 public String search(@RequestParam("nombre") String texto, Model model) {
+	  model.addAttribute("txt",texto);
+	  model.addAttribute("lista",this.vinetarepository.findByTitulo(texto));
+	  model.addAttribute("resultados",this.vinetarepository.findByTitulo(texto).size());
+	  return "busqueda";
+	 }
 }

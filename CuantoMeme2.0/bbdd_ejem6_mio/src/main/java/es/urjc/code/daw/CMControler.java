@@ -159,4 +159,6 @@ public class CMControler {
 	public Tag getTagsByName(@PathVariable String nombre){
 		return this.tagrepository.findByNombre(nombre);
 	}
+	
+	
 }
