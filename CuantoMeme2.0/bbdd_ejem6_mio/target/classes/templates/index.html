@@ -73,11 +73,18 @@
                     </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#busq"><i class="fa fa-search fa-1x" aria-hidden="true"></i> Busqueda <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="busq" class="collapse">
-                            <li><form action="/busqueda">
-                                <p style="color:white">Buscar por título:</p>
-                                <input class="input-sm" type="text" name="nombre">
-                                <button class="btn btn-sm" type="submit">Buscar</button>
-                            </form></li>
+                            <li>
+                                <form action="/busqueda">
+                                    <p style="color:white">Buscar por título:</p>
+                                    <input class="input-sm" type="text" name="nombre">
+                                    <select name="modo">
+                                        <option value="titulo">Buscar por título</option>
+                                        <option value="autor">Buscar por autor</option>
+                                        <option value="tag">Buscar por tags</option>
+                                    </select>
+                                    <button class="btn btn-sm" type="submit">Buscar</button>
+                                </form>
+                            </li>
                         </ul>
                     </li>
                 </ul>
