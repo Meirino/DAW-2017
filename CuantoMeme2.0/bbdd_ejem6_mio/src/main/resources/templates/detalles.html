@@ -147,12 +147,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="container-fluid" id="nuevo_comentario_group">
+                            <div class="input-group">
                                 <legend>Comentar</legend>
-                                <!-- Añadir comentario -->
-                                <div class="input-group">
+                                <!-- Añadir comentario -->                              
                                 <form action="/crearComentario/vineta/{{id}}" method=post>
-                                    <input class="form-control" placeholder="¿Qué tienes que decir?" type="text" name="comentario"><input class="btn" type="submit" value="Enviar">
+                                    <input id="texto_nuevo_comentario" class="form-control" placeholder="¿Qué tienes que decir?" type="text" name="comentario">
+                                    <input class="btn" type="submit" id="enviar_comentario_button"value="Enviar">
                                     <input type="hidden" name="_csrf" value="{{token}}"/>           
                                 </form>
                                   </div>
@@ -166,12 +167,15 @@
                                     <li>
                                         <div id="comentario" class="contauner-fluid">
                                             <div class="row">
-                                                <div class="col-md-1">
-                                                    <a href="#"><img class="avatar avatarUsuario" src="{{autor_comentario.AvatarURL}}" height="75px" width="75px"></a>
+                                                <div class="col-md-2">
+                                                	<div id="autor_comentario_info">
+                                                    <a href="/perfil/{{autor_comentario.id}}"><img href="/perfil/{{autor_comentario.id}}" class="avatarUsuario" src="{{autor_comentario.AvatarURL}}" height="75px" width="75px"></a>
+                                                	<h6 id="user_comment_name">{{autor_comentario.username}}</h6>
+                                                	</div>
                                                 </div>
-                                                <div class="col-md-11">
-                                                    <small>{{autor_comentario.username}}</small>
+                                                <div class="col-md-10">
                                                     <div class="well ComentarioTexto">{{comentario}}</div>
+                                                    <spam id="fecha_comentario">{{fecha}}</spam>
                                                 </div>
                                             </div>
                                         </div>

@@ -5,6 +5,8 @@ ul {
 .ComentarioTexto {
     background-color: white;
     border-radius: 60px;
+    padding: 19px;
+    margin-bottom: 5px;
 }
 
 .avatar {
@@ -12,7 +14,6 @@ ul {
 }
 
 .avatarUsuario {
-    width: 50%;
     margin: auto;
     border-radius: 50px;
 }
@@ -39,7 +40,6 @@ ul {
 }
 
 #avatarAutor {
-    width: 100%;
     margin: 0 auto;
     border-radius: 20px;
 }
@@ -65,4 +65,35 @@ ul {
 .row{
     margin-right: -5px;
     margin-left: -5px;
+}
+
+#user_comment_name {
+    text-align: center;
+    display: block;
+}
+
+#autor_comentario_info{
+	text-align: center;
+}
+#fecha_comentario {
+		text-align: center;
+		margin-left: 25px;	
+}
+#nuevo_comentario_group {
+	text-align: center;
+	padding-top: 50px;
+}
+.input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+    margin: auto;
+    width: 60%;
+}
+#enviar_comentario_button{
+	width: 60%;
+}
+#texto_nuevo_comentario{
+	padding: 20px;
+    border-radius: 20px;
 }
