@@ -360,9 +360,21 @@ public class UserController {
 
 	
 	@RequestMapping(value = "/busqueda")
-	 public String search(@RequestParam("nombre") String texto, Model model) {
+	 public String search(@RequestParam("nombre") String texto, @RequestParam("modo") String modo, Model model) {
 	  model.addAttribute("txt",texto);
-	  model.addAttribute("lista",this.vinetarepository.findByTitulo(texto));
+	  model.addAttribute("modo", modo);
+	  if(modo.equals("titulo")) {
+		  System.out.println("Me coge el título");
+		  model.addAttribute("lista",this.vinetarepository.findByTitulo(texto));
+	  }
+	  if(modo.equals("autor")) {
+		  System.out.println("Me coge el autor");
+		  model.addAttribute("lista",this.userrepository.findByUsername(texto).getVinetas_subidas());
+	  }
+	  if(modo.equals("tag")) {
+		  System.out.println("Me coge el tag");
+		  model.addAttribute("lista",this.tagrepository.findByNombre(texto).getVinetas());
+	  }
 	  model.addAttribute("resultados",this.vinetarepository.findByTitulo(texto).size());
 	  return "busqueda";
 	 }
