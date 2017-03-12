@@ -96,7 +96,6 @@ public class UserController {
 	    if(referrer!=null){
 	        request.getSession().setAttribute("url_prior_login", referrer);
 	    }
-	    System.out.println(referrer);
 	    return referrer;
 	}
 	@RequestMapping("/login")
@@ -126,7 +125,6 @@ public class UserController {
 
 		Principal p = request.getUserPrincipal();
     	User user = userrepository.findByUsername(p.getName());
-    	System.out.println(userComponent.isLoggedUser());
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		//model.addAttribute("usuario_logged", user);    
 		model.addAttribute("usuario", user);
@@ -206,7 +204,6 @@ public class UserController {
 	/*------------------Comentarios--------------------------*/
 	@RequestMapping(value = "/crearComentario/vineta/{id}", method = RequestMethod.POST)
 	public String crearComentario(Model model, HttpSession sesion,@PathVariable long id, @RequestParam String comentario, HttpServletRequest request ) {
-		System.out.println("he entrado a crear un comentario");
 		String page = this.requestCurrentPage(request);
 		if (userComponent.isLoggedUser()){
 			  Principal p = request.getUserPrincipal();
@@ -364,15 +361,12 @@ public class UserController {
 	  model.addAttribute("txt",texto);
 	  model.addAttribute("modo", modo);
 	  if(modo.equals("titulo")) {
-		  System.out.println("Me coge el título");
 		  model.addAttribute("lista",this.vinetarepository.findByTitulo(texto));
 	  }
 	  if(modo.equals("autor")) {
-		  System.out.println("Me coge el autor");
 		  model.addAttribute("lista",this.userrepository.findByUsername(texto).getVinetas_subidas());
 	  }
 	  if(modo.equals("tag")) {
-		  System.out.println("Me coge el tag");
 		  model.addAttribute("lista",this.tagrepository.findByNombre(texto).getVinetas());
 	  }
 	  model.addAttribute("resultados",this.vinetarepository.findByTitulo(texto).size());
