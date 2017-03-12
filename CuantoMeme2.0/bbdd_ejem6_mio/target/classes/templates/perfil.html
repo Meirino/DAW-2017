@@ -106,14 +106,14 @@
                     </div>
                     <div class="col-md-9">
                         <ul class="nav nav-tabs">
-                            <li><a data-toggle="tab" href="#publicadas">Viñetas publicadas</a></li> {{#owner}}
-                            <li><a data-toggle="tab" href="#publicar">Publicar una viñeta</a></li> {{/owner}}
+                            <li class="active"><a id="tabpublicadas" data-toggle="tab" href="#publicadas">Viñetas publicadas</a></li> {{#owner}}
+                            <li><a id="tabpublicar" data-toggle="tab" href="#publicar">Publicar una viñeta</a></li> {{/owner}}
                             <!--<li><a data-toggle="tab" href="#buscar">Buscar una viñeta</a></li>--> {{#owner}}
                             <li><a data-toggle="tab" href="#avatar">Cambiar avatar</a></li>
                             <li><a data-toggle="tab" href="#recomendado">Viñeta recomendada</a></li> {{/owner}} </ul>
                         <div class="tab-content">
                             <div id="publicadas" class="tab-pane fade">
-                                <h3>Viñetas publicadas por ti <span class="badge">3</span></h3>
+                                <h3>Viñetas publicadas por ti:</h3>
                                 <div class="container-fluid">
                                     <div class="col-md-12"> {{#usuario.viñetas}}
                                         <div class="jumbotron">
@@ -218,6 +218,7 @@
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="/js/jquery.js"></script>
+    <script src="/js/click.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap.min.js"></script>
 </body>

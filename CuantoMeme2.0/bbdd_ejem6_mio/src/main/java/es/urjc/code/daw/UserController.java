@@ -312,19 +312,18 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/busqueda")
-	 public String search(@RequestParam("nombre") String texto, @RequestParam("modo") String modo, Model model) {
-	  model.addAttribute("txt",texto);
-	  model.addAttribute("modo", modo);
-	  if(modo.equals("titulo")) {
-		  model.addAttribute("lista",this.vinetarepository.findByTitulo(texto));
+	  public String search(@RequestParam("nombre") String texto, @RequestParam("modo") String modo, Model model) {
+	   model.addAttribute("mensaje", "Resultado para tu busqueda: "+modo+" igual a "+texto);
+	   if(modo.equals("titulo")) {
+	    model.addAttribute("vinetas",this.vinetarepository.findByTitulo(texto));
+	   }
+	   if(modo.equals("autor")) {
+	    model.addAttribute("vinetas",this.userrepository.findByUsername(texto).getVinetas_subidas());
+	   }
+	   if(modo.equals("tag")) {
+	    model.addAttribute("vinetas",this.tagrepository.findByNombre(texto).getVinetas());
+	   }
+	   //model.addAttribute("resultados",this.vinetarepository.findByTitulo(texto).size());
+	   return "index";
 	  }
-	  if(modo.equals("autor")) {
-		  model.addAttribute("lista",this.userrepository.findByUsername(texto).getVinetas_subidas());
-	  }
-	  if(modo.equals("tag")) {
-		  model.addAttribute("lista",this.tagrepository.findByNombre(texto).getVinetas());
-	  }
-	  model.addAttribute("resultados",this.vinetarepository.findByTitulo(texto).size());
-	  return "busqueda";
-	 }
 }
