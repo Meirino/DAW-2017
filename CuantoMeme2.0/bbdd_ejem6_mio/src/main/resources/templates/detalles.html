@@ -11,8 +11,10 @@
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Custom CSS -->
+     <link href="/css/index.css" rel="stylesheet" type="text/css">
     <link href="/css-based-on-template/sb-admin.css" rel="stylesheet">
     <link href="/css-based-on-template/details/details.css" rel="stylesheet">
+    <link href="/css-based-on-template/navbar.css" rel="stylesheet" type="text/css">
 
     <!-- Custom Fonts -->
 	<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -58,7 +60,7 @@
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                         {{#tags_mas_usados}}
-                            <li> <a href="/tag/id">{{nombre}}</a> </li>
+                            <li> <a href="/tag/{{nombre}}">{{nombre}}</a> </li>
                         {{/tags_mas_usados}}
                         </ul>
                     </li>
@@ -147,12 +149,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="container-fluid" id="nuevo_comentario_group">
+                            <div class="input-group">
                                 <legend>Comentar</legend>
-                                <!-- Añadir comentario -->
-                                <div class="input-group">
+                                <!-- Añadir comentario -->                              
                                 <form action="/crearComentario/vineta/{{id}}" method=post>
-                                    <input class="form-control" placeholder="¿Qué tienes que decir?" type="text" name="comentario"><input class="btn" type="submit" value="Enviar">
+                                    <input id="texto_nuevo_comentario" class="form-control" placeholder="¿Qué tienes que decir?" type="text" name="comentario">
+                                    <input class="btn" type="submit" id="enviar_comentario_button"value="Enviar">
                                     <input type="hidden" name="_csrf" value="{{token}}"/>           
                                 </form>
                                   </div>
@@ -166,12 +169,15 @@
                                     <li>
                                         <div id="comentario" class="contauner-fluid">
                                             <div class="row">
-                                                <div class="col-md-1">
-                                                    <a href="#"><img class="avatar avatarUsuario" src="{{autor_comentario.AvatarURL}}" height="75px" width="75px"></a>
+                                                <div class="col-md-2">
+                                                	<div id="autor_comentario_info">
+                                                    <a href="/perfil/{{autor_comentario.id}}"><img href="/perfil/{{autor_comentario.id}}" class="avatarUsuario" src="{{autor_comentario.AvatarURL}}" height="75px" width="75px"></a>
+                                                	<h6 id="user_comment_name">{{autor_comentario.username}}</h6>
+                                                	</div>
                                                 </div>
-                                                <div class="col-md-11">
-                                                    <small>{{autor_comentario.username}}</small>
+                                                <div class="col-md-10">
                                                     <div class="well ComentarioTexto">{{comentario}}</div>
+                                                    <spam id="fecha_comentario">{{fecha}}</spam>
                                                 </div>
                                             </div>
                                         </div>

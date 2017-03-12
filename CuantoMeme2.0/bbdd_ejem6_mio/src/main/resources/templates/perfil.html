@@ -62,7 +62,7 @@
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                         {{#tags_mas_usados}}
-                            <li> <a href="/tag/id">{{nombre}}</a> </li>
+                            <li> <a href="/tag/{{nombre}}">{{nombre}}</a> </li>
                         {{/tags_mas_usados}}
                         </ul>
                     </li>
@@ -87,9 +87,8 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-    </div>
-    <div id="page-wrapper">
-        <div class="container">
+        <div id="page-wrapper">
+        <div class="container-fluid">
             <!-- Page Heading -->
             <div class="row">
                 <div class="col-md-12">
@@ -255,6 +254,8 @@
         </div>
         <!-- /#page-wrapper -->
     </div>
+    </div>
+
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="/js/jquery.js"></script>
