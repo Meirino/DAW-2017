@@ -116,7 +116,7 @@ public class FileUploadController {
 
     	Principal p = request.getUserPrincipal();
     	User user = usuarios.findByUsername(p.getName());
-    	user.setAvatarURL("/imgVinetas/"+file.getOriginalFilename());
+    	user.setAvatarURL("/imgs/"+file.getOriginalFilename());
     	this.usuarios.save(user);
         storageService.store(file);
 
