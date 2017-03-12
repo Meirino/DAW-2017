@@ -130,7 +130,6 @@ public class UserController {
 
 		Principal p = request.getUserPrincipal();
     	User user = userrepository.findByUsername(p.getName());
-    	System.out.println(userComponent.isLoggedUser());
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		//model.addAttribute("usuario_logged", user);    
 		model.addAttribute("usuario", user);
@@ -198,6 +197,7 @@ public class UserController {
 	      c.setVineta(this.vinetarepository.findOne(id));
 	      this.comentariorepository.save(c);
 	      return "redirect:"+page;
+
 	}
 	
 	/*------------------Vinetas-------------------------*/
@@ -312,9 +312,18 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/busqueda")
-	 public String search(@RequestParam("nombre") String texto, Model model) {
+	 public String search(@RequestParam("nombre") String texto, @RequestParam("modo") String modo, Model model) {
 	  model.addAttribute("txt",texto);
-	  model.addAttribute("lista",this.vinetarepository.findByTitulo(texto));
+	  model.addAttribute("modo", modo);
+	  if(modo.equals("titulo")) {
+		  model.addAttribute("lista",this.vinetarepository.findByTitulo(texto));
+	  }
+	  if(modo.equals("autor")) {
+		  model.addAttribute("lista",this.userrepository.findByUsername(texto).getVinetas_subidas());
+	  }
+	  if(modo.equals("tag")) {
+		  model.addAttribute("lista",this.tagrepository.findByNombre(texto).getVinetas());
+	  }
 	  model.addAttribute("resultados",this.vinetarepository.findByTitulo(texto).size());
 	  return "busqueda";
 	 }
