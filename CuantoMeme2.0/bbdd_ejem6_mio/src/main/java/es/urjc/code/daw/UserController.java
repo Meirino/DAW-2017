@@ -311,7 +311,7 @@ public class UserController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/busqueda")
+	  @RequestMapping(value = "/busqueda")
 	  public String search(@RequestParam("nombre") String texto, @RequestParam("modo") String modo, Model model) {
 	   model.addAttribute("mensaje", "Resultado para tu busqueda: "+modo+" igual a "+texto);
 	   if(modo.equals("titulo")) {
