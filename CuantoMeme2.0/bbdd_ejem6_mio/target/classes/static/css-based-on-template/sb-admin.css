@@ -30,6 +30,10 @@ body {
 	    background-image: url(http://facecoverz.com/static/img/uploads/o_facecoverz.com-1319235479376.png);
 	
 }
+#form-box{
+	padding-top:0px;
+	border-radius: 40px;
+}
 
 .huge {
     font-size: 50px;
