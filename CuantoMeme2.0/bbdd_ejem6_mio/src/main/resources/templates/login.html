@@ -20,16 +20,24 @@
 </head>
 
 <body>
-    <div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <a class="navbar-brand" href="/"></a>
+            </div>
+
+        </nav>
+    <div id="login-content">
         <!-- Navigation -->
-        <div id="page-wrapper">
-            <div class="container-fluid">
+        <div id="page-wrapper" class="wapper-backgroung-img">
+            <div class="container-fluid" id="login-box">
                 <h1>¡Bienvenido a CuantoMeme!</h1>
                 <hr>
-                <div class="container-fluid">
+                <div class="container-fluid" >
                     <div class="col-md-1"></div>
                     <div class="col-md-9">
-                        <div class="jumbotron">
+                        <div class="jumbotron" id= "form-box">
                             <form action="login" method="post">
                                 <div class="container-fluid">
                                     <div class="row">
@@ -37,11 +45,11 @@
                                         <div class="col-md-4">
                                             <div class="input-group">
                                                 <p>
-                                                    <label>Nombre de usuario:</label>
+                                                    <h4>Username:</h4>
                                                 </p>
                                                 <input type='text' name='username' />
                                                 <p>
-                                                    <label>Contraseña:</label>
+                                                    <h4>Contraseña:</h4>
                                                 </p>
                                                 <input type='password' name='password' />
                                             </div>

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: bbdd_ejem6_mio
 Implementation-Version: 0.1.0
-Built-By: Javi
+Built-By: Javier
 Implementation-Vendor-Id: es.urjc.code
 Build-Jdk: 1.8.0_91
 Created-By: Maven Integration for Eclipse
