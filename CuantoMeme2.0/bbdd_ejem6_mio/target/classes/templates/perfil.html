@@ -71,20 +71,21 @@
                         </ul>
                     </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#busq"><i class="fa fa-search fa-1x" aria-hidden="true"></i> Busqueda <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="busq" class="collapse">
-                            <li>
-                                <form action="/busqueda">
-                                    <p style="color:white">Buscar por título:</p>
-                                    <input class="input-sm" type="text" name="nombre">
-                                    <select name="modo">
-                                        <option value="titulo">Buscar por título</option>
-                                        <option value="autor">Buscar por autor</option>
-                                        <option value="tag">Buscar por tags</option>
-                                    </select>
-                                    <button class="btn btn-sm" type="submit">Buscar</button>
-                                </form>
-                            </li>
-                        </ul>
+                        <div>
+                            <ul id="busq" class="collapse">
+                                <li>
+                                    <form action="/busqueda">
+                                        <input class="input-sm" type="text" name="nombre">
+                                        <select name="modo">
+                                            <option value="titulo">Buscar por título</option>
+                                            <option value="autor">Buscar por autor</option>
+                                            <option value="tag">Buscar por tags</option>
+                                        </select>
+                                        <button class="btn btn-sm" type="submit">Buscar</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -108,7 +109,7 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a id="tabpublicadas" data-toggle="tab" href="#publicadas">Viñetas publicadas</a></li> {{#owner}}
                             <li><a id="tabpublicar" data-toggle="tab" href="#publicar">Publicar una viñeta</a></li> {{/owner}}
-                            <!--<li><a data-toggle="tab" href="#buscar">Buscar una viñeta</a></li>--> {{#owner}}
+                            <!--<li><a data-toggle="tab" href="#buscar">Buscar una viñeta</a></li>-->{{#owner}}
                             <li><a data-toggle="tab" href="#avatar">Cambiar avatar</a></li>
                             <li><a data-toggle="tab" href="#recomendado">Viñeta recomendada</a></li> {{/owner}} </ul>
                         <div class="tab-content">

@@ -25,72 +25,69 @@
     <div id="wrapper">
         <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                <a class="navbar-brand" href="index.html"></a>
-            </div>
-            <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav"> {{#anonymous}}
-                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Identificate <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li> <a href="/login.html"><i class="fa fa-sign-in"></i> Log in </a> </li>
-                        <li class="divider"></li>
-                        <li> <a href="/signup.html"><i class="fa fa-sign-in"></i> Sign up</a> </li>
-                    </ul>
-                </li> {{/anonymous}} {{^anonymous}}
-                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Mi perfil<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li> <a href="/home"><i class="fa fa-fw fa-user"></i> Profile</a> </li>
-                        <li class="divider"></li>
-                        <li class="divider"></li>
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav"> {{#anonymous}}
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Identificate <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li> <a href="/login.html"><i class="fa fa-sign-in"></i> Log in </a> </li>
+                <li class="divider"></li>
+                <li> <a href="/signup.html"><i class="fa fa-sign-in"></i> Sign up</a> </li>
+            </ul>
+        </li> {{/anonymous}} {{^anonymous}}
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Mi perfil<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li> <a href="/home"><i class="fa fa-fw fa-user"></i> Profile</a> </li>
+                <li class="divider"></li>
+                <li class="divider"></li>
+                <li>
+                    <form action="/logout" method="post">
+                        <input class="fa fa-fw fa-power-off" type="submit" value="Sign Out" />
+                        <input type="hidden" name="_csrf" value="{{token}}" /> </form>
+                </li>
+            </ul>
+        </li> {{/anonymous}} </ul>
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+            <li> <a href="/"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Inicio</a> </li>
+            <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo" class="collapse"> {{#tags_mas_usados}}
+                    <li> <a href="/tag/{{nombre}}">{{nombre}}</a> </li> {{/tags_mas_usados}} </ul>
+            </li>
+            <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-home" aria-hidden="true"></i> Home <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo2" class="collapse">
+                    <li> <a href="/home">Mi perfil</a> </li>
+                    <li> <a href="/misfavoritos">Mis favoritos</a> </li>
+                    <li> <a href="/mislikes">Mis likes</a> </li>
+                    <li> <a href="/misdislikes">Mis dislikes</a> </li>
+                </ul>
+            </li>
+            <li> <a href="javascript:;" data-toggle="collapse" data-target="#busq"><i class="fa fa-search fa-1x" aria-hidden="true"></i> Busqueda <i class="fa fa-fw fa-caret-down"></i></a>
+                <div>
+                    <ul id="busq" class="collapse">
                         <li>
-                         <form action="/logout" method="post">
-                          <input class="fa fa-fw fa-power-off" type="submit" value="Sign Out" />
-                          <input type="hidden" name="_csrf" value="{{token}}"/>
-       </form>
+                            <form action="/busqueda">
+                                <input class="input-sm" type="text" name="nombre">
+                                <select name="modo">
+                                    <option value="titulo">Buscar por título</option>
+                                    <option value="autor">Buscar por autor</option>
+                                    <option value="tag">Buscar por tags</option>
+                                </select>
+                                <button class="btn btn-sm" type="submit">Buscar</button>
+                            </form>
                         </li>
                     </ul>
-                </li> {{/anonymous}} </ul>
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li> <a href="/"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Inicio</a> </li>
-                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                        {{#tags_mas_usados}}
-                            <li> <a href="/tag/{{nombre}}">{{nombre}}</a> </li>
-                        {{/tags_mas_usados}}
-                        </ul>
-                    </li>
-                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-home" aria-hidden="true"></i> Home <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo2" class="collapse">
-                            <li> <a href="/home">Mi perfil</a> </li>
-                            <li> <a href="/misfavoritos">Mis favoritos</a> </li>
-                            <li> <a href="/mislikes">Mis likes</a> </li>
-							<li> <a href="/misdislikes">Mis dislikes</a> </li>
-                        </ul>
-                    </li>
-                    <li> <a href="javascript:;" data-toggle="collapse" data-target="#busq"><i class="fa fa-search fa-1x" aria-hidden="true"></i> Busqueda <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="busq" class="collapse">
-                            <li>
-                                <form action="/busqueda">
-                                    <p style="color:white">Buscar por título:</p>
-                                    <input class="input-sm" type="text" name="nombre">
-                                    <select name="modo">
-                                        <option value="titulo">Buscar por título</option>
-                                        <option value="autor">Buscar por autor</option>
-                                        <option value="tag">Buscar por tags</option>
-                                    </select>
-                                    <button class="btn btn-sm" type="submit">Buscar</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+</nav>
         <div id="page-wrapper">
             <div class="container-fluid">
                 <h1>{{mensaje}}</h1>

@@ -25,6 +25,7 @@ body {
     width: 100%;
     padding: 0;
     background-color: #fff;
+    background-image: url(http://facecoverz.com/static/img/uploads/o_facecoverz.com-1319235479376.png);
 }
 
 .huge {
@@ -224,4 +225,8 @@ ul.alert-dropdown {
 
 .panel-yellow > a:hover {
     color: #df8a13;
+}
+.h1, h1 {
+    font-size: 50px;
+    color: black;
 }

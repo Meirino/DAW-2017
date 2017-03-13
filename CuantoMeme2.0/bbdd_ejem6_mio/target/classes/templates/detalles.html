@@ -11,21 +11,18 @@
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Custom CSS -->
-     <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
     <link href="/css-based-on-template/sb-admin.css" rel="stylesheet">
     <link href="/css-based-on-template/details/details.css" rel="stylesheet">
     <link href="/css-based-on-template/navbar.css" rel="stylesheet" type="text/css">
-
     <!-- Custom Fonts -->
-	<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href="/css-based-on-template/perfil/dashboard.css" rel="stylesheet" type="text/css">
-	<link href="/css-based-on-template/perfil/perfil.css" rel="stylesheet" type="text/css">
-	
-</head>
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/css-based-on-template/perfil/dashboard.css" rel="stylesheet" type="text/css">
+    <link href="/css-based-on-template/perfil/perfil.css" rel="stylesheet" type="text/css"> </head>
 
 <body>
     <div id="wrapper">
-             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
@@ -46,10 +43,9 @@
                         <li class="divider"></li>
                         <li class="divider"></li>
                         <li>
-                         <form action="/logout" method="post">
-                          <input class="fa fa-fw fa-power-off" type="submit" value="Sign Out" />
-                          <input type="hidden" name="_csrf" value="{{token}}"/>
-       </form>
+                            <form action="/logout" method="post">
+                                <input class="fa fa-fw fa-power-off" type="submit" value="Sign Out" />
+                                <input type="hidden" name="_csrf" value="{{token}}" /> </form>
                         </li>
                     </ul>
                 </li> {{/anonymous}} </ul>
@@ -58,35 +54,33 @@
                 <ul class="nav navbar-nav side-nav">
                     <li> <a href="/"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Inicio</a> </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                        {{#tags_mas_usados}}
-                            <li> <a href="/tag/{{nombre}}">{{nombre}}</a> </li>
-                        {{/tags_mas_usados}}
-                        </ul>
+                        <ul id="demo" class="collapse"> {{#tags_mas_usados}}
+                            <li> <a href="/tag/{{nombre}}">{{nombre}}</a> </li> {{/tags_mas_usados}} </ul>
                     </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-home" aria-hidden="true"></i> Home <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo2" class="collapse">
                             <li> <a href="/home">Mi perfil</a> </li>
                             <li> <a href="/misfavoritos">Mis favoritos</a> </li>
                             <li> <a href="/mislikes">Mis likes</a> </li>
-							<li> <a href="/misdislikes">Mis dislikes</a> </li>
+                            <li> <a href="/misdislikes">Mis dislikes</a> </li>
                         </ul>
                     </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#busq"><i class="fa fa-search fa-1x" aria-hidden="true"></i> Busqueda <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="busq" class="collapse">
-                            <li>
-                                <form action="/busqueda">
-                                    <p style="color:white">Buscar por título:</p>
-                                    <input class="input-sm" type="text" name="nombre">
-                                    <select name="modo">
-                                        <option value="titulo">Buscar por título</option>
-                                        <option value="autor">Buscar por autor</option>
-                                        <option value="tag">Buscar por tags</option>
-                                    </select>
-                                    <button class="btn btn-sm" type="submit">Buscar</button>
-                                </form>
-                            </li>
-                        </ul>
+                        <div>
+                            <ul id="busq" class="collapse">
+                                <li>
+                                    <form action="/busqueda">
+                                        <input class="input-sm" type="text" name="nombre">
+                                        <select name="modo">
+                                            <option value="titulo">Buscar por título</option>
+                                            <option value="autor">Buscar por autor</option>
+                                            <option value="tag">Buscar por tags</option>
+                                        </select>
+                                        <button class="btn btn-sm" type="submit">Buscar</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -98,8 +92,7 @@
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Detalles de la viñeta</h1>
-                    </div>
+                        <h1 class="page-header">Detalles de la viñeta</h1> </div>
                 </div>
                 <!-- /.row1 -->
                 <div class="row">
@@ -107,8 +100,7 @@
                         <div class="container-fluid">
                             <div id="meme" class="row">
                                 <div class="col-md-10">
-                                    <div class="card"> 
-                                        <img class="card-img-top img-rounded img-responsive" src="{{vineta.URL}}" alt="kek">
+                                    <div class="card"> <img class="card-img-top img-rounded img-responsive" src="{{vineta.URL}}" alt="kek">
                                         <div class="card-block text-center">
                                             <h2>{{vineta.titulo}}</h2>
                                             <p class="card-text text-center">{{vineta.descripcion}}</p>
@@ -121,14 +113,14 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <button class="btn autor"><a href="/perfil/{{vineta.autor.id}}">
-                                                    <div id="autor" class="card text-center"> 
-                                                        <img id="avatarAutor" class="card-img-top img-responsive img-center avatar" src="{{vineta.autor.AvatarURL}}">
-                                                        <div class="card-block">
-                                                            <h3 class="card-title">{{vineta.autor.username}}</h3>
+                                                <button class="btn autor">
+                                                    <a href="/perfil/{{vineta.autor.id}}">
+                                                        <div id="autor" class="card text-center"> <img id="avatarAutor" class="card-img-top img-responsive img-center avatar" src="{{vineta.autor.AvatarURL}}">
+                                                            <div class="card-block">
+                                                                <h3 class="card-title">{{vineta.autor.username}}</h3> </div>
                                                         </div>
-                                                    </div>
-                                                </a></button>
+                                                    </a>
+                                                </button>
                                             </div>
                                             <div class="col-md-8"> </div>
                                         </div>
@@ -140,47 +132,36 @@
                                 <div class="col-md-10">
                                     <hr>
                                     <div id="icons-social">
-										<button type="button" onclick="location.href='/hacerfavorita/{{id}}'" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
-                                
-                                		<button type="button" onclick="location.href='/likevineta/{{id}}'"  class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
-                                    		<div class="badge">
-                                    			{{vineta.likes}}
-                                    		</div>
-                                		</button>
-                                	<button type="button" onclick="location.href='/dislikevineta/{{id}}'"  class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
-                                    		<div class="badge">
-                                    			{{vineta.dislikes}}
-                                    		</div>
-                                	</button>
-                                
+                                        <button type="button" onclick="location.href='/hacerfavorita/{{id}}'" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                        <button type="button" onclick="location.href='/likevineta/{{id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                            <div class="badge"> {{vineta.likes}} </div>
+                                        </button>
+                                        <button type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                            <div class="badge"> {{vineta.dislikes}} </div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                             <div class="container-fluid" id="nuevo_comentario_group">
-                            <div class="input-group">
-                                <legend>Comentar</legend>
-                                <!-- Añadir comentario -->                              
-                                <form action="/crearComentario/vineta/{{id}}" method=post>
-                                    <input id="texto_nuevo_comentario" class="form-control" placeholder="¿Qué tienes que decir?" type="text" name="comentario">
-                                    <input class="btn" type="submit" id="enviar_comentario_button"value="Enviar">
-                                    <input type="hidden" name="_csrf" value="{{token}}"/>           
-                                </form>
-                                  </div>
-                               	 <br> 
-                              </div>
+                                <div class="input-group">
+                                    <legend>Comentar</legend>
+                                    <!-- Añadir comentario -->
+                                    <form action="/crearComentario/vineta/{{id}}" method=post>
+                                        <input id="texto_nuevo_comentario" class="form-control" placeholder="¿Qué tienes que decir?" type="text" name="comentario">
+                                        <input class="btn" type="submit" id="enviar_comentario_button" value="Enviar">
+                                        <input type="hidden" name="_csrf" value="{{token}}" /> </form>
+                                </div>
+                                <br> </div>
                             <div id="comentarios" class="row">
-                                <legend>Comentarios
-                                </legend>
-                                <ul class="ListaComentatios">
-                                    {{#vineta.comentarios}}
+                                <legend>Comentarios </legend>
+                                <ul class="ListaComentatios"> {{#vineta.comentarios}}
                                     <li>
                                         <div id="comentario" class="contauner-fluid">
                                             <div class="row">
                                                 <div class="col-md-2">
-                                                	<div id="autor_comentario_info">
-                                                    <a href="/perfil/{{autor_comentario.id}}"><img href="/perfil/{{autor_comentario.id}}" class="avatarUsuario" src="{{autor_comentario.AvatarURL}}" height="75px" width="75px"></a>
-                                                	<h6 id="user_comment_name">{{autor_comentario.username}}</h6>
-                                                	</div>
+                                                    <div id="autor_comentario_info">
+                                                        <a href="/perfil/{{autor_comentario.id}}"><img href="/perfil/{{autor_comentario.id}}" class="avatarUsuario" src="{{autor_comentario.AvatarURL}}" height="75px" width="75px"></a>
+                                                        <h6 id="user_comment_name">{{autor_comentario.username}}</h6> </div>
                                                 </div>
                                                 <div class="col-md-10">
                                                     <div class="well ComentarioTexto">{{comentario}}</div>
@@ -188,9 +169,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </li>
-                                    {{/vineta.comentarios}}
-                                </ul>
+                                    </li> {{/vineta.comentarios}} </ul>
                             </div>
                         </div>
                     </div>
