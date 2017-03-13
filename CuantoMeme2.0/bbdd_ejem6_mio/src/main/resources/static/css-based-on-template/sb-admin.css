@@ -25,7 +25,10 @@ body {
     width: 100%;
     padding: 0;
     background-color: #fff;
-    background-image: url(http://facecoverz.com/static/img/uploads/o_facecoverz.com-1319235479376.png);
+}
+.wapper-backgroung-img{
+	    background-image: url(http://facecoverz.com/static/img/uploads/o_facecoverz.com-1319235479376.png);
+	
 }
 
 .huge {
@@ -229,4 +232,19 @@ ul.alert-dropdown {
 .h1, h1 {
     font-size: 50px;
     color: black;
+}
+
+#login-content{
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 70%;
+    background-image: url(http://facecoverz.com/static/img/uploads/o_facecoverz.com-1319235479376.png);
+    
+    
+}
+
+#login-box{
+	text-align:center;
 }
