@@ -237,7 +237,17 @@ public class UserController {
 	      }	      
 	      return "redirect:"+page;
 	}
-	
+	@RequestMapping(value = "/eliminarvineta/{id}")
+	public String eliminarVineta(Model model, @PathVariable long id, HttpServletRequest request ) {
+		  Principal p = request.getUserPrincipal();
+	      User user = userrepository.findByUsername(p.getName());
+	      Vineta v = vinetarepository.findOne(id);
+	      if(v.getAutor().getId() == user.getId()){
+	    	  vinetarepository.delete(id);
+	      }
+	      String page = this.requestCurrentPage(request);  
+	      return "redirect:"+page;
+	}
 	@RequestMapping(value = "/dislikevineta/{id}")
 	public String dislikeVineta(Model model, @PathVariable long id, HttpServletRequest request) {
 		String page = this.requestCurrentPage(request);

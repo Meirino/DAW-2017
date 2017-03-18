@@ -126,16 +126,19 @@
                                                 <hr>
                                                 <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
                                                 <a href="vineta/{{id}}">
-                                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">3</span></button>
+                                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i></button>
                                                 </a>
                                                 <button type="button" onclick="location.href='/likevineta/{{id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
                                                     <div class="badge">{{likes}}</div>
                                                 </button>
-                                                <Form action=d islikevineta/{{id}}>
-                                                    <button type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+             
+                                                 <button type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
                                                         <div class="badge">{{dislikes}}</div>
-                                                    </button>
-                                                </Form>
+                                                 </button>
+                                                 <button type="button" onclick="location.href='/eliminarvineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>
+                                                        
+                                                 </button>
+
                                                 <br>
                                                 <br> </div>
                                         </div> {{/usuario.viñetas}}

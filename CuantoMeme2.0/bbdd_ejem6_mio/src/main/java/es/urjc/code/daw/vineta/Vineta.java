@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -53,7 +54,7 @@ public class Vineta {
 	private User autor;
 	
 	@JsonView(ComentariosAtt.class)
-	@OneToMany(mappedBy="vineta")
+	@OneToMany(mappedBy="vineta", cascade = CascadeType.ALL)
 	private List<Comentario> comentarios = new ArrayList<>(); 
 	
 	@JsonView(TagAtt.class)
