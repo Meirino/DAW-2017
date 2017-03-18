@@ -163,10 +163,18 @@
                                                         <a href="/perfil/{{autor_comentario.id}}"><img href="/perfil/{{autor_comentario.id}}" class="avatarUsuario" src="{{autor_comentario.AvatarURL}}" height="75px" width="75px"></a>
                                                         <h6 id="user_comment_name">{{autor_comentario.username}}</h6> </div>
                                                 </div>
-                                                <div class="col-md-10">
-                                                    <div class="well ComentarioTexto">{{comentario}}</div>
+                                                <div class="col-md-9">
+                                                    <div class="well ComentarioTexto">
+                                                    		{{comentario}}
+                                                 </button>
+                                                    </div>
                                                     <spam id="fecha_comentario">{{fecha}}</spam>
+                                                 </button>
                                                 </div>
+                                              <div class="col-md-1">
+                                              {{#usuariologged}}
+                                                    <button type="button" onclick="location.href='/eliminarcomentario/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>                                                   
+                                              {{/usuariologged}}
                                             </div>
                                         </div>
                                     </li> {{/vineta.comentarios}} </ul>

@@ -199,6 +199,17 @@ public class UserController {
 	      return "redirect:"+page;
 
 	}
+	@RequestMapping(value = "/eliminarcomentario/{id}")
+	public String eliminarComentario(Model model, @PathVariable long id, HttpServletRequest request ) {
+		  Principal p = request.getUserPrincipal();
+	      User user = userrepository.findByUsername(p.getName());
+	      Comentario c = comentariorepository.findOne(id);
+	      if(c.getAutor_comentario().getId() == user.getId()){
+	    	  comentariorepository.delete(id);
+	      }
+	      String page = this.requestCurrentPage(request);  
+	      return "redirect:"+page;
+	}
 	
 	/*------------------Vinetas-------------------------*/
 	@RequestMapping("/vinetas")
@@ -209,6 +220,7 @@ public class UserController {
 	
 	@RequestMapping("/vineta/{id}")
 	public String detalles(Model model, @PathVariable long id) {
+	    model.addAttribute("usuariologged", userComponent.isLoggedUser());
 		model.addAttribute("vineta", this.vinetarepository.findOne((long) id));
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
@@ -248,6 +260,7 @@ public class UserController {
 	      String page = this.requestCurrentPage(request);  
 	      return "redirect:"+page;
 	}
+	
 	@RequestMapping(value = "/dislikevineta/{id}")
 	public String dislikeVineta(Model model, @PathVariable long id, HttpServletRequest request) {
 		String page = this.requestCurrentPage(request);
