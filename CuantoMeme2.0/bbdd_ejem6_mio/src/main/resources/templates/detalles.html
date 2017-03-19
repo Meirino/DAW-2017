@@ -139,6 +139,9 @@
                                         <button type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
                                             <div class="badge"> {{vineta.dislikes}} </div>
                                         </button>
+                                        {{#admin}}
+                                             <button type="button" onclick="location.href='/eliminarcomentario/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>                                                   
+                                        {{/admin}}
                                     </div>
                                 </div>
                             </div>
@@ -172,9 +175,9 @@
                                                  </button>
                                                 </div>
                                               <div class="col-md-1">
-                                              {{#usuariologged}}
+                                              {{#admin}}
                                                     <button type="button" onclick="location.href='/eliminarcomentario/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>                                                   
-                                              {{/usuariologged}}
+                                              {{/admin}}
                                             </div>
                                         </div>
                                     </li> {{/vineta.comentarios}} </ul>

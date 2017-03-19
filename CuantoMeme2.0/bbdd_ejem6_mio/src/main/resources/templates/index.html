@@ -113,11 +113,17 @@
                                     	{{likes}}
                                    	</div>
                                 </button>
+                                <form>
                                 <button type="button" onclick="location.href='/dislikevineta/{{id}}'"  class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
                                     <div class="badge">
                                     	{{dislikes}}
                                    	</div>
                                 </button>
+                               	</form>
+                                {{#admin}}
+                                <button type="button" onclick="location.href='/eliminarvineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>                        
+                                </button>
+                                {{/admin}}
                             </div>
                         </div>
                         {{/vinetas}}
