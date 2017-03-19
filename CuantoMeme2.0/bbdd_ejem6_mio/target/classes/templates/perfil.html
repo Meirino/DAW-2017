@@ -103,7 +103,17 @@
                 <div class="row">
                     <div class="col-md-3 text-center"> <img width="150px" class="img-responsive avatar-sombra" src="{{usuario.AvatarURL}}">
                         <h2 class="">{{usuario.username}}</h2>
-                        <p><i class="fa fa-envelope-o" aria-hidden="true"></i>{{usuario.email}}</p>
+                        <p><i class="fa fa-envelope-o" aria-hidden="true"></i> {{usuario.email}}</p>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form><button id="seguirUsuario" class="btn btn-block btn-primary"><i class="fa fa-hand-o-right"></i> Seguir</button></form>
+                                </div>
+                                <div id="eliminarUsuario" class="col-md-6">
+                                    <form><button class="btn btn-block btn-danger"><i class="fa fa-trash"></i> Eliminar</button></form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-9">
                         <ul class="nav nav-tabs">
