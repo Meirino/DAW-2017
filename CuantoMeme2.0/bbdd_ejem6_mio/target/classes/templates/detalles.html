@@ -18,7 +18,9 @@
     <!-- Custom Fonts -->
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/css-based-on-template/perfil/dashboard.css" rel="stylesheet" type="text/css">
-    <link href="/css-based-on-template/perfil/perfil.css" rel="stylesheet" type="text/css"> </head>
+    <link href="/css-based-on-template/perfil/perfil.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+</head>
 
 <body>
     <div id="wrapper">
@@ -55,14 +57,14 @@
                     <li> <a href="/"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Inicio</a> </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse"> {{#tags_mas_usados}}
-                            <li> <a href="/tag/{{nombre}}">{{nombre}}</a> </li> {{/tags_mas_usados}} </ul>
+                            <li class="animated slideInLeft"> <a href="/tag/{{nombre}}">{{nombre}}</a> </li> {{/tags_mas_usados}} </ul>
                     </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-home" aria-hidden="true"></i> Home <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo2" class="collapse">
-                            <li> <a href="/home">Mi perfil</a> </li>
-                            <li> <a href="/misfavoritos">Mis favoritos</a> </li>
-                            <li> <a href="/mislikes">Mis likes</a> </li>
-                            <li> <a href="/misdislikes">Mis dislikes</a> </li>
+                            <li class="animated slideInLeft"> <a href="/home">Mi perfil</a> </li>
+                            <li class="animated slideInLeft"> <a href="/misfavoritos">Mis favoritos</a> </li>
+                            <li class="animated slideInLeft"> <a href="/mislikes">Mis likes</a> </li>
+                            <li class="animated slideInLeft"> <a href="/misdislikes">Mis dislikes</a> </li>
                         </ul>
                     </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#busq"><i class="fa fa-search fa-1x" aria-hidden="true"></i> Busqueda <i class="fa fa-fw fa-caret-down"></i></a>
@@ -135,17 +137,14 @@
                                 <div class="col-md-10">
                                     <hr>
                                     <div id="icons-social">
-                                        <button type="button" onclick="location.href='/hacerfavorita/{{id}}'" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
-                                        <button type="button" onclick="location.href='/likevineta/{{id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                        <button id="favs" type="button" onclick="location.href='/hacerfavorita/{{id}}'" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                        <button id="likes" type="button" onclick="location.href='/likevineta/{{id}}'" class="btn btn-success btn-circle btn-lg"><i onmouseover="animated bounceIn" class="fa fa-thumbs-up"></i>
                                             <div class="badge"> {{vineta.likes}} </div>
                                         </button>
-                                        <button type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                        <button id="dislikes" type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
                                             <div class="badge"> {{vineta.dislikes}} </div>
-                                        </button>
-                                        {{#admin}}
-                                             <button type="button" onclick="location.href='/eliminarcomentario/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>                                                   
-                                        {{/admin}}
-                                    </div>
+                                        </button> {{#admin}}
+                                        <button id="delete" type="button" onclick="location.href='/eliminarcomentario/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i> </button> {{/admin}} </div>
                                 </div>
                             </div>
                             <div class="container-fluid" id="nuevo_comentario_group">
@@ -170,17 +169,9 @@
                                                         <h6 id="user_comment_name">{{autor_comentario.username}}</h6> </div>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <div class="well ComentarioTexto">
-                                                    		{{comentario}}
-                                                 </button>
-                                                    </div>
-                                                    <spam id="fecha_comentario">{{fecha}}</spam>
-                                                 </button>
-                                                </div>
-                                              <div class="col-md-1">
-                                              {{#admin}}
-                                                    <button type="button" onclick="location.href='/eliminarcomentario/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>                                                   
-                                              {{/admin}}
+                                                    <div class="well ComentarioTexto"> {{comentario}} </div> <span id="fecha_comentario">{{fecha}}</span> </div>
+                                                <div class="col-md-1"> {{#admin}}
+                                                    <button type="button" onclick="location.href='/eliminarcomentario/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i></button> {{/admin}} </div>
                                             </div>
                                         </div>
                                     </li> {{/vineta.comentarios}} </ul>
@@ -196,6 +187,7 @@
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="/js/jquery.js"></script>
+    <script src="/js/buttonHover.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap.min.js"></script>
 </body>

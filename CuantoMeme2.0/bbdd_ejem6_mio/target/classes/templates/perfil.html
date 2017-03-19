@@ -136,18 +136,18 @@
                                             <div id="categoria" class=""><small>Tags: {{#tags}} <a href="/tag/{{nombre}}">{{nombre}}</a> {{/tags}} </small></div>
                                             <div id="social" class="row">
                                                 <hr>
-                                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                                <button id="favs" type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
                                                 <a href="vineta/{{id}}">
-                                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i></button>
+                                                    <button id="comentario" type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i></button>
                                                 </a>
-                                                <button type="button" onclick="location.href='/likevineta/{{id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                                <button id="likes" type="button" onclick="location.href='/likevineta/{{id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
                                                     <div class="badge">{{likes}}</div>
                                                 </button>
              
-                                                 <button type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                                 <button id="dislikes" type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
                                                         <div class="badge">{{dislikes}}</div>
                                                  </button>
-                                                 <button type="button" onclick="location.href='/eliminarvineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>
+                                                 <button id="delete" type="button" onclick="location.href='/eliminarvineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>
                                                         
                                                  </button>
 
@@ -205,15 +205,15 @@
                                             <div id="categoria" class=""><small>Tags: {{#recomendados.tags}} <a href="/tag/{{nombre}}">{{nombre}}</a> {{/recomendados.tags}} </small></div>
                                             <div id="social" class="row">
                                                 <hr>
-                                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                                <button id="favs" type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
                                                 <a href="/vineta/{{recomendados.id}}">
-                                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">0</span></button>
+                                                    <button id="comentario" type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">0</span></button>
                                                 </a>
-                                                <button type="button" onclick="location.href='/likevineta/{{recomendados.id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                                <button id="likes" type="button" onclick="location.href='/likevineta/{{recomendados.id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
                                                     <div class="badge">{{recomendados.likes}}</div>
                                                 </button>
                                                 <Form action=dislikevineta/{{recomendados.id}}>
-                                                    <button type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                                    <button id="dislikes" type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
                                                         <div class="badge">{{recomendados.dislikes}}</div>
                                                     </button>
                                                 </Form>
@@ -235,6 +235,7 @@
     <!-- jQuery -->
     <script src="/js/jquery.js"></script>
     <script src="/js/click.js"></script>
+    <script src="/js/buttonHover.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap.min.js"></script>
 </body>
