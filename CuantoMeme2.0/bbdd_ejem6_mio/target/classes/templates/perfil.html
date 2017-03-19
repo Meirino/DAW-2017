@@ -17,6 +17,8 @@
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/css-based-on-template/perfil/dashboard.css" rel="stylesheet" type="text/css">
     <link href="/css-based-on-template/perfil/perfil.css" rel="stylesheet" type="text/css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -60,14 +62,14 @@
                     <li> <a href="/"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Inicio</a> </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse"> {{#tags_mas_usados}}
-                            <li> <a href="/tag/{{nombre}}">{{nombre}}</a> </li> {{/tags_mas_usados}} </ul>
+                            <li class="animated slideInLeft"> <a href="/tag/{{nombre}}">{{nombre}}</a> </li> {{/tags_mas_usados}} </ul>
                     </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-home" aria-hidden="true"></i> Home <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo2" class="collapse">
-                            <li> <a href="/home">Mi perfil</a> </li>
-                            <li> <a href="/misfavoritos">Mis favoritos</a> </li>
-                            <li> <a href="/mislikes">Mis likes</a> </li>
-                            <li> <a href="/misdislikes">Mis dislikes</a> </li>
+                            <li class="animated slideInLeft"> <a href="/home">Mi perfil</a> </li>
+                            <li class="animated slideInLeft"> <a href="/misfavoritos">Mis favoritos</a> </li>
+                            <li class="animated slideInLeft"> <a href="/mislikes">Mis likes</a> </li>
+                            <li class="animated slideInLeft"> <a href="/misdislikes">Mis dislikes</a> </li>
                         </ul>
                     </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#busq"><i class="fa fa-search fa-1x" aria-hidden="true"></i> Busqueda <i class="fa fa-fw fa-caret-down"></i></a>
