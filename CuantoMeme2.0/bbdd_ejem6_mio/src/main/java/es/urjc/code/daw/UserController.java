@@ -295,20 +295,20 @@ public class UserController {
 	@RequestMapping("/vineta/{id}")
 	public String detalles(Model model, @PathVariable long id, HttpServletRequest request) {
 		boolean isfollowed = false;
+		boolean owner = false;
+		Vineta v = this.vinetarepository.findOne((long) id);
 		if (userComponent.isLoggedUser()){
 			User user_tofollow = this.userrepository.findOne(id);
 			Principal p = request.getUserPrincipal();
 		    User current_user = userrepository.findByUsername(p.getName());
 		    isfollowed = current_user.ifollow(user_tofollow);
-		    System.out.println(isfollowed);
-			model.addAttribute("isfollowed", isfollowed);
+		    owner = (v.getAutor().getId() == current_user.getId()) || request.isUserInRole("ROLE_ADMIN");
 		}
-	    System.out.println(isfollowed);
 
 		model.addAttribute("isfollowed", isfollowed);
-		model.addAttribute("admin", request.isUserInRole("ROLE_ADMIN"));
+		model.addAttribute("admin", owner);
 	    model.addAttribute("usuariologged", userComponent.isLoggedUser());
-		model.addAttribute("vineta", this.vinetarepository.findOne((long) id));
+		model.addAttribute("vineta", v);
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 
