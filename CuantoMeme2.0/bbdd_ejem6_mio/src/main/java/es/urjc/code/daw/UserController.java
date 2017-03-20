@@ -89,14 +89,16 @@ public class UserController {
 	/*--------------------------Autenticacion--------------------------*/
 
 	@RequestMapping("/login")
-	public String login(HttpServletRequest request) {	
+	public String login(Model model, HttpServletRequest request) {	
 		this.requestCurrentPage(request);
+		model.addAttribute("error", false);
 		return "login";
 	}
 	
 	@RequestMapping("/loginerror")
-	public String loginError() {		
-		return "loginerror";
+	public String loginError(Model model) {
+		model.addAttribute("error", true);
+		return "login";
 	}
 	@RequestMapping("/logout")
 	public String logout() {		

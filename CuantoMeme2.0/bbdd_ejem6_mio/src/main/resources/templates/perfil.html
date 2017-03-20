@@ -133,10 +133,13 @@
                     <div class="col-md-9">
                         <ul class="nav nav-tabs">
                             <li class="active"><a id="tabpublicadas" data-toggle="tab" href="#publicadas">Viñetas publicadas</a></li> {{#owner}}
-                            <li><a id="tabpublicar" data-toggle="tab" href="#publicar">Publicar una viñeta</a></li> {{/owner}}
-                            <!--<li><a data-toggle="tab" href="#buscar">Buscar una viñeta</a></li>-->{{#owner}}
+                            <li><a data-toggle="tab" href="#timeline">Timeline</a></li>
+                            <li><a id="tabpublicar" data-toggle="tab" href="#publicar">Publicar una viñeta</a></li>
                             <li><a data-toggle="tab" href="#avatar">Cambiar avatar</a></li>
-                            <li><a data-toggle="tab" href="#recomendado">Viñeta recomendada</a></li> {{/owner}} </ul>
+                            <li><a data-toggle="tab" href="#recomendado">Viñeta recomendada</a></li> {{/owner}}
+                            <li><a id="tabseguidos" data-toggle="tab" href="#seguidos">Seguidos</a></li>
+                            <li><a id="tabseguidos" data-toggle="tab" href="#seguidores">Seguidores</a></li>
+                            </ul>
                         <div class="tab-content">
                             <div id="publicadas" class="tab-pane fade in active">
                                 <h3>Viñetas publicadas por ti:</h3>
@@ -168,6 +171,76 @@
                                                 <br> </div>
                                         </div> {{/usuario.viñetas}}
                                         <!--<div class="col-md-3"></div>--></div>
+                                </div>
+                            </div> 
+                            <div id="timeline" class="tab-pane fade">
+                                <h3>Viñetas publicadas por los usuarios que sigues:</h3>
+                                <div class="container-fluid">
+                                    <div class="col-md-12"> {{#seguidos}}{{#viñetas}}
+                                        <div class="jumbotron">
+                                            <p>Autor: <small><a href="/perfil/{{autor.id}}">{{autor.username}}</a></small></p>
+                                            <h1>{{titulo}}</h1> <img class="img-responsive" src="{{URL}}">
+                                            <p>{{descripcion}}</p>
+                                            <div id="categoria" class=""><small>Tags: {{#tags}} <a href="/tag/{{nombre}}">{{nombre}}</a> {{/tags}} </small></div>
+                                            <div id="social" class="row">
+                                                <hr>
+                                                <button id="favs" type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                                <a href="/vineta/{{id}}">
+                                                    <button id="comentario" type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i></button>
+                                                </a>
+                                                <button id="likes" type="button" onclick="location.href='/likevineta/{{id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                                    <div class="badge">{{likes}}</div>
+                                                </button>
+             
+                                                 <button id="dislikes" type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                                        <div class="badge">{{dislikes}}</div>
+                                                 </button>
+                                                 <button id="delete" type="button" onclick="location.href='/eliminarvineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>
+                                                        
+                                                 </button>
+
+                                                <br>
+                                                <br> </div>
+                                        </div> {{/viñetas}}{{/seguidos}}
+                                        <!--<div class="col-md-3"></div>--></div>
+                                </div>
+                            </div> 
+                            <div id="seguidores" class="tab-pane fade ">
+                                <div class="container-fluid">
+                                    <div class="col-md-12">
+                                    <h3>Gente que te sigue: </h3>
+                                <hr>
+                                <div class="col-md-4">
+                                    {{#seguidores}}<div class="media">
+                                        <div class="media-left">
+                                            <a href="/perfil/{{id}}"> <img class="media-object avatar" src="{{AvatarURL}}"> </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h3 class="media-heading">{{username}}</h3>
+                                            <a href="/seguirperfil/{{id}}"><button class="btn btn-sm btn-primary">Seguir</button></a>
+                                        </div>
+                                    </div>{{/seguidores}}
+                                </div>
+                                </div>
+                                </div>
+                            </div> 
+                            <div id="seguidos" class="tab-pane fade ">
+                                <div class="container-fluid">
+                                    <div class="col-md-12">
+                                    <h3>Gente a la que sigues: </h3>
+                                <hr>
+                                <div class="col-md-4">
+                                    {{#seguidos}}<div class="media">
+                                        <div class="media-left">
+                                            <a href="/perfil/{{id}}"> <img class="media-object avatar" src="{{AvatarURL}}"> </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h3 class="media-heading">{{username}}</h3>
+                                            <a href="/dejarseguirperfil/{{id}}"><button class="btn btn-sm btn-primary">Dejar de seguir</button></a>
+                                        </div>
+                                    </div>{{/seguidos}}
+                                </div>
+                                </div>
                                 </div>
                             </div> 
                             {{#owner}}
