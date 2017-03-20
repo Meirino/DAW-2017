@@ -341,11 +341,11 @@ public class UserController {
 		  Principal p = request.getUserPrincipal();
 	      User user = userrepository.findByUsername(p.getName());
 	      Vineta v = vinetarepository.findOne(id);
-	      if(v.getAutor().getId() == user.getId()){
+	      if((v.getAutor().getId() == user.getId()) || request.isUserInRole("ROLE_ADMIN") ){
 	    	  vinetarepository.delete(id);
 	      }
-	      String page = this.requestCurrentPage(request);  
-	      return "redirect:"+page;
+	      //String page = this.requestCurrentPage(request);  
+	      return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/dislikevineta/{id}")
