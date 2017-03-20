@@ -33,6 +33,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/mislikes").hasAnyRole("USER");
         http.authorizeRequests().antMatchers("/misdislikes").hasAnyRole("USER");
         http.authorizeRequests().antMatchers("/misfavoritos").hasAnyRole("USER");
+        http.authorizeRequests().antMatchers("/seguirperfil/{id}").hasAnyRole("USER");
+        http.authorizeRequests().antMatchers("/dejarseguirperfil/{id}").hasAnyRole("USER");  
+        
         // Login form
         http.formLogin().loginPage("/login");
         http.formLogin().usernameParameter("username");
@@ -41,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin().failureUrl("/loginerror");
 
         // Logout
-        http.logout().logoutUrl("/logout");
+        http.logout().logoutUrl("/logout").deleteCookies("JSESSIONID", "remember-me");;
         http.logout().logoutSuccessUrl("/");
         //http.csrf().disable();
 

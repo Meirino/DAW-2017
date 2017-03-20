@@ -52,6 +52,9 @@
                                                     <h4>Contraseña:</h4>
                                                 </p>
                                                 <input type='password' name='password' />
+                                                {{#error}}
+                                                <h5 style="color:red" id="errormessagelogin">Usuario o password incorrecta</h5>
+                                                {{/error}}
                                             </div>
                                             <p></p>
                                         </div>

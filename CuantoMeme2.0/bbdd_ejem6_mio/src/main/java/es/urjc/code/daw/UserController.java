@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +50,8 @@ public class UserController {
 	public void init(){
 		User usuario3 = new User("pepe", "pepito", "cuantomeme3@gmail.com", "ROLE_USER");
 		User usuario4 = new User("jose", "josito", "cuantomeme4@gmail.com", "ROLE_USER");
-		
+		User admin = new User("admin", "admin", "admin@gmail.com","ROLE_USER", "ROLE_ADMIN");
+
 		Vineta v3 = new Vineta("vineta3", "des3", "http://i2.kym-cdn.com/photos/images/facebook/000/125/918/RMUBQ.png");
 		Vineta v4 = new Vineta("vineta4", "des4", "http://i0.kym-cdn.com/photos/images/newsfeed/000/125/163/ragek.jpg?1318992465");
 		
@@ -58,6 +60,7 @@ public class UserController {
 		
 		this.userrepository.save(usuario3);
 		this.userrepository.save(usuario4);
+		this.userrepository.save(admin);
 		this.vinetarepository.save(v3);
 		this.vinetarepository.save(v4);
 		
@@ -86,14 +89,16 @@ public class UserController {
 	/*--------------------------Autenticacion--------------------------*/
 
 	@RequestMapping("/login")
-	public String login(HttpServletRequest request) {	
+	public String login(Model model, HttpServletRequest request) {	
 		this.requestCurrentPage(request);
+		model.addAttribute("error", false);
 		return "login";
 	}
 	
 	@RequestMapping("/loginerror")
-	public String loginError() {		
-		return "loginerror";
+	public String loginError(Model model) {
+		model.addAttribute("error", true);
+		return "login";
 	}
 	@RequestMapping("/logout")
 	public String logout() {		
@@ -121,7 +126,7 @@ public class UserController {
 	    return referrer;
 	}
 	
-	@RequestMapping("/home")
+	@RequestMapping(value = "/home")
 	public String home(Model model, HttpServletRequest request) {
 		//Sistema de ""Recomendación""
 		//Creo un número aleatorio entre 0 y el número de viñetas que existen
@@ -136,9 +141,11 @@ public class UserController {
 		model.addAttribute("owner",true);
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		model.addAttribute("recomendados", this.vinetarepository.findOne((long) randomInt));
+		model.addAttribute("seguidos",user.getFollowing());
+		model.addAttribute("seguidores", user.getFollowers());
 		return "perfil";
 	}
-	@RequestMapping("/misfavoritos")
+	@RequestMapping(value = "/misfavoritos")
 	public String misfavoritos(Model model, HttpServletRequest request) {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "Tus viñetas mas favoritas!");
@@ -147,11 +154,13 @@ public class UserController {
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("vinetas", usuario.getVinetas_favoritas() );
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+		model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
+		System.out.println("hola 1");
 		return "index";
 
 	}
 	
-	@RequestMapping("/mislikes")
+	@RequestMapping(value = "/mislikes")
 	public String mislikes(Model model, HttpServletRequest request) {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "Las vinetas que mas te gustan");
@@ -160,10 +169,11 @@ public class UserController {
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("vinetas", usuario.getVinetas_gustadas());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+		model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
 		return "index";
 	}
 	
-	@RequestMapping("/misdislikes")
+	@RequestMapping(value = "/misdislikes")
 	public String misdislikes(Model model, HttpServletRequest request) {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "Las vinetas que mas odias");
@@ -172,20 +182,79 @@ public class UserController {
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("vinetas", usuario.getVinetas_odiadas());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+		model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
 		return "index";
 	}
 	
 
-	@RequestMapping("/perfil/{id}")
+	@RequestMapping(value = "/perfil/{id}")
 	public String perfil(Model model, @PathVariable long id, HttpServletRequest request) {
+		  boolean isfollowed = false;
+			if (userComponent.isLoggedUser()){
+				User user_tofollow = this.userrepository.findOne(id);
+				Principal p = request.getUserPrincipal();
+			    User current_user = userrepository.findByUsername(p.getName());
+			    isfollowed = current_user.ifollow(user_tofollow);
+			}
 		  User usuario = this.userrepository.findOne(id);
+		  System.out.println(usuario.getUsername());
+		  model.addAttribute("owner",false);//Si es admin, le  tratamos como si fuera dueño del perfil
+		  model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
 		  model.addAttribute("usuario", usuario);
 		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
-		  model.addAttribute("owner",false);
 		  model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
-
+		  model.addAttribute("isfollowed", isfollowed);
+		  model.addAttribute("seguidos",usuario.getFollowing());
+			model.addAttribute("seguidores", usuario.getFollowers());
 		return "perfil";
 	}
+	@RequestMapping(value = "/seguirperfil/{id}")
+	public String seguirPerfil(Model model, @PathVariable long id, HttpServletRequest request) {		  
+		  User user_tofollow = this.userrepository.findOne(id);
+		  Principal p = request.getUserPrincipal();
+	      User current_user = userrepository.findByUsername(p.getName());
+	      current_user.addFollowing(user_tofollow);
+	      this.userrepository.save(current_user);
+		  model.addAttribute("owner",false);
+		  model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
+	      model.addAttribute("usuario", current_user);
+		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		  model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+		  model.addAttribute("isfollowed", current_user.ifollow(user_tofollow));
+	      String page = this.requestCurrentPage(request);  
+	      return "redirect:"+page;
+	}
+	@RequestMapping(value = "/dejarseguirperfil/{id}")
+	public String dejarseguirPerfil(Model model, @PathVariable long id, HttpServletRequest request) {
+		  User user_tounfollow = this.userrepository.findOne(id);
+		  Principal p = request.getUserPrincipal();
+	      User current_user = userrepository.findByUsername(p.getName());
+	      current_user.getFollowing().remove(user_tounfollow);
+	      this.userrepository.save(current_user);
+		  model.addAttribute("owner",false);
+		  model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
+	      model.addAttribute("usuario", current_user);
+		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		  model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+		  model.addAttribute("isfollowed", current_user.ifollow(user_tounfollow));
+	      String page = this.requestCurrentPage(request);  
+	      return "redirect:"+page;
+	}
+	
+	@RequestMapping(value = "/eliminarperfil/{id}", method = RequestMethod.POST)
+	public String eliminarPerfil(Model model, @PathVariable long id, HttpServletRequest request) {
+		boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
+		if (isAdmin){
+		  this.userrepository.delete(id);}
+		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		model.addAttribute("mensaje", "¡Bienvenido a CuantoMeme!");
+		model.addAttribute("admin", isAdmin);
+		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+		return "redirect:/";
+	}
+	
+	
 	/*------------------Comentarios--------------------------*/
 	@RequestMapping(value = "/crearComentario/vineta/{id}", method = RequestMethod.POST)
 	public String crearComentario(Model model, HttpSession sesion,@PathVariable long id, @RequestParam String comentario, HttpServletRequest request ) {
@@ -199,17 +268,53 @@ public class UserController {
 	      return "redirect:"+page;
 
 	}
+	@RequestMapping(value = "/eliminarcomentario/{id}")
+	public String eliminarComentario(Model model, @PathVariable long id, HttpServletRequest request ) {
+		  Principal p = request.getUserPrincipal();
+	      User user = userrepository.findByUsername(p.getName());
+	      Comentario c = comentariorepository.findOne(id);
+	      if(c.getAutor_comentario().getId() == user.getId()){
+	    	  comentariorepository.delete(id);
+	      }
+	      String page = this.requestCurrentPage(request);  
+	      return "redirect:"+page;
+	}
 	
 	/*------------------Vinetas-------------------------*/
-	@RequestMapping("/vinetas")
-	public String vinetas(Model model) {
+	@RequestMapping(value = "/vinetas")
+	public String vinetas(Model model, HttpServletRequest request) {
+		boolean isAdmin = false;
+		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		model.addAttribute("mensaje", "¡Bienvenido a CuantoMeme!");
+		if (userComponent.isLoggedUser()){
+			Principal p = request.getUserPrincipal();
+	    	User usuario = userrepository.findByUsername(p.getName());
+			model.addAttribute("usuario", usuario);
+			isAdmin = request.isUserInRole("ROLE_ADMIN");
+		}
+		model.addAttribute("admin", isAdmin);
 		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "index";
 	}
 	
 	@RequestMapping("/vineta/{id}")
-	public String detalles(Model model, @PathVariable long id) {
-		model.addAttribute("vineta", this.vinetarepository.findOne((long) id));
+	public String detalles(Model model, @PathVariable long id, HttpServletRequest request) {
+		boolean isfollowed = false;
+		boolean owner = false;
+		Vineta v = this.vinetarepository.findOne((long) id);
+		if (userComponent.isLoggedUser()){
+			User user_tofollow = this.userrepository.findOne(id);
+			Principal p = request.getUserPrincipal();
+		    User current_user = userrepository.findByUsername(p.getName());
+		    isfollowed = current_user.ifollow(user_tofollow);
+		    owner = (v.getAutor().getId() == current_user.getId()) || request.isUserInRole("ROLE_ADMIN");
+		}
+
+		model.addAttribute("isfollowed", isfollowed);
+		model.addAttribute("admin", owner);
+	    model.addAttribute("usuariologged", userComponent.isLoggedUser());
+		model.addAttribute("vineta", v);
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 
@@ -218,6 +323,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/likevineta/{id}")
 	public String likeVineta(Model model, @PathVariable long id, HttpServletRequest request ) {
+		System.out.println("asdasdasdasdsdfasd");
 		  String page = this.requestCurrentPage(request);
 		  boolean is_liked_before = false;
 		  Principal p = request.getUserPrincipal();
@@ -236,6 +342,17 @@ public class UserController {
 		      this.userrepository.save(user);
 	      }	      
 	      return "redirect:"+page;
+	}
+	@RequestMapping(value = "/eliminarvineta/{id}")
+	public String eliminarVineta(Model model, @PathVariable long id, HttpServletRequest request ) {
+		  Principal p = request.getUserPrincipal();
+	      User user = userrepository.findByUsername(p.getName());
+	      Vineta v = vinetarepository.findOne(id);
+	      if((v.getAutor().getId() == user.getId()) || request.isUserInRole("ROLE_ADMIN") ){
+	    	  vinetarepository.delete(id);
+	      }
+	      //String page = this.requestCurrentPage(request);  
+	      return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/dislikevineta/{id}")
@@ -282,7 +399,7 @@ public class UserController {
 	
 	/*----------------------------Tags-------------------------*/
 	
-	@RequestMapping("/tag/{nombre}")
+	@RequestMapping(value = "/tag/{nombre}")
 	public String detalles(Model model, @PathVariable String nombre, HttpServletRequest request) {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		if (userComponent.isLoggedUser()){
@@ -297,22 +414,25 @@ public class UserController {
 		return "tagIndex";
 	}
 	/*----------------------------Global-------------------------*/
-	@RequestMapping("/")
+	@RequestMapping(value = "/")
 	public String viñetas(Model model, HttpServletRequest request) {
+		boolean isAdmin = false;
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "¡Bienvenido a CuantoMeme!");
 		if (userComponent.isLoggedUser()){
 			Principal p = request.getUserPrincipal();
 	    	User usuario = userrepository.findByUsername(p.getName());
 			model.addAttribute("usuario", usuario);
+			isAdmin = request.isUserInRole("ROLE_ADMIN");
 		}
+		model.addAttribute("admin", isAdmin);
 		model.addAttribute("vinetas", this.vinetarepository.findAll());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "index";
 	}
 	
 	  @RequestMapping(value = "/busqueda")
-	  public String search(@RequestParam("nombre") String texto, @RequestParam("modo") String modo, Model model) {
+	  public String search(@RequestParam("nombre") String texto, @RequestParam("modo") String modo, Model model, HttpServletRequest request) {
 	   model.addAttribute("mensaje", "Resultado para tu busqueda: "+modo+" igual a "+texto);
 	   if(modo.equals("titulo")) {
 	    model.addAttribute("vinetas",this.vinetarepository.findByTitulo(texto));
@@ -323,7 +443,13 @@ public class UserController {
 	   if(modo.equals("tag")) {
 	    model.addAttribute("vinetas",this.tagrepository.findByNombre(texto).getVinetas());
 	   }
-	   //model.addAttribute("resultados",this.vinetarepository.findByTitulo(texto).size());
+	   model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
+	   model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+
 	   return "index";
+	  }
+	  
+	  public boolean isAdmin(HttpServletRequest request){
+		  return request.isUserInRole("ROLE_ADMIN");
 	  }
 }

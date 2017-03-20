@@ -30,6 +30,10 @@
 #page-wrapper {
     background-color: #f5f5f5;
 }
+.h5{
+    font-size: 14px;
+    color: red;
+}
 
 #login-content{
 	.container-fluid {
@@ -40,4 +44,5 @@
     width: 80%;
 }
 }
+
 

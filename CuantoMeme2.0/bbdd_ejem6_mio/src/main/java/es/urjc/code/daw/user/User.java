@@ -22,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import es.urjc.code.daw.comentario.*;
+
 @Entity
 public class User {
 	public interface BasicAtt {}
@@ -49,13 +50,15 @@ public class User {
 	@OneToMany(mappedBy="autor", cascade=CascadeType.ALL)//, cascade=CascadeType.ALL)
 	private List<Vineta> vinetas_subidas = new ArrayList<>();
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="Usuario_Seguidores")
-	@JsonView(SeguidoresAtt.class)
-	private List<User> seguidores = new ArrayList<>();
+	@ManyToMany(mappedBy="following")
+	private List<User> followers = new ArrayList<>();
+	
+	@ManyToMany
+	private List<User> following = new ArrayList<>();
+
 	
 	@JsonView(ComentarioAtt.class)
-	@OneToMany(mappedBy="autor_comentario")//, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="autor_comentario", cascade = CascadeType.ALL)//, cascade=CascadeType.ALL)
 	private List<Comentario> comentarios = new ArrayList<>();
 	
 
@@ -124,13 +127,6 @@ public class User {
 		this.roles = roles;
 	}
 
-	public List<User> getSeguidores() {
-		return seguidores;
-	}
-
-	public void setSeguidores(List<User> seguidores) {
-		this.seguidores = seguidores;
-	}
 
 	public long getId() {
 		return id;
@@ -197,11 +193,41 @@ public class User {
 	public void addVineta(Vineta v){
 		this.vinetas_subidas.add(v);
 	}
+	public void addFollower(User follower) {
+		this.followers.add(follower);
+	}
+	public void addFollowing(User following) {
+		if (!ifollow(following)){
+			//System.out.println("aun no se sigue este usuario");
+			this.following.add(following);
+		}
+
+	}
+	
+	public boolean ifollow(User usuario){
+		return this.following.indexOf(usuario) != -1;
+	}
+
+	public List<User> getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(List<User> followers) {
+		this.followers = followers;
+	}
+
+	public List<User> getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(List<User> following) {
+		this.following = following;
+	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", passwordHash=" + passwordHash + ", email=" + email
-				+ ", AvatarURL=" + AvatarURL + ", vinetas_subidas=" + vinetas_subidas + ", seguidores=" + seguidores
+				+ ", AvatarURL=" + AvatarURL + ", vinetas_subidas=" + vinetas_subidas + ", seguidores=" + followers
 				+ ", comentarios=" + comentarios + ", roles=" + roles + ", vinetas_favoritas=" + vinetas_favoritas
 				+ ", vinetas_gustadas=" + vinetas_gustadas + ", vinetas_odiadas=" + vinetas_odiadas + "]";
 	}
