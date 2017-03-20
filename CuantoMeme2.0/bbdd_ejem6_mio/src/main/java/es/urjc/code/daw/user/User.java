@@ -49,13 +49,13 @@ public class User {
 	@OneToMany(mappedBy="autor", cascade=CascadeType.ALL)//, cascade=CascadeType.ALL)
 	private List<Vineta> vinetas_subidas = new ArrayList<>();
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@ManyToMany()
 	@JoinTable(name="Usuario_Seguidores")
 	@JsonView(SeguidoresAtt.class)
 	private List<User> seguidores = new ArrayList<>();
 	
 	@JsonView(ComentarioAtt.class)
-	@OneToMany(mappedBy="autor_comentario")//, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="autor_comentario", cascade = CascadeType.ALL)//, cascade=CascadeType.ALL)
 	private List<Comentario> comentarios = new ArrayList<>();
 	
 

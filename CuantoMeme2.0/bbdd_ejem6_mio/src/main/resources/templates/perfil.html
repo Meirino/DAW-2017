@@ -17,6 +17,8 @@
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/css-based-on-template/perfil/dashboard.css" rel="stylesheet" type="text/css">
     <link href="/css-based-on-template/perfil/perfil.css" rel="stylesheet" type="text/css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -60,14 +62,14 @@
                     <li> <a href="/"><i class="fa fa-info-circle fa-1x" aria-hidden="true"></i> Inicio</a> </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-bars fa-1x" aria-hidden="true"></i> Tags populares <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse"> {{#tags_mas_usados}}
-                            <li> <a href="/tag/{{nombre}}">{{nombre}}</a> </li> {{/tags_mas_usados}} </ul>
+                            <li class="animated slideInLeft"> <a href="/tag/{{nombre}}">{{nombre}}</a> </li> {{/tags_mas_usados}} </ul>
                     </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-home" aria-hidden="true"></i> Home <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo2" class="collapse">
-                            <li> <a href="/home">Mi perfil</a> </li>
-                            <li> <a href="/misfavoritos">Mis favoritos</a> </li>
-                            <li> <a href="/mislikes">Mis likes</a> </li>
-                            <li> <a href="/misdislikes">Mis dislikes</a> </li>
+                            <li class="animated slideInLeft"> <a href="/home">Mi perfil</a> </li>
+                            <li class="animated slideInLeft"> <a href="/misfavoritos">Mis favoritos</a> </li>
+                            <li class="animated slideInLeft"> <a href="/mislikes">Mis likes</a> </li>
+                            <li class="animated slideInLeft"> <a href="/misdislikes">Mis dislikes</a> </li>
                         </ul>
                     </li>
                     <li> <a href="javascript:;" data-toggle="collapse" data-target="#busq"><i class="fa fa-search fa-1x" aria-hidden="true"></i> Busqueda <i class="fa fa-fw fa-caret-down"></i></a>
@@ -103,7 +105,30 @@
                 <div class="row">
                     <div class="col-md-3 text-center"> <img width="150px" class="img-responsive avatar-sombra" src="{{usuario.AvatarURL}}">
                         <h2 class="">{{usuario.username}}</h2>
-                        <p><i class="fa fa-envelope-o" aria-hidden="true"></i>{{usuario.email}}</p>
+                        <p><i class="fa fa-envelope-o" aria-hidden="true"></i> {{usuario.email}}</p>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{#isfollowed}}
+                                     <form>
+                                        <button id="seguirUsuario" class="btn btn-block btn-primary"><i class="fa fa-hand-o-right"></i> Dejar de seguir</button>
+                                         <input type="hidden" name="_csrf" value="{{token}}">
+                                    </form>
+                                    {{/isfollowed}}{{^isfollowed}}
+                                    <form>
+                                        <button id="seguirUsuario" class="btn btn-block btn-primary"><i class="fa fa-hand-o-right"></i> Seguir</button>
+                                        <input type="hidden" name="_csrf" value="{{token}}">
+                                    </form>
+                                    {{/isfollowed}}
+                                    {{#admin}}
+                                    <form action="/eliminarperfil/{{usuario.id}}" method="post">
+                                        <button class="btn btn-block btn-danger"><i class="fa fa-trash"></i> Eliminar</button>
+                                        <input type="hidden" name="_csrf" value="{{token}}">
+                                    </form>
+                                    {{/admin}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-9">
                         <ul class="nav nav-tabs">
@@ -113,7 +138,7 @@
                             <li><a data-toggle="tab" href="#avatar">Cambiar avatar</a></li>
                             <li><a data-toggle="tab" href="#recomendado">Viñeta recomendada</a></li> {{/owner}} </ul>
                         <div class="tab-content">
-                            <div id="publicadas" class="tab-pane fade">
+                            <div id="publicadas" class="tab-pane fade in active">
                                 <h3>Viñetas publicadas por ti:</h3>
                                 <div class="container-fluid">
                                     <div class="col-md-12"> {{#usuario.viñetas}}
@@ -124,18 +149,18 @@
                                             <div id="categoria" class=""><small>Tags: {{#tags}} <a href="/tag/{{nombre}}">{{nombre}}</a> {{/tags}} </small></div>
                                             <div id="social" class="row">
                                                 <hr>
-                                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                                <button id="favs" type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
                                                 <a href="vineta/{{id}}">
-                                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i></button>
+                                                    <button id="comentario" type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i></button>
                                                 </a>
-                                                <button type="button" onclick="location.href='/likevineta/{{id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                                <button id="likes" type="button" onclick="location.href='/likevineta/{{id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
                                                     <div class="badge">{{likes}}</div>
                                                 </button>
              
-                                                 <button type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                                 <button id="dislikes" type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
                                                         <div class="badge">{{dislikes}}</div>
                                                  </button>
-                                                 <button type="button" onclick="location.href='/eliminarvineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>
+                                                 <button id="delete" type="button" onclick="location.href='/eliminarvineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>
                                                         
                                                  </button>
 
@@ -144,7 +169,8 @@
                                         </div> {{/usuario.viñetas}}
                                         <!--<div class="col-md-3"></div>--></div>
                                 </div>
-                            </div> {{#owner}}
+                            </div> 
+                            {{#owner}}
                             <div id="publicar" class="tab-pane fade">
                                 <br>
                                 <legend>¡Publica tu propia viñeta!</legend>
@@ -159,7 +185,8 @@
                                     <label>Archivo</label>
                                     <input type="file" name="file">
                                     <input type="submit" value="Submit">
-                                    <input type="hidden" name="_csrf" value="{{token}}"> </form>  </div> {{/owner}}
+                                    <input type="hidden" name="_csrf" value="{{token}}"> </form>  </div> 
+                            {{/owner}}
                             <div id="buscar" class="tab-pane fade">
                                 <h2>Búsqueda</h2>
                                 <div>
@@ -173,7 +200,8 @@
                                         <button type="submit" class="btn btn-info btn-lg">Buscar</button>
                                     </div>
                                 </div>
-                            </div> {{#owner}}
+                            </div> 
+                            {{#owner}}
                             <div id="avatar" class="tab-pane fade">
                                 <h2>Cambiar avatar</h2>
                                 <form action="/subidaAvatar" method="post" enctype="multipart/form-data">
@@ -181,8 +209,10 @@
                                     <input type="file" name="file">
                                     <input class="btn btn-large btn-primary" type="submit" value="Submit">
                                     <input type="hidden" name="_csrf" value="{{token}}"> </form>
-                            </div> {{/owner}}
-                            <div id="recomendado" class="tab-pane fade"> {{#owner}}
+                            </div> 
+                            {{/owner}}
+                            <div id="recomendado" class="tab-pane fade"> 
+                                {{#owner}}
                                 <h2>Viñeta recomendada:</h2>
                                 <div class="container-fluid">
                                     <div class="col-md-12">
@@ -193,15 +223,15 @@
                                             <div id="categoria" class=""><small>Tags: {{#recomendados.tags}} <a href="/tag/{{nombre}}">{{nombre}}</a> {{/recomendados.tags}} </small></div>
                                             <div id="social" class="row">
                                                 <hr>
-                                                <button type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                                <button id="favs" type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
                                                 <a href="/vineta/{{recomendados.id}}">
-                                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">0</span></button>
+                                                    <button id="comentario" type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i> <span class="badge">0</span></button>
                                                 </a>
-                                                <button type="button" onclick="location.href='/likevineta/{{recomendados.id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                                <button id="likes" type="button" onclick="location.href='/likevineta/{{recomendados.id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
                                                     <div class="badge">{{recomendados.likes}}</div>
                                                 </button>
                                                 <Form action=dislikevineta/{{recomendados.id}}>
-                                                    <button type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                                    <button id="dislikes" type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
                                                         <div class="badge">{{recomendados.dislikes}}</div>
                                                     </button>
                                                 </Form>
@@ -209,7 +239,8 @@
                                                 <br> </div>
                                         </div>
                                         <!--<div class="col-md-3"></div>--></div>
-                                </div> {{/owner}} </div>
+                                </div> 
+                            {{/owner}} </div>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -223,6 +254,7 @@
     <!-- jQuery -->
     <script src="/js/jquery.js"></script>
     <script src="/js/click.js"></script>
+    <script src="/js/buttonHover.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap.min.js"></script>
 </body>

@@ -108,11 +108,24 @@
                         <p><i class="fa fa-envelope-o" aria-hidden="true"></i> {{usuario.email}}</p>
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <form><button id="seguirUsuario" class="btn btn-block btn-primary"><i class="fa fa-hand-o-right"></i> Seguir</button></form>
-                                </div>
-                                <div id="eliminarUsuario" class="col-md-6">
-                                    <form><button class="btn btn-block btn-danger"><i class="fa fa-trash"></i> Eliminar</button></form>
+                                <div class="col-md-12">
+                                    {{#isfollowed}}
+                                     <form>
+                                        <button id="seguirUsuario" class="btn btn-block btn-primary"><i class="fa fa-hand-o-right"></i> Dejar de seguir</button>
+                                         <input type="hidden" name="_csrf" value="{{token}}">
+                                    </form>
+                                    {{/isfollowed}}{{^isfollowed}}
+                                    <form>
+                                        <button id="seguirUsuario" class="btn btn-block btn-primary"><i class="fa fa-hand-o-right"></i> Seguir</button>
+                                        <input type="hidden" name="_csrf" value="{{token}}">
+                                    </form>
+                                    {{/isfollowed}}
+                                    {{#admin}}
+                                    <form action="/eliminarperfil/{{usuario.id}}" method="post">
+                                        <button class="btn btn-block btn-danger"><i class="fa fa-trash"></i> Eliminar</button>
+                                        <input type="hidden" name="_csrf" value="{{token}}">
+                                    </form>
+                                    {{/admin}}
                                 </div>
                             </div>
                         </div>
@@ -125,7 +138,7 @@
                             <li><a data-toggle="tab" href="#avatar">Cambiar avatar</a></li>
                             <li><a data-toggle="tab" href="#recomendado">Viñeta recomendada</a></li> {{/owner}} </ul>
                         <div class="tab-content">
-                            <div id="publicadas" class="tab-pane fade">
+                            <div id="publicadas" class="tab-pane fade in active">
                                 <h3>Viñetas publicadas por ti:</h3>
                                 <div class="container-fluid">
                                     <div class="col-md-12"> {{#usuario.viñetas}}
@@ -156,7 +169,8 @@
                                         </div> {{/usuario.viñetas}}
                                         <!--<div class="col-md-3"></div>--></div>
                                 </div>
-                            </div> {{#owner}}
+                            </div> 
+                            {{#owner}}
                             <div id="publicar" class="tab-pane fade">
                                 <br>
                                 <legend>¡Publica tu propia viñeta!</legend>
@@ -171,7 +185,8 @@
                                     <label>Archivo</label>
                                     <input type="file" name="file">
                                     <input type="submit" value="Submit">
-                                    <input type="hidden" name="_csrf" value="{{token}}"> </form>  </div> {{/owner}}
+                                    <input type="hidden" name="_csrf" value="{{token}}"> </form>  </div> 
+                            {{/owner}}
                             <div id="buscar" class="tab-pane fade">
                                 <h2>Búsqueda</h2>
                                 <div>
@@ -185,7 +200,8 @@
                                         <button type="submit" class="btn btn-info btn-lg">Buscar</button>
                                     </div>
                                 </div>
-                            </div> {{#owner}}
+                            </div> 
+                            {{#owner}}
                             <div id="avatar" class="tab-pane fade">
                                 <h2>Cambiar avatar</h2>
                                 <form action="/subidaAvatar" method="post" enctype="multipart/form-data">
@@ -193,8 +209,10 @@
                                     <input type="file" name="file">
                                     <input class="btn btn-large btn-primary" type="submit" value="Submit">
                                     <input type="hidden" name="_csrf" value="{{token}}"> </form>
-                            </div> {{/owner}}
-                            <div id="recomendado" class="tab-pane fade"> {{#owner}}
+                            </div> 
+                            {{/owner}}
+                            <div id="recomendado" class="tab-pane fade"> 
+                                {{#owner}}
                                 <h2>Viñeta recomendada:</h2>
                                 <div class="container-fluid">
                                     <div class="col-md-12">
@@ -221,7 +239,8 @@
                                                 <br> </div>
                                         </div>
                                         <!--<div class="col-md-3"></div>--></div>
-                                </div> {{/owner}} </div>
+                                </div> 
+                            {{/owner}} </div>
                         </div>
                     </div>
                     <!-- /.row -->

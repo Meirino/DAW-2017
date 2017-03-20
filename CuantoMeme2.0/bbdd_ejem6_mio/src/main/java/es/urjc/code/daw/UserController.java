@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -123,7 +124,7 @@ public class UserController {
 	    return referrer;
 	}
 	
-	@RequestMapping("/home")
+	@RequestMapping(value = "/home")
 	public String home(Model model, HttpServletRequest request) {
 		//Sistema de ""Recomendación""
 		//Creo un número aleatorio entre 0 y el número de viñetas que existen
@@ -140,7 +141,7 @@ public class UserController {
 		model.addAttribute("recomendados", this.vinetarepository.findOne((long) randomInt));
 		return "perfil";
 	}
-	@RequestMapping("/misfavoritos")
+	@RequestMapping(value = "/misfavoritos")
 	public String misfavoritos(Model model, HttpServletRequest request) {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "Tus viñetas mas favoritas!");
@@ -150,11 +151,12 @@ public class UserController {
 		model.addAttribute("vinetas", usuario.getVinetas_favoritas() );
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
+		System.out.println("hola 1");
 		return "index";
 
 	}
 	
-	@RequestMapping("/mislikes")
+	@RequestMapping(value = "/mislikes")
 	public String mislikes(Model model, HttpServletRequest request) {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "Las vinetas que mas te gustan");
@@ -167,7 +169,7 @@ public class UserController {
 		return "index";
 	}
 	
-	@RequestMapping("/misdislikes")
+	@RequestMapping(value = "/misdislikes")
 	public String misdislikes(Model model, HttpServletRequest request) {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "Las vinetas que mas odias");
@@ -181,8 +183,21 @@ public class UserController {
 	}
 	
 
-	@RequestMapping("/perfil/{id}")
+	@RequestMapping(value = "/perfil/{id}")
 	public String perfil(Model model, @PathVariable long id, HttpServletRequest request) {
+		  User usuario = this.userrepository.findOne(id);
+		  System.out.println(usuario.getUsername());
+		  model.addAttribute("owner",false);//Si es admin, le  tratamos como si fuera dueño del perfil
+		  model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
+		  model.addAttribute("usuario", usuario);
+		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		  model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+		  model.addAttribute("isfollowed", false);
+		  System.out.println("hola 3");
+		return "perfil";
+	}
+	@RequestMapping(value = "/seguirperfil/{id}")
+	public String seguirPerfil(Model model, @PathVariable long id, HttpServletRequest request) {
 		  User usuario = this.userrepository.findOne(id);
 		  model.addAttribute("usuario", usuario);
 		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
@@ -191,6 +206,30 @@ public class UserController {
 
 		return "perfil";
 	}
+	@RequestMapping(value = "/dejarseguirperfil/{id}")
+	public String dejarseguirPerfil(Model model, @PathVariable long id, HttpServletRequest request) {
+		  User usuario = this.userrepository.findOne(id);
+		  model.addAttribute("usuario", usuario);
+		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		  model.addAttribute("owner",false);
+		  model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+		return "perfil";
+	}
+	
+	@RequestMapping(value = "/eliminarperfil/{id}", method = RequestMethod.POST)
+	public String eliminarPerfil(Model model, @PathVariable long id, HttpServletRequest request) {
+		boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
+		if (isAdmin){
+		  this.userrepository.delete(id);}
+		model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		model.addAttribute("mensaje", "¡Bienvenido a CuantoMeme!");
+		model.addAttribute("admin", isAdmin);
+		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+		return "redirect:/";
+	}
+	
+	
 	/*------------------Comentarios--------------------------*/
 	@RequestMapping(value = "/crearComentario/vineta/{id}", method = RequestMethod.POST)
 	public String crearComentario(Model model, HttpSession sesion,@PathVariable long id, @RequestParam String comentario, HttpServletRequest request ) {
@@ -217,7 +256,7 @@ public class UserController {
 	}
 	
 	/*------------------Vinetas-------------------------*/
-	@RequestMapping("/vinetas")
+	@RequestMapping(value = "/vinetas")
 	public String vinetas(Model model, HttpServletRequest request) {
 		boolean isAdmin = false;
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
@@ -322,7 +361,7 @@ public class UserController {
 	
 	/*----------------------------Tags-------------------------*/
 	
-	@RequestMapping("/tag/{nombre}")
+	@RequestMapping(value = "/tag/{nombre}")
 	public String detalles(Model model, @PathVariable String nombre, HttpServletRequest request) {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		if (userComponent.isLoggedUser()){
@@ -337,7 +376,7 @@ public class UserController {
 		return "tagIndex";
 	}
 	/*----------------------------Global-------------------------*/
-	@RequestMapping("/")
+	@RequestMapping(value = "/")
 	public String viñetas(Model model, HttpServletRequest request) {
 		boolean isAdmin = false;
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
@@ -367,6 +406,8 @@ public class UserController {
 	    model.addAttribute("vinetas",this.tagrepository.findByNombre(texto).getVinetas());
 	   }
 	   model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
+	   model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
+
 	   return "index";
 	  }
 	  
