@@ -323,6 +323,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/likevineta/{id}")
 	public String likeVineta(Model model, @PathVariable long id, HttpServletRequest request ) {
+		System.out.println("asdasdasdasdsdfasd");
 		  String page = this.requestCurrentPage(request);
 		  boolean is_liked_before = false;
 		  Principal p = request.getUserPrincipal();

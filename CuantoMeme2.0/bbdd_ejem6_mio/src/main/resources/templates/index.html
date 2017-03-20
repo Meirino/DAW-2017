@@ -18,8 +18,7 @@
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/css-based-on-template/perfil/dashboard.css" rel="stylesheet" type="text/css">
     <link href="/css-based-on-template/perfil/perfil.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"> </head>
 
 <body>
     <div id="wrapper">
@@ -91,7 +90,7 @@
         <div id="page-wrapper" class="wapper-backgroung-img">
             <div class="container-fluid">
                 <div class="jumbotron" style="background-color:#eee;">
-                            <h1>{{mensaje}}</h1> </div>
+                    <h1>{{mensaje}}</h1> </div>
                 <div class="container-fluid">
                     <div class="col-md-1"></div>
                     <div class="col-md-9"> {{#vinetas}}
@@ -101,19 +100,39 @@
                             <p>{{descripcion}}</p>
                             <div id="categoria" class=""><small>Categoria: {{#tags}} <a href="/tag/{{nombre}}">{{nombre}}</a> {{/tags}} </small></div>
                             <div id="social" class="row">
-                                <a href="/vineta/{{id}}">
-                                    <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i></button>
-                                </a>
-                                <button id="favs" type="button" onclick="location.href='/hacerfavorita/{{id}}'" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
-                                <button id="likes" type="button" onclick="location.href='/likevineta/{{id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
-                                    <div class="badge"> {{likes}} </div>
-                                </button>
-                                
-                                    <button id="dislikes" type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
-                                        <div class="badge"> {{dislikes}} </div>
-                                    </button>
+                                <div class="col-md-1">
+                                    <form action="/vineta/{{id}}">
+                                        <button type="submit" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i></button>
+                                        <input type="hidden" name="_csrf" value="{{token}}" /> </form>
+                                </div>
+                                <div class="col-md-1">
+                                    <form action="/hacerfavorita/{{id}}">
+                                        <button id="favs" type="submit" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
+                                        <input type="hidden" name="_csrf" value="{{token}}" /> </form>
+                                </div>
+                                <div class="col-md-1">
+                                    <form action="/likevineta/{{id}}">
+                                        <button id="likes" type="submit" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
+                                            <div class="badge"> {{likes}} </div>
+                                        </button>
+                                        <input type="hidden" name="_csrf" value="{{token}}" /> </form>
+                                </div>
+                                <div class="col-md-1">
+                                    <form action="/dislikevineta/{{id}}">
+                                        <button id="dislikes" type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
+                                            <div class="badge"> {{dislikes}} </div>
+                                        </button>
+                                        <input type="hidden" name="_csrf" value="{{token}}" /> </form>
+                                </div> 
                                 {{#admin}}
-                                <button id="delete" type="button" onclick="location.href='/eliminarvineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i> </button> {{/admin}} </div>
+                                <div class="col-md-1">
+                                    <form action="/eliminarvineta/{{id}}">
+                                        <button id="delete" type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i> </button> 
+                                        <input type="hidden" name="_csrf" value="{{token}}" /> 
+                                    </form>
+                                </div>
+                                {{/admin}}
+                            </div>
                         </div> {{/vinetas}} </div>
                     <div class="col-md-1"></div>
                 </div>
