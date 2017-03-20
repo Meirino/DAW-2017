@@ -185,6 +185,13 @@ public class UserController {
 
 	@RequestMapping(value = "/perfil/{id}")
 	public String perfil(Model model, @PathVariable long id, HttpServletRequest request) {
+		  boolean isfollowed = false;
+			if (userComponent.isLoggedUser()){
+				User user_tofollow = this.userrepository.findOne(id);
+				Principal p = request.getUserPrincipal();
+			    User current_user = userrepository.findByUsername(p.getName());
+			    isfollowed = current_user.ifollow(user_tofollow);
+			}
 		  User usuario = this.userrepository.findOne(id);
 		  System.out.println(usuario.getUsername());
 		  model.addAttribute("owner",false);//Si es admin, le  tratamos como si fuera dueño del perfil
@@ -192,28 +199,40 @@ public class UserController {
 		  model.addAttribute("usuario", usuario);
 		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		  model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
-		  model.addAttribute("isfollowed", false);
-		  System.out.println("hola 3");
+		  model.addAttribute("isfollowed", isfollowed);
 		return "perfil";
 	}
 	@RequestMapping(value = "/seguirperfil/{id}")
-	public String seguirPerfil(Model model, @PathVariable long id, HttpServletRequest request) {
-		  User usuario = this.userrepository.findOne(id);
-		  model.addAttribute("usuario", usuario);
-		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
+	public String seguirPerfil(Model model, @PathVariable long id, HttpServletRequest request) {		  
+		  User user_tofollow = this.userrepository.findOne(id);
+		  Principal p = request.getUserPrincipal();
+	      User current_user = userrepository.findByUsername(p.getName());
+	      current_user.addFollowing(user_tofollow);
+	      this.userrepository.save(current_user);
 		  model.addAttribute("owner",false);
+		  model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
+	      model.addAttribute("usuario", current_user);
+		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		  model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
-
-		return "perfil";
+		  model.addAttribute("isfollowed", current_user.ifollow(user_tofollow));
+	      String page = this.requestCurrentPage(request);  
+	      return "redirect:"+page;
 	}
 	@RequestMapping(value = "/dejarseguirperfil/{id}")
 	public String dejarseguirPerfil(Model model, @PathVariable long id, HttpServletRequest request) {
-		  User usuario = this.userrepository.findOne(id);
-		  model.addAttribute("usuario", usuario);
-		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
+		  User user_tounfollow = this.userrepository.findOne(id);
+		  Principal p = request.getUserPrincipal();
+	      User current_user = userrepository.findByUsername(p.getName());
+	      current_user.getFollowing().remove(user_tounfollow);
+	      this.userrepository.save(current_user);
 		  model.addAttribute("owner",false);
+		  model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
+	      model.addAttribute("usuario", current_user);
+		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		  model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
-		return "perfil";
+		  model.addAttribute("isfollowed", current_user.ifollow(user_tounfollow));
+	      String page = this.requestCurrentPage(request);  
+	      return "redirect:"+page;
 	}
 	
 	@RequestMapping(value = "/eliminarperfil/{id}", method = RequestMethod.POST)
@@ -275,6 +294,18 @@ public class UserController {
 	
 	@RequestMapping("/vineta/{id}")
 	public String detalles(Model model, @PathVariable long id, HttpServletRequest request) {
+		boolean isfollowed = false;
+		if (userComponent.isLoggedUser()){
+			User user_tofollow = this.userrepository.findOne(id);
+			Principal p = request.getUserPrincipal();
+		    User current_user = userrepository.findByUsername(p.getName());
+		    isfollowed = current_user.ifollow(user_tofollow);
+		    System.out.println(isfollowed);
+			model.addAttribute("isfollowed", isfollowed);
+		}
+	    System.out.println(isfollowed);
+
+		model.addAttribute("isfollowed", isfollowed);
 		model.addAttribute("admin", request.isUserInRole("ROLE_ADMIN"));
 	    model.addAttribute("usuariologged", userComponent.isLoggedUser());
 		model.addAttribute("vineta", this.vinetarepository.findOne((long) id));

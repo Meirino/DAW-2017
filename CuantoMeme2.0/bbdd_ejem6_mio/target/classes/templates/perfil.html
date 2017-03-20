@@ -110,12 +110,12 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     {{#isfollowed}}
-                                     <form>
+                                     <form action="/dejarseguirperfil/{{usuario.id}}">
                                         <button id="seguirUsuario" class="btn btn-block btn-primary"><i class="fa fa-hand-o-right"></i> Dejar de seguir</button>
                                          <input type="hidden" name="_csrf" value="{{token}}">
                                     </form>
                                     {{/isfollowed}}{{^isfollowed}}
-                                    <form>
+                                    <form action="/seguirperfil/{{usuario.id}}">
                                         <button id="seguirUsuario" class="btn btn-block btn-primary"><i class="fa fa-hand-o-right"></i> Seguir</button>
                                         <input type="hidden" name="_csrf" value="{{token}}">
                                     </form>
@@ -150,7 +150,7 @@
                                             <div id="social" class="row">
                                                 <hr>
                                                 <button id="favs" type="button" class="btn btn-warning btn-circle btn-lg"><span class="fa fa-star" aria-hidden="true"></span></button>
-                                                <a href="vineta/{{id}}">
+                                                <a href="/vineta/{{id}}">
                                                     <button id="comentario" type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-comments"></i></button>
                                                 </a>
                                                 <button id="likes" type="button" onclick="location.href='/likevineta/{{id}}'" class="btn btn-success btn-circle btn-lg"><i class="fa fa-thumbs-up"></i>
