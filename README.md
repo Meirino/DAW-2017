@@ -34,6 +34,12 @@ Hemos usado el template SB-Admin (https://startbootstrap.com/template-overviews/
 
 ## Fase 3
 
+### Diagrama de navegación
+<img src="http://i.imgur.com/cGY4ObV.jpg">
+
+### Diagrama de la de base de datos
+<img src="http://i.imgur.com/PzSXCAv.jpg">
+
 ### Diagrama de clases
 <img src="http://i.imgur.com/x9kPySr.png">
 <img src="http://i.imgur.com/edb98hT.png">
