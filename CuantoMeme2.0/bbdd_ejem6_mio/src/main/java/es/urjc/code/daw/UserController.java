@@ -139,6 +139,8 @@ public class UserController {
 		model.addAttribute("owner",true);
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		model.addAttribute("recomendados", this.vinetarepository.findOne((long) randomInt));
+		model.addAttribute("seguidos",user.getFollowing());
+		model.addAttribute("seguidores", user.getFollowers());
 		return "perfil";
 	}
 	@RequestMapping(value = "/misfavoritos")
@@ -200,6 +202,8 @@ public class UserController {
 		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		  model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		  model.addAttribute("isfollowed", isfollowed);
+		  model.addAttribute("seguidos",usuario.getFollowing());
+			model.addAttribute("seguidores", usuario.getFollowers());
 		return "perfil";
 	}
 	@RequestMapping(value = "/seguirperfil/{id}")
