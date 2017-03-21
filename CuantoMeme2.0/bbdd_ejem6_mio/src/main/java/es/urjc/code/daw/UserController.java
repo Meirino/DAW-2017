@@ -122,7 +122,6 @@ public class UserController {
 	    if(referrer!=null){
 	        request.getSession().setAttribute("url_prior_login", referrer);
 	    }
-	    System.out.println(referrer);
 	    return referrer;
 	}
 	
@@ -323,7 +322,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/likevineta/{id}")
 	public String likeVineta(Model model, @PathVariable long id, HttpServletRequest request ) {
-		System.out.println("asdasdasdasdsdfasd");
 		  String page = this.requestCurrentPage(request);
 		  boolean is_liked_before = false;
 		  Principal p = request.getUserPrincipal();
