@@ -436,10 +436,21 @@ public class UserController {
 	    model.addAttribute("vinetas",this.vinetarepository.findByTitulo(texto));
 	   }
 	   if(modo.equals("autor")) {
-	    model.addAttribute("vinetas",this.userrepository.findByUsername(texto).getVinetas_subidas());
+		   User usuario = this.userrepository.findByUsername(texto);
+		   if (usuario == null){
+			   model.addAttribute("vinetas", null);
+		   }else{
+			    model.addAttribute("vinetas",usuario.getVinetas_subidas());
+
+		   }
 	   }
 	   if(modo.equals("tag")) {
-	    model.addAttribute("vinetas",this.tagrepository.findByNombre(texto).getVinetas());
+		   Tag tag = this.tagrepository.findByNombre(texto);
+		   if (tag == null){
+			   model.addAttribute("vinetas", null);
+		   }else{
+			    model.addAttribute("vinetas",tag.getVinetas());
+		   }
 	   }
 	   model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
 	   model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
