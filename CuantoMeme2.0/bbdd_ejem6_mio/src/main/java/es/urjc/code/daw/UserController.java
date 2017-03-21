@@ -248,7 +248,7 @@ public class UserController {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "¡Bienvenido a CuantoMeme!");
 		model.addAttribute("admin", isAdmin);
-		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "redirect:/";
 	}
@@ -292,7 +292,7 @@ public class UserController {
 			isAdmin = request.isUserInRole("ROLE_ADMIN");
 		}
 		model.addAttribute("admin", isAdmin);
-		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "index";
 	}
@@ -424,7 +424,7 @@ public class UserController {
 			isAdmin = request.isUserInRole("ROLE_ADMIN");
 		}
 		model.addAttribute("admin", isAdmin);
-		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "index";
 	}
