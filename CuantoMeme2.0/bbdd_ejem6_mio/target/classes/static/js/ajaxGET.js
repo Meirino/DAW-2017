@@ -8,6 +8,7 @@ function cargarPagina(num) {
     $.ajax({
         type: "GET"
         , beforeSend: function() {
+            $('#loading').html("<img src='/spinner.gif'/>").show();
             $('#loading').html("<img src='/spinner.gif'/>");
         }
         , contentType: "application/json"
