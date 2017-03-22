@@ -21,36 +21,36 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Vineta {
-	public interface BasicAtt{}
-	public interface UserAtt{}
-	public interface ComentariosAtt{}
-	public interface TagAtt{}
+	//public interface BasicAtt{}
+	//public interface UserAtt extends User.BasicAtt{}
+	//public interface ComentariosAtt{}
+	//public interface TagAtt{}
 	
 	@Id
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	private String titulo;
 	
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	private Date creationdate;
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	private String URL;
 	
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	private long likes = 0;
 	
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	private long dislikes = 0;
 	
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	private String descripcion;
 	
 	
-	@JsonView(UserAtt.class)
-	//@JsonIgnore
+	//@JsonView(UserAtt.class)
+	@JsonIgnore
 	@ManyToOne
 	private User autor;
 	

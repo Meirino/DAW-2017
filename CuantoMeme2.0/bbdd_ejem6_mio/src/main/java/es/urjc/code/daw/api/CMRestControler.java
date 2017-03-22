@@ -28,10 +28,10 @@ import es.urjc.code.daw.vineta.*;
 @RestController
 public class CMRestControler {
 	
-	interface VinetaView extends Vineta.BasicAtt, Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
-	interface UserView extends User.BasicAtt, User.VinetaAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt{}
-	interface ComentarioView extends Comentario.BasicAtt, Comentario.UserAtt, User.BasicAtt, Comentario.VinetaAtt, Vineta.BasicAtt{}
-	interface TagView extends Tag.BasicAtt {}
+	//interface VinetaView extends Vineta.BasicAtt, Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
+	//interface UserView extends User.BasicAtt, User.VinetaAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt{}
+	//interface ComentarioView extends Comentario.BasicAtt, Comentario.UserAtt, User.BasicAtt, Comentario.VinetaAtt, Vineta.BasicAtt{}
+	//interface TagView extends Tag.BasicAtt {}
 	
 	@Autowired
 	private UserRepository userrepository;
@@ -46,9 +46,9 @@ public class CMRestControler {
 	private TagRepository tagrepository;
 	
 	
-	@JsonView(VinetaView.class)
+	//@JsonView(VinetaView.class)
 	@RequestMapping(value = "/api/vinetaspage/", method= RequestMethod.GET)
-	public List<Vineta> getvinetaspage(Pageable page ){
+	public Page<Vineta> getvinetaspage(Pageable page ){
 		//This System.out print all the size of my repository
 		System.out.println(this.vinetarepository.findAll().size());
 		//This for print the title for my 20 first objects Vineta
@@ -63,7 +63,7 @@ public class CMRestControler {
 		System.out.println(page.getPageSize());
 		
 		//Finally, this is not returning nothing
-		return vinetarepository.findAllByOrderByCreationdateDesc(page).getContent();
+		return vinetarepository.findAll(page);
 	}
 	//@JsonView(VinetaView.class)
 	@RequestMapping("/api/vinetas2/")
