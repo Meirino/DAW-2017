@@ -20,60 +20,62 @@ import javax.persistence.OneToMany;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import es.urjc.code.daw.comentario.*;
 
 @Entity
 public class User {
-	public interface BasicAtt {}
-	public interface VinetaAtt{}
-	public interface ComentarioAtt{}
-	public interface SeguidoresAtt{}
+	//public interface BasicAtt {}
+	//public interface VinetaAtt{}
+	//public interface ComentarioAtt{}
+	//public interface SeguidoresAtt{}
 	
 	@Id
-	@JsonView(BasicAtt.class)
+	
+	//@JsonView(BasicAtt.class)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	private String username;
-	
+	@JsonIgnore
 	private String passwordHash;
-	
-	@JsonView(BasicAtt.class)
+	@JsonIgnore
+	//@JsonView(BasicAtt.class)
 	private String email;
-	
-	@JsonView(BasicAtt.class)
+	@JsonIgnore
+	//@JsonView(BasicAtt.class)
 	private String AvatarURL;
-	
-	@JsonView(VinetaAtt.class)	
+	@JsonIgnore
+	//@JsonView(VinetaAtt.class)	
 	@OneToMany(mappedBy="autor", cascade=CascadeType.ALL)//, cascade=CascadeType.ALL)
 	private List<Vineta> vinetas_subidas = new ArrayList<>();
-	
+	@JsonIgnore
 	@ManyToMany(mappedBy="following")
 	private List<User> followers = new ArrayList<>();
-	
+	@JsonIgnore
 	@ManyToMany
 	private List<User> following = new ArrayList<>();
 
-	
-	@JsonView(ComentarioAtt.class)
+	@JsonIgnore
+	//@JsonView(ComentarioAtt.class)
 	@OneToMany(mappedBy="autor_comentario", cascade = CascadeType.ALL)//, cascade=CascadeType.ALL)
 	private List<Comentario> comentarios = new ArrayList<>();
 	
-
+	@JsonIgnore
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
-	
-	@JsonView(VinetaAtt.class)
+	@JsonIgnore
+	//@JsonView(VinetaAtt.class)
 	@ManyToMany
 	private List<Vineta> vinetas_favoritas = new ArrayList<>();
-	
-	@JsonView(VinetaAtt.class)
+	@JsonIgnore
+	//@JsonView(VinetaAtt.class)
 	@ManyToMany
 	private List<Vineta> vinetas_gustadas = new ArrayList<>();
-	
-	@JsonView(VinetaAtt.class)
+	@JsonIgnore
+	//@JsonView(VinetaAtt.class)
 	@ManyToMany
 	private List<Vineta> vinetas_odiadas = new ArrayList<>();
 	

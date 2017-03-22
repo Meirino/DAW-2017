@@ -1,6 +1,8 @@
 package es.urjc.code.daw;
 
 import java.security.Principal;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
@@ -458,7 +460,6 @@ public class UserController {
 	   return "index";
 	  }
 	  
-	  public boolean isAdmin(HttpServletRequest request){
-		  return request.isUserInRole("ROLE_ADMIN");
-	  }
+
+
 }
