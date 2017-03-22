@@ -157,7 +157,7 @@ public class UserController {
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
 		System.out.println("hola 1");
-		return "index";
+		return "misvinetas-social";
 
 	}
 	
@@ -171,7 +171,7 @@ public class UserController {
 		model.addAttribute("vinetas", usuario.getVinetas_gustadas());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
-		return "index";
+		return "misvinetas-social";
 	}
 	
 	@RequestMapping(value = "/misdislikes")
@@ -184,7 +184,7 @@ public class UserController {
 		model.addAttribute("vinetas", usuario.getVinetas_odiadas());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
-		return "index";
+		return "misvinetas-social";
 	}
 	
 
@@ -348,6 +348,12 @@ public class UserController {
 		  Principal p = request.getUserPrincipal();
 	      User user = userrepository.findByUsername(p.getName());
 	      Vineta v = vinetarepository.findOne(id);
+	      /*
+	      for(User u:v.getUsers_likes()){
+	    	  System.out.println("Esta vineta le gusta a "+u.getUsername());
+	    	  u.getVinetas_gustadas().remove(v);
+	    	  userrepository.save(u);
+	      }*/
 	      if((v.getAutor().getId() == user.getId()) || request.isUserInRole("ROLE_ADMIN") ){
 	    	  vinetarepository.delete(id);
 	      }
@@ -457,7 +463,7 @@ public class UserController {
 	   model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
 	   model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 
-	   return "index";
+	   return "resultadobusqueda";
 	  }
 	  
 

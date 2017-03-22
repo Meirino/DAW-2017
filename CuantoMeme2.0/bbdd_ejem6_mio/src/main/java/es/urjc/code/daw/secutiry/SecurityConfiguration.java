@@ -50,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin().failureUrl("/loginerror");
 
         // Logout
-        http.logout().logoutUrl("/logout").deleteCookies("JSESSIONID", "remember-me");;
+        http.logout().logoutUrl("/logout").deleteCookies("JSESSIONID", "remember-me");
         http.logout().logoutSuccessUrl("/");
         //http.csrf().disable();
 

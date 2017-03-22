@@ -26,48 +26,43 @@ import es.urjc.code.daw.comentario.*;
 
 @Entity
 public class User {
-	//public interface BasicAtt {}
-	//public interface VinetaAtt{}
-	//public interface ComentarioAtt{}
-	//public interface SeguidoresAtt{}
+	public interface BasicAtt {}
+	public interface VinetaAtt{}
+	public interface ComentarioAtt{}
+	public interface SeguidoresAtt{}
 	
 	@Id
 	
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	private String username;
 	@JsonIgnore
 	private String passwordHash;
-	@JsonIgnore
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	private String email;
-	@JsonIgnore
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	private String AvatarURL;
-	@JsonIgnore
-	//@JsonView(VinetaAtt.class)	
+	@JsonView(VinetaAtt.class)	
 	@OneToMany(mappedBy="autor", cascade=CascadeType.ALL)//, cascade=CascadeType.ALL)
 	private List<Vineta> vinetas_subidas = new ArrayList<>();
 	@JsonIgnore
 	@ManyToMany(mappedBy="following")
 	private List<User> followers = new ArrayList<>();
-	@JsonIgnore
+	
 	@ManyToMany
 	private List<User> following = new ArrayList<>();
 
-	@JsonIgnore
-	//@JsonView(ComentarioAtt.class)
+	@JsonView(ComentarioAtt.class)
 	@OneToMany(mappedBy="autor_comentario", cascade = CascadeType.ALL)//, cascade=CascadeType.ALL)
 	private List<Comentario> comentarios = new ArrayList<>();
 	
-	@JsonIgnore
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
-	@JsonIgnore
-	//@JsonView(VinetaAtt.class)
+
+	@JsonView(VinetaAtt.class)
 	@ManyToMany
 	private List<Vineta> vinetas_favoritas = new ArrayList<>();
 	@JsonIgnore

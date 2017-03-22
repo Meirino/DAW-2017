@@ -21,62 +21,56 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Vineta {
-	//public interface BasicAtt{}
-	//public interface UserAtt extends User.BasicAtt{}
-	//public interface ComentariosAtt{}
-	//public interface TagAtt{}
+	public interface BasicAtt{}
+	public interface UserAtt extends User.BasicAtt{}
+	public interface ComentariosAtt{}
+	public interface TagAtt{}
 	
 	@Id
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	private String titulo;
 	
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	private Date creationdate;
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	private String URL;
 	
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	private long likes = 0;
 	
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	private long dislikes = 0;
 	
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	private String descripcion;
 	
 	
-	//@JsonView(UserAtt.class)
-	@JsonIgnore
+	@JsonView(UserAtt.class)
 	@ManyToOne
 	private User autor;
 	
-	//@JsonView(ComentariosAtt.class)
-	@JsonIgnore
+	@JsonView(ComentariosAtt.class)
 	@OneToMany(mappedBy="vineta", cascade = CascadeType.ALL)
 	private List<Comentario> comentarios = new ArrayList<>(); 
 	
-	//@JsonView(TagAtt.class)
-	@JsonIgnore
+	@JsonView(TagAtt.class)
 	@ManyToOne
 	private Tag tags = null;
 	
-	//@JsonView(UserAtt.class)
-	@JsonIgnore
-	@ManyToMany(mappedBy="vinetas_favoritas")
+	@JsonView(UserAtt.class)
+	@ManyToMany(mappedBy="vinetas_favoritas", cascade = CascadeType.ALL)
 	private List<User> users_fav = new ArrayList<>();
 	
-	//@JsonView(UserAtt.class)
-	@JsonIgnore
-	@ManyToMany(mappedBy="vinetas_gustadas")
+	@JsonView(UserAtt.class)
+	@ManyToMany(mappedBy="vinetas_gustadas", cascade = CascadeType.ALL)
 	private List<User> users_likes = new ArrayList<>();
 	
-	//@JsonView(UserAtt.class)
-	@JsonIgnore
-	@ManyToMany(mappedBy="vinetas_odiadas")
+	@JsonView(UserAtt.class)
+	@ManyToMany(mappedBy="vinetas_odiadas", cascade = CascadeType.ALL)
 	private List<User> users_dislikes = new ArrayList<>();
 	
 	protected Vineta(){}
