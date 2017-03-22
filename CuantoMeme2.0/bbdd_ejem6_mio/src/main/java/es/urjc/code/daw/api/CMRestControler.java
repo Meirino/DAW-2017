@@ -62,6 +62,15 @@ public class CMRestControler {
 		//This print the page size = 20 
 		System.out.println(page.getPageSize());
 		
+		Integer seconds = 2;
+
+        try {
+            Thread.sleep(seconds*1000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+		
 		//Finally, this is not returning nothing
 		return vinetarepository.findAll(page);
 	}
