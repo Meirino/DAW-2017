@@ -93,7 +93,7 @@
                     <h1>{{mensaje}}</h1> </div>
                 <div class="container-fluid">
                     <div class="col-md-1"></div>
-                    <div class="col-md-9"> {{#vinetas}}
+                    <div id="anclaje" class="col-md-9"> <!--{{#vinetas}}
                         <div class="jumbotron">
                             <p>Autor: <small><a href="/perfil/{{autor.id}}">{{autor.username}}</a></small></p>
                             <h1>{{titulo}}</h1> <img class="img-responsive" src="{{URL}}">
@@ -133,7 +133,7 @@
                                 </div>
                                 {{/admin}}
                             </div>
-                        </div> {{/vinetas}} </div>
+                        </div> {{/vinetas}}--> </div>
                     <div class="col-md-1"></div>
                 </div>
             </div>
@@ -144,7 +144,7 @@
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="/js/jquery.js"></script>
-    <script src="/js/buttonHover.js"></script>
+    <script src="/js/AjaxGET.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap.min.js"></script>
 </body>
