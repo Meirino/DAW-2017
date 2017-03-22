@@ -16,41 +16,49 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Vineta {
-	public interface BasicAtt{}
-	public interface UserAtt{}
-	public interface ComentariosAtt{}
-	public interface TagAtt{}
+	//public interface BasicAtt{}
+	//public interface UserAtt{}
+	//public interface ComentariosAtt{}
+	//public interface TagAtt{}
 	
 	@Id
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	private String titulo;
 	
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
+	@DateTimeFormat(pattern="yyyy-mm-dd")
 	private Date creationdate;
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	private String URL;
 	
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	private long likes = 0;
 	
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	private long dislikes = 0;
 	
-	@JsonView(BasicAtt.class)
+	//@JsonView(BasicAtt.class)
 	private String descripcion;
 	
+	private String username_autor;
+	private long  id_autor;
+	private String nombre_tag;
+	private long  id_tag;
 	
-	@JsonView(UserAtt.class)
-	//@JsonIgnore
+
+	//@JsonView(UserAtt.class)
+	@JsonIgnore
 	@ManyToOne
 	private User autor;
 	
@@ -85,7 +93,6 @@ public class Vineta {
 		super();
 		this.titulo = titulo;
 		this.descripcion = descripcion;
-
 		this.URL = URL;
 		this.creationdate = new Date();
 	}
@@ -122,6 +129,8 @@ public class Vineta {
 
 	public void setAutor(User autor) {
 		this.autor = autor;
+		this.username_autor = autor.getUsername();
+		this.id_autor = autor.getId();
 	}
 
 	public List<Comentario> getComentarios() {
@@ -138,6 +147,8 @@ public class Vineta {
 
 	public void setTags(Tag tags) {
 		this.tags = tags;
+		this.id_tag = tags.getId();
+		this.nombre_tag = tags.getNombre();
 	}
 
 	public long getId() {
@@ -209,6 +220,38 @@ public class Vineta {
 
 	public void setUsers_dislikes(List<User> users_dislikes) {
 		this.users_dislikes = users_dislikes;
+	}
+
+	public String getNombre_tag() {
+		return nombre_tag;
+	}
+
+	public void setNombre_tag(String nombre_tag) {
+		this.nombre_tag = nombre_tag;
+	}
+
+	public long getId_tag() {
+		return id_tag;
+	}
+
+	public void setId_tag(long id_tag) {
+		this.id_tag = id_tag;
+	}
+
+	public long getId_autor() {
+		return id_autor;
+	}
+
+	public void setId_autor(long id_autor) {
+		this.id_autor = id_autor;
+	}
+
+	public String getUsername_autor() {
+		return username_autor;
+	}
+
+	public void setUsername_autor(String username_autor) {
+		this.username_autor = username_autor;
 	}
 
 	@Override
