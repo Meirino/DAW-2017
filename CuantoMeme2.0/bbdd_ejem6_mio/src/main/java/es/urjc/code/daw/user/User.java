@@ -26,18 +26,18 @@ import es.urjc.code.daw.comentario.*;
 
 @Entity
 public class User {
-	//public interface BasicAtt {}
-	//public interface VinetaAtt{}
-	//public interface ComentarioAtt{}
-	//public interface SeguidoresAtt{}
+	public interface BasicAtt {}
+	public interface VinetaAtt{}
+	public interface ComentarioAtt{}
+	public interface SeguidoresAtt{}
 	
 	@Id
 	
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	//@JsonView(BasicAtt.class)
+	@JsonView(BasicAtt.class)
 	private String username;
 	@JsonIgnore
 	private String passwordHash;
