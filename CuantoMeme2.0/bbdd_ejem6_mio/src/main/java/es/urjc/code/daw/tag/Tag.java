@@ -59,6 +59,6 @@ public class Tag {
 	public void setVinetas(List<Vineta> vinetas) {
 		this.vinetas = vinetas;
 	}
-	
+
 	
 }
