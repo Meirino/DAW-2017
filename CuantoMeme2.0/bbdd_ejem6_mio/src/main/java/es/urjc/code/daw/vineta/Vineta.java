@@ -62,15 +62,15 @@ public class Vineta {
 	private Tag tags = null;
 	
 	@JsonView(UserAtt.class)
-	@ManyToMany(mappedBy="vinetas_favoritas", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy="vinetas_favoritas")
 	private List<User> users_fav = new ArrayList<>();
 	
 	@JsonView(UserAtt.class)
-	@ManyToMany(mappedBy="vinetas_gustadas", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy="vinetas_gustadas")
 	private List<User> users_likes = new ArrayList<>();
 	
 	@JsonView(UserAtt.class)
-	@ManyToMany(mappedBy="vinetas_odiadas", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy="vinetas_odiadas")
 	private List<User> users_dislikes = new ArrayList<>();
 	
 	protected Vineta(){}
