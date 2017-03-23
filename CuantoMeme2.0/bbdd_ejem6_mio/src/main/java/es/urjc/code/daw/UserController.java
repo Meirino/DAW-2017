@@ -1,6 +1,8 @@
 package es.urjc.code.daw;
 
 import java.security.Principal;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
@@ -122,7 +124,6 @@ public class UserController {
 	    if(referrer!=null){
 	        request.getSession().setAttribute("url_prior_login", referrer);
 	    }
-	    System.out.println(referrer);
 	    return referrer;
 	}
 	
@@ -156,7 +157,7 @@ public class UserController {
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
 		System.out.println("hola 1");
-		return "index";
+		return "misvinetas-social";
 
 	}
 	
@@ -170,7 +171,7 @@ public class UserController {
 		model.addAttribute("vinetas", usuario.getVinetas_gustadas());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
-		return "index";
+		return "misvinetas-social";
 	}
 	
 	@RequestMapping(value = "/misdislikes")
@@ -183,7 +184,7 @@ public class UserController {
 		model.addAttribute("vinetas", usuario.getVinetas_odiadas());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
-		return "index";
+		return "misvinetas-social";
 	}
 	
 
@@ -249,7 +250,7 @@ public class UserController {
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "¡Bienvenido a CuantoMeme!");
 		model.addAttribute("admin", isAdmin);
-		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "redirect:/";
 	}
@@ -293,7 +294,7 @@ public class UserController {
 			isAdmin = request.isUserInRole("ROLE_ADMIN");
 		}
 		model.addAttribute("admin", isAdmin);
-		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "index";
 	}
@@ -323,7 +324,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/likevineta/{id}")
 	public String likeVineta(Model model, @PathVariable long id, HttpServletRequest request ) {
-		System.out.println("asdasdasdasdsdfasd");
 		  String page = this.requestCurrentPage(request);
 		  boolean is_liked_before = false;
 		  Principal p = request.getUserPrincipal();
@@ -348,6 +348,12 @@ public class UserController {
 		  Principal p = request.getUserPrincipal();
 	      User user = userrepository.findByUsername(p.getName());
 	      Vineta v = vinetarepository.findOne(id);
+	      /*
+	      for(User u:v.getUsers_likes()){
+	    	  System.out.println("Esta vineta le gusta a "+u.getUsername());
+	    	  u.getVinetas_gustadas().remove(v);
+	    	  userrepository.save(u);
+	      }*/
 	      if((v.getAutor().getId() == user.getId()) || request.isUserInRole("ROLE_ADMIN") ){
 	    	  vinetarepository.delete(id);
 	      }
@@ -426,7 +432,7 @@ public class UserController {
 			isAdmin = request.isUserInRole("ROLE_ADMIN");
 		}
 		model.addAttribute("admin", isAdmin);
-		model.addAttribute("vinetas", this.vinetarepository.findAll());
+		model.addAttribute("vinetas", this.vinetarepository.findAllByOrderByCreationdateDesc());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		return "index";
 	}
@@ -438,18 +444,28 @@ public class UserController {
 	    model.addAttribute("vinetas",this.vinetarepository.findByTitulo(texto));
 	   }
 	   if(modo.equals("autor")) {
-	    model.addAttribute("vinetas",this.userrepository.findByUsername(texto).getVinetas_subidas());
+		   User usuario = this.userrepository.findByUsername(texto);
+		   if (usuario == null){
+			   model.addAttribute("vinetas", null);
+		   }else{
+			    model.addAttribute("vinetas",usuario.getVinetas_subidas());
+
+		   }
 	   }
 	   if(modo.equals("tag")) {
-	    model.addAttribute("vinetas",this.tagrepository.findByNombre(texto).getVinetas());
+		   Tag tag = this.tagrepository.findByNombre(texto);
+		   if (tag == null){
+			   model.addAttribute("vinetas", null);
+		   }else{
+			    model.addAttribute("vinetas",tag.getVinetas());
+		   }
 	   }
 	   model.addAttribute("admin",request.isUserInRole("ROLE_ADMIN"));
 	   model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 
-	   return "index";
+	   return "resultadobusqueda";
 	  }
 	  
-	  public boolean isAdmin(HttpServletRequest request){
-		  return request.isUserInRole("ROLE_ADMIN");
-	  }
+
+
 }

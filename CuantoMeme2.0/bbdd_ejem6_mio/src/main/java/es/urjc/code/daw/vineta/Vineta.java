@@ -16,13 +16,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Vineta {
 	public interface BasicAtt{}
-	public interface UserAtt{}
+	public interface UserAtt extends User.BasicAtt{}
 	public interface ComentariosAtt{}
 	public interface TagAtt{}
 	

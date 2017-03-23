@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,69 +45,34 @@ public class CMRestControler {
 	@Autowired
 	private TagRepository tagrepository;
 	
-
-	@PostConstruct
-	public void init(){
-		/*
-		User usuario1 = new User("joaquin", "joa", "cuantomeme1@gmail.com");
-		Vineta v1 = new Vineta("vineta1", "des1", "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
-		v1.setAutor(usuario1);
-		this.userrepository.save(usuario1);
-		this.vinetarepository.save(v1);
-		
-		
-		
-			
-		}*/
-		
-
-		/*
-		Vineta v1 = new Vineta("vineta1", "des1", "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
-		Vineta v2 = new Vineta("vineta2", "des2", "http://www.leragecomics.com/wp-content/uploads/2011/04/VzxVF-640x546.png");
-		
-		
-		
-		v1.setAutor(usuario1);
-		v2.setAutor(usuario2);
-		
-		this.userrepository.save(usuario1);
-		this.userrepository.save(usuario2);
-		this.vinetarepository.save(v1);
-		this.vinetarepository.save(v2);
-		
-		Tag t1 = new Tag("Lol");
-		Tag t2 = new Tag("Lol2");
-		Tag t3 = new Tag("Lol3");
-		
-		this.tagrepository.save(t1);
-		this.tagrepository.save(t2);
-		this.tagrepository.save(t3);
-		
-		v1.setTags(t1);
-		v1.setTags(t2);
-		v2.setTags(t1);
-		v2.setTags(t3);
-		
-		this.vinetarepository.save(v1);
-		this.vinetarepository.save(v2);
-		
-		Comentario c1 = new Comentario("mi primer comentario");
-		c1.setAutor_comentario(usuario1);
-		c1.setVineta(v1);
-		this.comentariorepository.save(c1);*/
-	}
-
 	
 	@JsonView(VinetaView.class)
-	@RequestMapping("/api/vinetas/")
-	public Page<Vineta> getvinetas(@RequestParam int page, @RequestParam int size){
-		System.out.println(page);
-		System.out.println(size);
-	    Pageable pageable = new PageRequest(page, size) ;
-	    Page<Vineta> pageResult = this.vinetarepository.findAll(pageable);
-		//System.out.println(this.vinetarepository.findAll());
-		//System.out.println(this.vinetarepository.findAll(page));
-		return pageResult;
+	@RequestMapping(value = "/api/vinetaspage/", method= RequestMethod.GET)
+	public List<Vineta> getvinetaspage(Pageable page ){
+		//This System.out print all the size of my repository
+		System.out.println(this.vinetarepository.findAll().size());
+		//This for print the title for my 20 first objects Vineta
+		for(Vineta v:this.vinetarepository.findAll(page)){
+			System.out.println(v.getTitulo());
+		}
+		// This print 20
+		System.out.println(this.vinetarepository.findAll(page).getSize());
+		//This print the page number = 0 
+		System.out.println(page.getPageNumber());
+		//This print the page size = 20 
+		System.out.println(page.getPageSize());
+		
+		Integer seconds = 2;
+
+        try {
+            Thread.sleep(seconds*1000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+		
+		//Finally, this is not returning nothing
+		return vinetarepository.findAll(page).getContent();
 	}
 	@JsonView(VinetaView.class)
 	@RequestMapping("/api/vinetas2/")

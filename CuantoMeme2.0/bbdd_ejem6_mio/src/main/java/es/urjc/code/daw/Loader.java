@@ -54,7 +54,7 @@ public class Loader {
 	
 	static final int NUSERS = 10;
 	static final int NTAGS = 10;
-	static final int NVINETAS = 40;
+	static final int NVINETAS = 100;
 	static final int NCOMENTARIOS = 30;
 	@PostConstruct
 	public void init(){
