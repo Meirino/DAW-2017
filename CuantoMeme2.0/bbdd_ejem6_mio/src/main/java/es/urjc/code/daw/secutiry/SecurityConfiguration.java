@@ -35,8 +35,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/misfavoritos").hasAnyRole("USER");
         http.authorizeRequests().antMatchers("/seguirperfil/{id}").hasAnyRole("USER");
         http.authorizeRequests().antMatchers("/dejarseguirperfil/{id}").hasAnyRole("USER");  
-        
-        //Admin  authorize request:
+        //EL usuario puede eliminar solo sus propias vinetas.
+        http.authorizeRequests().antMatchers("/eliminarvinetaperfil/{id}").hasAnyRole("USER"); 
+        //Admin  authorize request. Puede eliminar cualquier cosa:
         http.authorizeRequests().antMatchers("/eliminarperfil/{id}").hasAnyRole("ADMIN");  
         http.authorizeRequests().antMatchers("/eliminarcomentario/{id}").hasAnyRole("ADMIN"); 
         http.authorizeRequests().antMatchers("/eliminarvineta/{id}").hasAnyRole("ADMIN"); 

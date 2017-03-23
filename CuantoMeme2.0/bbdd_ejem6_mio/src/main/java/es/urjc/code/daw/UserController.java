@@ -140,6 +140,7 @@ public class UserController {
 		//model.addAttribute("usuario_logged", user);    
 		model.addAttribute("usuario", user);
 		model.addAttribute("owner",true);
+		model.addAttribute("admin",true);
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 		model.addAttribute("recomendados", this.vinetarepository.findOne((long) randomInt));
 		model.addAttribute("seguidos",user.getFollowing());
@@ -274,7 +275,7 @@ public class UserController {
 		  Principal p = request.getUserPrincipal();
 	      User user = userrepository.findByUsername(p.getName());
 	      Comentario c = comentariorepository.findOne(id);
-	      if(c.getAutor_comentario().getId() == user.getId()){
+	      if(request.isUserInRole("ROLE_ADMIN")){
 	    	  comentariorepository.delete(id);
 	      }
 	      String page = this.requestCurrentPage(request);  
@@ -361,6 +362,23 @@ public class UserController {
 	      return "redirect:/";
 	}
 	
+	@RequestMapping(value = "/eliminarvinetaperfil/{id}")
+	public String eliminarvinetaperfil(Model model, @PathVariable long id, HttpServletRequest request ) {
+		  Principal p = request.getUserPrincipal();
+	      User user = userrepository.findByUsername(p.getName());
+	      Vineta v = vinetarepository.findOne(id);
+	      /*
+	      for(User u:v.getUsers_likes()){
+	    	  System.out.println("Esta vineta le gusta a "+u.getUsername());
+	    	  u.getVinetas_gustadas().remove(v);
+	    	  userrepository.save(u);
+	      }*/
+	      if((v.getAutor().getId() == user.getId()) || request.isUserInRole("ROLE_ADMIN") ){
+	    	  vinetarepository.delete(id);
+	      }
+	      //String page = this.requestCurrentPage(request);  
+	      return "redirect:/";
+	}
 	@RequestMapping(value = "/dislikevineta/{id}")
 	public String dislikeVineta(Model model, @PathVariable long id, HttpServletRequest request) {
 		String page = this.requestCurrentPage(request);

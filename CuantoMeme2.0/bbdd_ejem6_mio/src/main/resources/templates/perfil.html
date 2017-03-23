@@ -163,10 +163,11 @@
                                                  <button id="dislikes" type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
                                                         <div class="badge">{{dislikes}}</div>
                                                  </button>
-                                                 <button id="delete" type="button" onclick="location.href='/eliminarvineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>
+                                                 {{#admin}}
+                                                 <button id="delete" type="button" onclick="location.href='/eliminarvinetaperfil/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>
                                                         
                                                  </button>
-
+												{{/admin}}
                                                 <br>
                                                 <br> </div>
                                         </div> {{/usuario.viñetas}}
@@ -194,9 +195,6 @@
              
                                                  <button id="dislikes" type="button" onclick="location.href='/dislikevineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-thumbs-down"></i>
                                                         <div class="badge">{{dislikes}}</div>
-                                                 </button>
-                                                 <button id="delete" type="button" onclick="location.href='/eliminarvineta/{{id}}'" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i>
-                                                        
                                                  </button>
 
                                                 <br>
