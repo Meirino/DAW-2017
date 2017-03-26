@@ -414,7 +414,7 @@ public class UserController {
 			model.addAttribute("usuario", usuario);
 		}
 		model.addAttribute("tag",this.tagrepository.findByNombre(nombre));
-		model.addAttribute("lista", this.tagrepository.findByNombre(nombre).getVinetas());
+		model.addAttribute("lista", this.tagrepository.findByNombre(nombre).get(0).getVinetas());
 		model.addAttribute("tags_mas_usados", this.tagrepository.findAll());
 
 		return "tagIndex";
@@ -453,7 +453,7 @@ public class UserController {
 		   }
 	   }
 	   if(modo.equals("tag")) {
-		   Tag tag = this.tagrepository.findByNombre(texto);
+		   Tag tag = this.tagrepository.findByNombre(texto).get(0);
 		   if (tag == null){
 			   model.addAttribute("vinetas", null);
 		   }else{

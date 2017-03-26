@@ -28,6 +28,7 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{id}").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/tags/{id}").permitAll(); //Necesita permisos de admin / Solo borra tags vacíos
+        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{nombre}").permitAll(); //Necesita permisos de admin / Solo borra tags vacíos
         
         		/* Comentario */
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentarios").permitAll();
@@ -36,6 +37,9 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/comentarios/{id}").permitAll(); //Necesita comprobar que el admin o el usuario original lo están borrando
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentariosByUser/{id}").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentariosByVineta/{id}").permitAll();
+        
+        		/* Viñetas */
+        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/vinetaspage/").permitAll();
         
         // Private pages (all other pages)
         

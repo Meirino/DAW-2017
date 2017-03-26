@@ -25,7 +25,6 @@ public class CMRestControler {
 	
 	interface VinetaView extends Vineta.BasicAtt, Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
 	interface UserView extends User.BasicAtt, User.VinetaAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt{}
-	interface TagView extends Tag.BasicAtt {}
 	
 	@Autowired
 	private UserRepository userrepository;
@@ -36,35 +35,6 @@ public class CMRestControler {
 	@Autowired
 	private TagRepository tagrepository;
 	
-	
-	@JsonView(VinetaView.class)
-	@RequestMapping(value = "/api/vinetaspage/", method= RequestMethod.GET)
-	public List<Vineta> getvinetaspage(Pageable page ){
-		//This System.out print all the size of my repository
-		System.out.println(this.vinetarepository.findAll().size());
-		//This for print the title for my 20 first objects Vineta
-		for(Vineta v:this.vinetarepository.findAll(page)){
-			System.out.println(v.getTitulo());
-		}
-		// This print 20
-		System.out.println(this.vinetarepository.findAll(page).getSize());
-		//This print the page number = 0 
-		System.out.println(page.getPageNumber());
-		//This print the page size = 20 
-		System.out.println(page.getPageSize());
-		
-		Integer seconds = 2;
-
-        try {
-            Thread.sleep(seconds*1000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-		
-		//Finally, this is not returning nothing
-		return vinetarepository.findAll(page).getContent();
-	}
 	@JsonView(VinetaView.class)
 	@RequestMapping("/api/vinetas2/")
 	public List<Vineta> getvinetas2(){
@@ -98,12 +68,5 @@ public class CMRestControler {
 	public User getusuariobyname(@PathVariable String nombre){
 		return this.userrepository.findByUsername(nombre);
 	}
-	
-	@JsonView(TagView.class)
-	@RequestMapping("/api/tags/{nombre}")
-	public Tag getTagsByName(@PathVariable String nombre){
-		return this.tagrepository.findByNombre(nombre);
-	}
-	
 	
 }

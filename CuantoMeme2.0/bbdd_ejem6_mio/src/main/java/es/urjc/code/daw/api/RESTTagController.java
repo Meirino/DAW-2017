@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
-
-import es.urjc.code.daw.api.CMRestControler.TagView;
 import es.urjc.code.daw.tag.Tag;
 import es.urjc.code.daw.tag.TagRepository;
 
 @RequestMapping("/api/")
 @RestController
 public class RESTTagController {
+	
+	interface TagView extends Tag.BasicAtt {};
 	
 	@Autowired
 	private TagRepository tagrepository;
@@ -49,6 +49,16 @@ public class RESTTagController {
 		if(this.tagrepository.findOne((long) id) != null) {
 			this.tagrepository.delete(this.tagrepository.findOne((long) id));
 			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@JsonView(TagView.class)
+	@RequestMapping("tags/{nombre}")
+	public ResponseEntity<List<Tag>> getTagsByName(@PathVariable String nombre){
+		if(!this.tagrepository.findByNombre(nombre).isEmpty()) {
+			return new ResponseEntity<>(this.tagrepository.findByNombre(nombre), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
