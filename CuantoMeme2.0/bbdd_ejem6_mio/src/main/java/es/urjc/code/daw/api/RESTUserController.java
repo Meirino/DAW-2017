@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.urjc.code.daw.api.CMRestControler.UserView;
 import es.urjc.code.daw.storage.StorageService;
 import es.urjc.code.daw.user.User;
 import es.urjc.code.daw.user.UserComponent;
@@ -31,7 +34,8 @@ public class RESTUserController {
 	private UserRepository userRepository;
 	
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
-	public User registro(@RequestParam String username, @RequestParam String password, @RequestParam String email) {
+	@JsonView(UserView.class)
+	public User registro(String username, String password, String email) {
 		User usuario = new User(username, password, email, "ROLE_USER");
 		this.userRepository.save(usuario);
 		return usuario;
@@ -44,7 +48,7 @@ public class RESTUserController {
 	}
 	
 	@RequestMapping(value = "test", method = RequestMethod.GET)
-	public String test(@RequestBody MultipartFile file) {
+	public String test() {
 		return "test";
 	}
 	

@@ -24,6 +24,7 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/signup").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/upload").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/test").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/vinetaspage/").permitAll();
        
         // Private pages (all other pages)
         
