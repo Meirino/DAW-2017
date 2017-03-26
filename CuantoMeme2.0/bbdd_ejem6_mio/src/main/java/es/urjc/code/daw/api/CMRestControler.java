@@ -115,12 +115,6 @@ public class CMRestControler {
 	}
 	
 	@JsonView(TagView.class)
-	@RequestMapping("/api/tags/")
-	public List<Tag> getTags(){
-		return this.tagrepository.findAll();
-	}
-	
-	@JsonView(TagView.class)
 	@RequestMapping("/api/tags/{nombre}")
 	public Tag getTagsByName(@PathVariable String nombre){
 		return this.tagrepository.findByNombre(nombre);

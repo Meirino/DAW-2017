@@ -18,15 +18,14 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
 		
-		http.antMatcher("/api/**").csrf().disable();
+		http.antMatcher("/api/**");
     	
     	// Public pages
         http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/signup").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/upload").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/test").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/vinetaspage/").permitAll();
        
         // Private pages (all other pages)
+        http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/upload").hasRole("USER");
         
         // Disable CSRF protection (it is difficult to implement with ng2)
      	http.csrf().disable();

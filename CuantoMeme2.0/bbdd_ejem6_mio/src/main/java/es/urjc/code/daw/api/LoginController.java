@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.urjc.code.daw.user.User;
 import es.urjc.code.daw.user.UserComponent;
+
 /**
  * This class is used to provide REST endpoints to logIn and logOut to the
  * service. These endpoints are used by Angular 2 SPA client application.
@@ -26,7 +27,7 @@ public class LoginController {
 	@Autowired
 	private UserComponent userComponent;
 
-	@RequestMapping("/logIn")
+	@RequestMapping("/api/logIn")
 	public ResponseEntity<User> logIn() {
 
 		if (!userComponent.isLoggedUser()) {
@@ -39,7 +40,7 @@ public class LoginController {
 		}
 	}
 
-	@RequestMapping("/logOut")
+	@RequestMapping("/api/logOut")
 	public ResponseEntity<Boolean> logOut(HttpSession session) {
 
 		if (!userComponent.isLoggedUser()) {
