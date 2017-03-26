@@ -37,14 +37,14 @@ public class RESTUserController {
 	
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	@JsonView(UserView.class)
-	public User registro(String username, String password, String email) {
+	public User registro(@RequestParam("username") String username, @RequestParam("pass") String password, @RequestParam("email") String email) {
 		User usuario = new User(username, password, email, "ROLE_USER");
 		this.userRepository.save(usuario);
 		return usuario;
 	}
 	
 	@RequestMapping(value = "upload", method = RequestMethod.POST)
-	public MultipartFile subirImagen(@RequestBody MultipartFile file) {
+	public MultipartFile subirImagen(@RequestParam("file") MultipartFile file) {
 		storageService.store(file);
 		return file;
 	}
@@ -52,6 +52,11 @@ public class RESTUserController {
 	@RequestMapping(value = "test", method = RequestMethod.GET)
 	public String test() {
 		return "test";
+	}
+	
+	@RequestMapping(value = "test", method = RequestMethod.POST)
+	public String testPost(@RequestParam("username") String username, @RequestParam("pass") String pass) {
+		return username + " / " + pass;
 	}
 	
 }
