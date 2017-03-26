@@ -32,6 +32,10 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         		/* Comentario */
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentarios").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentarios/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/comentarios/{id}").permitAll(); //Necesita comprobar que el admin o el usuario original lo están modificando
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/comentarios/{id}").permitAll(); //Necesita comprobar que el admin o el usuario original lo están borrando
+        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentariosByUser/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentariosByVineta/{id}").permitAll();
         
         // Private pages (all other pages)
         

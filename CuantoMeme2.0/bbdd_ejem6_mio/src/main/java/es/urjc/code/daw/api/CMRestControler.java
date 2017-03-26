@@ -1,29 +1,24 @@
 package es.urjc.code.daw.api;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import es.urjc.code.daw.comentario.Comentario;
 import es.urjc.code.daw.tag.Tag;
 import es.urjc.code.daw.tag.TagRepository;
-import es.urjc.code.daw.comentario.Comentario;
-import es.urjc.code.daw.comentario.ComentarioRepository;
-import es.urjc.code.daw.user.*;
-import es.urjc.code.daw.vineta.*;
+import es.urjc.code.daw.user.User;
+import es.urjc.code.daw.user.UserRepository;
+import es.urjc.code.daw.vineta.Vineta;
+import es.urjc.code.daw.vineta.VinetaRepository;
 
 @RestController
 public class CMRestControler {
@@ -34,9 +29,6 @@ public class CMRestControler {
 	
 	@Autowired
 	private UserRepository userrepository;
-
-	@Autowired
-	private ComentarioRepository comentariorepository;
 	
 	@Autowired
 	private VinetaRepository vinetarepository;
