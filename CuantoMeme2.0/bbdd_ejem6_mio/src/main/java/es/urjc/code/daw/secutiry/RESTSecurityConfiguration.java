@@ -21,14 +21,15 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.antMatcher("/api/**");
     	
     	// Public pages
+		
+				/* Usuario */
         http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/signup").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/vinetaspage/").permitAll();
         
         		/* Tags */
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{id}").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/tags/{id}").permitAll(); //Necesita permisos de admin / Solo borra tags vacíos
-        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{nombre}").permitAll(); //Necesita permisos de admin / Solo borra tags vacíos
+        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{nombre}").permitAll(); //Da problemas
         
         		/* Comentario */
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentarios").permitAll();
@@ -40,6 +41,7 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         
         		/* Viñetas */
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/vinetaspage/").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/vinetas/{id}").permitAll();
         
         // Private pages (all other pages)
         

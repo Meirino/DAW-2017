@@ -45,11 +45,6 @@ public class CMRestControler {
 	public Page<Vineta> getvinetas3(Pageable page){
 		return this.vinetarepository.findAll(page);
 	}
-	@JsonView(Vineta.BasicAtt.class)
-	@RequestMapping("/api/vineta/{id}")
-	public Vineta getvineta(@PathVariable long id){
-		return this.vinetarepository.findOne(id);
-	}
 	
 	@JsonView(User.BasicAtt.class)
 	@RequestMapping("/api/usuarios/")

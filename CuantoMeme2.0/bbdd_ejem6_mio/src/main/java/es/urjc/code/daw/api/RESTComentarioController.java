@@ -3,7 +3,6 @@ package es.urjc.code.daw.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,7 +64,7 @@ public class RESTComentarioController {
 			this.comentariorepository.save(original);
 			return new ResponseEntity<>(original, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		}
 	}
 	
