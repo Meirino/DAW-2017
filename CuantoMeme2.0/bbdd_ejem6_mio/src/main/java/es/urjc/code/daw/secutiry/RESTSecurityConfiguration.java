@@ -23,9 +23,18 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
     	// Public pages
         http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/signup").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/vinetaspage/").permitAll();
-       
+        
+        		/* Tags */
+        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/tags/{id}").permitAll(); //Necesita permisos de admin / Solo borra tags vacíos
+        
+        		/* Comentario */
+        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentarios").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentarios/{id}").permitAll();
+        
         // Private pages (all other pages)
-        http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/upload").hasRole("USER");
+        
         
         // Disable CSRF protection (it is difficult to implement with ng2)
      	http.csrf().disable();

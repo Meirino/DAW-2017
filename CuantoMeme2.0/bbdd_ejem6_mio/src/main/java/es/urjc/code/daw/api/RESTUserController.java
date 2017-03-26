@@ -25,13 +25,6 @@ import es.urjc.code.daw.user.UserRepository;
 @RestController
 public class RESTUserController {
 	
-	private final StorageService storageService;
-	
-	@Autowired
-    public RESTUserController(StorageService storageService) {
-        this.storageService = storageService;
-    }
-	
 	@Autowired
 	private UserRepository userRepository;
 	

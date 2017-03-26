@@ -30,7 +30,6 @@ public class CMRestControler {
 	
 	interface VinetaView extends Vineta.BasicAtt, Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
 	interface UserView extends User.BasicAtt, User.VinetaAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt{}
-	interface ComentarioView extends Comentario.BasicAtt, Comentario.UserAtt, User.BasicAtt, Comentario.VinetaAtt, Vineta.BasicAtt{}
 	interface TagView extends Tag.BasicAtt {}
 	
 	@Autowired
@@ -106,12 +105,6 @@ public class CMRestControler {
 	@RequestMapping("/api/usuariosByName/{nombre}")
 	public User getusuariobyname(@PathVariable String nombre){
 		return this.userrepository.findByUsername(nombre);
-	}
-	
-	@JsonView(ComentarioView.class)
-	@RequestMapping("/api/comentarios/")
-	public List<Comentario> getcomentarios(){
-		return this.comentariorepository.findAll();
 	}
 	
 	@JsonView(TagView.class)
