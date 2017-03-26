@@ -1,11 +1,15 @@
 package es.urjc.code.daw.secutiry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+@Configuration
+@Order(1)
 public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -19,9 +23,9 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
     	// Public pages
         http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/signup").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/upload").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/test").permitAll();
        
         // Private pages (all other pages)
-        //http.authorizeRequests().antMatchers("/home").hasAnyRole("USER"); 
         
         // Disable CSRF protection (it is difficult to implement with ng2)
      	http.csrf().disable();

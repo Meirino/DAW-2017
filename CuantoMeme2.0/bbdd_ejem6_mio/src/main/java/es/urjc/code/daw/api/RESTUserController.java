@@ -38,8 +38,14 @@ public class RESTUserController {
 	}
 	
 	@RequestMapping(value = "upload", method = RequestMethod.POST)
-	public void subirImagen(@RequestBody MultipartFile file) {
+	public MultipartFile subirImagen(@RequestBody MultipartFile file) {
 		storageService.store(file);
+		return file;
+	}
+	
+	@RequestMapping(value = "test", method = RequestMethod.GET)
+	public String test(@RequestBody MultipartFile file) {
+		return "test";
 	}
 	
 }
