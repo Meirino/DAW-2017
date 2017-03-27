@@ -28,14 +28,11 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         		/* Tags */
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{id}").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/tags/{id}").permitAll(); //Necesita permisos de admin / Solo borra tags vacíos
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{nombre}").permitAll(); //Da problemas
         
         		/* Comentario */
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentarios").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentarios/{id}").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/comentarios/{id}").permitAll(); //Necesita comprobar que el admin o el usuario original lo están modificando
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/comentarios/{id}").permitAll(); //Necesita comprobar que el admin o el usuario original lo están borrando
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentariosByUser/{id}").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentariosByVineta/{id}").permitAll();
         
@@ -43,8 +40,14 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/vinetaspage/").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/vinetas/{id}").permitAll();
         
-        // Private pages (all other pages)
+        // Métodos que requieren autenticación
         
+        		/* Tags */
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/tags/{id}").hasAnyRole("ADMIN"); //Hay que comprobar si el propietario del comentario lo está usando
+        
+        		/* Comentario */
+        http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/comentarios/{id}").hasAnyRole("ADMIN"); //Hay que comprobar si el propietario del comentario lo está usando
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/comentarios/{id}").hasAnyRole("ADMIN"); //Necesita comprobar que el usuario original lo están borrando
         
         // Disable CSRF protection (it is difficult to implement with ng2)
      	http.csrf().disable();
