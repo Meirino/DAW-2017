@@ -27,7 +27,6 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         
         		/* Tags */
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{id}").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{nombre}").permitAll(); //Da problemas
         
         		/* Comentario */
@@ -44,6 +43,7 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         
         		/* Tags */
         http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/tags/{id}").hasAnyRole("ADMIN"); //Hay que comprobar si el propietario del comentario lo está usando
+        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{id}").hasAnyRole("USER", "ADMIN");
         
         		/* Comentario */
         http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/comentarios/{id}").hasAnyRole("ADMIN"); //Hay que comprobar si el propietario del comentario lo está usando

@@ -1,6 +1,9 @@
 package es.urjc.code.daw.api;
 
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +38,9 @@ public class RESTTagController {
 	
 	@JsonView(TagView.class)
 	@RequestMapping(value = "tags/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Tag> getTagsByID(@PathVariable int id){
+	public ResponseEntity<Tag> getTagsByID(@PathVariable int id, HttpServletRequest request){
+		Principal p = request.getUserPrincipal();
+		System.out.println(p.getName());
 		if(this.tagrepository.findOne((long) id) != null) {
 			return new ResponseEntity<>(this.tagrepository.findOne((long) id), HttpStatus.OK);
 		} else {
