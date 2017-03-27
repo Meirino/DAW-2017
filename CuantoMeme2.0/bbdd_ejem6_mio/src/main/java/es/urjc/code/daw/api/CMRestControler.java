@@ -90,17 +90,6 @@ public class CMRestControler {
 		return this.vinetarepository.findOne(id);
 	}
 	
-	@JsonView(User.BasicAtt.class)
-	@RequestMapping("/api/usuarios/")
-	public List<User> getusuarios(){
-		return this.userrepository.findAll();
-	}
-	
-	@JsonView(UserView.class)
-	@RequestMapping("/api/usuarios/{id}")
-	public User getusuario(@PathVariable int id){
-		return this.userrepository.findOne((long) id);
-	}
 	
 	@JsonView(UserView.class)
 	@RequestMapping("/api/usuariosByName/{nombre}")

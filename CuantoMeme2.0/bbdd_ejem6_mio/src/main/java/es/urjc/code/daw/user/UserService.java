@@ -1,5 +1,7 @@
 package es.urjc.code.daw.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +25,9 @@ public class UserService {
 	}
 	public void delete(long id){
 		repository.delete(id);
+	}
+	
+	public List<User> findAll(){
+		return repository.findAll();
 	}
 }

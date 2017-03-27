@@ -23,13 +23,17 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
     	// Public pages
         http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/signup").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/vinetaspage/").permitAll();
-       
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/users/**").hasRole("USER");
+
         // Private pages (all other pages)
         http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/upload").hasRole("USER");
         
         // Disable CSRF protection (it is difficult to implement with ng2)
      	http.csrf().disable();
 
+		// Use Http Basic Authentication
+		http.httpBasic();
+		
      	// Do not redirect when logout
      	http.logout().logoutSuccessHandler((rq, rs, a) -> {	});
 
