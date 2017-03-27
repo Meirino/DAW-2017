@@ -48,7 +48,10 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         
         // Disable CSRF protection (it is difficult to implement with ng2)
      	http.csrf().disable();
-
+     	
+     	//Login con Basic Auth
+     	http.httpBasic();
+     	
      	// Do not redirect when logout
      	http.logout().logoutSuccessHandler((rq, rs, a) -> {	});
 

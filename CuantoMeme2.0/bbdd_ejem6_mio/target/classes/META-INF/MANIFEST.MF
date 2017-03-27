@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: bbdd_ejem6_mio
 Implementation-Version: 0.1.0
-Built-By: Javi
+Built-By: Javier
 Implementation-Vendor-Id: es.urjc.code
-Build-Jdk: 1.8.0_91
+Build-Jdk: 1.8.0_121
 Implementation-URL: http://projects.spring.io/spring-boot/bbdd_ejem6_m
  io/
 Created-By: Maven Integration for Eclipse
