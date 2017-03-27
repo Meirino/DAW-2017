@@ -283,7 +283,9 @@ public class UserController {
 		   }
 	   }
 	   if(modo.equals("tag")) {
+
 		   Tag tag = this.tagservice.findByNombre(texto);
+
 		   if (tag == null){
 			   model.addAttribute("vinetas", null);
 		   }else{

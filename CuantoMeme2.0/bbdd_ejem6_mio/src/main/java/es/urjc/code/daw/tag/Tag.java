@@ -26,6 +26,9 @@ public class Tag {
 	@JsonView(BasicAtt.class)
 	private String nombre;
 	
+	@JsonView(BasicAtt.class)
+	private int uso;
+	
 	@OneToMany(mappedBy="tags")
 	private List<Vineta> vinetas = new ArrayList<>();
 	
@@ -34,6 +37,7 @@ public class Tag {
 	public Tag(String nombre) {
 		super();
 		this.nombre = nombre;
+		this.uso = 0;
 	}
 
 	public long getId() {
@@ -58,6 +62,14 @@ public class Tag {
 
 	public void setVinetas(List<Vineta> vinetas) {
 		this.vinetas = vinetas;
+	}
+
+	public int getUso() {
+		return uso;
+	}
+
+	public void setUso(int uso) {
+		this.uso = uso;
 	}
 
 	
