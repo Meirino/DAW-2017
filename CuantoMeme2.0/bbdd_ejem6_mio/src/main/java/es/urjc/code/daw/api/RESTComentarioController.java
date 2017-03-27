@@ -85,7 +85,8 @@ public class RESTComentarioController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	/*
+	
+	/* * * * * * * * No necesarios * * * * * * * * * * * *
 	@JsonView(ComentarioView.class)
 	@RequestMapping(value = "comentariosByUser/{id}", method = RequestMethod.GET)
 	public ResponseEntity<List<Comentario>> comentariosDeUsuario(@PathVariable int id){
@@ -105,5 +106,5 @@ public class RESTComentarioController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	*/
+	* * * * * * * * * * * * * * * * * * * * * * * * */
 }

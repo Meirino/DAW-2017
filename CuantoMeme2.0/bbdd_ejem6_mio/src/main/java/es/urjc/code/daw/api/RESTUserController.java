@@ -45,7 +45,6 @@ public class RESTUserController {
     public void FileUploadController(StorageService storageService) {
         this.storageService = storageService;
     }
-
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	@JsonView(UserView.class)
@@ -88,8 +87,9 @@ public class RESTUserController {
 	}
 	
 	@RequestMapping(value = "/avatar", method = RequestMethod.PUT)
-    public ResponseEntity<User> handleAvatarUpload(@RequestAttribute("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public ResponseEntity<User> handleAvatarUpload(@RequestAttribute("file") MultipartFile avatar, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
+		MultipartFile file = (MultipartFile) request.getAttribute("file");
     	Principal p = request.getUserPrincipal();
     	User user = userRepository.findByUsername(p.getName());
     	user.setAvatarURL("/imgs/"+file.getOriginalFilename());
@@ -97,6 +97,18 @@ public class RESTUserController {
         storageService.store(file);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<User> handleAvatarUpload(@PathVariable int id) {
+		
+		if(this.userservice.findOne((long) id) != null) {
+			User usuario = this.userservice.findOne((long) id);
+	    	this.userservice.delete(usuario.getId());
+	    	return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
     }
 
 }
