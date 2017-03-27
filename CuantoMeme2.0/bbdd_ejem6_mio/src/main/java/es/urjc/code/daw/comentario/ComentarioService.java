@@ -1,5 +1,7 @@
 package es.urjc.code.daw.comentario;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,9 @@ public class ComentarioService {
 	@Autowired
 	private ComentarioRepository repository;
 	
+	public List<Comentario> findAll(){
+		return repository.findAll();
+	}
 	public void save(Comentario c){
 		repository.save(c);
 	}

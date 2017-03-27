@@ -1,8 +1,6 @@
 package es.urjc.code.daw.api;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,45 +14,44 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import es.urjc.code.daw.tag.Tag;
-import es.urjc.code.daw.tag.TagRepository;
+import es.urjc.code.daw.tag.*;
 
-@RequestMapping("/api/")
+@RequestMapping("/api/tags")
 @RestController
 public class RESTTagController {
 	
 	interface TagView extends Tag.BasicAtt {};
 	
 	@Autowired
-	private TagRepository tagrepository;
+	private TagService tagservice;
 	
 	@JsonView(TagView.class)
-	@RequestMapping(value = "tags", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<Tag>> getTags() {
-		if(!this.tagrepository.findAll().isEmpty()) {
-			return new ResponseEntity<>(this.tagrepository.findAll(), HttpStatus.OK);
+		if(!this.tagservice.findAll().isEmpty()) {
+			return new ResponseEntity<>(this.tagservice.findAll(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
 	@JsonView(TagView.class)
-	@RequestMapping(value = "tags/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Tag> getTagsByID(@PathVariable int id, HttpServletRequest request){
 		Principal p = request.getUserPrincipal();
 		System.out.println(p.getName());
-		if(this.tagrepository.findOne((long) id) != null) {
-			return new ResponseEntity<>(this.tagrepository.findOne((long) id), HttpStatus.OK);
+		if(this.tagservice.findOne((long) id) != null) {
+			return new ResponseEntity<>(this.tagservice.findOne((long) id), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
 	@JsonView(TagView.class)
-	@RequestMapping(value = "tags/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Tag> deleteTagsByID(@PathVariable int id){
-		if(this.tagrepository.findOne((long) id) != null) {
-			this.tagrepository.delete(this.tagrepository.findOne((long) id));
+		if(this.tagservice.findOne((long) id) != null) {
+			this.tagservice.delete( id);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

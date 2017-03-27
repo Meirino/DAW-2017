@@ -13,55 +13,52 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import es.urjc.code.daw.comentario.Comentario;
-import es.urjc.code.daw.comentario.ComentarioRepository;
-import es.urjc.code.daw.user.User;
-import es.urjc.code.daw.user.UserRepository;
-import es.urjc.code.daw.vineta.Vineta;
-import es.urjc.code.daw.vineta.VinetaRepository;
+import es.urjc.code.daw.comentario.*;
+import es.urjc.code.daw.user.*;
+import es.urjc.code.daw.vineta.*;
 
-@RequestMapping("/api/")
+@RequestMapping("/api/comentarios")
 @RestController
 public class RESTComentarioController {
 	
 	interface ComentarioView extends Comentario.BasicAtt, Comentario.UserAtt, User.BasicAtt, Comentario.VinetaAtt, Vineta.BasicAtt{}
 	
 	@Autowired
-	private ComentarioRepository comentariorepository;
+	private ComentarioService comentarioservice;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userRepository;
 	
 	@Autowired
-	private VinetaRepository vinetarepository;
+	private VinetaService vinetarepository;
 	
 	@JsonView(ComentarioView.class)
-	@RequestMapping(value = "comentarios", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<Comentario>> getComentarios(){
-		if(!this.comentariorepository.findAll().isEmpty()) {
-			return new ResponseEntity<>(this.comentariorepository.findAll(), HttpStatus.OK);
+		if(!this.comentarioservice.findAll().isEmpty()) {
+			return new ResponseEntity<>(this.comentarioservice.findAll(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
 	@JsonView(ComentarioView.class)
-	@RequestMapping(value = "comentarios/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Comentario> getComentariosByID(@PathVariable int id){
-		if(this.comentariorepository.findOne((long) id) != null) {
-			return new ResponseEntity<>(this.comentariorepository.findOne((long) id), HttpStatus.OK);
+		if(this.comentarioservice.findOne((long) id) != null) {
+			return new ResponseEntity<>(this.comentarioservice.findOne((long) id), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
 	@JsonView(ComentarioView.class)
-	@RequestMapping(value = "comentarios/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Comentario> modificarComentario(@PathVariable int id, @RequestParam("texto") String texto){
-		if(this.comentariorepository.findOne((long) id) != null) {
-			Comentario original = this.comentariorepository.findOne((long) id);
+		if(this.comentarioservice.findOne((long) id) != null) {
+			Comentario original = this.comentarioservice.findOne((long) id);
 			original.setComentario(texto);
-			this.comentariorepository.save(original);
+			this.comentarioservice.save(original);
 			return new ResponseEntity<>(original, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
@@ -69,17 +66,17 @@ public class RESTComentarioController {
 	}
 	
 	@JsonView(ComentarioView.class)
-	@RequestMapping(value = "comentarios/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Comentario> eliminarComentario(@PathVariable int id){
-		if(this.comentariorepository.findOne((long) id) != null) {
-			Comentario original = this.comentariorepository.findOne((long) id);
-			this.comentariorepository.delete(original);
+		if(this.comentarioservice.findOne((long) id) != null) {
+			Comentario original = this.comentarioservice.findOne((long) id);
+			this.comentarioservice.delete((long) id);
 			return new ResponseEntity<>(original, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+	/*
 	@JsonView(ComentarioView.class)
 	@RequestMapping(value = "comentariosByUser/{id}", method = RequestMethod.GET)
 	public ResponseEntity<List<Comentario>> comentariosDeUsuario(@PathVariable int id){
@@ -99,4 +96,5 @@ public class RESTComentarioController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	*/
 }
