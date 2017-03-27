@@ -61,6 +61,7 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
      	//Login con Basic Auth
      	http.httpBasic();
      	
+
      	// Do not redirect when logout
      	http.logout().logoutSuccessHandler((rq, rs, a) -> {	});
 

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import es.urjc.code.daw.vineta.Vineta;
 
 public interface TagRepository extends JpaRepository<Tag, Long> {
-	List<Tag> findByNombre(String nombre);
+	Tag findByNombre(String nombre);
 	List<Tag> findFirst10ByNombre(String nombre);
 	//List<Tag> findlFirst10ByVineta();
 }

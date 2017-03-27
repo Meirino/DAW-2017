@@ -1,4 +1,4 @@
-package es.urjc.code.daw.api;
+package es.urjc.code.daw.secutiry;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,8 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.urjc.code.daw.user.User;
-import es.urjc.code.daw.user.UserComponent;
+import es.urjc.code.daw.user.*;
 
 /**
  * This class is used to provide REST endpoints to logIn and logOut to the
@@ -29,7 +28,7 @@ public class LoginController {
 
 	@RequestMapping("/api/logIn")
 	public ResponseEntity<User> logIn() {
-
+		System.out.println("juuuas");
 		if (!userComponent.isLoggedUser()) {
 			log.info("Not user logged");
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
