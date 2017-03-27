@@ -1,6 +1,9 @@
 package es.urjc.code.daw.api;
 
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,8 +57,11 @@ public class RESTComentarioController {
 	
 	@JsonView(ComentarioView.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Comentario> modificarComentario(@PathVariable int id, @RequestParam("texto") String texto){
-		if(this.comentarioservice.findOne((long) id) != null) {
+	public ResponseEntity<Comentario> modificarComentario(@PathVariable int id, @RequestParam("texto") String texto, HttpServletRequest request) {
+		Principal p = request.getUserPrincipal();
+    	User user = this.userRepository.findByUsername(p.getName());
+    	
+		if(this.comentarioservice.findOne((long) id) != null && (this.comentarioservice.findOne((long) id).getAutor_comentario().equals(user) || user.getRoles().contains("ROLE_ADMIN"))) {
 			Comentario original = this.comentarioservice.findOne((long) id);
 			original.setComentario(texto);
 			this.comentarioservice.save(original);
@@ -67,8 +73,11 @@ public class RESTComentarioController {
 	
 	@JsonView(ComentarioView.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Comentario> eliminarComentario(@PathVariable int id){
-		if(this.comentarioservice.findOne((long) id) != null) {
+	public ResponseEntity<Comentario> eliminarComentario(@PathVariable int id, HttpServletRequest request){
+		Principal p = request.getUserPrincipal();
+    	User user = this.userRepository.findByUsername(p.getName());
+		
+		if(this.comentarioservice.findOne((long) id) != null && (this.comentarioservice.findOne((long) id).getAutor_comentario().equals(user) || user.getRoles().contains("ROLE_ADMIN"))) {
 			Comentario original = this.comentarioservice.findOne((long) id);
 			this.comentarioservice.delete((long) id);
 			return new ResponseEntity<>(original, HttpStatus.OK);
