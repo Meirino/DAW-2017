@@ -32,9 +32,6 @@ public class CMRestControler {
 	@Autowired
 	private VinetaRepository vinetarepository;
 	
-	@Autowired
-	private TagRepository tagrepository;
-	
 	@JsonView(VinetaView.class)
 	@RequestMapping("/api/vinetas2/")
 	public List<Vineta> getvinetas2(){

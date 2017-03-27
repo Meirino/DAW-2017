@@ -1,6 +1,8 @@
 package es.urjc.code.daw.api;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,16 +56,6 @@ public class RESTTagController {
 		if(this.tagrepository.findOne((long) id) != null) {
 			this.tagrepository.delete(this.tagrepository.findOne((long) id));
 			return new ResponseEntity<>(HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	@JsonView(TagView.class)
-	@RequestMapping("tags/{nombre}")
-	public ResponseEntity<List<Tag>> getTagsByName(@PathVariable String nombre){
-		if(!this.tagrepository.findByNombre(nombre).isEmpty()) {
-			return new ResponseEntity<>(this.tagrepository.findByNombre(nombre), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

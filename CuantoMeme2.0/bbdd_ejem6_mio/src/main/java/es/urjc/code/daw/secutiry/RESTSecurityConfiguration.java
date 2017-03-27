@@ -42,12 +42,18 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         
         // Métodos que requieren autenticación
         
+        		/* Usuario */
+        http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/usuarios/avatar").hasRole("USER");
+        
         		/* Tags */
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/tags/{id}").hasAnyRole("ADMIN"); //Hay que comprobar si el propietario del comentario lo está usando
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/tags/{id}").hasAnyRole("ADMIN"); //Los tags no pueden estar vacios o sino peta
         
         		/* Comentario */
         http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/comentarios/{id}").hasAnyRole("ADMIN"); //Hay que comprobar si el propietario del comentario lo está usando
         http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/comentarios/{id}").hasAnyRole("ADMIN"); //Necesita comprobar que el usuario original lo están borrando
+        
+        		/* Viñetas */
+        http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/vinetas").hasAnyRole("USER", "ADMIN");
         
         // Disable CSRF protection (it is difficult to implement with ng2)
      	http.csrf().disable();

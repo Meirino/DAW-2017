@@ -131,6 +131,7 @@ public class Vineta {
 	}
 
 	public void setTags(Tag tags) {
+		tags.setUso(tags.getUso()+1);
 		this.tags = tags;
 	}
 
