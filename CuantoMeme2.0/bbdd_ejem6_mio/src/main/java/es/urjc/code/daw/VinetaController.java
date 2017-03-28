@@ -74,22 +74,14 @@ public class VinetaController {
 	@RequestMapping(value = "/likevineta/{id}")
 	public String likeVineta(Model model, @PathVariable long id, HttpServletRequest request ) {
 		  String page = this.utilservice.requestCurrentPage(request);
-		  boolean is_liked_before = false;
 		  Principal p = request.getUserPrincipal();
 	      User user = userservice.findByUsername(p.getName());
 	      Vineta v = vinetaservice.findOne(id);      
-	      for(User u2:v.getUsers_likes()){
-	    	  is_liked_before = (u2.getId()==user.getId());
-	    	  if (is_liked_before){
-	    		  break;
-	    	  }
-	      }
-	      if(!is_liked_before){
-		      user.getVinetas_gustadas().add(v);
-		      v.like();
-		      this.vinetaservice.save(v);
-		      this.userservice.save(user);
-	      }	      
+	      if (!v.isLikedBefore(user)){
+		   	 user.getVinetas_odiadas().add(v);
+	         v.dislike();
+		     this.vinetaservice.save(v);
+		     this.userservice.save(user);}	      
 	      return "redirect:"+page;
 	}
 	@RequestMapping(value = "/eliminarvineta/{id}")
@@ -109,42 +101,28 @@ public class VinetaController {
 	@RequestMapping(value = "/dislikevineta/{id}")
 	public String dislikeVineta(Model model, @PathVariable long id, HttpServletRequest request) {
 		String page = this.utilservice.requestCurrentPage(request);
-		boolean is_disliked_before = false;
 		Principal p = request.getUserPrincipal();
         User user = userservice.findByUsername(p.getName());
         Vineta v = vinetaservice.findOne(id);
-		for(User u2:v.getUsers_dislikes()){
-		    is_disliked_before = (u2.getId()==user.getId());
-		   	if (is_disliked_before){
-		    	  break;
-		    }
-		  }
-		  if(!is_disliked_before){
+        if (!v.isDislikedBefore(user)){
 			 user.getVinetas_odiadas().add(v);
-	         v.dislike();
-   	         this.vinetaservice.save(v);
-		     this.userservice.save(user);
-		   }
+        	 v.dislike();
+	         this.vinetaservice.save(v);
+	         this.userservice.save(user);}
 		  return "redirect:"+page;
 	}
 	
 	@RequestMapping(value = "/hacerfavorita/{id}")
 	public String hacerfavorita(Model model, @PathVariable long id, HttpServletRequest request) {
 		String page = this.utilservice.requestCurrentPage(request);
-		boolean is_favorited_before = false;
 		Principal p = request.getUserPrincipal();
 	    User user = userservice.findByUsername(p.getName());
 	    Vineta v = vinetaservice.findOne(id);
-	    for(User u2:v.getUsers_fav()){
-	  	  is_favorited_before = (u2.getId()==user.getId());
-	   	  if (is_favorited_before){
-	   		  break;
-    	}	      }
-	    if(!is_favorited_before){
-	      user.getVinetas_favoritas().add(v);
-	      this.vinetaservice.save(v);
-	      this.userservice.save(user);
-	    }
+        if (!v.isFavoritedBefore(user)){
+			 user.getVinetas_odiadas().add(v);
+        	 v.dislike();
+	         this.vinetaservice.save(v);
+	         this.userservice.save(user);}
 	    return "redirect:"+page;
 	}
 }

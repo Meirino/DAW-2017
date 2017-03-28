@@ -54,6 +54,7 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         
         		/* Viñetas */
         http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/vinetas").hasAnyRole("USER", "ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/likevineta/{id}").hasAnyRole("USER", "ADMIN");
         
         // Disable CSRF protection (it is difficult to implement with ng2)
      	http.csrf().disable();
