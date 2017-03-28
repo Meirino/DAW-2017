@@ -49,10 +49,16 @@ public class RESTUserController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	@JsonView(UserView.class)
 	@ResponseStatus(HttpStatus.CREATED)
-	public User signUP(@RequestParam("username") String username, @RequestParam("pass") String password, @RequestParam("email") String email) {
-		User usuario = new User(username, password, email, "ROLE_USER");
-		this.userservice.save(usuario);
-		return usuario;	
+	public ResponseEntity<User> signUP(@RequestParam("username") String username, @RequestParam("pass") String password, @RequestParam("email") String email) {
+		if(this.userservice.findByUsername(username) == null) {
+			User usuario = new User(username, password, email, "ROLE_USER");
+			this.userservice.save(usuario);
+			return new ResponseEntity<>(usuario, HttpStatus.CREATED);
+		} else {
+			//Si no, no se crea
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+			
 	}
 	
 	@JsonView(User.BasicAtt.class)
