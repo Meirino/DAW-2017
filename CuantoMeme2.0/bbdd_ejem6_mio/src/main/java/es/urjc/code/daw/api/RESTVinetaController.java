@@ -105,9 +105,6 @@ public class RESTVinetaController {
 			
 			//Por cada comentario de la viñeta, borrarlo de la viñeta y eliminarlo del repositorio
 			for(Comentario c : viñeta.getComentarios()) {
-				c.getAutor_comentario().getComentarios().remove(c);
-				c.setAutor_comentario(null);
-				viñeta.getComentarios().remove(c);
 				this.comentarioservice.delete(c.getId());
 			}
 			
