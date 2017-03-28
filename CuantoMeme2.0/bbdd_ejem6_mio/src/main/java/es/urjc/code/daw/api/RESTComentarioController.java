@@ -32,9 +32,6 @@ public class RESTComentarioController {
 	@Autowired
 	private UserService userRepository;
 	
-	@Autowired
-	private VinetaService vinetarepository;
-	
 	@JsonView(ComentarioView.class)
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<Comentario>> getComentarios(){

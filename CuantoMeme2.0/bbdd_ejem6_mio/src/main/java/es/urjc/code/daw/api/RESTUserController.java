@@ -1,17 +1,14 @@
 package es.urjc.code.daw.api;
 
 import java.security.Principal;
-
-import java.io.File;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,9 +22,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import es.urjc.code.daw.api.CMRestControler.UserView;
 import es.urjc.code.daw.storage.StorageService;
-import es.urjc.code.daw.user.*;
 import es.urjc.code.daw.user.User;
 import es.urjc.code.daw.user.UserRepository;
+import es.urjc.code.daw.user.UserService;
 
 @RequestMapping("/api/users")
 @RestController
@@ -55,7 +52,6 @@ public class RESTUserController {
 			this.userservice.save(usuario);
 			return new ResponseEntity<>(usuario, HttpStatus.CREATED);
 		} else {
-			//Si no, no se crea
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 			
