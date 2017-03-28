@@ -100,12 +100,19 @@ public class VinetaController {
 		  Principal p = request.getUserPrincipal();
 	      User user = userservice.findByUsername(p.getName());
 	      Vineta v = vinetaservice.findOne(id);
-	      /*
+	      
 	      for(User u:v.getUsers_likes()){
-	    	  System.out.println("Esta vineta le gusta a "+u.getUsername());
 	    	  u.getVinetas_gustadas().remove(v);
-	    	  userrepository.save(u);
-	      }*/
+	    	  userservice.save(u);
+	      }
+	      for(User u:v.getUsers_dislikes()){
+	    	  u.getVinetas_odiadas().remove(v);
+	    	  userservice.save(u);
+	      }
+	      for(User u:v.getUsers_fav()){
+	    	  u.getVinetas_favoritas().remove(v);
+	    	  userservice.save(u);
+	      }
 	      if((v.getAutor().getId() == user.getId()) || request.isUserInRole("ROLE_ADMIN") ){
 	    	  vinetaservice.delete(id);
 	      }
