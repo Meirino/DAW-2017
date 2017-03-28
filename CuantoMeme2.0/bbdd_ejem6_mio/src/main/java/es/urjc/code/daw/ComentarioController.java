@@ -18,6 +18,7 @@ import es.urjc.code.daw.comentario.ComentarioService;
 import es.urjc.code.daw.user.User;
 import es.urjc.code.daw.user.UserService;
 import es.urjc.code.daw.vineta.VinetaService;
+import es.urjc.code.daw.utils.*;
 @Controller
 public class ComentarioController {
 	
@@ -30,16 +31,12 @@ public class ComentarioController {
 	@Autowired
 	private ComentarioService comentarioservice;
 	
-	public String requestCurrentPage(HttpServletRequest request){
-	    String referrer = request.getHeader("Referer");
-	    if(referrer!=null){
-	        request.getSession().setAttribute("url_prior_login", referrer);
-	    }
-	    return referrer;
-	}
+	@Autowired
+	private utils utilservice; 
+	
 	@RequestMapping(value = "/crearComentario/vineta/{id}", method = RequestMethod.POST)
 	public String crearComentario(Model model, HttpSession sesion,@PathVariable long id, @RequestParam String comentario, HttpServletRequest request ) {
-		  String page = this.requestCurrentPage(request);  
+		  String page = this.utilservice.requestCurrentPage(request);  
 		  Principal p = request.getUserPrincipal();
 	      User user = userservice.findByUsername(p.getName());
 	      Comentario c = new Comentario(comentario);
@@ -57,7 +54,7 @@ public class ComentarioController {
 	      if(c.getAutor_comentario().getId() == user.getId()){
 	    	  comentarioservice.delete(id);
 	      }
-	      String page = this.requestCurrentPage(request);  
+	      String page = this.utilservice.requestCurrentPage(request); 
 	      return "redirect:"+page;
 	}
 }

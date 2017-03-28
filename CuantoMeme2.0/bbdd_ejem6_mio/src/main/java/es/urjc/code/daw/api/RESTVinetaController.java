@@ -135,5 +135,11 @@ public class RESTVinetaController {
         
         return new ResponseEntity<>(viñeta, HttpStatus.CREATED);
 	}
-
+	/*
+	 * 
+	@JsonView(Vineta.BasicAtt.class)
+	@RequestMapping(value = "/likevineta/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Vineta> likeVineta(@RequestParam long id, HttpServletRequest request){
+		
+	*/
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import es.urjc.code.daw.tag.TagService;
 import es.urjc.code.daw.user.*;
 import es.urjc.code.daw.vineta.*;
+import es.urjc.code.daw.utils.*;
 @Controller
 public class VinetaController {
 	@Autowired
@@ -27,13 +28,9 @@ public class VinetaController {
 	@Autowired
 	private UserComponent userComponent;
 	
-	public String requestCurrentPage(HttpServletRequest request){
-	    String referrer = request.getHeader("Referer");
-	    if(referrer!=null){
-	        request.getSession().setAttribute("url_prior_login", referrer);
-	    }
-	    return referrer;
-	}
+	@Autowired
+	private utils utilservice;
+
 	@RequestMapping(value = "/vinetas")
 	public String vinetas(Model model, HttpServletRequest request) {
 		boolean isAdmin = false;
@@ -76,7 +73,7 @@ public class VinetaController {
 	
 	@RequestMapping(value = "/likevineta/{id}")
 	public String likeVineta(Model model, @PathVariable long id, HttpServletRequest request ) {
-		  String page = this.requestCurrentPage(request);
+		  String page = this.utilservice.requestCurrentPage(request);
 		  boolean is_liked_before = false;
 		  Principal p = request.getUserPrincipal();
 	      User user = userservice.findByUsername(p.getName());
@@ -122,7 +119,7 @@ public class VinetaController {
 	
 	@RequestMapping(value = "/dislikevineta/{id}")
 	public String dislikeVineta(Model model, @PathVariable long id, HttpServletRequest request) {
-		String page = this.requestCurrentPage(request);
+		String page = this.utilservice.requestCurrentPage(request);
 		boolean is_disliked_before = false;
 		Principal p = request.getUserPrincipal();
         User user = userservice.findByUsername(p.getName());
@@ -144,7 +141,7 @@ public class VinetaController {
 	
 	@RequestMapping(value = "/hacerfavorita/{id}")
 	public String hacerfavorita(Model model, @PathVariable long id, HttpServletRequest request) {
-		String page = this.requestCurrentPage(request);
+		String page = this.utilservice.requestCurrentPage(request);
 		boolean is_favorited_before = false;
 		Principal p = request.getUserPrincipal();
 	    User user = userservice.findByUsername(p.getName());
