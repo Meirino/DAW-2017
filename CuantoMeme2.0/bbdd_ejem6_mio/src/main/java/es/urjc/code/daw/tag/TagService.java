@@ -25,5 +25,9 @@ public class TagService {
 	public Tag findByNombre(String nombre){
 		return repository.findByNombre(nombre);
 	}
+	
+	public void delete (long id){
+		repository.delete(id);
+	}
 
 }
