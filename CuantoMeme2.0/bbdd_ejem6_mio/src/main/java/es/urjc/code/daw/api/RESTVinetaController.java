@@ -28,7 +28,7 @@ import es.urjc.code.daw.vineta.*;
 @RestController
 public class RESTVinetaController {
 	
-	interface VinetaView extends Vineta.BasicAtt, Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
+	interface VinetaView extends Vineta.BasicAtt , Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
 	
 	@Autowired
 	private VinetaService vinvetaservice;
@@ -81,7 +81,7 @@ public class RESTVinetaController {
 		
 	}
 	
-	@JsonView(Vineta.BasicAtt.class)
+	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Vineta> getvineta(@PathVariable int id){
 		if(this.vinvetaservice.findOne((long) id) != null) {

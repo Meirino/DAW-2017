@@ -24,8 +24,8 @@ import es.urjc.code.daw.vineta.VinetaRepository;
 public class CMRestControler {
 	
 	interface VinetaView extends Vineta.BasicAtt, Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
-	interface UserView extends User.BasicAtt, User.VinetaAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt{}
-	
+	//interface UserView extends User.BasicAtt, User.VinetaAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt{}
+	/*
 	@Autowired
 	private UserRepository userrepository;
 	
@@ -49,5 +49,5 @@ public class CMRestControler {
 	public User getusuariobyname(@PathVariable String nombre){
 		return this.userrepository.findByUsername(nombre);
 	}
-	
+	*/
 }

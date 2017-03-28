@@ -23,16 +23,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import es.urjc.code.daw.api.CMRestControler.UserView;
+import es.urjc.code.daw.comentario.Comentario;
 import es.urjc.code.daw.storage.StorageService;
 import es.urjc.code.daw.user.*;
 import es.urjc.code.daw.user.User;
 import es.urjc.code.daw.user.UserRepository;
+import es.urjc.code.daw.vineta.Vineta;
 
 @RequestMapping("/api/users")
 @RestController
 public class RESTUserController {
-	
+	interface UserView extends User.BasicAtt, User.VinetaupAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt, User.VinetafavAtt,
+	User.VinetadislikeAtt, User.VinetalikeAtt, User.SeguidoresAtt{}
+	interface UsersView extends User.BasicAtt {}
+
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -64,8 +68,19 @@ public class RESTUserController {
 	
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<User> gerUser(@PathVariable int id){
+	public ResponseEntity<User> getUser(@PathVariable int id){
 		User usuario = userservice.findOne(id);
+		if (usuario != null) {
+			return new ResponseEntity<>(usuario, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/byname/{username}", method = RequestMethod.GET)
+	public ResponseEntity<User> getUser(@PathVariable String username){
+		User usuario = userservice.findByUsername(username);
 		if (usuario != null) {
 			return new ResponseEntity<>(usuario, HttpStatus.OK);
 		} else {
