@@ -97,19 +97,8 @@ public class VinetaController {
 		  Principal p = request.getUserPrincipal();
 	      User user = userservice.findByUsername(p.getName());
 	      Vineta v = vinetaservice.findOne(id);
-	      
-	      for(User u:v.getUsers_likes()){
-	    	  u.getVinetas_gustadas().remove(v);
-	    	  userservice.save(u);
-	      }
-	      for(User u:v.getUsers_dislikes()){
-	    	  u.getVinetas_odiadas().remove(v);
-	    	  userservice.save(u);
-	      }
-	      for(User u:v.getUsers_fav()){
-	    	  u.getVinetas_favoritas().remove(v);
-	    	  userservice.save(u);
-	      }
+	      // Este metodo elimina la relacion con aquello usuarios que le dieron like, dislike o favor
+	      utilservice.deletesocialvineta(v);
 	      if((v.getAutor().getId() == user.getId()) || request.isUserInRole("ROLE_ADMIN") ){
 	    	  vinetaservice.delete(id);
 	      }
