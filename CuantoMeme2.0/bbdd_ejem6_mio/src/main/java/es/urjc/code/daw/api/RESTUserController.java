@@ -74,15 +74,18 @@ public class RESTUserController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@JsonView(UserView.class)
-	public ResponseEntity<User> modifyUSer(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("email") String email) {
-		if(this.userRepository.findOne((long) id) != null) {
-			User original = this.userRepository.findOne((long) id);
+	public ResponseEntity<User> modifyUSer(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("email") String email, HttpServletRequest request) {
+		Principal p = request.getUserPrincipal();
+    	User user = this.userRepository.findByUsername(p.getName());
+		
+		if(this.userservice.findOne((long) id) != null && (this.userservice.findOne((long) id).equals(user) || user.getRoles().contains("ROLE_ADMIN"))) {
+			User original = this.userservice.findOne((long) id);
 			original.setUsername(nombre);
 			original.setEmail(email);
 			this.userRepository.save(original);
 			return new ResponseEntity<>(this.userRepository.findOne((long) id), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
 	
