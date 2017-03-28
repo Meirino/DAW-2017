@@ -43,7 +43,7 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         // Métodos que requieren autenticación
         
         		/* Usuario */
-        http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/users/avatar").hasRole("USER");
+        http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/users/avatar").hasAnyRole("USER","ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/users/{id}").hasRole("ADMIN");
         
         		/* Tags */
