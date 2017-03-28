@@ -31,6 +31,9 @@ public class RESTVinetaController {
 	interface VinetaView extends Vineta.BasicAtt, Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
 	
 	@Autowired
+	private ComentarioService comentarioservice;
+	
+	@Autowired
 	private VinetaService vinvetaservice;
     
     @Autowired
@@ -64,7 +67,7 @@ public class RESTVinetaController {
 			//This print the page size = 20 
 			System.out.println(page.getPageSize());
 			
-			Integer seconds = 2;
+			Integer seconds = 1;
 
 	        try {
 	            Thread.sleep(seconds*1000);
@@ -88,6 +91,60 @@ public class RESTVinetaController {
 			return new ResponseEntity<>(this.vinvetaservice.findOne((long) id), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@JsonView(Vineta.BasicAtt.class)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Vineta> deletevineta(@PathVariable int id, HttpServletRequest request) {
+		Principal p = request.getUserPrincipal();
+    	User user = this.userservice.findByUsername(p.getName());
+    	
+		if(this.vinvetaservice.findOne((long) id) != null && (this.vinvetaservice.findOne((long) id).getAutor().equals(user) || user.getRoles().contains("ROLE_ADMIN"))) {
+			Vineta viñeta = this.vinvetaservice.findOne((long) id);
+			
+			//Por cada comentario de la viñeta, borrarlo de la viñeta y eliminarlo del repositorio
+			for(Comentario c : viñeta.getComentarios()) {
+				c.getAutor_comentario().getComentarios().remove(c);
+				c.setAutor_comentario(null);
+				viñeta.getComentarios().remove(c);
+				this.comentarioservice.delete(c.getId());
+			}
+			
+			//Por cada usuario que le haya hecho dislike, borrarle de la lista de dislikes, borrar la viñeta de sus dislikes...
+			for(User usuario : viñeta.getUsers_dislikes()) {
+				viñeta.getUsers_dislikes().remove(viñeta);
+				usuario.getVinetas_odiadas().remove(viñeta);
+			}
+			
+			//Por cada usuario que le haya hecho like, borrarle de la lista de likes, borrar la viñeta de sus likes...
+			for(User usuario : viñeta.getUsers_likes()) {
+				viñeta.getUsers_likes().remove(viñeta);
+				usuario.getVinetas_gustadas().remove(usuario.getVinetas_gustadas().indexOf(viñeta));
+			}
+			
+			//Por cada usuario que le haya hecho fav, borrarle de la lista de favs, borrar la viñeta de sus favs...
+			for(User usuario : viñeta.getUsers_fav()) {
+				viñeta.getUsers_fav().remove(viñeta);
+				usuario.getVinetas_favoritas().remove(viñeta);
+			}
+			
+			//Borrar de las publicaciones del autor y ponerlo a null
+			viñeta.getAutor().getVinetas_subidas().remove(viñeta);
+			viñeta.setAutor(null);
+			
+			//Si tiene tag borro la viñeta de la lista de tags y lo pongo a null
+			if(viñeta.getTags() != null) {
+				viñeta.getTags().getVinetas().remove(viñeta);
+				viñeta.setTags(null);
+			}
+			
+			//Borrar la viñeta del repositorio
+			this.vinvetaservice.delete(viñeta.getId());
+			
+			return new ResponseEntity<>(this.vinvetaservice.findOne((long) id), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 	}
 	
