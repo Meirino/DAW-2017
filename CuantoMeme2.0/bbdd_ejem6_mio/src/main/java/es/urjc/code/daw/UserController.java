@@ -232,8 +232,22 @@ public class UserController {
 	@RequestMapping(value = "/eliminarperfil/{id}", method = RequestMethod.POST)
 	public String eliminarPerfil(Model model, @PathVariable long id, HttpServletRequest request) {
 		boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
-		if (isAdmin){
-		  this.userservice.delete(id);}
+		User u = this.userservice.findOne(id);
+		if (isAdmin && u != null){
+			for(User u2:u.getFollowers()){
+				u2.getFollowing().remove(u);
+				userservice.save(u2);
+			}
+			for(User u2:u.getFollowing()){
+				u2.getFollowers().remove(u);
+				userservice.save(u2);
+			}
+			u.setFollowers(null);
+			u.setFollowing(null);
+			userservice.save(u);
+			userservice.delete(id);
+		}
+		
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "¡Bienvenido a CuantoMeme!");
 		model.addAttribute("admin", isAdmin);

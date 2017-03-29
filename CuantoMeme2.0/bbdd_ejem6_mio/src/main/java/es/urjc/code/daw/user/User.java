@@ -224,6 +224,13 @@ public class User {
 	public void setFollowing(List<User> following) {
 		this.following = following;
 	}
+	
+	public boolean isFollowing(User u){
+		return this.following.contains(u);
+	}
+	public boolean isFollower(User u){
+		return this.followers.contains(u);
+	}
 
 	@Override
 	public String toString() {
