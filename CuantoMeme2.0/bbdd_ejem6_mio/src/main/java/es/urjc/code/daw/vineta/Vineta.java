@@ -93,6 +93,9 @@ public class Vineta {
 		this.creationdate = creationdate;
 	}
 
+	public void addComentario(Comentario c) {
+		this.comentarios.add(c);
+	}
 
 	public String getTitulo() {
 		return titulo;

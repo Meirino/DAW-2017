@@ -133,7 +133,7 @@ public class RESTVinetaController {
 			//Si tiene tag borro la viñeta de la lista de tags y lo pongo a null
 			if(viñeta.getTags() != null) {
 				viñeta.getTags().getVinetas().remove(viñeta);
-				viñeta.setTags(null);
+				this.tagservice.save(viñeta.getTags());
 			}
 			
 			//Borrar la viñeta del repositorio

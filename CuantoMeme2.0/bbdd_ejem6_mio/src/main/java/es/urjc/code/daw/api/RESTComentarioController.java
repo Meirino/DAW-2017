@@ -32,6 +32,9 @@ public class RESTComentarioController {
 	@Autowired
 	private UserService userRepository;
 	
+	@Autowired
+	private VinetaService vinvetaservice;
+	
 	@JsonView(ComentarioView.class)
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<Comentario>> getComentarios(){
@@ -78,6 +81,25 @@ public class RESTComentarioController {
 			Comentario original = this.comentarioservice.findOne((long) id);
 			this.comentarioservice.delete((long) id);
 			return new ResponseEntity<>(original, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@JsonView(ComentarioView.class)
+	@RequestMapping(value = "vineta/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Comentario> publicarcomentario(@PathVariable int id, @RequestParam("texto") String texto, HttpServletRequest request) {
+		Principal p = request.getUserPrincipal();
+    	User user = this.userRepository.findByUsername(p.getName());
+    	
+		if(this.vinvetaservice.findOne((long) id) != null) {
+			Comentario comentario = new Comentario(texto);
+			comentario.setAutor_comentario(user);
+			Vineta viñeta = this.vinvetaservice.findOne((long) id);
+			comentario.setVineta(viñeta);
+			this.comentarioservice.save(comentario);
+			viñeta.addComentario(comentario);
+			return new ResponseEntity<>(comentario, HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
