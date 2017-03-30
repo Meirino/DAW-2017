@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -46,10 +46,21 @@ public class RESTUserController {
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	@JsonView(UserView.class)
-	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<User> signUP(@RequestParam("username") String username, @RequestParam("pass") String password, @RequestParam("email") String email) {
 		if(this.userservice.findByUsername(username) == null) {
 			User usuario = new User(username, password, email, "ROLE_USER");
+			this.userservice.save(usuario);
+			return new ResponseEntity<>(usuario, HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+			
+	}
+	
+	@RequestMapping(value = "/signupJSON", method = RequestMethod.POST)
+	@JsonView(UserView.class)
+	public ResponseEntity<User> signUpConJSON(@RequestBody User usuario) {
+		if(this.userservice.findByUsername(usuario.getUsername()) == null) {
 			this.userservice.save(usuario);
 			return new ResponseEntity<>(usuario, HttpStatus.CREATED);
 		} else {
