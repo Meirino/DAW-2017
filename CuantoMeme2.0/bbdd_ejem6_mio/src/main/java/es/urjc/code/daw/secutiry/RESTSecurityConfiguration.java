@@ -52,7 +52,7 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         		/* Comentario */
         http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/comentarios/{id}").hasAnyRole("USER","ADMIN"); //Hay que comprobar si el propietario del comentario lo está usando
         http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/comentarios/{id}").hasAnyRole("USER","ADMIN"); //Necesita comprobar que el usuario original lo están borrando
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/comentarios/vineta/{id}").hasAnyRole("USER");
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/comentarios/vineta/{id}").hasAnyRole("USER","ADMIN");
         
         		/* Viñetas */
         http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/vinetas").hasAnyRole("USER", "ADMIN");
