@@ -129,6 +129,7 @@ public class UserController {
 		model.addAttribute("owner",true);
 		model.addAttribute("tags_mas_usados", this.tagservice.findAll());
 		model.addAttribute("recomendados", this.vinetaservice.findOne((long) randomInt));
+
 		model.addAttribute("seguidos",user.getFollowing());
 		model.addAttribute("seguidores", user.getFollowers());
 		return "perfil";
@@ -256,8 +257,6 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	
-
 	/*----------------------------Global-------------------------*/
 	@RequestMapping(value = "/")
 	public String viñetas(Model model, HttpServletRequest request) {
