@@ -19,6 +19,7 @@ import es.urjc.code.daw.comentario.*;
 import es.urjc.code.daw.tag.*;
 import es.urjc.code.daw.vineta.*;
 import es.urjc.code.daw.user.*;
+import es.urjc.code.daw.utils.utils;
 
 @Controller
 public class UserController {
@@ -38,7 +39,8 @@ public class UserController {
 	@Autowired
 	private UserComponent userComponent;
 
-	
+	@Autowired
+	private utils utilservice;
 	
 	@PostConstruct
 	public void init(){
@@ -84,7 +86,7 @@ public class UserController {
 
 	@RequestMapping("/login")
 	public String login(Model model, HttpServletRequest request) {	
-		this.requestCurrentPage(request);
+		this.utilservice.requestCurrentPage(request);
 		model.addAttribute("error", false);
 		return "login";
 	}
@@ -111,14 +113,7 @@ public class UserController {
 	}
 
 	/*------------------------Usuario----------------------------------*/
-	public String requestCurrentPage(HttpServletRequest request){
-	    String referrer = request.getHeader("Referer");
-	    if(referrer!=null){
-	        request.getSession().setAttribute("url_prior_login", referrer);
-	    }
-	    return referrer;
-	}
-	
+
 	@RequestMapping(value = "/home")
 	public String home(Model model, HttpServletRequest request) {
 		//Sistema de ""Recomendación""
@@ -214,7 +209,7 @@ public class UserController {
 		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		  model.addAttribute("tags_mas_usados", this.tagservice.findAll());
 		  model.addAttribute("isfollowed", current_user.ifollow(user_tofollow));
-	      String page = this.requestCurrentPage(request);  
+	      String page = this.utilservice.requestCurrentPage(request); 
 	      return "redirect:"+page;
 	}
 	@RequestMapping(value = "/dejarseguirperfil/{id}")
@@ -230,15 +225,29 @@ public class UserController {
 		  model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		  model.addAttribute("tags_mas_usados", this.tagservice.findAll());
 		  model.addAttribute("isfollowed", current_user.ifollow(user_tounfollow));
-	      String page = this.requestCurrentPage(request);  
+	      String page = this.utilservice.requestCurrentPage(request); 
 	      return "redirect:"+page;
 	}
 	
 	@RequestMapping(value = "/eliminarperfil/{id}", method = RequestMethod.POST)
 	public String eliminarPerfil(Model model, @PathVariable long id, HttpServletRequest request) {
 		boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
-		if (isAdmin){
-		  this.userservice.delete(id);}
+		User u = this.userservice.findOne(id);
+		if (isAdmin && u != null){
+			for(User u2:u.getFollowers()){
+				u2.getFollowing().remove(u);
+				userservice.save(u2);
+			}
+			for(User u2:u.getFollowing()){
+				u2.getFollowers().remove(u);
+				userservice.save(u2);
+			}
+			u.setFollowers(null);
+			u.setFollowing(null);
+			userservice.save(u);
+			userservice.delete(id);
+		}
+		
 		model.addAttribute("anonymous", !userComponent.isLoggedUser());
 		model.addAttribute("mensaje", "¡Bienvenido a CuantoMeme!");
 		model.addAttribute("admin", isAdmin);

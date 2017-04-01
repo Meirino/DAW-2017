@@ -20,7 +20,7 @@ import es.urjc.code.daw.user.*;
  */
 @RestController
 public class LoginController {
-
+/*
 	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
@@ -51,5 +51,5 @@ public class LoginController {
 			return new ResponseEntity<>(true, HttpStatus.OK);
 		}
 	}
-
+	*/
 }

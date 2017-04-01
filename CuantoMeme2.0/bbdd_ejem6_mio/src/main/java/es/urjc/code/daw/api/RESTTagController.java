@@ -47,6 +47,7 @@ public class RESTTagController {
 		}
 	}
 	
+	/*
 	@JsonView(TagView.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Tag> deleteTagsByID(@PathVariable int id){
@@ -56,5 +57,5 @@ public class RESTTagController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-	}
+	}*/
 }

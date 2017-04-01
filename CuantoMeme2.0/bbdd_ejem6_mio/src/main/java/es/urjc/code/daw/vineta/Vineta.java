@@ -208,6 +208,16 @@ public class Vineta {
 	public void setUsers_dislikes(List<User> users_dislikes) {
 		this.users_dislikes = users_dislikes;
 	}
+	
+	public boolean isLikedBefore(User u){
+		return this.users_likes.contains(u);
+	}
+	public boolean isDislikedBefore(User u){
+		return this.users_dislikes.contains(u);
+	}
+	public boolean isFavoritedBefore(User u){
+		return this.users_fav.contains(u);
+	}
 
 	@Override
 	public String toString() {

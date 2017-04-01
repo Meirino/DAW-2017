@@ -23,18 +23,19 @@ import es.urjc.code.daw.comentario.*;
 import es.urjc.code.daw.storage.StorageService;
 import es.urjc.code.daw.tag.*;
 import es.urjc.code.daw.user.*;
+import es.urjc.code.daw.utils.utils;
 import es.urjc.code.daw.vineta.*;
 @RequestMapping("/api/vinetas")
 @RestController
 public class RESTVinetaController {
 	
-	interface VinetaView extends Vineta.BasicAtt, Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
-	
-	@Autowired
-	private ComentarioService comentarioservice;
+	interface VinetaView extends Vineta.BasicAtt , Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
 	
 	@Autowired
 	private VinetaService vinvetaservice;
+	
+	@Autowired
+	private utils utilservice;
     
     @Autowired
 	private TagService tagservice;
@@ -84,7 +85,7 @@ public class RESTVinetaController {
 		
 	}
 	
-	@JsonView(Vineta.BasicAtt.class)
+	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Vineta> getvineta(@PathVariable int id){
 		if(this.vinvetaservice.findOne((long) id) != null) {
@@ -102,43 +103,7 @@ public class RESTVinetaController {
     	
 		if(this.vinvetaservice.findOne((long) id) != null && (this.vinvetaservice.findOne((long) id).getAutor().equals(user) || user.getRoles().contains("ROLE_ADMIN"))) {
 			Vineta viñeta = this.vinvetaservice.findOne((long) id);
-			
-			//Por cada comentario de la viñeta, borrarlo de la viñeta y eliminarlo del repositorio
-			for(Comentario c : viñeta.getComentarios()) {
-				this.comentarioservice.delete(c.getId());
-			}
-			
-			//Por cada usuario que le haya hecho dislike, borrarle de la lista de dislikes, borrar la viñeta de sus dislikes...
-			for(User usuario : viñeta.getUsers_dislikes()) {
-				viñeta.getUsers_dislikes().remove(viñeta);
-				usuario.getVinetas_odiadas().remove(viñeta);
-			}
-			
-			//Por cada usuario que le haya hecho like, borrarle de la lista de likes, borrar la viñeta de sus likes...
-			for(User usuario : viñeta.getUsers_likes()) {
-				viñeta.getUsers_likes().remove(viñeta);
-				usuario.getVinetas_gustadas().remove(usuario.getVinetas_gustadas().indexOf(viñeta));
-			}
-			
-			//Por cada usuario que le haya hecho fav, borrarle de la lista de favs, borrar la viñeta de sus favs...
-			for(User usuario : viñeta.getUsers_fav()) {
-				viñeta.getUsers_fav().remove(viñeta);
-				usuario.getVinetas_favoritas().remove(viñeta);
-			}
-			
-			//Borrar de las publicaciones del autor y ponerlo a null
-			viñeta.getAutor().getVinetas_subidas().remove(viñeta);
-			viñeta.setAutor(null);
-			
-			//Si tiene tag borro la viñeta de la lista de tags y lo pongo a null
-			if(viñeta.getTags() != null) {
-				viñeta.getTags().getVinetas().remove(viñeta);
-				this.tagservice.save(viñeta.getTags());
-			}
-			
-			//Borrar la viñeta del repositorio
-			this.vinvetaservice.delete(viñeta.getId());
-			
+			this.utilservice.deletesocialvineta(viñeta);
 			return new ResponseEntity<>(this.vinvetaservice.findOne((long) id), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -188,5 +153,69 @@ public class RESTVinetaController {
         
         return new ResponseEntity<>(viñeta, HttpStatus.CREATED);
 	}
+
+	@JsonView(Vineta.BasicAtt.class)
+	@RequestMapping(value = "/dislike/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Vineta> dislikeVineta(@PathVariable long id, HttpServletRequest request){
+		System.out.println("ya he llegado");
+		Principal p = request.getUserPrincipal();
+        User user = userservice.findByUsername(p.getName());
+		System.out.println(p.getName());
+        Vineta v = vinvetaservice.findOne(id);
+        if (v != null){
+        	if (!v.isDislikedBefore(user)){
+        		user.getVinetas_odiadas().add(v);
+        		System.out.println("not before");
+        		v.dislike();
+        		this.vinvetaservice.save(v);
+        		this.userservice.save(user);}
+        	return new ResponseEntity<>(v, HttpStatus.OK);
+        }else{
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    	
+	}
+	@JsonView(Vineta.BasicAtt.class)
+	@RequestMapping(value = "/like/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Vineta> likeVineta(@PathVariable long id, HttpServletRequest request){
+		System.out.println("ya he llegado");
+		Principal p = request.getUserPrincipal();
+		System.out.println(p.getName());
+        User user = userservice.findByUsername(p.getName());
+        Vineta v = vinvetaservice.findOne(id);
+        if (v != null){
+        	if (!v.isLikedBefore(user)){
+        		System.out.println("not before");
+        		user.getVinetas_gustadas().add(v);
+        		v.like();
+        		this.vinvetaservice.save(v);
+        		this.userservice.save(user);}
+        	return new ResponseEntity<>(v, HttpStatus.OK);
+        }else{
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    	
+	}
+	@JsonView(Vineta.BasicAtt.class)
+	@RequestMapping(value = "/favorite/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Vineta> favorite(@PathVariable long id, HttpServletRequest request){
+		System.out.println("ya he llegado");
+		Principal p = request.getUserPrincipal();
+		System.out.println(p.getName());
+        User user = userservice.findByUsername(p.getName());
+        Vineta v = vinvetaservice.findOne(id);
+        if (v != null){
+        	if (!v.isFavoritedBefore(user)){
+        		System.out.println("not before");
+        		user.getVinetas_favoritas().add(v);
+        		this.vinvetaservice.save(v);
+        		this.userservice.save(user);}
+        	return new ResponseEntity<>(v, HttpStatus.OK);
+        }else{
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    	
+	}
+	
 
 }

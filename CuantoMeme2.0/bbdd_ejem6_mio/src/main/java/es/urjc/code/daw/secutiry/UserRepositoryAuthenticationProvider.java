@@ -41,7 +41,7 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 			
 			throw new BadCredentialsException("Wrong password");
 		} else {
-			
+			System.out.println("correcto");
 			userComponent.setLoggedUser(user);
 			
 			List<GrantedAuthority> roles = new ArrayList<>();

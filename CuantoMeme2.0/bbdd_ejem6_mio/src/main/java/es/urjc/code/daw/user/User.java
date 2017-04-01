@@ -27,10 +27,13 @@ import es.urjc.code.daw.comentario.*;
 @Entity
 public class User {
 	public interface BasicAtt {}
-	public interface VinetaAtt{}
+	public interface VinetaupAtt{}
+	public interface VinetafavAtt{}
+	public interface VinetalikeAtt{}
+	public interface VinetadislikeAtt{}
 	public interface ComentarioAtt{}
 	public interface SeguidoresAtt{}
-	
+	public interface SeguidosAtt{}
 	@Id
 	
 	@JsonView(BasicAtt.class)
@@ -41,17 +44,18 @@ public class User {
 	private String username;
 	@JsonIgnore
 	private String passwordHash;
+	
 	@JsonView(BasicAtt.class)
 	private String email;
 	@JsonView(BasicAtt.class)
 	private String AvatarURL;
-	@JsonView(VinetaAtt.class)	
+	@JsonView(VinetaupAtt.class)	
 	@OneToMany(mappedBy="autor", cascade=CascadeType.ALL)//, cascade=CascadeType.ALL)
 	private List<Vineta> vinetas_subidas = new ArrayList<>();
-	@JsonIgnore
+	@JsonView(SeguidoresAtt.class)
 	@ManyToMany(mappedBy="following")
 	private List<User> followers = new ArrayList<>();
-	
+	@JsonView(SeguidosAtt.class)
 	@ManyToMany
 	private List<User> following = new ArrayList<>();
 
@@ -62,15 +66,15 @@ public class User {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
-	@JsonView(VinetaAtt.class)
+	@JsonView(VinetafavAtt.class)
 	@ManyToMany
 	private List<Vineta> vinetas_favoritas = new ArrayList<>();
-	@JsonIgnore
-	//@JsonView(VinetaAtt.class)
+	
+	@JsonView(VinetalikeAtt.class)
 	@ManyToMany
 	private List<Vineta> vinetas_gustadas = new ArrayList<>();
-	@JsonIgnore
-	//@JsonView(VinetaAtt.class)
+	
+	@JsonView(VinetadislikeAtt.class)
 	@ManyToMany
 	private List<Vineta> vinetas_odiadas = new ArrayList<>();
 	
@@ -219,6 +223,13 @@ public class User {
 
 	public void setFollowing(List<User> following) {
 		this.following = following;
+	}
+	
+	public boolean isFollowing(User u){
+		return this.following.contains(u);
+	}
+	public boolean isFollower(User u){
+		return this.followers.contains(u);
 	}
 
 	@Override

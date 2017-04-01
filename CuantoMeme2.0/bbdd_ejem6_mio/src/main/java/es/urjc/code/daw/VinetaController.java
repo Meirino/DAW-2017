@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import es.urjc.code.daw.tag.TagService;
 import es.urjc.code.daw.user.*;
 import es.urjc.code.daw.vineta.*;
+import es.urjc.code.daw.utils.*;
 @Controller
 public class VinetaController {
 	@Autowired
@@ -27,13 +28,9 @@ public class VinetaController {
 	@Autowired
 	private UserComponent userComponent;
 	
-	public String requestCurrentPage(HttpServletRequest request){
-	    String referrer = request.getHeader("Referer");
-	    if(referrer!=null){
-	        request.getSession().setAttribute("url_prior_login", referrer);
-	    }
-	    return referrer;
-	}
+	@Autowired
+	private utils utilservice;
+
 	@RequestMapping(value = "/vinetas")
 	public String vinetas(Model model, HttpServletRequest request) {
 		boolean isAdmin = false;
@@ -76,23 +73,15 @@ public class VinetaController {
 	
 	@RequestMapping(value = "/likevineta/{id}")
 	public String likeVineta(Model model, @PathVariable long id, HttpServletRequest request ) {
-		  String page = this.requestCurrentPage(request);
-		  boolean is_liked_before = false;
+		  String page = this.utilservice.requestCurrentPage(request);
 		  Principal p = request.getUserPrincipal();
 	      User user = userservice.findByUsername(p.getName());
 	      Vineta v = vinetaservice.findOne(id);      
-	      for(User u2:v.getUsers_likes()){
-	    	  is_liked_before = (u2.getId()==user.getId());
-	    	  if (is_liked_before){
-	    		  break;
-	    	  }
-	      }
-	      if(!is_liked_before){
-		      user.getVinetas_gustadas().add(v);
-		      v.like();
-		      this.vinetaservice.save(v);
-		      this.userservice.save(user);
-	      }	      
+	      if (!v.isLikedBefore(user)){
+		   	 user.getVinetas_odiadas().add(v);
+	         v.dislike();
+		     this.vinetaservice.save(v);
+		     this.userservice.save(user);}	      
 	      return "redirect:"+page;
 	}
 	@RequestMapping(value = "/eliminarvineta/{id}")
@@ -100,12 +89,8 @@ public class VinetaController {
 		  Principal p = request.getUserPrincipal();
 	      User user = userservice.findByUsername(p.getName());
 	      Vineta v = vinetaservice.findOne(id);
-	      /*
-	      for(User u:v.getUsers_likes()){
-	    	  System.out.println("Esta vineta le gusta a "+u.getUsername());
-	    	  u.getVinetas_gustadas().remove(v);
-	    	  userrepository.save(u);
-	      }*/
+	      // Este metodo elimina la relacion con aquello usuarios que le dieron like, dislike o favor
+	      utilservice.deletesocialvineta(v);
 	      if((v.getAutor().getId() == user.getId()) || request.isUserInRole("ROLE_ADMIN") ){
 	    	  vinetaservice.delete(id);
 	      }
@@ -115,43 +100,29 @@ public class VinetaController {
 	
 	@RequestMapping(value = "/dislikevineta/{id}")
 	public String dislikeVineta(Model model, @PathVariable long id, HttpServletRequest request) {
-		String page = this.requestCurrentPage(request);
-		boolean is_disliked_before = false;
+		String page = this.utilservice.requestCurrentPage(request);
 		Principal p = request.getUserPrincipal();
         User user = userservice.findByUsername(p.getName());
         Vineta v = vinetaservice.findOne(id);
-		for(User u2:v.getUsers_dislikes()){
-		    is_disliked_before = (u2.getId()==user.getId());
-		   	if (is_disliked_before){
-		    	  break;
-		    }
-		  }
-		  if(!is_disliked_before){
+        if (!v.isDislikedBefore(user)){
 			 user.getVinetas_odiadas().add(v);
-	         v.dislike();
-   	         this.vinetaservice.save(v);
-		     this.userservice.save(user);
-		   }
+        	 v.dislike();
+	         this.vinetaservice.save(v);
+	         this.userservice.save(user);}
 		  return "redirect:"+page;
 	}
 	
 	@RequestMapping(value = "/hacerfavorita/{id}")
 	public String hacerfavorita(Model model, @PathVariable long id, HttpServletRequest request) {
-		String page = this.requestCurrentPage(request);
-		boolean is_favorited_before = false;
+		String page = this.utilservice.requestCurrentPage(request);
 		Principal p = request.getUserPrincipal();
 	    User user = userservice.findByUsername(p.getName());
 	    Vineta v = vinetaservice.findOne(id);
-	    for(User u2:v.getUsers_fav()){
-	  	  is_favorited_before = (u2.getId()==user.getId());
-	   	  if (is_favorited_before){
-	   		  break;
-    	}	      }
-	    if(!is_favorited_before){
-	      user.getVinetas_favoritas().add(v);
-	      this.vinetaservice.save(v);
-	      this.userservice.save(user);
-	    }
+        if (!v.isFavoritedBefore(user)){
+			 user.getVinetas_odiadas().add(v);
+        	 v.dislike();
+	         this.vinetaservice.save(v);
+	         this.userservice.save(user);}
 	    return "redirect:"+page;
 	}
 }

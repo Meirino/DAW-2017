@@ -29,11 +29,13 @@ public class RESTComentarioController {
 	@Autowired
 	private ComentarioService comentarioservice;
 	
+
 	@Autowired
 	private UserService userRepository;
 	
 	@Autowired
 	private VinetaService vinvetaservice;
+
 	
 	@JsonView(ComentarioView.class)
 	@RequestMapping(value = "/", method = RequestMethod.GET)
