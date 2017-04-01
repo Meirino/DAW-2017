@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.io.File;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import es.urjc.code.daw.comentario.Comentario;
 import es.urjc.code.daw.storage.StorageService;
 import es.urjc.code.daw.user.*;
-import es.urjc.code.daw.user.User;
-import es.urjc.code.daw.user.UserRepository;
 import es.urjc.code.daw.vineta.Vineta;
 
 @RequestMapping("/api/users")
@@ -45,6 +44,10 @@ public class RESTUserController {
 	
 	@Autowired
 	private UserService userservice;
+	
+
+	@Autowired
+	private UserComponent userComponent;
 
     public void FileUploadController(StorageService storageService) {
         this.storageService = storageService;
@@ -64,6 +67,29 @@ public class RESTUserController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public List<User> getUsers(){
 		return this.userservice.findAll();
+	}
+	@JsonView(User.BasicAtt.class)
+	@RequestMapping("/logIn")
+	public ResponseEntity<User> logIn() {
+		if (!userComponent.isLoggedUser()) {
+			System.out.println("no autorizado");
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} else {
+			User loggedUser = userComponent.getLoggedUser();
+			//System.out.println(loggedUser.getUsername());
+			return new ResponseEntity<>(loggedUser,HttpStatus.OK);
+		}
+	}
+	
+	@RequestMapping("/logOut")
+	public ResponseEntity<Boolean> logOut(HttpSession session) {
+
+		if (!userComponent.isLoggedUser()) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} else {
+			session.invalidate();
+			return new ResponseEntity<>(true, HttpStatus.OK);
+		}
 	}
 	
 	@JsonView(UserView.class)
@@ -91,16 +117,71 @@ public class RESTUserController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@JsonView(UserView.class)
 	public ResponseEntity<User> modifyUSer(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("email") String email) {
-		if(this.userRepository.findOne((long) id) != null) {
-			User original = this.userRepository.findOne((long) id);
+		User original = this.userRepository.findOne((long) id);
+		if(original != null) {
 			original.setUsername(nombre);
 			original.setEmail(email);
 			this.userRepository.save(original);
-			return new ResponseEntity<>(this.userRepository.findOne((long) id), HttpStatus.OK);
+			return new ResponseEntity<>(original, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		}
+		
 	}
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@JsonView(UserView.class)
+	public ResponseEntity<User> deleteUSer(@PathVariable int id) {
+		User u = this.userservice.findOne(id);
+		if (u == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else{
+
+			for(User u2:u.getFollowers()){
+				u2.getFollowing().remove(u);
+				userservice.save(u2);
+			}
+			for(User u2:u.getFollowing()){
+				u2.getFollowers().remove(u);
+				userservice.save(u2);
+			}
+			u.setFollowers(null);
+			u.setFollowing(null);
+			userservice.save(u);
+			userservice.delete(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+	}
+	@RequestMapping(value = "/follow/{id}", method = RequestMethod.PUT)
+	@JsonView(UserView.class)
+	public ResponseEntity<User> followUSer(@PathVariable long id, HttpServletRequest request) {	
+		User user_tofollow = this.userservice.findOne(id);
+		Principal p = request.getUserPrincipal();
+	    User current_user = userservice.findByUsername(p.getName());
+		if (user_tofollow == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else{
+		    current_user.addFollowing(user_tofollow);
+		    this.userservice.save(current_user);
+			return new ResponseEntity<>(current_user, HttpStatus.OK);
+			
+		}
+	}
+	@RequestMapping(value = "/unfollow/{id}", method = RequestMethod.PUT)
+	@JsonView(UserView.class)
+	public ResponseEntity<User> unfollowUSer(@PathVariable int id, HttpServletRequest request) {	
+		  User user_tounfollow = this.userservice.findOne(id);
+		  Principal p = request.getUserPrincipal();
+	      User current_user = this.userservice.findByUsername(p.getName());
+		if (user_tounfollow == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else{
+			current_user.getFollowing().remove(user_tounfollow);
+		    this.userservice.save(current_user);
+			return new ResponseEntity<>(current_user, HttpStatus.OK);	
+		}
+	}
+	
+
 	
 	@RequestMapping(value = "/avatar", method = RequestMethod.PUT)
     public ResponseEntity<User> handleAvatarUpload(@RequestAttribute("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletRequest request) {

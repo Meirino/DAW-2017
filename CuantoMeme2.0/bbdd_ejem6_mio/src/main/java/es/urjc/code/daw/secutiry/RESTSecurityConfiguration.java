@@ -43,14 +43,14 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
         // Métodos que requieren autenticación
         
         		/* Usuario */
-        http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/usuarios/avatar").hasRole("USER");
+        http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/users/**").hasRole("USER");
         
         		/* Tags */
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/tags/{id}").hasAnyRole("ADMIN"); //Los tags no pueden estar vacios o sino peta
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/**").hasAnyRole("ADMIN"); //Todos los deletes solo los puede realizar el admin
         
         		/* Comentario */
         http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/comentarios/{id}").hasAnyRole("ADMIN"); //Hay que comprobar si el propietario del comentario lo está usando
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/comentarios/{id}").hasAnyRole("ADMIN"); //Necesita comprobar que el usuario original lo están borrando
+       //http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/comentarios/{id}").hasAnyRole("ADMIN"); //Necesita comprobar que el usuario original lo están borrando
         
         		/* Viñetas */
         http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/vinetas").hasAnyRole("USER", "ADMIN");
