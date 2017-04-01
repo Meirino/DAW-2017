@@ -88,5 +88,31 @@ public class utils {
 		}
 		return resultado;
 	}
-
+	
+	public List<User> busquedaUsuarios(String nombre) {
+		
+		List<User> resultado = new ArrayList<User>();
+		List<User> usuarios = new ArrayList<User>();
+		usuarios = this.userservice.findAll();
+		for(User u : usuarios) {
+			if(u.getUsername().contains(nombre)) {
+				resultado.add(u);
+			}
+		}
+		return resultado;
+	}
+	
+	public List<Tag> busquedaTags(String nombre) {
+		
+		List<Tag> resultado = new ArrayList<Tag>();
+		List<Tag> tags = new ArrayList<Tag>();
+		tags = this.tagservice.findAll();
+		for(Tag t : tags) {
+			if(t.getNombre().contains(nombre)) {
+				resultado.add(t);
+			}
+		}
+		return resultado;
+	}
+	
 }
