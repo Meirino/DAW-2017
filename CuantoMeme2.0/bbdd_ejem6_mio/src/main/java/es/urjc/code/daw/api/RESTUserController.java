@@ -1,6 +1,7 @@
 package es.urjc.code.daw.api;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -146,8 +147,8 @@ public class RESTUserController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
-		
 	}
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@JsonView(UserView.class)
 	public ResponseEntity<User> deleteUSer(@PathVariable int id) {
@@ -171,6 +172,7 @@ public class RESTUserController {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
+	
 	@RequestMapping(value = "/follow/{id}", method = RequestMethod.PUT)
 	@JsonView(UserView.class)
 	public ResponseEntity<User> followUSer(@PathVariable long id, HttpServletRequest request) {	
@@ -186,6 +188,26 @@ public class RESTUserController {
 			
 		}
 	}
+	
+	@RequestMapping(value = "/timeline", method = RequestMethod.GET)
+	@JsonView(UserView.class)
+	public ResponseEntity<List<Vineta>> getTimeline(HttpServletRequest request) {	
+		Principal p = request.getUserPrincipal();
+	    User current_user = userservice.findByUsername(p.getName());
+		if (!current_user.getFollowing().isEmpty()) {
+			
+			ArrayList<Vineta> timeline = new ArrayList<Vineta>();
+			
+			for(User u : current_user.getFollowing()) {
+				timeline.addAll(u.getVinetas_subidas());
+			}
+			
+			return new ResponseEntity<>(timeline, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	@RequestMapping(value = "/unfollow/{id}", method = RequestMethod.PUT)
 	@JsonView(UserView.class)
 	public ResponseEntity<User> unfollowUSer(@PathVariable int id, HttpServletRequest request) {	

@@ -21,24 +21,23 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.antMatcher("/api/**");
     	
     	// Public pages
-		//http.authorizeRequests().anyRequest().permitAll();
+
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/**").hasRole("USER");
-        http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/**").hasRole("USER");
         http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/**").hasRole("ADMIN");
-        /*
-	    http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/**").hasRole("ADMIN");
-	    http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/**").hasRole("USER");
-	    http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/**").hasRole("USER");
-		*/
         
+        //POST
+        http.authorizeRequests().antMatchers("/api/users/signup").permitAll();
+        http.authorizeRequests().antMatchers("/api/users/signupJSON").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/comentarios/**").hasRole("USER");
+        http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/vinetas/**").hasRole("USER");
+       
         // Disable CSRF protection (it is difficult to implement with ng2)
      	http.csrf().disable();
      	
      	//Login con Basic Auth
      	http.httpBasic();
      	
-
      	// Do not redirect when logout
      	http.logout().logoutSuccessHandler((rq, rs, a) -> {	});
 
