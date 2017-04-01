@@ -21,24 +21,7 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.antMatcher("/api/**");
     	
     	// Public pages
-		
-				/* Usuario */
-        http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/signup").permitAll();
-        
-        		/* Tags */
-        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{nombre}").permitAll(); //Da problemas
-        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/tags/{id}").permitAll();
-        
-        		/* Comentario */
-        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentarios").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentarios/{id}").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentariosByUser/{id}").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/comentariosByVineta/{id}").permitAll();
-        
-        		/* Viñetas */
-        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/vinetaspage/").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/vinetas/{id}").permitAll();
+		http.authorizeRequests().anyRequest().permitAll();
         
         // Métodos que requieren autenticación
         
