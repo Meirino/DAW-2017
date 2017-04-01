@@ -89,7 +89,7 @@ public class RESTComentarioController {
 	}
 	
 	@JsonView(ComentarioView.class)
-	@RequestMapping(value = "vineta/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/vineta/{id}", method = RequestMethod.POST)
 	public ResponseEntity<Comentario> publicarcomentario(@PathVariable int id, @RequestParam("texto") String texto, HttpServletRequest request) {
 		Principal p = request.getUserPrincipal();
     	User user = this.userRepository.findByUsername(p.getName());

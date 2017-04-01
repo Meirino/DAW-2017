@@ -21,12 +21,16 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.antMatcher("/api/**");
     	
     	// Public pages
-		
+		//http.authorizeRequests().anyRequest().permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/**").hasRole("USER");
+        http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/**").hasRole("USER");
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/**").hasRole("ADMIN");
+        /*
 	    http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/**").hasRole("ADMIN");
 	    http.authorizeRequests().antMatchers(HttpMethod.POST ,"/api/**").hasRole("USER");
 	    http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/**").hasRole("USER");
-
+		*/
         
         // Disable CSRF protection (it is difficult to implement with ng2)
      	http.csrf().disable();

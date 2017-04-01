@@ -90,9 +90,8 @@ public class VinetaController {
 	      User user = userservice.findByUsername(p.getName());
 	      Vineta v = vinetaservice.findOne(id);
 	      // Este metodo elimina la relacion con aquello usuarios que le dieron like, dislike o favor
-	      utilservice.deletesocialvineta(v);
 	      if((v.getAutor().getId() == user.getId()) || request.isUserInRole("ROLE_ADMIN") ){
-	    	  vinetaservice.delete(id);
+		      utilservice.deletesocialvineta(v);
 	      }
 	      //String page = this.requestCurrentPage(request);  
 	      return "redirect:/";

@@ -141,7 +141,7 @@ public class RESTUserController {
 			User original = this.userservice.findOne((long) id);
 			original.setUsername(nombre);
 			original.setEmail(email);
-			this.userRepository.save(original);
+			this.userservice.save(original);
 			return new ResponseEntity<>(original, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -205,6 +205,11 @@ public class RESTUserController {
 	
 	@RequestMapping(value = "/avatar", method = RequestMethod.PUT)
     public ResponseEntity<User> handleAvatarUpload(@RequestParam("file") MultipartFile avatar, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+		System.out.println("he llegado a cambiar avatar");
+		if (!userComponent.isLoggedUser()){
+		     return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		
 		if(avatar.getSize() <= this.bytes) {
 			Principal p = request.getUserPrincipal();
 	    	User user = userRepository.findByUsername(p.getName());
@@ -216,18 +221,6 @@ public class RESTUserController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-    }
-	
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<User> handleAvatarUpload(@PathVariable int id) {
-		
-		if(this.userservice.findOne((long) id) != null) {
-			User usuario = this.userservice.findOne((long) id);
-	    	this.userservice.delete(usuario.getId());
-	    	return new ResponseEntity<>(HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-    }
+    }	
 
 }
