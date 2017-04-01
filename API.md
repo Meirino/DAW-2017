@@ -46,6 +46,12 @@ A continuación pasamos a describir la API de nuestra aplicación, CuantoMeme, d
    - **Parámetros:** ID de la viñeta a borrar
    - **Devuelve:** Si ha tenido éxito, la viñeta borrada, sino, nada
    
+- **Métodos** PUT "like/{id}" / PUT "dislike/{id}" / PUT "favorite/{id}"
+   - **Privilegios necesarios:** USUARIO o ADMIN
+   - Si la viñeta con el id existe: _200 OK_, en caso contrario: _403 FORBIDDEN_
+   - **Parámetros:** ID de la viñeta
+   - **Devuelve:** Si ha tenido éxito, la viñeta, sino, nada
+   
 ### Comentarios ("/api/comentarios")  
    
 - **Método:** PUT "/{ID}"
