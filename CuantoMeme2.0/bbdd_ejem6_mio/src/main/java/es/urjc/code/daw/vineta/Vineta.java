@@ -93,6 +93,9 @@ public class Vineta {
 		this.creationdate = creationdate;
 	}
 
+	public void addComentario(Comentario c) {
+		this.comentarios.add(c);
+	}
 
 	public String getTitulo() {
 		return titulo;
@@ -131,6 +134,7 @@ public class Vineta {
 	}
 
 	public void setTags(Tag tags) {
+		tags.setUso(tags.getUso()+1);
 		this.tags = tags;
 	}
 
@@ -203,6 +207,16 @@ public class Vineta {
 
 	public void setUsers_dislikes(List<User> users_dislikes) {
 		this.users_dislikes = users_dislikes;
+	}
+	
+	public boolean isLikedBefore(User u){
+		return this.users_likes.contains(u);
+	}
+	public boolean isDislikedBefore(User u){
+		return this.users_dislikes.contains(u);
+	}
+	public boolean isFavoritedBefore(User u){
+		return this.users_fav.contains(u);
 	}
 
 	@Override

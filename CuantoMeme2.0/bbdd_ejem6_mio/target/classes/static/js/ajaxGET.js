@@ -12,7 +12,7 @@ function cargarPagina(num) {
             $('#loading').html("<img src='/spinner.gif'/>");
         }
         , contentType: "application/json"
-        , url: "/api/vinetaspage/?page="+num
+        , url: "/api/vinetas/?page="+num
         , success: function (data) {
             //console.log(data);
             var toAppend = '';

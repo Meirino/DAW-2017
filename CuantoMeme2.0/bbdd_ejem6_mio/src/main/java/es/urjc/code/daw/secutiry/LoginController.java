@@ -1,4 +1,4 @@
-package es.urjc.code.daw.api;
+package es.urjc.code.daw.secutiry;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,8 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.urjc.code.daw.user.User;
-import es.urjc.code.daw.user.UserComponent;
+import es.urjc.code.daw.user.*;
+
 /**
  * This class is used to provide REST endpoints to logIn and logOut to the
  * service. These endpoints are used by Angular 2 SPA client application.
@@ -20,15 +20,15 @@ import es.urjc.code.daw.user.UserComponent;
  */
 @RestController
 public class LoginController {
-
+/*
 	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
 	private UserComponent userComponent;
 
-	@RequestMapping("/logIn")
+	@RequestMapping("/api/logIn")
 	public ResponseEntity<User> logIn() {
-
+		System.out.println("juuuas");
 		if (!userComponent.isLoggedUser()) {
 			log.info("Not user logged");
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -39,7 +39,7 @@ public class LoginController {
 		}
 	}
 
-	@RequestMapping("/logOut")
+	@RequestMapping("/api/logOut")
 	public ResponseEntity<Boolean> logOut(HttpSession session) {
 
 		if (!userComponent.isLoggedUser()) {
@@ -51,5 +51,5 @@ public class LoginController {
 			return new ResponseEntity<>(true, HttpStatus.OK);
 		}
 	}
-
+	*/
 }
