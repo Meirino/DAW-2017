@@ -13,6 +13,8 @@ import es.urjc.code.daw.vineta.*;
 public class utils {
 	@Autowired
 	private UserService userservice;
+	@Autowired
+	private VinetaService vinetaservice;
 	
 	public String requestCurrentPage(HttpServletRequest request){
 	    String referrer = request.getHeader("Referer");
@@ -35,6 +37,8 @@ public class utils {
 	    	  u.getVinetas_favoritas().remove(v);
 	    	  userservice.save(u);
 	      }
+	      this.vinetaservice.save(v);
+	      this.vinetaservice.delete(v.getId());
 	}
 	
 
