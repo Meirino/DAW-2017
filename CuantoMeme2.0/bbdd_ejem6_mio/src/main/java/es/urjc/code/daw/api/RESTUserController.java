@@ -87,16 +87,16 @@ public class RESTUserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@JsonView(User.BasicAtt.class)
+	@JsonView(UserView.class)
 	@RequestMapping("/logIn")
 	public ResponseEntity<User> logIn() {
 		if (!userComponent.isLoggedUser()) {
 			System.out.println("no autorizado");
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} else {
-			User loggedUser = userComponent.getLoggedUser();
+			long id = userComponent.getLoggedUser().getId();
 			//System.out.println(loggedUser.getUsername());
-			return new ResponseEntity<>(loggedUser,HttpStatus.OK);
+			return new ResponseEntity<>(userservice.findOne(id),HttpStatus.OK);
 		}
 	}
 	
