@@ -4,34 +4,28 @@ A continuación pasamos a describir la API de nuestra aplicación, CuantoMeme, d
 
 ## Métodos públicos
 
-### Búsquedas ("/api/busqueda")
-
-- **Método:** GET "/vinetasTitulo/{nombre}"
-  - Si existen viñetas que en el título contenga "nombre": _200 OK_, si no existe ninguna: _404 NOT FOUND_
-  - **Parámetros:** nombre, en la URL.
-  - **Devuelve:** Todas las viñetas que contengan "nombre" en el título.
-
-- **Método:** GET "/vinetasUsuario/{nombre}"
-  - Si existen viñetas que, cuyo autor contenga "nombre" en su nombre de usuario: _200 OK_, si no existe ninguna: _404 NOT FOUND_
-  - **Parámetros:** nombre, en la URL.
-  - **Devuelve:** Todas las viñetas que contengan "nombre" en el nombre del autor.
-  
-- **Método:** GET "/vinetasTag/{nombre}"
-  - Si existen viñetas que en el tag contenga "nombre": _200 OK_, si no existe ninguna: _404 NOT FOUND_
-  - **Parámetros:** nombre, en la URL.
-  - **Devuelve:** Todas las viñetas que contengan "nombre" en el tag.
-
 ### Viñetas ("/api/vinetas")
 
 - **Método:** GET "/"
   - Si existen viñetas: _200 OK_, si no existe ninguna: _404 NOT FOUND_
   - **Parámetros:** Ninguno
   - **Devuelve:** La página 0 devuelve una lista con las 20 primeras viñetas, la página 1 devuelve las 20 siguientes, etc etc...
+  
+> GET localhost:8080/api/vinetas/
 
 - **Método:** GET "/{id}" 
     - Si existe: _200 OK_, si no existe: _404 NOT FOUND_  
     - **Parámetros:** ID de la viñeta
     - **Devuelve:** Si existe, la viñeta con ese ID, sino un objeto null
+    
+> GET localhost:8080/api/vinetas/{id}
+    
+- **Método:** GET "/vinetas/busq/{texto}"
+  - Si existen viñetas que en el título, autor o tag contengan "texto": _200 OK_, si no existe ninguna: _404 NOT FOUND_
+  - **Parámetros:** texto y filtro, en la URL.
+  - **Devuelve:** Todas las viñetas que contengan "texto" en el título, autor o tag.
+
+> GET localhost:8080/api/vinetas/busq/{texto}?filtro={"usuarios"/"tags"/"titulos"}
     
 ### Comentarios ("/api/comentarios")
 
@@ -39,11 +33,15 @@ A continuación pasamos a describir la API de nuestra aplicación, CuantoMeme, d
     - Si existen comentarios: _200 OK_, si no hay comentarios _404 NOT FOUND_
     - **Parámetros:** Ninguno
     - **Devuelve:** Una lista con todos los comentarios
+
+> GET localhost:8080/api/comentarios/
     
 - **Método:** GET "/{id}"
     - Si existe: _200 OK_, si no existe: _404 NOT FOUND_
     - **Parámetros:** ID del comentario
     - **Devuelve:** El comentario con ese mismo ID
+    
+> GET localhost:8080/api/comentarios/{id}
     
 ### Tags ("/api/tags")
 
@@ -58,7 +56,7 @@ A continuación pasamos a describir la API de nuestra aplicación, CuantoMeme, d
     - **Devuelve:** El tag con ese mismo ID
     
     
-### Usuarios ("/api/users")
+### Usuarios ("/api/usuarios")
 
 - **Método:** GET "/"
     - Si existen usuarios: _200 OK_, si no: _404 NOT FOUND_
