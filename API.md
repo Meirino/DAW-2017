@@ -50,11 +50,14 @@ A continuación pasamos a describir la API de nuestra aplicación, CuantoMeme, d
     - **Parámetros:** Ninguno
     - **Devuelve:** Una lista con todos los tags
     
+> GET localhost:8080/api/tags/
+    
 - **Método:** GET "/{id}"
     - Si existe: _200 OK_, si no existe: _404 NOT FOUND_
     - **Parámetros:** ID del tag
     - **Devuelve:** El tag con ese mismo ID
     
+> GET localhost:8080/api/tags/{id}
     
 ### Usuarios ("/api/usuarios")
 
@@ -63,25 +66,41 @@ A continuación pasamos a describir la API de nuestra aplicación, CuantoMeme, d
     - **Parámetros:** Ninguno
     - **Devuelve:** Una lista con todos los usuarios
     
+> GET localhost:8080/api/usuarios/
+    
 - **Método:** GET "/{id}"
     - Si existe: _200 OK_, si no existe: _404 NOT FOUND_
     - **Parámetros:** ID del usuario
     - **Devuelve:** El usuario con ese mismo ID
+    
+> GET localhost:8080/api/usuarios/{id}
     
 - **Método:** POST "/signup"
     - Registra a un usuario
     - **Parámetros:** El nombre de usuario (Campo "username"), email (Campo "email"), contraseña (Campo "pass")
     - **Devuelve:** El usuario registrado
     
+> POST localhost:8080/api/usuarios/logIn
+
+> {
+>    "username": "pepito",
+>    "email": "pepe@gmail.com",
+>    "pass": "pass"
+> } 
+    
 - **Método:** GET "/logIn"
     - Si existe: _200 OK_, si no existe: _UNAUTHORIZED_
     - **Parámetros:** Las credenciales del usuario (Nombre de usuario y contraseña)
     - **Devuelve:** Un booleano "true"
     
+> GET localhost:8080/api/usuarios/logIn
+    
 - **Método:** GET "/logOut"
     - Si existe: _200 OK_, si no existe: _UNAUTHORIZED_
     - **Parámetros:** Las credenciales del usuario (Nombre de usuario y contraseña)
     - **Devuelve:** El usuario loggeado
+    
+> GET localhost:8080/api/usuarios/logOut
     
 ## Métodos privados
 
