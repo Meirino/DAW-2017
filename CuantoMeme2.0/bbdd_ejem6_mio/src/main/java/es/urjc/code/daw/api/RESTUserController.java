@@ -21,12 +21,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import es.urjc.code.daw.api.CMRestControler.VinetaView;
 import es.urjc.code.daw.comentario.Comentario;
 import es.urjc.code.daw.storage.StorageService;
 import es.urjc.code.daw.user.*;
+import es.urjc.code.daw.utils.utils;
 import es.urjc.code.daw.vineta.Vineta;
 
-@RequestMapping("/api/users")
+@RequestMapping("/api/usuarios")
 @RestController
 public class RESTUserController {	
 	private final long bytes = 1048576;
@@ -34,7 +36,6 @@ public class RESTUserController {
 	interface UserView extends User.BasicAtt, User.VinetaupAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt, User.VinetafavAtt,
 	User.VinetadislikeAtt, User.VinetalikeAtt, User.SeguidoresAtt{}
 	interface UsersView extends User.BasicAtt {}
-
 
 	@Autowired
 	private UserRepository userRepository;
@@ -45,9 +46,21 @@ public class RESTUserController {
 	@Autowired
 	private UserService userservice;
 	
-
 	@Autowired
 	private UserComponent userComponent;
+	
+	@Autowired
+	private utils utilidades;
+	
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/busq/{nombre}", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> buscarUsuario(@PathVariable String nombre){
+		if(!this.utilidades.busquedaUsuarios(nombre).isEmpty()) {
+			return new ResponseEntity<>(this.utilidades.busquedaUsuarios(nombre), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
     public void FileUploadController(StorageService storageService) {
         this.storageService = storageService;

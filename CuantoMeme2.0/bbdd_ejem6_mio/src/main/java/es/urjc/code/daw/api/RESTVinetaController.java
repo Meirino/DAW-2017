@@ -51,6 +51,9 @@ public class RESTVinetaController {
         this.storageService = storageService;
     }
 	
+	@Autowired
+	private utils utilidades;
+	
 	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/", method= RequestMethod.GET)
 	public ResponseEntity<List<Vineta>> getvinetaspage(Pageable page ) {
@@ -92,6 +95,31 @@ public class RESTVinetaController {
 			return new ResponseEntity<>(this.vinvetaservice.findOne((long) id), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/busq/{texto}", method = RequestMethod.GET)
+	public ResponseEntity<List<Vineta>> busqVineta(@PathVariable String texto, @RequestParam(required = false, defaultValue = "titulo", value="filtro") String filtro){
+		switch(filtro) {
+			case("usuario"):
+				if(!this.utilidades.busquedaVinetasPorUsuarios(texto).isEmpty()) {
+					return new ResponseEntity<>(this.utilidades.busquedaVinetasPorUsuarios(texto), HttpStatus.OK);
+				} else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+			case("tag"):
+				if(!this.utilidades.busquedaVinetasPorTags(texto).isEmpty()) {
+					return new ResponseEntity<>(this.utilidades.busquedaVinetasPorTags(texto), HttpStatus.OK);
+				} else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+			default:
+				if(!this.utilidades.busquedaVineta(texto).isEmpty()) {
+					return new ResponseEntity<>(this.utilidades.busquedaVineta(texto), HttpStatus.OK);
+				} else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 		}
 	}
 	

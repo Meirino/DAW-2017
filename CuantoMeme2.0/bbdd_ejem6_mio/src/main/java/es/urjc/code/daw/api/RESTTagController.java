@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
+
+import es.urjc.code.daw.api.CMRestControler.VinetaView;
 import es.urjc.code.daw.tag.*;
+import es.urjc.code.daw.utils.utils;
 
 @RequestMapping("/api/tags")
 @RestController
@@ -24,6 +27,19 @@ public class RESTTagController {
 	
 	@Autowired
 	private TagService tagservice;
+	
+	@Autowired
+	private utils utilidades;
+	
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/busq/{nombre}", method = RequestMethod.GET)
+	public ResponseEntity<List<Tag>> buscarTag(@PathVariable String nombre){
+		if(!this.utilidades.busquedaTags(nombre).isEmpty()) {
+			return new ResponseEntity<>(this.utilidades.busquedaTags(nombre), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 	
 	@JsonView(TagView.class)
 	@RequestMapping(value = "/", method = RequestMethod.GET)
