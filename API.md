@@ -80,13 +80,9 @@ A continuación pasamos a describir la API de nuestra aplicación, CuantoMeme, d
     - **Parámetros:** El nombre de usuario (Campo "username"), email (Campo "email"), contraseña (Campo "pass")
     - **Devuelve:** El usuario registrado
     
-> POST localhost:8080/api/usuarios/logIn
+> POST localhost:8080/api/usuarios/logIn 
 
-> {
->    "username": "pepito",
->    "email": "pepe@gmail.com",
->    "pass": "pass"
-> } 
+> BODY: { "username": "pepito", "email": "pepe@gmail.com", "pass": "pass" } 
     
 - **Método:** GET "/logIn"
     - Si existe: _200 OK_, si no existe: _UNAUTHORIZED_
@@ -112,18 +108,30 @@ A continuación pasamos a describir la API de nuestra aplicación, CuantoMeme, d
    - **Parámetros:** Título (En un campo "titulo"), descripción (Campo "desc"), tag (Campo "tags") y archivo (Campo "file")
    - **Devuelve:** La viñeta creada
 
+> POST localhost:8080/api/vinetas/
+
+> BODY: { "titulo":"viñeta00", "desc":"descripción", "file":"viñeta.png", "tags":"pole" }
+
 - **Método:** DELETE "/{id}"
    - **Privilegios necesarios:** USUARIO o ADMIN (El único usuario capaz de borrarla es su autor. Esto se comprueba en el método)
    - Si existe, y el usuario es el autor: _200 OK_, en caso contrario: _403 FORBIDDEN_
    - **Parámetros:** ID de la viñeta a borrar
    - **Devuelve:** Si ha tenido éxito, la viñeta borrada, sino, nada
    
+> DELETE localhost:8080/api/vinetas/{id}
+   
 - **Métodos** PUT "like/{id}" / PUT "dislike/{id}" / PUT "favorite/{id}"
    - **Privilegios necesarios:** USUARIO o ADMIN
    - Si la viñeta con el id existe: _200 OK_, en caso contrario: _403 FORBIDDEN_
    - **Parámetros:** ID de la viñeta
    - **Devuelve:** Si ha tenido éxito, la viñeta, sino, nada
-   
+
+> PUT localhost:8080/api/vinetas/like/{id}
+
+> PUT localhost:8080/api/vinetas/dislike/{id}
+
+> PUT localhost:8080/api/vinetas/favorite/{id}
+
 ### Comentarios ("/api/comentarios")  
    
 - **Método:** PUT "/{ID}"
@@ -132,17 +140,27 @@ A continuación pasamos a describir la API de nuestra aplicación, CuantoMeme, d
    - **Parámetros:** El nuevo texto (En un campo "texto")
    - **Devuelve:** Si ha tenido éxito, el comentario modificado
    
+> PUT localhost:8080/api/comentarios/{id}
+
+> BODY: { "texto":"pole" }
+   
 - **Método:** POST "vineta/{ID}"
    - **Privilegios necesarios:** USUARIO o ADMIN
    - Si existe la viñeta: _201 CREATED_, en caso contrario: _404 NOT FOUND_
    - **Parámetros:** El texto del comentario (En un campo "texto") y el ID de la viñeta
    - **Devuelve:** Si ha tenido éxito, el comentario creado
    
+> POST localhost:8080/api/comentarios/vineta/{id}
+
+> BODY: { "texto":"pole" }
+   
 - **Método:** DELETE "/{id}"
    - **Privilegios necesarios:** USUARIO o ADMIN (El único usuario capaz de borrarla es su autor. Esto se comprueba en el método)
    - Si existe, y el usuario es el autor: _200 OK_, en caso contrario: _404 NOT FOUND_
    - **Parámetros:** El ID del comentario
    - **Devuelve:** Si ha tenido éxito, el comentario borrado
+   
+> DELETE localhost:8080/api/comentarios/{id}
    
    ### Usuarios ("/api/users")
    
@@ -152,6 +170,7 @@ A continuación pasamos a describir la API de nuestra aplicación, CuantoMeme, d
    - **Parámetros:** El ID del usuario
    - **Devuelve:** Nada
    
+> DELETE localhost:8080/api/usuarios/{id}
    
 - **Método:** PUT "/follow/{id}"
    - **Privilegios necesarios:** USUARIO o ADMIN
@@ -159,11 +178,17 @@ A continuación pasamos a describir la API de nuestra aplicación, CuantoMeme, d
    - **Parámetros:** El ID del usuario
    - **Devuelve:** El usuario que está haciendo la petición
    
+> PUT localhost:8080/api/usuarios/follow/{id}
+   
 - **Método:** PUT "/{id}"
    - **Privilegios necesarios:** USUARIO o ADMIN
    - Si el usuario existe: _200 OK_, en caso contrario: _UNAUTHORIZED_
    - **Parámetros:** El ID del usuario en la URL, un nombre (Campo "nombre") y un email (Campo "email")
    - **Devuelve:** El usuario modificado
+   
+> PUT localhost:8080/api/usuarios/{id}
+
+> BODY: { "nombre":"modificado", "email":"modificado@gmail.com" }
    
 - **Método:** PUT "/unfollow/{id}"
    - **Privilegios necesarios:** USUARIO o ADMIN
@@ -171,14 +196,23 @@ A continuación pasamos a describir la API de nuestra aplicación, CuantoMeme, d
    - **Parámetros:** El ID del usuario
    - **Devuelve:** El usuario que está haciendo la petición
    
-- **Método:** GET "/timline}"
+> PUT localhost:8080/api/usuarios/follow/{id}
+   
+- **Método:** GET "/timeline}"
    - **Privilegios necesarios:** USUARIO
    - Si el usuario tiene viñetas en su timeline: _200 OK_, en caso contrario: _404 NOT FOUND_
    - **Parámetros:** Ninguno
    - **Devuelve:** Las viñetas de los usuarios a los que sigue
    
+> GET localhost:8080/api/usuarios/timeline
+
+   
 - **Método:** PUT "/avatar"
    - **Privilegios necesarios:** USUARIO o ADMIN
    - Si se ha podido subir el avatar: _200 OK_, si el avatar pesa más de 1MB: _BAD REQUEST_, si el usuario no se ha logeado: _UNAUTHORIZED_
-   - **Parámetros:** Una imagen (Camnpo "file")
+   - **Parámetros:** Una imagen (Campo "file")
    - **Devuelve:** El usuario que está haciendo la petición
+   
+> PUT localhost:8080/api/usuarios/avatar
+
+> BODY: { "file":"avatar.png" }
