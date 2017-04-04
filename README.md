@@ -67,3 +67,7 @@ Hemos usado el template SB-Admin (https://startbootstrap.com/template-overviews/
 
 ### Registro
 <img src="http://i.imgur.com/GyDxKz0.png">
+
+## API
+
+https://github.com/Meirino/DAW-2017/blob/master/API.md
