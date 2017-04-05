@@ -11,13 +11,13 @@ export class SignUpComponent {
   nombre: string = '';
   email: string = '';
   pass: string = '';
-  fuerzaPass: string;
+  fuerzaPass: string = 'nula';
 
   getPassStrength(): void {
     //Inicializo su fuerza a 0
     let fuerza: number = 0;
 
-    if(this.pass.length > 0) {
+    if(this.pass.length > 1) {
       fuerza = (5 * this.pass.length);
 
       //Si contiene números entonces le doy puntos
