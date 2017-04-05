@@ -10,6 +10,7 @@ import { ComponentTwo } from './component2.component';
 import { LoginComponent } from './login.component';
 import { SignUpComponent } from './signup.component';
 import { listaVinetasComponent } from './listaVinetas.component';
+import { vinetasDetalleComponent } from './vinetasDetalle.component';
 
 import { AppRoutingModule } from './appRouting.module';
 
@@ -20,7 +21,8 @@ import { AppRoutingModule } from './appRouting.module';
     ComponentTwo,
     LoginComponent,
     SignUpComponent,
-    listaVinetasComponent
+    listaVinetasComponent,
+    vinetasDetalleComponent
   ],
   imports: [
     BrowserModule,
