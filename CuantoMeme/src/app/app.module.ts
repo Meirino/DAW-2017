@@ -9,6 +9,9 @@ import { ComponentOne } from './component1.component';
 import { ComponentTwo } from './component2.component';
 import { LoginComponent } from './login.component';
 import { SignUpComponent } from './signup.component';
+import { listaVinetasComponent } from './listaVinetas.component';
+
+import { AppRoutingModule } from './appRouting.module';
 
 @NgModule({
   declarations: [
@@ -16,35 +19,14 @@ import { SignUpComponent } from './signup.component';
     ComponentOne,
     ComponentTwo,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    listaVinetasComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        redirectTo: '/comp1',
-        pathMatch: 'full'
-      },
-      {
-        path: 'comp1',
-        component: ComponentOne
-      }, 
-      {
-        path: 'comp2',
-        component: ComponentTwo
-      },
-      {
-        path: 'login',
-        component: LoginComponent
-      },
-      {
-        path: 'signup',
-        component: SignUpComponent
-      }
-    ])
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
