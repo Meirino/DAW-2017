@@ -1,0 +1,1 @@
+import { Vineta } from './Vineta.class';
