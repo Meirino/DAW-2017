@@ -2,17 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ComponentOne } from './component1.component';
-import { ComponentTwo } from './component2.component';
+import { IndexComponent } from './IndexComponent.component';
+import { BusquedaComponent } from './busquedaComponent.component';
 import { LoginComponent } from './login.component';
 import { SignUpComponent } from './signup.component';
 import { listaVinetasComponent } from './listaVinetas.component';
 import { vinetasDetalleComponent } from './vinetasDetalle.component';
 
 const rutas: Routes = [
-    { path: '', redirectTo: '/comp1', pathMatch: 'full' },
-    { path: 'comp1', component: ComponentOne }, 
-    { path: 'comp2', component: ComponentTwo },
+    { path: '', redirectTo: '/index', pathMatch: 'full' },
+    { path: 'index', component: IndexComponent }, 
+    { path: 'busqueda', component: BusquedaComponent },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignUpComponent },
     { path: 'vineta/:id', component: vinetasDetalleComponent }

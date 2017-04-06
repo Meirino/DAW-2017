@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   template: '<h3>{{title}}</h3>',
   styleUrls: ['./templates/css/app.component.css']
 })
-export class ComponentOne {
-  title = '¡Componente 1!';
+export class IndexComponent {
+  title = '¡Bienvenido a CuantoMeme!';
 }

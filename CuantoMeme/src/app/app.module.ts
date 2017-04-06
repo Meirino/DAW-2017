@@ -5,8 +5,8 @@ import { HttpModule } from '@angular/http';
 import { RouterModule }   from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ComponentOne } from './component1.component';
-import { ComponentTwo } from './component2.component';
+import { IndexComponent } from './IndexComponent.component';
+import { BusquedaComponent } from './busquedaComponent.component';
 import { LoginComponent } from './login.component';
 import { SignUpComponent } from './signup.component';
 import { listaVinetasComponent } from './listaVinetas.component';
@@ -17,8 +17,8 @@ import { AppRoutingModule } from './appRouting.module';
 @NgModule({
   declarations: [
     AppComponent,
-    ComponentOne,
-    ComponentTwo,
+    IndexComponent,
+    BusquedaComponent,
     LoginComponent,
     SignUpComponent,
     listaVinetasComponent,
