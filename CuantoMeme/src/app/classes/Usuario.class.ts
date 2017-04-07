@@ -1,4 +1,5 @@
 import { Vineta } from './Vineta.class';
+import { Comentario } from './Comentario.class';
 
 export class Usuario {
 
@@ -9,7 +10,7 @@ export class Usuario {
     private publicaciones: Vineta[];
     private seguidos: Usuario[];
     private seguidores: Usuario[];
-    //private comentarios: Comentario[];
+    private comentarios: Comentario[];
     private likes: Vineta[];
     private dislikes: Vineta[];
     private favoritos: Vineta[];
