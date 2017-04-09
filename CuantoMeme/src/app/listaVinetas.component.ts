@@ -20,17 +20,9 @@ export class listaVinetasComponent implements OnInit {
 
   ngOnInit() {
     this.servicioVinetas.getVinetas().subscribe(
-      vinetas => this.generateVinetas(vinetas),
+      vinetas => this.listaVinetas = vinetas,
       error => console.error(error)
     );
-  }
-  generateVinetas(vinetas: any[]){
-    for (let vineta of vinetas) {
-      this.listaVinetas.push(new Vineta(vineta.id, vineta.titulo, vineta.descripcion, vineta.URL, vineta.likes, vineta.dislikes));
-       // 1, "string", false
-    } 
-    console.log("-------");
-    console.log(this.listaVinetas);
   }
 
   like(viñeta: Vineta): void {

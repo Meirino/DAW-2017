@@ -16,5 +16,5 @@ const VIÑETAS: Vineta[] = [
 
 export class IndexComponent {
   title = '¡Bienvenido a CuantoMeme!';
-  listaVinetas = VIÑETAS;
+  listaVinetas = [];
 }
