@@ -1,0 +1,59 @@
+#body-details {
+    background-image: none !important;
+    background-color: #F6F6F6;
+}
+
+.badge {
+    border-radius: 50px;
+    background-color: white;
+    color: dimgrey;
+    font-size: 0.8em;
+}
+
+.btn-circle {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 30px;
+}
+
+#viñeta {
+    padding-bottom: 50px;
+}
+
+#comentarP {
+    margin-bottom: 2px;
+}
+
+#comentarHR {
+    margin-top: 2px;
+}
+
+#comentarB {
+    padding-bottom: 50px;
+}
+
+.comentario {
+    padding-bottom: 10px;
+}
+
+.comentario-body {
+    background-color: white;
+    padding: 7px;
+    padding-left: 15px;
+    border-radius: 20px;
+    margin-bottom: 0px;
+}
+
+small {
+    padding-left: 10px;
+    padding-top: 1px;
+    font-size: 0.7em;
+}
+
+.btn-seguir {
+    padding-left: 35px !important;
+    padding-right: 35px !important;
+}

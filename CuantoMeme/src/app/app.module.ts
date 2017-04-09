@@ -11,6 +11,7 @@ import { LoginComponent } from './login.component';
 import { SignUpComponent } from './signup.component';
 import { listaVinetasComponent } from './listaVinetas.component';
 import { vinetasDetalleComponent } from './vinetasDetalle.component';
+import { VinetasService } from './services/vinetas.service';
 
 import { AppRoutingModule } from './appRouting.module';
 
@@ -30,7 +31,7 @@ import { AppRoutingModule } from './appRouting.module';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [VinetasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Vineta } from './classes/Vineta.class';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { VinetasService } from './services/vinetas.service';
 
 @Component({
   selector: 'lista-vinetas',
@@ -7,13 +8,17 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./templates/css/listaVinetas.css', './templates/font-awesome/css/font-awesome.css']
 })
 
-export class listaVinetasComponent {
+export class listaVinetasComponent implements OnInit {
   
   //El componente recibe una lista de viñetas y las muestra
   @Input() listaVinetas: Vineta[];
 
-  constructor() {
+  constructor(private servicioVinetas: VinetasService) {
     //etc
+  }
+
+  ngOnInit() {
+    //
   }
 
   like(viñeta: Vineta): void {

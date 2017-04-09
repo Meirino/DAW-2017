@@ -4,7 +4,9 @@ import { Usuario } from './Usuario.class';
 export class Comentario {
     private ID: number;
     private fecha: Date;
-    private autor: Usuario;
+    private username: string;
+    private userID: number;
+    private userAvatar: string;
     private vineta: Vineta[];
     private texto: string;
 }
