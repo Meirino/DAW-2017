@@ -1,4 +1,6 @@
 import { Vineta } from '../classes/Vineta.class';
+import { Usuario } from '../classes/Usuario.class';
+
 import { Injectable } from '@angular/core';
 import { Http, Response, JsonpModule } from '@angular/http';
 
@@ -18,9 +20,12 @@ export class VinetasService {
     }
   generateVinetas(vinetas: any[]){
       var lv: Vineta[] = [];
+      var autor : Usuario;
       for (let vineta of vinetas) {
-          lv.push(new Vineta(vineta.id, vineta.titulo, vineta.descripcion, vineta.URL, vineta.likes, vineta.dislikes));
+          autor = new Usuario(vineta.autor.id, vineta.autor.username, vineta.autor.AvatarURL)
+          lv.push(new Vineta(vineta.id, vineta.titulo, vineta.descripcion, vineta.URL, vineta.likes, vineta.dislikes, autor));
          } 
+         console.log(lv);
       return lv;
   }
 

@@ -2,22 +2,26 @@ import { Vineta } from './Vineta.class';
 import { Comentario } from './Comentario.class';
 
 export class Usuario {
-
+    
+    private id: number;
+    private avatarURL: string;
     private username: string;
     private password: string;
     private email: string;
-    private avatarURL: string;
     private publicaciones: Vineta[];
     private seguidos: Usuario[];
     private seguidores: Usuario[];
-    private comentarios: Comentario[];
+    //private comentarios: Comentario[];
     private likes: Vineta[];
     private dislikes: Vineta[];
     private favoritos: Vineta[];
 
-    constructor(username: string, contraseña: string, email:string) {
+    constructor(id: number, username: string, avatar: string) {
         this.username = username;
-        this.password = contraseña;
-        this.email = email;
+        this.id = id;
+        this.avatarURL = avatar;
+    }
+    getlikes(){
+        //likes = /api/users/byusername[vientaslikes]
     }
 }
