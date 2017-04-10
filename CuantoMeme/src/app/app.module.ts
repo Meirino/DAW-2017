@@ -13,7 +13,8 @@ import { listaVinetasComponent } from './listaVinetas.component';
 import { vinetasDetalleComponent } from './vinetasDetalle.component';
 import { VinetasService } from './services/vinetas.service';
 import { UsuarioService } from './services/usuarios.service';
-import { AppRoutingModule } from './appRouting.module';
+import { routing }  from './appRouting.module';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { AppRoutingModule } from './appRouting.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    routing
   ],
   providers: [VinetasService, UsuarioService],
   bootstrap: [AppComponent]
