@@ -168,7 +168,7 @@ public class RESTVinetaController {
     			found = true;
     		}
     	}
-    	Vineta viñeta = new Vineta(titulo, desc, "/imgs/"+file.getOriginalFilename());
+    	Vineta viñeta = new Vineta(titulo, desc, "http://localhost:8080/imgs/"+file.getOriginalFilename());
     	Principal p = request.getUserPrincipal();
     	User user = userservice.findByUsername(p.getName());
     	viñeta.setAutor(user);

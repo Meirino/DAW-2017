@@ -249,7 +249,7 @@ public class RESTUserController {
 		if(avatar.getSize() <= this.bytes) {
 			Principal p = request.getUserPrincipal();
 	    	User user = userRepository.findByUsername(p.getName());
-	    	user.setAvatarURL("/imgs/"+avatar.getOriginalFilename());
+	    	user.setAvatarURL("http://localhost:8080/imgs/"+avatar.getOriginalFilename());
 	    	this.userRepository.save(user);
 	        storageService.store(avatar);
 
