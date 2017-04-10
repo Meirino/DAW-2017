@@ -2,17 +2,17 @@ import { Vineta } from './classes/Vineta.class';
 import { Component, Input, OnInit } from '@angular/core';
 import { VinetasService } from './services/vinetas.service';
 import { UsuarioService } from './services/usuarios.service';
+
 @Component({
   selector: 'lista-vinetas',
   templateUrl: './templates/listaVinetas.template.html',
   styleUrls: ['./templates/css/listaVinetas.css', './templates/font-awesome/css/font-awesome.css']
 })
 
-export class listaVinetasComponent implements OnInit {
+export class listaVinetasComponent {
   
   //El componente recibe una lista de viñetas y las muestra
   @Input() listaVinetas: Vineta[];
-  private vinetas: Vineta[];
 
         constructor(private servicioVinetas: VinetasService, private serviciousuarios: UsuarioService) {
           //etc
@@ -35,18 +35,12 @@ export class listaVinetasComponent implements OnInit {
           );
         }
 
-        like(viñeta: Vineta): void {
-          //Añadir la llamada a la API de hacer like
-          //viñeta.likes += 1;
-        }
+  like(viñeta: Vineta): void {
+    viñeta.likes = viñeta.likes + 1;
+  }
 
-        dislike(viñeta: Vineta): void {
-          //Añadir la llamada a la API de hacer dislike
-          //viñeta.dislikes += 1;
-        }
+  dislike(viñeta: Vineta): void {
+    viñeta.dislikes = viñeta.dislikes + 1;
+  }
 
-        fav(viñeta: Vineta): void {
-          //Añadir la llamada a la API de hacer favoritas
-        }
-
-      }
+}

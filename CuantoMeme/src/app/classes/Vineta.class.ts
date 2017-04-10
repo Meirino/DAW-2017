@@ -4,16 +4,16 @@ import { Tag } from './Tag.class';
 
 export class Vineta {
     
-    private id: number;
-    private titulo: string;
-    private descripcion: string;
-    private imgURL: string;
-    private likes: number;
-    private dislikes: number;
-    private autor : Usuario;
-    private tag : Tag;
+    public id: number;
+    public titulo: string;
+    public descripcion: string;
+    public imgURL: string;
+    public likes: number;
+    public dislikes: number;
+    public autor : Usuario;
+    public tag : Tag;
 
-    private comentarios: Comentario [] = [];
+    public comentarios: Comentario [] = [];
 
     constructor(id: number, titulo: string, descripcion: string, imgURL: string, likes: number, dislikes: number, autor: Usuario, tag : Tag){
         this.id = id;

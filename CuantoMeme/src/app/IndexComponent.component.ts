@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Vineta } from './classes/Vineta.class';
 import { listaVinetasComponent } from './listaVinetas.component';
+import { VinetasService } from './services/vinetas.service';
 
 @Component({
   selector: 'index-component',
@@ -11,4 +12,16 @@ import { listaVinetasComponent } from './listaVinetas.component';
 export class IndexComponent {
   title = '¡Bienvenido a CuantoMeme!';
   listaVinetas = [];
+
+  constructor(private servicioVinetas: VinetasService) {
+    //etc
+  }
+
+  ngOnInit() {
+    this.servicioVinetas.getVinetas().subscribe(
+      vinetas => this.listaVinetas = vinetas,
+      error => console.error(error)
+    );
+  }
+
 }
