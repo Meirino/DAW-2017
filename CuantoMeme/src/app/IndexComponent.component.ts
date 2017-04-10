@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Vineta } from './classes/Vineta.class';
 import { listaVinetasComponent } from './listaVinetas.component';
 import { VinetasService } from './services/vinetas.service';
+import { UsuarioService } from './services/usuarios.service';
 
 @Component({
   selector: 'index-component',
