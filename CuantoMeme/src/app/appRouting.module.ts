@@ -18,9 +18,4 @@ const rutas: Routes = [
     { path: 'vineta/:id', component: vinetasDetalleComponent }
 ]
 
-@NgModule({
-  imports: [ RouterModule.forRoot(rutas) ],
-  exports: [ RouterModule ]
-})
-
-export class AppRoutingModule {}
+export const routing = RouterModule.forRoot(rutas);
