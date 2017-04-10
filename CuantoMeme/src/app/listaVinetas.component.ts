@@ -1,6 +1,7 @@
 import { Vineta } from './classes/Vineta.class';
 import { Component, Input, OnInit } from '@angular/core';
 import { VinetasService } from './services/vinetas.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lista-vinetas',
@@ -8,41 +9,25 @@ import { VinetasService } from './services/vinetas.service';
   styleUrls: ['./templates/css/listaVinetas.css', './templates/font-awesome/css/font-awesome.css']
 })
 
-export class listaVinetasComponent implements OnInit {
+export class listaVinetasComponent {
   
   //El componente recibe una lista de viñetas y las muestra
   @Input() listaVinetas: Vineta[];
-  private vinetas: Vineta[];
 
-        constructor(private servicioVinetas: VinetasService) {
-          //etc
-        }
+  constructor(private router: Router) {
+    //
+  }
 
-        ngOnInit() {
-          
-          this.servicioVinetas.getVinetas().subscribe(
-            vinetas => this.listaVinetas = vinetas,
-            error => console.error(error)
-          );
-          
-          this.servicioVinetas.getVineta(101).subscribe(
-            vineta => console.log(vineta),
-            error => console.error(error)
-          );
-        }
+  irDetalles(id: number):void {
+    this.router.navigateByUrl('vineta/'+id);
+  }
 
-        like(viñeta: Vineta): void {
-          //Añadir la llamada a la API de hacer like
-          //viñeta.likes += 1;
-        }
+  like(viñeta: Vineta): void {
+    viñeta.likes = viñeta.likes + 1;
+  }
 
-        dislike(viñeta: Vineta): void {
-          //Añadir la llamada a la API de hacer dislike
-          //viñeta.dislikes += 1;
-        }
+  dislike(viñeta: Vineta): void {
+    viñeta.dislikes = viñeta.dislikes + 1;
+  }
 
-        fav(viñeta: Vineta): void {
-          //Añadir la llamada a la API de hacer favoritas
-        }
-
-      }
+}
