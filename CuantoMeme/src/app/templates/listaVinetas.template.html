@@ -1,4 +1,5 @@
 <div class="col-md-12" *ngFor="let vineta of listaVinetas">
+   <div *ngIf="vineta">
     <div class="jumbotron">
         <div class="user-container">
             <h3 class="lead text-center">
@@ -12,7 +13,7 @@
             <hr>
             <h3 class="display-4">{{vineta.titulo}}</h3>
             <p class="lead">{{vineta.descripcion}}</p>
-            <p class="lead">- <a href="#">{{vineta.tag?.nombre}}</a> -</p>
+            <p class="lead">- <a [routerLink]="['/tag', vineta.tag.nombre]">{{vineta.tag?.nombre}}</a> -</p>
             <button class="btn btn-warning btn-circle"> <i class="fa fa-star" aria-hidden="true"></i></button>
             <button class="btn btn-info btn-circle" [routerLink]="['/vineta', vineta.id]"> <i class="fa fa-comments" aria-hidden="true"></i> <span style="color:#5bc0de" class="badge">{{vineta.comentarios.length}}</span></button>
             <button class="btn btn-success btn-circle" (click)="like(vineta)"> <i class="fa fa-thumbs-up" aria-hidden="true"></i> <span style="color:#5cb85c" class="badge">{{vineta.likes}}</span></button>
@@ -22,5 +23,6 @@
         <div class="container misc-container">
             <small class="text-muted">Publicado en CuantoMeme</small>
         </div>
+    </div>
     </div>
 </div>

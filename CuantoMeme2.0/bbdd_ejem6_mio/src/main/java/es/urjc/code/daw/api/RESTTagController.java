@@ -53,9 +53,7 @@ public class RESTTagController {
 	
 	@JsonView(TagView.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Tag> getTagsByID(@PathVariable int id, HttpServletRequest request){
-		Principal p = request.getUserPrincipal();
-		System.out.println(p.getName());
+	public ResponseEntity<Tag> getTagsByID(@PathVariable int id){
 		if(this.tagservice.findOne((long) id) != null) {
 			return new ResponseEntity<>(this.tagservice.findOne((long) id), HttpStatus.OK);
 		} else {

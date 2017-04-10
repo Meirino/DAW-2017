@@ -100,6 +100,7 @@ public class RESTVinetaController {
 		}
 	}
 	
+	@CrossOrigin
 	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/busq/{texto}", method = RequestMethod.GET)
 	public ResponseEntity<List<Vineta>> busqVineta(@PathVariable String texto, @RequestParam(required = false, defaultValue = "titulo", value="filtro") String filtro){
@@ -125,6 +126,7 @@ public class RESTVinetaController {
 		}
 	}
 	
+	@CrossOrigin
 	@JsonView(Vineta.BasicAtt.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Vineta> deletevineta(@PathVariable int id, HttpServletRequest request) {
@@ -140,6 +142,7 @@ public class RESTVinetaController {
 		}
 	}
 	
+	@CrossOrigin
 	@JsonView(Vineta.BasicAtt.class)
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<Vineta> postVineta(@RequestParam("titulo") String titulo, @RequestParam("desc") String desc, @RequestParam("file") MultipartFile file, @RequestParam("tags") String tag, HttpServletRequest request){
@@ -184,6 +187,7 @@ public class RESTVinetaController {
         return new ResponseEntity<>(viñeta, HttpStatus.CREATED);
 	}
 
+	@CrossOrigin
 	@JsonView(Vineta.BasicAtt.class)
 	@RequestMapping(value = "/dislike/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Vineta> dislikeVineta(@PathVariable long id, HttpServletRequest request){
@@ -205,6 +209,8 @@ public class RESTVinetaController {
         }
     	
 	}
+	
+	@CrossOrigin
 	@JsonView(Vineta.BasicAtt.class)
 	@RequestMapping(value = "/like/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Vineta> likeVineta(@PathVariable long id, HttpServletRequest request){
@@ -226,6 +232,8 @@ public class RESTVinetaController {
         }
     	
 	}
+	
+	@CrossOrigin
 	@JsonView(Vineta.BasicAtt.class)
 	@RequestMapping(value = "/favorite/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Vineta> favorite(@PathVariable long id, HttpServletRequest request){

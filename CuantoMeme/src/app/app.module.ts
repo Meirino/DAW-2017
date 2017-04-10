@@ -15,6 +15,7 @@ import { VinetasService } from './services/vinetas.service';
 import { UsuarioService } from './services/usuarios.service';
 import { TagViewComponent } from './TagViewComponent.component';
 import { routing }  from './appRouting.module';
+import { TagService } from './services/tag.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { routing }  from './appRouting.module';
     HttpModule,
     routing
   ],
-  providers: [VinetasService, UsuarioService],
+  providers: [VinetasService, UsuarioService, TagService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
