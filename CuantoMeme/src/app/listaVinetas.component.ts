@@ -1,7 +1,7 @@
 import { Vineta } from './classes/Vineta.class';
 import { Component, Input, OnInit } from '@angular/core';
 import { VinetasService } from './services/vinetas.service';
-
+import { UsuarioService } from './services/usuarios.service';
 @Component({
   selector: 'lista-vinetas',
   templateUrl: './templates/listaVinetas.template.html',
@@ -14,7 +14,7 @@ export class listaVinetasComponent implements OnInit {
   @Input() listaVinetas: Vineta[];
   private vinetas: Vineta[];
 
-        constructor(private servicioVinetas: VinetasService) {
+        constructor(private servicioVinetas: VinetasService, private serviciousuarios: UsuarioService) {
           //etc
         }
 
@@ -27,6 +27,10 @@ export class listaVinetasComponent implements OnInit {
           
           this.servicioVinetas.getVineta(101).subscribe(
             vineta => console.log(vineta),
+            error => console.error(error)
+          );
+          this.serviciousuarios.getUsers().subscribe(
+            usuarios => console.log(usuarios),
             error => console.error(error)
           );
         }

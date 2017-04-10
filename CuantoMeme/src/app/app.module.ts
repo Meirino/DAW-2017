@@ -12,7 +12,7 @@ import { SignUpComponent } from './signup.component';
 import { listaVinetasComponent } from './listaVinetas.component';
 import { vinetasDetalleComponent } from './vinetasDetalle.component';
 import { VinetasService } from './services/vinetas.service';
-
+import { UsuarioService } from './services/usuarios.service';
 import { AppRoutingModule } from './appRouting.module';
 
 @NgModule({
@@ -31,7 +31,7 @@ import { AppRoutingModule } from './appRouting.module';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [VinetasService],
+  providers: [VinetasService, UsuarioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
