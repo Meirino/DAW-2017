@@ -14,7 +14,7 @@
             <p class="lead">{{vineta.descripcion}}</p>
             <p class="lead">- <a href="#">{{vineta.tag?.nombre}}</a> -</p>
             <button class="btn btn-warning btn-circle"> <i class="fa fa-star" aria-hidden="true"></i></button>
-            <button class="btn btn-info btn-circle" routerLink="/vineta/{{vineta.id}}"> <i class="fa fa-comments" aria-hidden="true"></i> <span style="color:#5bc0de" class="badge">{{vineta.comentarios.length}}</span></button>
+            <button class="btn btn-info btn-circle" [routerLink]="['/vineta', vineta.id]"> <i class="fa fa-comments" aria-hidden="true"></i> <span style="color:#5bc0de" class="badge">{{vineta.comentarios.length}}</span></button>
             <button class="btn btn-success btn-circle" (click)="like(vineta)"> <i class="fa fa-thumbs-up" aria-hidden="true"></i> <span style="color:#5cb85c" class="badge">{{vineta.likes}}</span></button>
             <button class="btn btn-danger btn-circle" (click)="dislike(vineta)"> <i class="fa fa-thumbs-down" aria-hidden="true"></i> <span style="color:#d9534f" class="badge">{{vineta.dislikes}}</span></button>
             <hr>

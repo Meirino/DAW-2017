@@ -9,6 +9,8 @@ import { Http, Response, JsonpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/Rx';
+
 
 const BASE_URL = 'http://localhost:8080/api/vinetas/'
 
@@ -17,15 +19,16 @@ export class VinetasService {
     constructor(private http: Http){}
     
     getVinetas(){
-        return this.http.get(BASE_URL+"?page=0").map(
-            response => this.generateVinetas(response.json())//this.extractVinetas(response)
-        )
+        return this.http.get(BASE_URL+"?page=0")
+        .map(response => this.generateVinetas(response.json()))
+        .catch(error => this.handleError(error))
     }
     
     getVineta(id: number){
         return this.http.get(BASE_URL+id).map(
             response => this.generateVinetaWithComents(response.json())//this.extractVinetas(response)
         )
+        .catch(error => this.handleError(error))
     }
     
     generateVinetas(vinetas: any[]){
@@ -63,4 +66,8 @@ export class VinetasService {
     generateTag(tag: any){
         return new Tag(tag.id, tag.nombre);
     }
+    private handleError(error: any) {
+		console.error(error);
+		return Observable.throw("Server error (" + error.status + "): " + error.text())
+	}
 }

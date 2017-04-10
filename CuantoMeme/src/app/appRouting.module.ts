@@ -20,9 +20,4 @@ const rutas: Routes = [
     { path: 'tag/:nombre', component: TagViewComponent }
 ]
 
-@NgModule({
-  imports: [ RouterModule.forRoot(rutas) ],
-  exports: [ RouterModule ]
-})
-
-export class AppRoutingModule {}
+export const routing = RouterModule.forRoot(rutas);
