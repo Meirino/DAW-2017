@@ -1,18 +1,21 @@
 import { Comentario } from './Comentario.class';
 import { Usuario } from './Usuario.class';
+import { Tag } from './Tag.class';
+
 export class Vineta {
     
-    public id: number;
-    public titulo: string;
-    public descripcion: string;
-    public imgURL: string;
-    public likes: number;
-    public dislikes: number;
-    public autor : Usuario;
+    private id: number;
+    private titulo: string;
+    private descripcion: string;
+    private imgURL: string;
+    private likes: number;
+    private dislikes: number;
+    private autor : Usuario;
+    private tag : Tag;
 
     private comentarios: Comentario [] = [];
 
-    constructor(id: number, titulo: string, descripcion: string, imgURL: string, likes: number, dislikes: number, autor: Usuario){
+    constructor(id: number, titulo: string, descripcion: string, imgURL: string, likes: number, dislikes: number, autor: Usuario, tag : Tag){
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -20,6 +23,7 @@ export class Vineta {
         this.likes = likes;
         this.dislikes = dislikes;
         this.autor = autor;
+        this.tag = tag;
     }
 
     setComentarios(comentarios: Comentario[]){
