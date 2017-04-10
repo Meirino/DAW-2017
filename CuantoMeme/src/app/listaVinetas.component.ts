@@ -1,7 +1,6 @@
 import { Vineta } from './classes/Vineta.class';
 import { Component, Input, OnInit } from '@angular/core';
 import { VinetasService } from './services/vinetas.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'lista-vinetas',
@@ -14,12 +13,8 @@ export class listaVinetasComponent {
   //El componente recibe una lista de viñetas y las muestra
   @Input() listaVinetas: Vineta[];
 
-  constructor(private router: Router) {
+  constructor() {
     //
-  }
-
-  irDetalles(id: number):void {
-    this.router.navigateByUrl('vineta/'+id);
   }
 
   like(viñeta: Vineta): void {
