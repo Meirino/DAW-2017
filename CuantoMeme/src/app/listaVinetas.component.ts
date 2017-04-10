@@ -19,8 +19,14 @@ export class listaVinetasComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.servicioVinetas.getVinetas().subscribe(
       vinetas => this.listaVinetas = vinetas,
+      error => console.error(error)
+    );
+    
+    this.servicioVinetas.getVineta(101).subscribe(
+      vineta => console.log(vineta),
       error => console.error(error)
     );
   }

@@ -4,9 +4,13 @@ import { Usuario } from './Usuario.class';
 export class Comentario {
     private ID: number;
     private fecha: Date;
-    private username: string;
-    private userID: number;
-    private userAvatar: string;
-    private vineta: Vineta[];
-    private texto: string;
+    private comentario: string;
+    private autor_comentario: Usuario
+    
+    constructor(id: number, fecha: Date, comentario: string, autor: Usuario){
+        this.ID = id;
+        this.fecha = fecha;
+        this.comentario = comentario;
+        this.autor_comentario = autor;
+    }
 }

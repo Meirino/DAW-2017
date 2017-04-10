@@ -89,7 +89,7 @@ public class RESTVinetaController {
 		}
 		
 	}
-	
+	@CrossOrigin
 	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Vineta> getvineta(@PathVariable int id){

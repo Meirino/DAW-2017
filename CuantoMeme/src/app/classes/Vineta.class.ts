@@ -10,7 +10,9 @@ export class Vineta {
     public dislikes: number;
     public autor : Usuario;
 
-    constructor(id: number, titulo: string, descripcion: string, imgURL: string, likes: number, dislikes: number, autor: Usuario){//, usuario: Usuario) {
+    private comentarios: Comentario [] = [];
+
+    constructor(id: number, titulo: string, descripcion: string, imgURL: string, likes: number, dislikes: number, autor: Usuario){
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -18,6 +20,10 @@ export class Vineta {
         this.likes = likes;
         this.dislikes = dislikes;
         this.autor = autor;
+    }
+
+    setComentarios(comentarios: Comentario[]){
+        this.comentarios = comentarios;
     }
     
 }
