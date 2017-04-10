@@ -7,23 +7,25 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import es.urjc.code.daw.comentario.Comentario;
-import es.urjc.code.daw.tag.Tag;
-import es.urjc.code.daw.user.User;
+import es.urjc.code.daw.tag.*;
+import es.urjc.code.daw.user.*;
 import es.urjc.code.daw.user.UserRepository;
-import es.urjc.code.daw.vineta.Vineta;
+import es.urjc.code.daw.vineta.*;
 import es.urjc.code.daw.vineta.VinetaRepository;
 
 @Controller
 public class Loader {
 
 	@Autowired
-	private UserRepository userrepository;
+	private TagService tagservice;
 
 
 	
 	@Autowired
-	private VinetaRepository vinetarepository;
+	private VinetaService vinetaservice;
 
+	@Autowired
+	private UserService userservice;
 	
 	private List<User> users_generated = new ArrayList<>();
 	private List<Vineta> vinetas_generated = new ArrayList<>();
@@ -36,6 +38,8 @@ public class Loader {
 	static final int NCOMENTARIOS = 30;
 	@PostConstruct
 	public void init(){
+		Tag tag = new Tag("Trolldad");
+		this.tagservice.save(tag);
 		for(int i= 0; i<NUSERS; i++){
 			User u = new User("usuario_"+i, "usuario_"+i, "cuantomeme"+i+"@gmail.com", "ROLE_USER");
 			this.users_generated.add(u);
@@ -43,6 +47,7 @@ public class Loader {
 		}
 		for(int i= 0; i<NVINETAS; i++){
 			Vineta v = new Vineta("vineta"+i, "des"+i, "http://runt-of-the-web.com/wordpress/wp-content/uploads/2012/05/funnest-troll-dad-rage-comics-computers.gif");
+			v.setTags(tag);
 			this.vinetas_generated.add(v);
 			//this.vinetarepository.save(v);
 		}
@@ -62,8 +67,8 @@ public class Loader {
 			User user = this.users_generated.get(id_user);
 			v.setAutor(user);
 			//user.addVineta(v);
-			this.userrepository.save(user);
-			this.vinetarepository.save(v);
+			this.userservice.save(user);
+			this.vinetaservice.save(v);
 
 		}
 		

@@ -1,6 +1,8 @@
 import { Vineta } from '../classes/Vineta.class';
 import { Usuario } from '../classes/Usuario.class';
 import { Comentario } from '../classes/Comentario.class';
+import { Tag } from '../classes/Tag.class';
+
 import { Injectable } from '@angular/core';
 import { Http, Response, JsonpModule } from '@angular/http';
 
@@ -36,17 +38,17 @@ export class VinetasService {
 
     generateVineta(vineta: any){
         var autor : Usuario = this.generateAutor(vineta.autor)
-        return new Vineta(vineta.id, vineta.titulo, vineta.descripcion, vineta.URL, vineta.likes, vineta.dislikes, autor);
+        var tag : Tag = this.generateTag(vineta.tags);
+        return new Vineta(vineta.id, vineta.titulo, vineta.descripcion, vineta.URL, vineta.likes, vineta.dislikes, autor,tag);
     }
     generateVinetaWithComents(vineta: any){
-        var autor : Usuario = this.generateAutor(vineta.autor)
+        var v : Vineta = this.generateVineta(vineta);
         var comentarios : Comentario[] = [];
         for(let comentario of vineta.comentarios){
             comentarios.push(this.generateComentario(comentario));
         }
-        var vineta2 : Vineta = new Vineta(vineta.id, vineta.titulo, vineta.descripcion, vineta.URL, vineta.likes, vineta.dislikes, autor);
-        vineta2.setComentarios(comentarios);
-        return vineta2
+        v.setComentarios(comentarios);
+        return v
         //return new Vineta(vineta.id, vineta.titulo, vineta.descripcion, vineta.URL, vineta.likes, vineta.dislikes, autor);
     }
     generateAutor(autor: any){
@@ -55,5 +57,9 @@ export class VinetasService {
     generateComentario(comentario: any){
         var autor : Usuario = this.generateAutor(comentario.autor_comentario);
         return new Comentario(comentario.id, comentario.fecha, comentario.comentario, autor);
+    }
+    
+    generateTag(tag: any){
+        return new Tag(tag.id, tag.nombre);
     }
 }
