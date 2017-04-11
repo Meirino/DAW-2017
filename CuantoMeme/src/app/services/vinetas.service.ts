@@ -29,6 +29,12 @@ export class VinetasService {
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
+
+    busqVinetas(texto: string, modo:string) {
+        return this.http.get(BASE_URL+"/busq/"+texto+"?filtro="+modo)
+        .map(response => this.generateVinetas(response.json()))
+        .catch(error => this.handleError(error))
+    }
     
     getVineta(id: number){
         return this.http.get(BASE_URL+id).map(
@@ -74,6 +80,6 @@ export class VinetasService {
     }
     private handleError(error: any) {
 		console.error(error);
-		return Observable.throw("Server error (" + error.status + "): " + error.text())
+		return Observable.throw("Server error (" + error.status + "): " + error.text());
 	}
 }

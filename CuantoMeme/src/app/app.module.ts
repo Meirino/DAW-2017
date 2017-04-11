@@ -16,6 +16,7 @@ import { UsuarioService } from './services/usuarios.service';
 import { TagViewComponent } from './TagViewComponent.component';
 import { routing }  from './appRouting.module';
 import { TagService } from './services/tag.service';
+import { sideMenuComponent } from './side-menu.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TagService } from './services/tag.service';
     SignUpComponent,
     listaVinetasComponent,
     vinetasDetalleComponent,
-    TagViewComponent
+    TagViewComponent,
+    sideMenuComponent
   ],
   imports: [
     BrowserModule,

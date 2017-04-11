@@ -1,0 +1,28 @@
+<h1 id="titulo" class="text-center display-4"><strong>{{title}}</strong></h1>
+<br>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div id="search-box" class="col-md-8"  style="background-color:white">
+        <div class="input-group">
+          <input [(ngModel)]="texto" type="text" class="form-control has-info" placeholder="¿Qué quieres buscar?">
+          <select [(ngModel)]="modo">
+              <option value="titulo">Por titulo</option>
+              <option value="usuario">Por usuario</option>
+              <option value="tag">Por tag</option>
+          </select>
+        </div>
+        <br>
+        <button (click)="buscar()" class="btn btn-info btn-block">¡Buscar!</button>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div *ngIf="cuatrocientoscuatro" class="404">¡No se ha encontrado!</div>
+        <lista-vinetas [listaVinetas]="resultado"></lista-vinetas>
+    </div>
+    <div class="col-md-2">
+        <!-- <button id="dameMas" class="btn btn-info btn-circle" (click)="masVinetas()"><i class="fa fa-plus fa-5" aria-hidden="true"></i></button> -->
+    </div>
+</div>

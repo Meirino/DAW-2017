@@ -1,0 +1,12 @@
+#search-box {
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #5bc0de;
+    margin-bottom: 30px;
+}
+
+#titulo {
+    background-color: white;
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
