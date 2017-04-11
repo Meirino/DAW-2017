@@ -21,11 +21,15 @@ export class BusquedaComponent {
 
   buscar() {
     this.servicioViñeta.busqVinetas(this.texto, this.modo).subscribe(
-      vinetas => this.resultado = vinetas,
+      vinetas => {
+        if(vinetas !== null) {
+          this.resultado = vinetas;
+        } else {
+          this.cuatrocientoscuatro = true;
+        }
+      },
       error => function() {
-        console.error(error);
-        this.cuatrocientoscuatro = true;
-        this.resultado = [];
+        console.log(error);
       }
     );
   }
