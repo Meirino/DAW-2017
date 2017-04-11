@@ -18,8 +18,14 @@ const BASE_URL = 'http://localhost:8080/api/vinetas/'
 export class VinetasService {
     constructor(private http: Http){}
     
-    getVinetas(){
-        return this.http.get(BASE_URL+"?page=0")
+    getVinetas(page:number){
+        return this.http.get(BASE_URL+"?page="+page)
+        .map(response => this.generateVinetas(response.json()))
+        .catch(error => this.handleError(error))
+    }
+
+    getVinetasTag(tag: string) {
+        return this.http.get(BASE_URL+"/busq/"+tag+"?filtro=tag")
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }

@@ -8,6 +8,7 @@ import { LoginComponent } from './login.component';
 import { SignUpComponent } from './signup.component';
 import { listaVinetasComponent } from './listaVinetas.component';
 import { vinetasDetalleComponent } from './vinetasDetalle.component';
+import { TagViewComponent } from './TagViewComponent.component';
 
 const rutas: Routes = [
     { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -15,7 +16,8 @@ const rutas: Routes = [
     { path: 'busqueda', component: BusquedaComponent },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignUpComponent },
-    { path: 'vineta/:id', component: vinetasDetalleComponent }
+    { path: 'vineta/:id', component: vinetasDetalleComponent },
+    { path: 'tag/:nombre', component: TagViewComponent }
 ]
 
 export const routing = RouterModule.forRoot(rutas);

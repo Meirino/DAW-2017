@@ -13,8 +13,9 @@ import { listaVinetasComponent } from './listaVinetas.component';
 import { vinetasDetalleComponent } from './vinetasDetalle.component';
 import { VinetasService } from './services/vinetas.service';
 import { UsuarioService } from './services/usuarios.service';
+import { TagViewComponent } from './TagViewComponent.component';
 import { routing }  from './appRouting.module';
-
+import { TagService } from './services/tag.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { routing }  from './appRouting.module';
     LoginComponent,
     SignUpComponent,
     listaVinetasComponent,
-    vinetasDetalleComponent
+    vinetasDetalleComponent,
+    TagViewComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,7 @@ import { routing }  from './appRouting.module';
     HttpModule,
     routing
   ],
-  providers: [VinetasService, UsuarioService],
+  providers: [VinetasService, UsuarioService, TagService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

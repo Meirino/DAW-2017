@@ -5,7 +5,7 @@ export class Comentario {
     private ID: number;
     private fecha: Date;
     private comentario: string;
-    private autor_comentario: Usuario
+    private autor_comentario: Usuario;
     
     constructor(id: number, fecha: Date, comentario: string, autor: Usuario){
         this.ID = id;
