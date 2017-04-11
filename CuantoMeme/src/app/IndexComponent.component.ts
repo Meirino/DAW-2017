@@ -3,7 +3,7 @@ import { Vineta } from './classes/Vineta.class';
 import { listaVinetasComponent } from './listaVinetas.component';
 import { VinetasService } from './services/vinetas.service';
 import { UsuarioService } from './services/usuarios.service';
-
+import { LoginService } from './services/login.service';
 @Component({
   selector: 'index-component',
   templateUrl: './templates/indexComponent.template.html',
@@ -15,7 +15,7 @@ export class IndexComponent {
   listaVinetas = [];
   currentPage = 0;
 
-  constructor(private servicioVinetas: VinetasService) {
+  constructor(private servicioVinetas: VinetasService, private serviciologin: LoginService) {
     //etc
   }
 
@@ -24,6 +24,10 @@ export class IndexComponent {
       vinetas => this.listaVinetas = vinetas,
       error => console.error(error)
     );
+    this.serviciologin.logIn("pepe", "pepito").subscribe(
+      login => console.log(login),
+      error => console.error(error)
+    ); 
   }
 
   masVinetas(): void {

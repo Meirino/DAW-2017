@@ -101,6 +101,7 @@ public class RESTUserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	@CrossOrigin
 	@JsonView(UserView.class)
 	@RequestMapping("/logIn")
 	public ResponseEntity<User> logIn() {

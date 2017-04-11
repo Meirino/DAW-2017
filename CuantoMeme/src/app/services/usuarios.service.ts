@@ -4,7 +4,7 @@ import { Comentario } from '../classes/Comentario.class';
 import { Tag } from '../classes/Tag.class';
 
 import { Injectable } from '@angular/core';
-import { Http, Response, JsonpModule } from '@angular/http';
+import { Http, Response, JsonpModule , Headers} from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -20,7 +20,21 @@ export class UsuarioService {
             response => this.generateUsers(response.json())//this.extractVinetas(response)
         )
     }
-    
+    /*
+    login(){
+        
+        console.log("llego a hacer login")
+        let username: string = 'pepe';
+        let password: string = 'pepito';
+        let headers: Headers = new Headers();
+        headers.append("Authorization", "Basic " + btoa(username + ":" + password)); 
+        headers.append("Content-Type", "application/x-www-form-urlencoded");
+        console.log(headers);
+        return this.http.post(BASE_URL+'logIn', {headers: headers} ).map(
+            response => console.log(response),
+        )
+    }
+    */
     generateUsers(users: any[]){
       var lu: Usuario[] = [];
       for (let user of users) {
