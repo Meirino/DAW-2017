@@ -1,6 +1,6 @@
 :host {
-  background: #1a2580;
-  color: #fff;
+  background: white;
+  color: black;
   position: fixed;
   left: auto;
   top: 0;
@@ -10,12 +10,18 @@
   min-width: 250px;
   z-index: 9999;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    border-left: 2px solid black;
 }
  
 ul {
+    
   font-size: 18px;
   line-height: 3;
   font-weight: 400;
   padding-top: 50px;
   list-style: none;
+}
+
+h2 {
+    padding-top: 10px;
 }
