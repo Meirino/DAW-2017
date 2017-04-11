@@ -2,7 +2,9 @@
   
     <side-menu [@slideInOut]="toggled"></side-menu>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-       <a class="navbar-brand" href="#">
+        <button id="menutoggle" (click)="toggleMenu()" class="btn btn-outline-secondary"><i class="fa fa-bars fa-4" aria-hidden="true"></i></button>
+        <div class="divider">-</div>
+        <a class="navbar-brand" href="#">
         <img src="../../assets/CuantoMeme.png" width="30" height="30" class="d-inline-block align-top" alt="Cuanto Meme"></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button> <a class="navbar-brand" href="#">Cuanto Meme</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -11,7 +13,6 @@
                 <li class="nav-item"> <a class="nav-link" routerLink="/busqueda">Busqueda avanzada</a> </li>
                 <li class="nav-item"> <a class="nav-link" routerLink="/login">Inicio de sesión</a> </li>
                 <li class="nav-item"> <a class="nav-link" routerLink="/signup">Registro</a> </li>
-                <li (click)="toggleMenu()"> <a class="nav-link">toggle menu</a> </li>
             </ul>
         </div>
     </nav>
