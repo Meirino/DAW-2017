@@ -17,6 +17,8 @@ import { TagViewComponent } from './TagViewComponent.component';
 import { routing }  from './appRouting.module';
 import { TagService } from './services/tag.service';
 import { sideMenuComponent } from './side-menu.component';
+import { LoginService } from './services/login.service';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,7 @@ import { sideMenuComponent } from './side-menu.component';
     HttpModule,
     routing
   ],
-  providers: [VinetasService, UsuarioService, TagService],
+  providers: [VinetasService, UsuarioService, TagService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
