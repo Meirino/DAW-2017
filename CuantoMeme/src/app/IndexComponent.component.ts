@@ -15,7 +15,7 @@ export class IndexComponent {
   listaVinetas = [];
   currentPage = 0;
 
-  constructor(private servicioVinetas: VinetasService, private serviciologin: LoginService) {
+  constructor(private servicioVinetas: VinetasService, private serviciologin: LoginService, private serviciousuario : UsuarioService) {
     //etc
   }
 
@@ -24,10 +24,16 @@ export class IndexComponent {
       vinetas => this.listaVinetas = vinetas,
       error => console.error(error)
     );
+    this.serviciousuario.getUser(10).subscribe(
+      user => console.log(user),
+      error => console.error(error)
+    );
+    
+    /*
     this.serviciologin.logIn("admin", "admin").subscribe(
       user => console.log(user),
       error => console.error(error)
-    ); 
+    );*/ 
   }
 
   masVinetas(): void {

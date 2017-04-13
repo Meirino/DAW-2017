@@ -2,7 +2,7 @@ import { Vineta } from '../classes/Vineta.class';
 import { Usuario } from '../classes/Usuario.class';
 import { Comentario } from '../classes/Comentario.class';
 import { Tag } from '../classes/Tag.class';
-
+import {VinetasService} from './vinetas.service'
 import { Injectable } from '@angular/core';
 import { Http, Response, JsonpModule , Headers} from '@angular/http';
 
@@ -13,7 +13,7 @@ const BASE_URL = 'http://127.0.0.1:8080/api/usuarios/'
 
 @Injectable()
 export class UsuarioService {
-    constructor(private http: Http){}
+    constructor(private http: Http, private serviciovineta: VinetasService){}
     
     getUsers(){
         return this.http.get(BASE_URL).map(
@@ -27,9 +27,23 @@ export class UsuarioService {
          }
       return lu;
     }
-
     generateUser(user: any){
         return new Usuario(user.id, user.username, user.AvatarURL);
     }
+   getUser(id){
+        return this.http.get(BASE_URL+id).map(
+            response => this.generateFullUser(response.json()),
+            error => console.error(error)
+        )
+    }
+    generateFullUser(user: any){
+        var usuario : Usuario = new Usuario(user.id, user.username, user.AvatarURL)
+        usuario.setSubidas(this.serviciovineta.generateVinetas(user.vinetas_subidas))
+        usuario.setDislikes(this.serviciovineta.generateVinetas(user.vinetas_odiadas))
+        usuario.setLikes(this.serviciovineta.generateVinetas(user.vinetas_gustadas))
+        usuario.setFav(this.serviciovineta.generateVinetas(user.vinetas_favoritas))
+        return usuario
+    }
+
 
 }

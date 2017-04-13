@@ -127,7 +127,7 @@ public class RESTUserController {
 			return new ResponseEntity<>(true, HttpStatus.OK);
 		}
 	}
-	
+	@CrossOrigin
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<User> getUser(@PathVariable int id){
