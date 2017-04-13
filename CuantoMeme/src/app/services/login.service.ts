@@ -1,20 +1,16 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
-import 'rxjs/Rx';
+import { Usuario } from '../classes/Usuario.class';
 
-export interface User {  
-    id?: number;
-    name: string;
-    roles: string[];
-}
+import 'rxjs/Rx';
+const BASE_URL = 'http://localhost:8080/api/usuarios/'
 
 @Injectable()
 export class LoginService {
 	
 	isLogged = false;
 	isAdmin = false;
-	user: User;
-	
+	user : Usuario;
 	constructor(private http: Http){
 		this.reqIsLogged();
 	}
@@ -28,7 +24,7 @@ export class LoginService {
 		let options = new RequestOptions({headers});		
 		console.log("reqislogged---")
 
-		this.http.get('http://localhost:8080/api/usuarios/logIn', options).subscribe(
+		this.http.get(BASE_URL+'logIn', options).subscribe(
 			response => this.processLogInResponse(response),
 			error => {
 				if(error.status != 401){
@@ -40,10 +36,14 @@ export class LoginService {
 	}
 	
 	private processLogInResponse(response){
+        this.user  = new Usuario(response.json().id, response.json().username, response.json().AvatarURL)
+        this.user.setRoles(response.json().roles)
+        this.user.setLogged(true);
+        /*
 		this.isLogged = true;
 		this.user = response.json();
 		this.isAdmin = this.user.roles.indexOf("ROLE_ADMIN") !== -1;
-        console.log("es admin"+this.isAdmin)
+        console.log("es admin"+this.isAdmin)*/
 	}
 	
 	logIn(user: string, pass: string) {
@@ -56,7 +56,7 @@ export class LoginService {
 		});
 		let options = new RequestOptions({headers});		
 		console.log("logIN---")
-		return this.http.get('http://localhost:8080/api/usuarios/logIn', options).map(
+		return this.http.get(BASE_URL+'logIn', options).map(
 			response => {
 				this.processLogInResponse(response);
 				return this.user;
@@ -66,7 +66,7 @@ export class LoginService {
 	
 	logOut(){
 		
-		return this.http.get('logOut').map(
+		return this.http.get(BASE_URL+'logOut').map(
 			response => {
 				this.isLogged = false;
 				this.isAdmin = false;
