@@ -20,27 +20,11 @@ export class UsuarioService {
             response => this.generateUsers(response.json())//this.extractVinetas(response)
         )
     }
-    /*
-    login(){
-        
-        console.log("llego a hacer login")
-        let username: string = 'pepe';
-        let password: string = 'pepito';
-        let headers: Headers = new Headers();
-        headers.append("Authorization", "Basic " + btoa(username + ":" + password)); 
-        headers.append("Content-Type", "application/x-www-form-urlencoded");
-        console.log(headers);
-        return this.http.post(BASE_URL+'logIn', {headers: headers} ).map(
-            response => console.log(response),
-        )
-    }
-    */
     generateUsers(users: any[]){
       var lu: Usuario[] = [];
       for (let user of users) {
           lu.push(this.generateUser(user));
          }
-         console.log(lu); 
       return lu;
     }
 

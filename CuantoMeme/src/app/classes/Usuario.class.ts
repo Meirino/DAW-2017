@@ -15,6 +15,7 @@ export class Usuario {
     private likes: Vineta[];
     private dislikes: Vineta[];
     private favoritos: Vineta[];
+    private subidas: Vineta[];
     private isLogged: Boolean = false;
     private roles: string[] = [];
 
@@ -35,5 +36,17 @@ export class Usuario {
     }
     setRoles(roles: string[]){
         this.roles = roles;
+    }
+    setSubidas(vinetas: Vineta[]){
+        this.subidas = vinetas;
+    }
+    setFav(vinetas: Vineta[]){
+        this.favoritos = vinetas;
+    }
+    setLikes(vinetas: Vineta[]){
+        this.likes= vinetas;
+    }
+    setDislikes(vinetas: Vineta[]){
+        this.dislikes= vinetas;
     }
 }

@@ -15,17 +15,18 @@ export class Vineta {
 
     public comentarios: Comentario [] = [];
 
-    constructor(id: number, titulo: string, descripcion: string, imgURL: string, likes: number, dislikes: number, autor: Usuario, tag : Tag){
+    constructor(id: number, titulo: string, descripcion: string, imgURL: string, likes: number, dislikes: number, tag : Tag){
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.imgURL = imgURL;
         this.likes = likes;
         this.dislikes = dislikes;
-        this.autor = autor;
         this.tag = tag;
     }
-
+    setAutor(autor: Usuario){
+        this.autor = autor;
+    }
     setComentarios(comentarios: Comentario[]){
         this.comentarios = comentarios;
     }

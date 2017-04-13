@@ -25,7 +25,7 @@ export class IndexComponent {
       error => console.error(error)
     );
     this.serviciologin.logIn("admin", "admin").subscribe(
-      login => console.log(login),
+      user => console.log(user),
       error => console.error(error)
     ); 
   }
