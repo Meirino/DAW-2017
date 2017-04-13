@@ -15,6 +15,9 @@ export class Usuario {
     private likes: Vineta[];
     private dislikes: Vineta[];
     private favoritos: Vineta[];
+    private isLogged: Boolean = false;
+    private roles: string[] = [];
+
 
     constructor(id: number, username: string, avatar: string) {
         this.username = username;
@@ -23,5 +26,14 @@ export class Usuario {
     }
     getlikes(){
         //likes = /api/users/byusername[vientaslikes]
+    }
+    setLogged(logged:Boolean){
+        this.isLogged = logged;
+    }
+    isAdmin(){
+        return this.roles.indexOf("ROLE_ADMIN") !== -1;
+    }
+    setRoles(roles: string[]){
+        this.roles = roles;
     }
 }
