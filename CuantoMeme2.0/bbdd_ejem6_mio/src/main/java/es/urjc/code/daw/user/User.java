@@ -34,6 +34,7 @@ public class User {
 	public interface ComentarioAtt{}
 	public interface SeguidoresAtt{}
 	public interface SeguidosAtt{}
+	public interface RolesAtt{}
 	@Id
 	
 	@JsonView(BasicAtt.class)
@@ -62,7 +63,7 @@ public class User {
 	@JsonView(ComentarioAtt.class)
 	@OneToMany(mappedBy="autor_comentario", cascade = CascadeType.ALL)//, cascade=CascadeType.ALL)
 	private List<Comentario> comentarios = new ArrayList<>();
-	
+	@JsonView(RolesAtt.class)
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
@@ -208,7 +209,7 @@ public class User {
 	public boolean ifollow(User usuario){
 		return this.following.indexOf(usuario) != -1;
 	}
-
+    
 	public List<User> getFollowers() {
 		return followers;
 	}

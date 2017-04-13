@@ -20,7 +20,7 @@ export class LoginService {
 	}
 	
 	reqIsLogged(){
-		//Esto da un 401. Hay que profundizar
+		//Esto da un 401. Es el valor esperado
 		let headers = new Headers({
 			'X-Requested-With': 'XMLHttpRequest'
 		});
@@ -42,7 +42,8 @@ export class LoginService {
 	private processLogInResponse(response){
 		this.isLogged = true;
 		this.user = response.json();
-		this.isAdmin = true;//this.user.roles.indexOf("ROLE_ADMIN") !== -1;
+		this.isAdmin = this.user.roles.indexOf("ROLE_ADMIN") !== -1;
+        console.log("es admin"+this.isAdmin)
 	}
 	
 	logIn(user: string, pass: string) {
