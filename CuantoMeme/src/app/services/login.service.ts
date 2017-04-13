@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Usuario } from '../classes/Usuario.class';
+import {VinetasService} from './vinetas.service'
 
 import 'rxjs/Rx';
 const BASE_URL = 'http://localhost:8080/api/usuarios/'
@@ -11,7 +12,7 @@ export class LoginService {
 	isLogged = false;
 	isAdmin = false;
 	user : Usuario;
-	constructor(private http: Http){
+	constructor(private http: Http, private  vinetaservice: VinetasService){
 		this.reqIsLogged();
 	}
 	
@@ -36,16 +37,16 @@ export class LoginService {
 	}
 	
 	private processLogInResponse(response){
-        this.user  = new Usuario(response.json().id, response.json().username, response.json().AvatarURL)
-        this.user.setRoles(response.json().roles)
+        var response = response.json()
+        this.user  = new Usuario(response.id, response.username, response.AvatarURL)
+        this.user.setRoles(response.roles)
         this.user.setLogged(true);
-        /*
-		this.isLogged = true;
-		this.user = response.json();
-		this.isAdmin = this.user.roles.indexOf("ROLE_ADMIN") !== -1;
-        console.log("es admin"+this.isAdmin)*/
+        this.user.setSubidas(this.vinetaservice.generateVinetas(response.vinetas_subidas));
+        this.user.setDislikes(this.vinetaservice.generateVinetas(response.vinetas_odiadas));
+        this.user.setLikes(this.vinetaservice.generateVinetas(response.vinetas_gustadas));
 	}
 	
+
 	logIn(user: string, pass: string) {
 		
 		let userPass = user + ":" + pass;

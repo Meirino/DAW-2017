@@ -35,7 +35,7 @@ public class RESTUserController {
 	private final long bytes = 1048576;
 	
 	interface UserView extends User.BasicAtt, User.VinetaupAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt, User.VinetafavAtt,
-	User.VinetadislikeAtt, User.VinetalikeAtt, User.SeguidoresAtt, User.RolesAtt{}
+	User.VinetadislikeAtt, User.VinetalikeAtt, User.SeguidoresAtt, User.RolesAtt, Vineta.TagAtt{}
 	interface UsersView extends User.BasicAtt {}
 
 	@Autowired

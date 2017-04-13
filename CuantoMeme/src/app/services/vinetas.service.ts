@@ -48,14 +48,17 @@ export class VinetasService {
       for (let vineta of vinetas) {
           lv.push(this.generateVineta(vineta));
          }
-         console.log(lv); 
       return lv;
     }
 
     generateVineta(vineta: any){
-        var autor : Usuario = this.generateAutor(vineta.autor)
         var tag : Tag = this.generateTag(vineta.tags);
-        return new Vineta(vineta.id, vineta.titulo, vineta.descripcion, vineta.URL, vineta.likes, vineta.dislikes, autor,tag);
+        var v: Vineta = new Vineta(vineta.id, vineta.titulo, vineta.descripcion, vineta.URL, vineta.likes, vineta.dislikes,tag);
+        if (vineta.autor){
+        var autor : Usuario = this.generateAutor(vineta.autor)
+        v.setAutor(autor);
+        }
+        return v
     }
     generateVinetaWithComents(vineta: any){
         var v : Vineta = this.generateVineta(vineta);
