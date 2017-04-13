@@ -35,7 +35,7 @@ public class RESTUserController {
 	private final long bytes = 1048576;
 	
 	interface UserView extends User.BasicAtt, User.VinetaupAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt, User.VinetafavAtt,
-	User.VinetadislikeAtt, User.VinetalikeAtt, User.SeguidoresAtt{}
+	User.VinetadislikeAtt, User.VinetalikeAtt, User.SeguidoresAtt, User.RolesAtt{}
 	interface UsersView extends User.BasicAtt {}
 
 	@Autowired
@@ -109,9 +109,11 @@ public class RESTUserController {
 			System.out.println("no autorizado");
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} else {
+			//User loggedUser = userComponent.getLoggedUser();			
 			long id = userComponent.getLoggedUser().getId();
 			//System.out.println(loggedUser.getUsername());
 			return new ResponseEntity<>(userservice.findOne(id),HttpStatus.OK);
+			
 		}
 	}
 	

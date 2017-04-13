@@ -24,7 +24,7 @@ export class IndexComponent {
       vinetas => this.listaVinetas = vinetas,
       error => console.error(error)
     );
-    this.serviciologin.logIn("pepe", "pepito").subscribe(
+    this.serviciologin.logIn("admin", "admin").subscribe(
       login => console.log(login),
       error => console.error(error)
     ); 
