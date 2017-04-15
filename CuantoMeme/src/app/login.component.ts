@@ -23,6 +23,7 @@ export class LoginComponent {
     this.ServicioLogin.logIn(this.username, this.pass).subscribe(
       user =>  {
         this.ServicioLogin.setLoggedUser(user);
+        this.ServicioLogin.isLogged = true;
         console.log(this.ServicioLogin.user);
         this.redireccion.navigateByUrl("/");
       },
