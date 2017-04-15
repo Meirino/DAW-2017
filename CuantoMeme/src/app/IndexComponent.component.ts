@@ -19,12 +19,30 @@ export class IndexComponent {
   currentPage = 0;
   loggedUser: Usuario;
 
-  constructor(private servicioVinetas: VinetasService, private serviciologin: LoginService) {}
+  constructor(private servicioVinetas: VinetasService, private serviciologin: LoginService, private serviciousuario : UsuarioService) {
+    //etc
+  }
 
   ngOnInit() {
     this.servicioVinetas.getVinetas(this.currentPage).subscribe(
       vinetas => this.listaVinetas = vinetas,
       error => console.error(error)
+    );
+
+    this.serviciousuario.getUser(10).subscribe(
+      user => console.log(user),
+      error => console.error(error)
+    );
+    
+    
+    this.serviciologin.logIn("admin", "admin").subscribe(
+      user => console.log(user),
+      error => console.error(error)
+    );
+
+    this.servicioVinetas.likeVineta(2).subscribe(
+      response => console.log(response),
+      error => console.log(error)
     );
   }
 
