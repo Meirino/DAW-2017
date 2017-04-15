@@ -2,6 +2,9 @@
     <img [src]="activeUser.avatarURL" width="50%" class="rounded-circle img-responsive mx-auto d-block">
     <h2 class="text-center">{{activeUser.username}}</h2>
 </div>
+<div *ngIf="!activeUser">
+    <h2 class="text-center">Anónimo</h2>
+</div>
 <hr>
 <ul *ngIf="!activeUser">
     <li><a routerLink="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Inicio de sesión</a></li>
@@ -9,5 +12,5 @@
 </ul>
 <ul *ngIf="activeUser">
     <li><a [routerLink]="['/perfil', activeUser.id]"><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
-    <li><button (click)="logOut()" class="btn-link"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión</button></li>
+    <li><a routerLink="/" (click)="logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión</a></li>
 </ul>

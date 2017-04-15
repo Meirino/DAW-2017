@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Usuario } from './classes/Usuario.class';
 import { LoginService } from './services/login.service';
 import { loggedUserService } from './services/logged-user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login-component',
@@ -10,7 +11,7 @@ import { loggedUserService } from './services/logged-user.service';
 })
 export class LoginComponent {
 
-  constructor(private ServicioLogin: LoginService, private servicioLogeado: loggedUserService) {}
+  constructor(private ServicioLogin: LoginService, private servicioLogeado: loggedUserService, private redireccion: Router) {}
 
   username: string;
   pass: string;
@@ -23,6 +24,7 @@ export class LoginComponent {
       user =>  {
         this.ServicioLogin.setLoggedUser(user);
         console.log(this.ServicioLogin.user);
+        this.redireccion.navigateByUrl("/");
       },
       error => console.log(error)
     );
