@@ -78,8 +78,8 @@ public class VinetaController {
 	      User user = userservice.findByUsername(p.getName());
 	      Vineta v = vinetaservice.findOne(id);      
 	      if (!v.isLikedBefore(user)){
-		   	 user.getVinetas_odiadas().add(v);
-	         v.dislike();
+		   	 user.getVinetas_gustadas().add(v);
+	         v.like();
 		     this.vinetaservice.save(v);
 		     this.userservice.save(user);}	      
 	      return "redirect:"+page;

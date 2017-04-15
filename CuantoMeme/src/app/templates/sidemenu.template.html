@@ -11,6 +11,8 @@
     <li><a routerLink="/signup"><i class="fa fa-pencil-square" aria-hidden="true"></i> Registro</a></li>
 </ul>
 <ul *ngIf="activeUser">
+    <li><a routerLink="/likes"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Me gustan</a></li>
+    <li><a><i class="fa fa-star" aria-hidden="true"></i> Favoritas</a></li>
     <li><a [routerLink]="['/perfil', activeUser.id]"><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
     <li><a routerLink="/" (click)="logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión</a></li>
 </ul>

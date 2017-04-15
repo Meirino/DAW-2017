@@ -21,6 +21,7 @@ import { LoginService } from './services/login.service';
 import { PerfilComponent } from './perfilComponent.component';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { loggedUserService } from './services/logged-user.service';
+import { LikesComponent } from './likesComponent.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { loggedUserService } from './services/logged-user.service';
     vinetasDetalleComponent,
     TagViewComponent,
     sideMenuComponent,
-    PerfilComponent
+    PerfilComponent,
+    LikesComponent
   ],
   imports: [
     BrowserModule,

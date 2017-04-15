@@ -26,8 +26,8 @@ export class Usuario {
         this.id = id;
         this.avatarURL = avatar;
     }
-    getlikes(){
-        //likes = /api/users/byusername[vientaslikes]
+    getlikes(): Vineta[] {
+        return this.likes;
     }
     setLogged(logged:Boolean){
         this.isLogged = logged;
@@ -53,5 +53,11 @@ export class Usuario {
     }
     getUsername() {
         return this.username;
+    }
+    addLike(viñeta:Vineta) {
+        this.likes.push(viñeta);
+    }
+    addDislike(viñeta:Vineta) {
+        this.dislikes.push(viñeta);
     }
 }
