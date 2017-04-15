@@ -4,7 +4,7 @@ import { Comentario } from '../classes/Comentario.class';
 import { Tag } from '../classes/Tag.class';
 
 import { Injectable } from '@angular/core';
-import { Http, Response, JsonpModule } from '@angular/http';
+import { Http, Response, JsonpModule, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -24,6 +24,16 @@ export class VinetasService {
         .catch(error => this.handleError(error))
     }
 
+    likeVineta(id: number){
+    let headers = new Headers({
+
+    });
+    let options = new RequestOptions(headers);
+    console.log("llego al put")
+        return this.http.put(BASE_URL+"like2/"+id, options)
+            .map(response => response)
+            .catch(error => error);
+    }
     getVinetasTag(tag: string) {
         return this.http.get(BASE_URL+"/busq/"+tag+"?filtro=tag")
         .map(response => this.generateVinetas(response.json()))

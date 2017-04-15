@@ -106,7 +106,7 @@ public class RESTUserController {
 	@RequestMapping("/logIn")
 	public ResponseEntity<User> logIn() {
 		if (!userComponent.isLoggedUser()) {
-			System.out.println("no autorizado");
+			//System.out.println("no autorizado");
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} else {
 			//User loggedUser = userComponent.getLoggedUser();			

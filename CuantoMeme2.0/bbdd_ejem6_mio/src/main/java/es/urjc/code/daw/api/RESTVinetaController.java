@@ -72,15 +72,15 @@ public class RESTVinetaController {
 			System.out.println(page.getPageNumber());
 			//This print the page size = 20 
 			System.out.println(page.getPageSize());
-			
+			/*
 			Integer seconds = 1;
 
 	        try {
 	            Thread.sleep(seconds*1000);
 	        } catch (InterruptedException e) {
-	            //
+	           
 	            e.printStackTrace();
-	        }
+	        }*/
 			
 			//Finally, this is not returning nothing
 			return new ResponseEntity<>(this.vinvetaservice.findAll(page).getContent(), HttpStatus.OK);
@@ -214,10 +214,32 @@ public class RESTVinetaController {
 	@JsonView(Vineta.BasicAtt.class)
 	@RequestMapping(value = "/like/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Vineta> likeVineta(@PathVariable long id, HttpServletRequest request){
-		System.out.println("ya he llegado");
+		System.out.println("ya he llegado-----");
 		Principal p = request.getUserPrincipal();
 		System.out.println(p.getName());
         User user = userservice.findByUsername(p.getName());
+        Vineta v = vinvetaservice.findOne(id);
+        if (v != null){
+        	if (!v.isLikedBefore(user)){
+        		System.out.println("not before");
+        		user.getVinetas_gustadas().add(v);
+        		v.like();
+        		this.vinvetaservice.save(v);
+        		this.userservice.save(user);}
+        	return new ResponseEntity<>(v, HttpStatus.OK);
+        }else{
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    	
+	}
+	@CrossOrigin
+	@JsonView(Vineta.BasicAtt.class)
+	@RequestMapping(value = "/like2/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Vineta> likeVineta2(@PathVariable long id, HttpServletRequest request){
+		System.out.println("ya he llegado-----");
+		//Principal p = request.getUserPrincipal();
+		//System.out.println(p.getName());
+        User user = userservice.findByUsername("pepe");
         Vineta v = vinvetaservice.findOne(id);
         if (v != null){
         	if (!v.isLikedBefore(user)){

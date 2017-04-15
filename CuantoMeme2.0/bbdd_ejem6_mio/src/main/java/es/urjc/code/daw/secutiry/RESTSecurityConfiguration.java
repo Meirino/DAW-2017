@@ -23,7 +23,7 @@ public class RESTSecurityConfiguration extends WebSecurityConfigurerAdapter {
     	// Public pages
 
         http.authorizeRequests().antMatchers(HttpMethod.GET ,"/api/**").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/**").hasRole("USER");
+       // http.authorizeRequests().antMatchers(HttpMethod.PUT ,"/api/**").hasRole("USER");
         http.authorizeRequests().antMatchers(HttpMethod.DELETE ,"/api/**").hasRole("ADMIN");
         
         //POST

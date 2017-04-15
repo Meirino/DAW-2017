@@ -29,11 +29,16 @@ export class IndexComponent {
       error => console.error(error)
     );
     
-    /*
+    
     this.serviciologin.logIn("admin", "admin").subscribe(
       user => console.log(user),
       error => console.error(error)
-    );*/ 
+    );
+
+    this.servicioVinetas.likeVineta(2).subscribe(
+      response => console.log(response),
+      error => console.log(error)
+    );
   }
 
   masVinetas(): void {
