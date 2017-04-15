@@ -18,6 +18,7 @@ export class Usuario {
     private subidas: Vineta[];
     private isLogged: Boolean = false;
     private roles: string[] = [];
+    private isAdmin: boolean;
 
 
     constructor(id: number, username: string, avatar: string) {
@@ -31,11 +32,9 @@ export class Usuario {
     setLogged(logged:Boolean){
         this.isLogged = logged;
     }
-    isAdmin(){
-        return this.roles.indexOf("ROLE_ADMIN") !== -1;
-    }
     setRoles(roles: string[]){
-        this.roles = roles;
+        this.roles = roles;  
+        this.isAdmin = (this.roles.indexOf("ROLE_ADMIN") !== -1);
     }
     setSubidas(vinetas: Vineta[]){
         this.subidas = vinetas;
@@ -48,5 +47,11 @@ export class Usuario {
     }
     setDislikes(vinetas: Vineta[]){
         this.dislikes= vinetas;
+    }
+    getRoles() {
+        return this.roles;
+    }
+    getUsername() {
+        return this.username;
     }
 }

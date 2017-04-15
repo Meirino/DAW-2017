@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit, EventEmitter } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Usuario } from '../classes/Usuario.class';
 import {VinetasService} from './vinetas.service'
@@ -10,8 +10,9 @@ const BASE_URL = 'http://localhost:8080/api/usuarios/'
 export class LoginService {
 	
 	isLogged = false;
-	isAdmin = false;
 	user : Usuario;
+	userUpdated:EventEmitter<Usuario> = new EventEmitter<Usuario>();
+
 	constructor(private http: Http, private  vinetaservice: VinetasService){
 		this.reqIsLogged();
 	}
@@ -65,16 +66,29 @@ export class LoginService {
 		);		
 	}
 	
-	logOut(){
+	logOut() {
 		
 		return this.http.get(BASE_URL+'logOut').map(
 			response => {
 				this.isLogged = false;
-				this.isAdmin = false;
+				this.user = null;
+				console.log("Sesión cerrada");
 				return response;
 			}
 		);
-	}	
+	}
+
+	setLoggedUser(user: Usuario) {
+		this.user = user;
+		this.userUpdated.emit(this.user);
+	}
+
+	/*loggedUserIsAdmin() {
+		if(this.user && (this.user.getRoles()[1] === "ROLE_ADMIN")) {
+			this.isAdmin = true;
+			console.log(this.user.getUsername + " es admin");
+		}
+	}*/
 }
 
 function utf8_to_b64(str) {

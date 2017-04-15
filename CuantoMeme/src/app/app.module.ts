@@ -18,6 +18,9 @@ import { routing }  from './appRouting.module';
 import { TagService } from './services/tag.service';
 import { sideMenuComponent } from './side-menu.component';
 import { LoginService } from './services/login.service';
+import { PerfilComponent } from './perfilComponent.component';
+import { TabsetComponent } from 'ngx-bootstrap';
+import { loggedUserService } from './services/logged-user.service';
 
 
 @NgModule({
@@ -30,7 +33,8 @@ import { LoginService } from './services/login.service';
     listaVinetasComponent,
     vinetasDetalleComponent,
     TagViewComponent,
-    sideMenuComponent
+    sideMenuComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,7 @@ import { LoginService } from './services/login.service';
     HttpModule,
     routing
   ],
-  providers: [VinetasService, UsuarioService, TagService, LoginService],
+  providers: [VinetasService, UsuarioService, TagService, LoginService, loggedUserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

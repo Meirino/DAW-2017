@@ -1,5 +1,8 @@
 import { Component, trigger, state, style, transition, animate } from '@angular/core';
 import { sideMenuComponent } from './side-menu.component';
+import { Usuario } from './classes/Usuario.class';
+import { LoginService } from './services/login.service';
+import { loggedUserService } from './services/logged-user.service';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +26,12 @@ export class AppComponent {
   textos: Array<string> = [];
   entrada: string;
   toggled: string = 'out';
+  loggedUser: Usuario;
+
+  constructor(private servicioLogin: LoginService, private servicioLogeado: loggedUserService) {
+    this.loggedUser = this.servicioLogeado.getUsuario();
+    console.log(this.loggedUser);
+  }
 
   addText(): void {
     this.entrada.replace('\n', '<br/>');
