@@ -4,6 +4,9 @@ import { listaVinetasComponent } from './listaVinetas.component';
 import { VinetasService } from './services/vinetas.service';
 import { UsuarioService } from './services/usuarios.service';
 import { LoginService } from './services/login.service';
+import { loggedUserService } from './services/logged-user.service';
+import { Usuario } from './classes/Usuario.class';
+
 @Component({
   selector: 'index-component',
   templateUrl: './templates/indexComponent.template.html',
@@ -14,6 +17,7 @@ export class IndexComponent {
   title = '¡Bienvenido a CuantoMeme!';
   listaVinetas = [];
   currentPage = 0;
+  loggedUser: Usuario;
 
   constructor(private servicioVinetas: VinetasService, private serviciologin: LoginService, private serviciousuario : UsuarioService) {
     //etc
@@ -24,6 +28,7 @@ export class IndexComponent {
       vinetas => this.listaVinetas = vinetas,
       error => console.error(error)
     );
+
     this.serviciousuario.getUser(10).subscribe(
       user => console.log(user),
       error => console.error(error)

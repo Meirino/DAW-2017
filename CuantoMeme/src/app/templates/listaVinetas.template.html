@@ -4,7 +4,7 @@
         <div class="user-container">
             <h3 class="lead text-center">
                 <img height="60px" [src]="vineta.autor.avatarURL" class="avatar responsive rounded-circle mx-auto d-block">
-                <a class="enlaceUser animated bounceIn" href="#">{{vineta.autor.username}}</a>
+                <a [routerLink]="['/perfil', vineta.autor.id]" class="enlaceUser animated bounceIn" href="#">{{vineta.autor.username}}</a>
             </h3>
             <hr>
         </div>
