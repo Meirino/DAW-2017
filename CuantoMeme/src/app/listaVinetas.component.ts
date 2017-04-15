@@ -2,6 +2,7 @@ import { Vineta } from './classes/Vineta.class';
 import { Component, Input, OnInit } from '@angular/core';
 import { LoginService } from './services/login.service';
 import { Router, ActivatedRoute} from '@angular/router';
+import { VinetasService } from './services/vinetas.service';
 
 @Component({
   selector: 'lista-vinetas',
@@ -14,7 +15,7 @@ export class listaVinetasComponent {
   //El componente recibe una lista de viñetas y las muestra
   @Input() listaVinetas: Vineta[];
 
-  constructor(private login: LoginService, private router: Router) {
+  constructor(private login: LoginService, private router: Router, private servicioVinetas: VinetasService) {
     //etc
   }
 
@@ -23,6 +24,10 @@ export class listaVinetasComponent {
       this.router.navigateByUrl("/login");
     } else {
       //llamar a la API
+      this.servicioVinetas.likeVineta(2).subscribe(
+        response => console.log(response),
+        error => console.log(error)
+      );
       this.login.user.addLike(viñeta);
       viñeta.likes = viñeta.likes + 1;
     }

@@ -26,6 +26,7 @@ export class LikesComponent {
       this.userStatus = this.serviciologin.isLogged;
       if(this.userStatus) {
           if(this.serviciologin.user.getlikes()) {
+            console.log(this.serviciologin.user);
             this.loggedUser = this.serviciologin.user;
             this.listaVinetas = this.loggedUser.getlikes();
           }

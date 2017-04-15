@@ -45,7 +45,6 @@ export class LoginService {
         this.user.setDislikes(this.vinetaservice.generateVinetas(response.vinetas_odiadas));
         this.user.setLikes(this.vinetaservice.generateVinetas(response.vinetas_gustadas));
         this.user.setFav(this.vinetaservice.generateVinetas(response.vinetas_favoritas));
-        this.isAdmin = this.user.isAdmin()
 
 }
 	

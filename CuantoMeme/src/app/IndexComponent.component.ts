@@ -35,7 +35,7 @@ export class IndexComponent {
     );
     
     
-    this.serviciologin.logIn("admin", "admin").subscribe(
+    /*this.serviciologin.logIn("admin", "admin").subscribe(
       user => console.log(user),
       error => console.error(error)
     );
@@ -43,7 +43,7 @@ export class IndexComponent {
     this.servicioVinetas.likeVineta(2).subscribe(
       response => console.log(response),
       error => console.log(error)
-    );
+    );*/
   }
 
   masVinetas(): void {
