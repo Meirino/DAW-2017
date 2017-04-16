@@ -4,7 +4,7 @@ import { Usuario } from '../classes/Usuario.class';
 import {VinetasService} from './vinetas.service'
 
 import 'rxjs/Rx';
-const BASE_URL = 'http://localhost:8080/api/usuarios/'
+const BASE_URL = 'http://localhost:8080/api/'
 
 @Injectable()
 export class LoginService {
@@ -19,6 +19,7 @@ export class LoginService {
 	
 	reqIsLogged(){
 		//Esto da un 401. Es el valor esperado
+		console.log("paso por aqui 401")
 		let headers = new Headers({
 			'X-Requested-With': 'XMLHttpRequest'
 		});

@@ -46,7 +46,8 @@ public class RESTVinetaController {
 	
 	@Autowired
 	private StorageService storageService;
-	
+	@Autowired
+	private UserComponent userComponent;
 	@Autowired
     public void FileUploadController(StorageService storageService) {
         this.storageService = storageService;
@@ -59,6 +60,8 @@ public class RESTVinetaController {
 	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/", method= RequestMethod.GET)
 	public ResponseEntity<List<Vineta>> getvinetaspage(Pageable page ) {
+		System.out.println("en vinetas veo a ");
+		System.out.println(this.userComponent.getLoggedUser().getUsername());
 		if(!this.vinvetaservice.findAll().isEmpty()) {
 			//This System.out print all the size of my repository
 			System.out.println(this.vinvetaservice.findAll().size());
@@ -237,9 +240,8 @@ public class RESTVinetaController {
 	@RequestMapping(value = "/like2/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Vineta> likeVineta2(@PathVariable long id, HttpServletRequest request){
 		System.out.println("ya he llegado-----");
-		//Principal p = request.getUserPrincipal();
-		//System.out.println(p.getName());
-        User user = userservice.findByUsername("pepe");
+		User user = userComponent.getLoggedUser();
+		System.out.println("ya he llegado-----"+user.getUsername());
         Vineta v = vinvetaservice.findOne(id);
         if (v != null){
         	if (!v.isLikedBefore(user)){

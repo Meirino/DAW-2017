@@ -41,13 +41,11 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 			
 			throw new BadCredentialsException("Wrong password");
 		} else {
-			System.out.println("correcto");
+			System.out.println("correcto, voy a guardar el usuario que ha sido loggeado");
 			userComponent.setLoggedUser(user);
-			
+			System.out.println("he guardado el usuario"+user.getUsername());
 			List<GrantedAuthority> roles = new ArrayList<>();
 			for (String role : user.getRoles()) {
-				System.out.println("entro en roles"+role);
-
 				roles.add(new SimpleGrantedAuthority(role));
 			}
 

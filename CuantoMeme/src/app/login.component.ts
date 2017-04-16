@@ -22,9 +22,11 @@ export class LoginComponent {
   login() {
     this.ServicioLogin.logIn(this.username, this.pass).subscribe(
       user =>  {
+        console.log(user)
+        /*
         this.ServicioLogin.setLoggedUser(user);
         this.ServicioLogin.isLogged = true;
-        console.log(this.ServicioLogin.user);
+        console.log(this.ServicioLogin.user);*/
         this.redireccion.navigateByUrl("/");
       },
       error => console.log(error)

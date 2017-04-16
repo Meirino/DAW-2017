@@ -31,7 +31,7 @@ export class VinetasService {
     });
     let options = new RequestOptions(headers);
     console.log("llego al put")
-        return this.http.put(BASE_URL+"like/"+id, options)
+        return this.http.put(BASE_URL+"like2/"+id, options)
             .map(response => response)
             .catch(error => error);
     }

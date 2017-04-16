@@ -17,6 +17,9 @@ export class listaVinetasComponent {
 
   constructor(private login: LoginService, private router: Router, private servicioVinetas: VinetasService) {
     //etc
+    console.log("^^^^^^^")
+    console.log(this.listaVinetas)
+    console.log("^^^^^^^")
   }
 
   like(viñeta: Vineta): void {

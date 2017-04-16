@@ -25,9 +25,14 @@ export class LikesComponent {
       this.listaVinetas = [];
       this.userStatus = this.serviciologin.isLogged;
       if(this.userStatus) {
-          if(this.serviciologin.user.getlikes()) {
-            console.log(this.serviciologin.user);
+        console.log("***** el logged user es")
+        console.log(this.loggedUser)
+        console.log("*****")
+          if(this.loggedUser.getlikes){//this.serviciologin.user.getlikes()) {
+            console.log("tiene vinetas"+this.serviciologin.user);
             this.loggedUser = this.serviciologin.user;
+            console.log("-------")
+            console.log(this.loggedUser.getlikes())
             this.listaVinetas = this.loggedUser.getlikes();
           }
       } else {
