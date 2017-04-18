@@ -28,28 +28,16 @@ export class IndexComponent {
       vinetas => this.listaVinetas = vinetas,
       error => console.error(error)
     );
-
-    this.serviciousuario.getUser(10).subscribe(
-      user => console.log(user),
-      error => console.error(error)
-    );
-    
-    
-    /*this.serviciologin.logIn("admin", "admin").subscribe(
-      user => console.log(user),
-      error => console.error(error)
-    );
-
-    this.servicioVinetas.likeVineta(2).subscribe(
-      response => console.log(response),
-      error => console.log(error)
-    );*/
   }
 
   masVinetas(): void {
     this.currentPage = this.currentPage + 1;
     this.servicioVinetas.getVinetas(this.currentPage).subscribe(
-      vinetas => this.listaVinetas.push(vinetas),
+      vinetas => {
+        for(let viñeta of vinetas) {
+          this.listaVinetas.push(viñeta);
+        }
+      },
       error => console.error(error)
     );
   }
