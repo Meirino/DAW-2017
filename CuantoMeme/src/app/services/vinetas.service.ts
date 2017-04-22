@@ -20,7 +20,9 @@ export class VinetasService {
     constructor(private http: Http){}
     
     getVinetas(page:number){
-        return this.http.get(BASE_URL+"?page="+page, { withCredentials: true })
+        var url = BASE_URL+"?page="+page;
+        console.log(url)
+        return this.http.get(url, { withCredentials: true })
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
@@ -31,9 +33,10 @@ export class VinetasService {
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest'
     });
+    var url = BASE_URL+"like/"+id;
+    console.log(url)
     const options = new RequestOptions({ withCredentials: true, headers });
-        console.log("llego al put")
-            return this.http.put(BASE_URL+"like/"+id, options)
+            return this.http.get(url, { withCredentials: true })
                 .map(response => response)
                 .catch(error => error);
     }
@@ -66,7 +69,7 @@ export class VinetasService {
 
     generateVineta(vineta: any){
         var tag : Tag = this.generateTag(vineta.tags);
-        var v: Vineta = new Vineta(vineta.id, vineta.titulo, vineta.descripcion, vineta.URL, vineta.likes, vineta.dislikes,tag);
+        var v: Vineta = new Vineta(vineta.id, vineta.titulo, vineta.descripcion, null, vineta.likes, vineta.dislikes,tag);
         if (vineta.autor){
         var autor : Usuario = this.generateAutor(vineta.autor)
         v.setAutor(autor);

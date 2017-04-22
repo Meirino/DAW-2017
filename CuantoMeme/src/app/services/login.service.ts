@@ -60,8 +60,9 @@ export class LoginService {
         });
 
         const options = new RequestOptions({ withCredentials: true, headers });
-
-        return this.http.get(URL + '/logIn', options).map(
+		var url = BASE_URL + 'logIn';
+		console.log(url)
+        return this.http.get(url, options).map(
             response => {
                 this.processLogInResponse(response);
                 return this.user;
