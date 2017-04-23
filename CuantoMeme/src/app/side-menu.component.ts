@@ -23,6 +23,7 @@ export class sideMenuComponent implements OnInit {
     }
 
     logOut() {
+      this.activeUser = null;
       this.servicioLogin.logOut().subscribe(response => console.log(response), error => console.log(error));
     }
 }
