@@ -32,10 +32,12 @@ import es.urjc.code.daw.vineta.*;
 public class RESTVinetaController {
 	
 	interface VinetaView extends Vineta.BasicAtt , Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
-	
+	interface UserView extends User.BasicAtt, User.VinetaupAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt, User.VinetafavAtt,
+	User.VinetadislikeAtt, User.VinetalikeAtt, User.SeguidoresAtt, User.RolesAtt, Vineta.TagAtt{}
 	@Autowired
 	private VinetaService vinvetaservice;
-	
+	@Autowired
+	private UserComponent userComponent;
 	@Autowired
 	private utils utilservice;
     
@@ -212,13 +214,11 @@ public class RESTVinetaController {
 	}
 	
 	@CrossOrigin
-	@JsonView(Vineta.BasicAtt.class)
+	@JsonView(UserView.class)
 	@RequestMapping(value = "/like/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Vineta> likeVineta(@PathVariable long id, HttpServletRequest request){
-		System.out.println("ya he llegado-----");
-		Principal p = request.getUserPrincipal();
-		System.out.println(p.getName());
-        User user = userservice.findByUsername(p.getName());
+	public ResponseEntity<User> likeVineta(@PathVariable long id){
+		long id2 = userComponent.getLoggedUser().getId();
+		User user = this.userservice.findOne(id2);
         Vineta v = vinvetaservice.findOne(id);
         if (v != null){
         	if (!v.isLikedBefore(user)){
@@ -227,29 +227,7 @@ public class RESTVinetaController {
         		v.like();
         		this.vinvetaservice.save(v);
         		this.userservice.save(user);}
-        	return new ResponseEntity<>(v, HttpStatus.OK);
-        }else{
-        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    	
-	}
-	@CrossOrigin
-	@JsonView(Vineta.BasicAtt.class)
-	@RequestMapping(value = "/like2/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Vineta> likeVineta2(@PathVariable long id, HttpServletRequest request){
-		System.out.println("ya he llegado-----");
-		//Principal p = request.getUserPrincipal();
-		//System.out.println(p.getName());
-        User user = userservice.findByUsername("pepe");
-        Vineta v = vinvetaservice.findOne(id);
-        if (v != null){
-        	if (!v.isLikedBefore(user)){
-        		System.out.println("not before");
-        		user.getVinetas_gustadas().add(v);
-        		v.like();
-        		this.vinvetaservice.save(v);
-        		this.userservice.save(user);}
-        	return new ResponseEntity<>(v, HttpStatus.OK);
+        	return new ResponseEntity<>(user, HttpStatus.OK);
         }else{
         	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

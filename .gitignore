@@ -5,3 +5,5 @@
 /node_modules/
 *.properties
 application.properties
+
+CuantoMeme2.0/bbdd_ejem6_mio/target/classes/es/urjc/code/daw/Application.class

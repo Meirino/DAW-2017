@@ -4,7 +4,7 @@ import { Comentario } from '../classes/Comentario.class';
 import { Tag } from '../classes/Tag.class';
 
 import { Injectable } from '@angular/core';
-import { Http, Response, JsonpModule, RequestOptions } from '@angular/http';
+import { Http, Response, JsonpModule, RequestOptions, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -13,43 +13,47 @@ import 'rxjs/Rx';
 
 
 const BASE_URL = 'http://localhost:8080/api/vinetas/'
+//Es necesario que no termine en / ya que podemos meter filtros para el paginado
 
 @Injectable()
 export class VinetasService {
     constructor(private http: Http){}
     
     getVinetas(page:number){
-        return this.http.get(BASE_URL+"?page="+page)
+        var url = BASE_URL+"?page="+page;
+        console.log(url)
+        return this.http.get(url, { withCredentials: true })
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
 
     likeVineta(id: number) {
-
-        let headers = new Headers({
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
-        });
-        let options = new RequestOptions(headers);
-        console.log("llego al put")
-            return this.http.put(BASE_URL+"like/"+id, options)
+    const body = JSON.stringify("");
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'
+    });
+    var url = BASE_URL+"like/"+id;
+    console.log(url)
+    const options = new RequestOptions({ withCredentials: true, headers });
+            return this.http.put(url, null, options)
                 .map(response => response)
                 .catch(error => error);
     }
     getVinetasTag(tag: string) {
-        return this.http.get(BASE_URL+"/busq/"+tag+"?filtro=tag")
+        return this.http.get(BASE_URL+"/busq/"+tag+"?filtro=tag", { withCredentials: true })
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
 
     busqVinetas(texto: string, modo:string) {
-        return this.http.get(BASE_URL+"/busq/"+texto+"?filtro="+modo)
+        return this.http.get(BASE_URL+"/busq/"+texto+"?filtro="+modo, { withCredentials: true })
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
     
     getVineta(id: number){
-        return this.http.get(BASE_URL+id).map(
+        return this.http.get(BASE_URL+id, { withCredentials: true }).map(
             response => this.generateVinetaWithComents(response.json())//this.extractVinetas(response)
         )
         .catch(error => this.handleError(error))
