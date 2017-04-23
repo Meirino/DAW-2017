@@ -63,29 +63,6 @@ public class RESTVinetaController {
 	@RequestMapping(value = "/", method= RequestMethod.GET)
 	public ResponseEntity<List<Vineta>> getvinetaspage(Pageable page ) {
 		if(!this.vinvetaservice.findAll().isEmpty()) {
-			//This System.out print all the size of my repository
-			System.out.println(this.vinvetaservice.findAll().size());
-			//This for print the title for my 20 first objects Vineta
-			for(Vineta v:this.vinvetaservice.findAll(page)){
-				System.out.println(v.getTitulo());
-			}
-			// This print 20
-			System.out.println(this.vinvetaservice.findAll(page).getSize());
-			//This print the page number = 0 
-			System.out.println(page.getPageNumber());
-			//This print the page size = 20 
-			System.out.println(page.getPageSize());
-			/*
-			Integer seconds = 1;
-
-	        try {
-	            Thread.sleep(seconds*1000);
-	        } catch (InterruptedException e) {
-	           
-	            e.printStackTrace();
-	        }*/
-			
-			//Finally, this is not returning nothing
 			return new ResponseEntity<>(this.vinvetaservice.findAll(page).getContent(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -191,13 +168,11 @@ public class RESTVinetaController {
 	}
 
 	@CrossOrigin
-	@JsonView(Vineta.BasicAtt.class)
+	@JsonView(UserView.class)
 	@RequestMapping(value = "/dislike/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Vineta> dislikeVineta(@PathVariable long id, HttpServletRequest request){
-		System.out.println("ya he llegado");
-		Principal p = request.getUserPrincipal();
-        User user = userservice.findByUsername(p.getName());
-		System.out.println(p.getName());
+	public ResponseEntity<User> dislikeVineta(@PathVariable long id){
+		long id2 = userComponent.getLoggedUser().getId();
+		User user = this.userservice.findOne(id2);
         Vineta v = vinvetaservice.findOne(id);
         if (v != null){
         	if (!v.isDislikedBefore(user)){
@@ -206,11 +181,10 @@ public class RESTVinetaController {
         		v.dislike();
         		this.vinvetaservice.save(v);
         		this.userservice.save(user);}
-        	return new ResponseEntity<>(v, HttpStatus.OK);
+        	return new ResponseEntity<>(user, HttpStatus.OK);
         }else{
         	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    	
+        }    	
 	}
 	
 	@CrossOrigin
@@ -235,13 +209,11 @@ public class RESTVinetaController {
 	}
 	
 	@CrossOrigin
-	@JsonView(Vineta.BasicAtt.class)
+	@JsonView(UserView.class)
 	@RequestMapping(value = "/favorite/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Vineta> favorite(@PathVariable long id, HttpServletRequest request){
-		System.out.println("ya he llegado");
-		Principal p = request.getUserPrincipal();
-		System.out.println(p.getName());
-        User user = userservice.findByUsername(p.getName());
+	public ResponseEntity<User> favorite(@PathVariable long id){
+		long id2 = userComponent.getLoggedUser().getId();
+		User user = this.userservice.findOne(id2);
         Vineta v = vinvetaservice.findOne(id);
         if (v != null){
         	if (!v.isFavoritedBefore(user)){
@@ -249,7 +221,7 @@ public class RESTVinetaController {
         		user.getVinetas_favoritas().add(v);
         		this.vinvetaservice.save(v);
         		this.userservice.save(user);}
-        	return new ResponseEntity<>(v, HttpStatus.OK);
+        	return new ResponseEntity<>(user, HttpStatus.OK);
         }else{
         	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
