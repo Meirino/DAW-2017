@@ -38,8 +38,12 @@ export class listaVinetasComponent {
       this.router.navigateByUrl("/login");
     } else {
       //llamar a la API
-      this.login.user.addLike(viñeta);
-      viñeta.dislikes = viñeta.likes + 1;
+      this.servicioVinetas.dislikeVineta(viñeta.id).subscribe(
+        response => console.log(response),
+        error => console.log(error)
+      );
+      this.login.user.addDislike(viñeta);
+      viñeta.likes = viñeta.likes + 1;
     }
   }
 

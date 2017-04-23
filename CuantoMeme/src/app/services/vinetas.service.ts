@@ -40,6 +40,34 @@ export class VinetasService {
                 .map(response => response)
                 .catch(error => error);
     }
+    dislikeVineta(id: number) {
+    const body = JSON.stringify("");
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'
+    });
+    var url = BASE_URL+"dislike/"+id;
+    console.log(url)
+    const options = new RequestOptions({ withCredentials: true, headers });
+            return this.http.put(url, null, options)
+                .map(response => response)
+                .catch(error => error);
+    }
+
+    favoriteVineta(id: number) {
+    const body = JSON.stringify("");
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'
+    });
+    var url = BASE_URL+"favorite/"+id;
+    console.log(url)
+    const options = new RequestOptions({ withCredentials: true, headers });
+            return this.http.put(url, null, options)
+                .map(response => response)
+                .catch(error => error);
+    }
+
     getVinetasTag(tag: string) {
         return this.http.get(BASE_URL+"/busq/"+tag+"?filtro=tag", { withCredentials: true })
         .map(response => this.generateVinetas(response.json()))
