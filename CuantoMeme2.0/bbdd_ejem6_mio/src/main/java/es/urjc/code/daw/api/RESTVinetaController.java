@@ -33,7 +33,7 @@ public class RESTVinetaController {
 	
 	interface VinetaView extends Vineta.BasicAtt , Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
 	interface UserView extends User.BasicAtt, User.VinetaupAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt, User.VinetafavAtt,
-	User.VinetadislikeAtt, User.VinetalikeAtt, User.SeguidoresAtt, User.RolesAtt, Vineta.TagAtt{}
+	User.VinetadislikeAtt, User.VinetalikeAtt, User.SeguidoresAtt, User.RolesAtt, Vineta.TagAtt, Vineta.UserAtt{}
 	@Autowired
 	private VinetaService vinvetaservice;
 	@Autowired
@@ -62,13 +62,9 @@ public class RESTVinetaController {
 	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/", method= RequestMethod.GET)
 	public ResponseEntity<List<Vineta>> getvinetaspage(Pageable page ) {
-		if(!this.vinvetaservice.findAll().isEmpty()) {
-			return new ResponseEntity<>(this.vinvetaservice.findAll(page).getContent(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		
+		return new ResponseEntity<>(this.vinvetaservice.findAll(page).getContent(), HttpStatus.OK);		
 	}
+	
 	@CrossOrigin
 	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -78,6 +74,35 @@ public class RESTVinetaController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@CrossOrigin
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/uploaded", method = RequestMethod.GET)
+	public ResponseEntity<List<Vineta>> getuploaded(){
+		User user = this.userservice.findOne(this.userComponent.getLoggedUser().getId());
+		return new ResponseEntity<>(user.getVinetas_subidas(), HttpStatus.OK);
+	}
+	@CrossOrigin
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/favorites", method = RequestMethod.GET)
+	public ResponseEntity<List<Vineta>> getFavorites(){
+		User user = this.userservice.findOne(this.userComponent.getLoggedUser().getId());
+		return new ResponseEntity<>(user.getVinetas_favoritas(), HttpStatus.OK);
+	}
+	@CrossOrigin
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/likes", method = RequestMethod.GET)
+	public ResponseEntity<List<Vineta>> getLike(){
+		User user = this.userservice.findOne(this.userComponent.getLoggedUser().getId());
+		return new ResponseEntity<>(user.getVinetas_gustadas(), HttpStatus.OK);
+	}
+	@CrossOrigin
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/dislikes", method = RequestMethod.GET)
+	public ResponseEntity<List<Vineta>> getDislike(){
+		User user = this.userservice.findOne(this.userComponent.getLoggedUser().getId());
+		return new ResponseEntity<>(user.getVinetas_odiadas(), HttpStatus.OK);
 	}
 	
 	@CrossOrigin
