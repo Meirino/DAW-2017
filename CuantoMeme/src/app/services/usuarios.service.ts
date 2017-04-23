@@ -46,5 +46,15 @@ export class UsuarioService {
         return usuario
     }
 
+    actualizarAvatar(formulario: FormData) {
+        //Llamar a la API
+        //Actualizar avatar en local
+    }
+
+    actualizarDatos(formulario: FormData) {
+        //Llamar a la API
+        //Actualizar datos en local
+    }
+
 
 }

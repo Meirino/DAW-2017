@@ -23,19 +23,16 @@
             <div *ngIf="opcion == 'publicadas'">
                 <lista-vinetas [listaVinetas]="subidas"></lista-vinetas>
             </div>
-            <div *ngIf="opcion == 'modificar'">
-                //
-            </div>
             <div *ngIf="opcion == 'publicar'">
                <div class="col-md-7">
                     <form>
                         <div class="form-group">
                             <label for="tituloinput">Título</label>
-                            <input type="text" class="form-control" id="tituloinput" aria-describedby="emailHelp" placeholder="Ponle título" name="titulo">
+                            <input [(ngModel)]="tituloVineta" type="text" class="form-control" id="tituloinput" aria-describedby="emailHelp" placeholder="Ponle título" name="titulo">
                         </div>
                         <div class="form-group">
                             <label for="descinput">Descripción</label>
-                            <input type="text" class="form-control" id="descinput" aria-describedby="emailHelp" placeholder="Dale una descripción corta" name="desc">
+                            <input [(ngModel)]="descVineta" type="text" class="form-control" id="descinput" aria-describedby="emailHelp" placeholder="Dale una descripción corta" name="desc">
                         </div>
                         <div class="form-group">
                             <label for="imageninput">Imagen</label>
@@ -44,10 +41,34 @@
                         </div>
                         <div class="form-group">
                             <label for="taginput">Tag</label>
-                            <input type="text" class="form-control" id="descinput" aria-describedby="emailHelp" placeholder="Dale un tag" name="tag">
+                            <input [(ngModel)]="tagVineta" type="text" class="form-control" id="descinput" aria-describedby="emailHelp" placeholder="Dale un tag" name="tag">
                             <small>Solo uno. Los espacios se borrarán.</small>
                         </div>
-                        <button class="btn btn-info" type="button">¡Enviar!</button>
+                        <button class="btn btn-info" type="button" (click)="subirVineta()">¡Enviar!</button>
+                    </form>
+               </div>
+            </div>
+            <div *ngIf="opcion == 'modificar'">
+               <div class="col-md-7">
+                    <form>
+                        <div class="form-group">
+                            <label for="avatarinput">Cambiar avatar</label>
+                            <input type="file" class="form-control" id="avatarinput" name="file" (change)="avatarChange($event)">
+                            <small>¡No más de 1mb!</small>
+                        </div>
+                        <button class="btn btn-info" type="button" (click)="cambiarAvatar()">¡Enviar!</button>
+                    </form>
+                    <hr>
+                    <form>
+                        <div class="form-group">
+                            <label for="usernameinput">Cambiar nombre de usuario</label>
+                            <input [(ngModel)]="usernameModified" type="text" class="form-control" id="usernameinput" placeholder="Nombre de usuario" name="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailinput">Cambiar email</label>
+                            <input [(ngModel)]="emailModified" type="text" class="form-control" id="emailinput" placeholder="email" name="email">
+                        </div>
+                        <button class="btn btn-info" type="button" (click)="cambiarUsuario">¡Enviar!</button>
                     </form>
                </div>
             </div>
