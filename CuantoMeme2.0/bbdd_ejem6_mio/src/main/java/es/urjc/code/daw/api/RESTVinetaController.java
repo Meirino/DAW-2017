@@ -31,7 +31,8 @@ import es.urjc.code.daw.vineta.*;
 public class RESTVinetaController {
 	
 	interface VinetaView extends Vineta.BasicAtt , Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
-	
+	interface UserView extends User.BasicAtt, User.VinetaupAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt, User.VinetafavAtt,
+	User.VinetadislikeAtt, User.VinetalikeAtt, User.SeguidoresAtt, User.RolesAtt, Vineta.TagAtt{}
 	@Autowired
 	private VinetaService vinvetaservice;
 	@Autowired
@@ -212,10 +213,11 @@ public class RESTVinetaController {
 	}
 	
 	@CrossOrigin
-	@JsonView(Vineta.BasicAtt.class)
-	@RequestMapping(value = "/like/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Vineta> likeVineta(@PathVariable long id){
-        User user = this.userComponent.getLoggedUser();
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/like/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<User> likeVineta(@PathVariable long id){
+		long id2 = userComponent.getLoggedUser().getId();
+		User user = this.userservice.findOne(id2);
         Vineta v = vinvetaservice.findOne(id);
         if (v != null){
         	if (!v.isLikedBefore(user)){
@@ -224,7 +226,7 @@ public class RESTVinetaController {
         		v.like();
         		this.vinvetaservice.save(v);
         		this.userservice.save(user);}
-        	return new ResponseEntity<>(v, HttpStatus.OK);
+        	return new ResponseEntity<>(user, HttpStatus.OK);
         }else{
         	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -28,7 +28,7 @@ export class VinetasService {
     }
 
     likeVineta(id: number) {
-
+    const body = JSON.stringify("");
     const headers = new Headers({
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest'
@@ -36,18 +36,18 @@ export class VinetasService {
     var url = BASE_URL+"like/"+id;
     console.log(url)
     const options = new RequestOptions({ withCredentials: true, headers });
-            return this.http.get(url, { withCredentials: true })
+            return this.http.put(url, null, options)
                 .map(response => response)
                 .catch(error => error);
     }
     getVinetasTag(tag: string) {
-        return this.http.get(BASE_URL+"/busq/"+tag+"?filtro=tag")
+        return this.http.get(BASE_URL+"/busq/"+tag+"?filtro=tag", { withCredentials: true })
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
 
     busqVinetas(texto: string, modo:string) {
-        return this.http.get(BASE_URL+"/busq/"+texto+"?filtro="+modo)
+        return this.http.get(BASE_URL+"/busq/"+texto+"?filtro="+modo, { withCredentials: true })
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
@@ -69,7 +69,7 @@ export class VinetasService {
 
     generateVineta(vineta: any){
         var tag : Tag = this.generateTag(vineta.tags);
-        var v: Vineta = new Vineta(vineta.id, vineta.titulo, vineta.descripcion, null, vineta.likes, vineta.dislikes,tag);
+        var v: Vineta = new Vineta(vineta.id, vineta.titulo, vineta.descripcion, vineta.URL, vineta.likes, vineta.dislikes,tag);
         if (vineta.autor){
         var autor : Usuario = this.generateAutor(vineta.autor)
         v.setAutor(autor);

@@ -24,7 +24,7 @@ export class listaVinetasComponent {
       this.router.navigateByUrl("/login");
     } else {
       //llamar a la API
-      this.servicioVinetas.likeVineta(2).subscribe(
+      this.servicioVinetas.likeVineta(viñeta.id).subscribe(
         response => console.log(response),
         error => console.log(error)
       );
