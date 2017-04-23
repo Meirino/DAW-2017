@@ -5,10 +5,24 @@
 
 #user-avatar {
     padding-top: 20px;
-    border-radius: 10px !important;
 }
 
 .btn {
-    margin-left: auto;
-    margin-right: auto;
+    padding: 20px;
+    margin-top: 20px;
 }
+
+.btn.active {
+    color: white;
+    background-color: #5bc0de;
+    border-radius: 50px;
+}
+
+.btn-group {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+
+.follow {}

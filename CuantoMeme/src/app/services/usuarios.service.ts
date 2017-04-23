@@ -30,7 +30,7 @@ export class UsuarioService {
     generateUser(user: any){
         return new Usuario(user.id, user.username, user.AvatarURL);
     }
-   getUser(id){
+    getUser(id){
         return this.http.get(BASE_URL+id).map(
             response => this.generateFullUser(response.json()),
             error => console.error(error)

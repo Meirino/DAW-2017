@@ -3,11 +3,11 @@ import { Comentario } from './Comentario.class';
 
 export class Usuario {
     
-    private id: number;
-    private avatarURL: string;
-    private username: string;
+    public id: number;
+    public avatarURL: string;
+    public username: string;
     private password: string;
-    private email: string;
+    public email: string;
     private publicaciones: Vineta[];
     private seguidos: Usuario[];
     private seguidores: Usuario[];
@@ -25,6 +25,12 @@ export class Usuario {
         this.username = username;
         this.id = id;
         this.avatarURL = avatar;
+    }
+    getAvatar(): string {
+        return this.avatarURL;
+    }
+    UserisAdmin(): boolean {
+        return this.isAdmin;
     }
     getlikes(): Vineta[] {
         return this.likes;
@@ -54,10 +60,16 @@ export class Usuario {
     getUsername() {
         return this.username;
     }
+    getSubidas(): Vineta[] {
+        return this.subidas;
+    }
     addLike(viñeta:Vineta) {
         this.likes.push(viñeta);
     }
     addDislike(viñeta:Vineta) {
         this.dislikes.push(viñeta);
+    }
+    getEmail(): string {
+        return this.email;
     }
 }

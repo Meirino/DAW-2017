@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -145,7 +146,7 @@ public class RESTVinetaController {
 	@CrossOrigin
 	@JsonView(Vineta.BasicAtt.class)
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<Vineta> postVineta(@RequestParam("titulo") String titulo, @RequestParam("desc") String desc, @RequestParam("file") MultipartFile file, @RequestParam("tags") String tag, HttpServletRequest request){
+	public ResponseEntity<Vineta> postVineta(@RequestParam("titulo") String titulo, @RequestParam("desc") String desc, @RequestPart("file") MultipartFile file, @RequestParam("tags") String tag, HttpServletRequest request){
 		
 		//Quito los espacios del string
     	tag = tag.trim();

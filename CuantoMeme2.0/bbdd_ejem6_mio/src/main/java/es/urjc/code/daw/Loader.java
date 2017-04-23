@@ -41,7 +41,7 @@ public class Loader {
 		Tag tag = new Tag("Trolldad");
 		this.tagservice.save(tag);
 		for(int i= 0; i<NUSERS; i++){
-			User u = new User("usuario_"+i, "usuario_"+i, "cuantomeme"+i+"@gmail.com", "ROLE_USER");
+			User u = new User("usuario_"+i, "usuario_"+i, "cuantomeme@gmail.com", "ROLE_USER");
 			this.users_generated.add(u);
 			//this.userrepository.save(u);
 		}
