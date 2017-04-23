@@ -17,23 +17,24 @@ export class LoginService {
 		this.reqIsLogged();
 	}
 	
-	reqIsLogged(){
-		//Esto da un 401. Es el valor esperado
-		let headers = new Headers({
-			'X-Requested-With': 'XMLHttpRequest'
-		});
-			
-		let options = new RequestOptions({headers});		
-		this.http.get(BASE_URL+'logIn', options).subscribe(
-			response => this.processLogInResponse(response),
-			error => {
-				if(error.status != 401){
-					console.error("Error when asking if logged: "+
-						JSON.stringify(error));	
-				}				
-			}
-		);
-	}
+	reqIsLogged() {
+
+        const headers = new Headers({
+            'X-Requested-With': 'XMLHttpRequest'
+        });
+
+        const options = new RequestOptions({ withCredentials: true, headers });
+
+        this.http.get(URL + 'logIn', options).subscribe(
+            response => this.processLogInResponse(response),
+            error => {
+                if (error.status !== 401) {
+                    console.error('Error when asking if logged: ' +
+                        JSON.stringify(error));
+                }
+            }
+        );
+    }
 	
 	private processLogInResponse(response){
         var response = response.json()
@@ -49,47 +50,41 @@ export class LoginService {
 }
 	
 
-	logIn(user: string, pass: string) {
-		
-		let userPass = user + ":" + pass;
-					
-		let headers = new Headers({
-			'Authorization': 'Basic '+utf8_to_b64(userPass),
-			'X-Requested-With': 'XMLHttpRequest'
-		});
-		let options = new RequestOptions({headers});		
-		console.log("logIN---")
-		return this.http.get(BASE_URL+'logIn', options).map(
-			response => {
-				this.processLogInResponse(response);
-				return this.user;
-			}
-		);		
-	}
-	
-	logOut() {
-		
-		return this.http.get(BASE_URL+'logOut').map(
-			response => {
-				this.isLogged = false;
-				this.user = null;
-				console.log("Sesión cerrada");
-				return response;
-			}
-		);
-	}
+    logIn(user: string, pass: string) {
+
+        const userPass = user + ':' + pass;
+
+        const headers = new Headers({
+            'Authorization': 'Basic ' + utf8_to_b64(userPass),
+            'X-Requested-With': 'XMLHttpRequest'
+        });
+
+        const options = new RequestOptions({ withCredentials: true, headers });
+		var url = BASE_URL + 'logIn';
+		console.log(url)
+        return this.http.get(url, options).map(
+            response => {
+                this.processLogInResponse(response);
+                return this.user;
+            }
+        );
+    }
+
+    logOut() {
+
+        return this.http.get(URL + '/logOut', { withCredentials: true }).map(
+            response => {
+                this.isLogged = false;
+                this.user = null;
+                return response;
+            }
+        );
+    }
 
 	setLoggedUser(user: Usuario) {
 		this.user = user;
 		this.userUpdated.emit(this.user);
 	}
-
-	/*loggedUserIsAdmin() {
-		if(this.user && (this.user.getRoles()[1] === "ROLE_ADMIN")) {
-			this.isAdmin = true;
-			console.log(this.user.getUsername + " es admin");
-		}
-	}*/
 }
 
 function utf8_to_b64(str) {
