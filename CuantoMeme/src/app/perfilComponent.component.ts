@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { LoginService } from './services/login.service';
 import { UsuarioService } from './services/usuarios.service';
+import { VinetasService } from './services/vinetas.service';
 
 import { Usuario } from './classes/Usuario.class';
 import { Vineta } from './classes/Vineta.class';
@@ -29,10 +30,13 @@ export class PerfilComponent implements OnInit {
     imgVineta: FileList;
 
     //Cambiar avatar
+    imgAvatar: FileList;
 
     //CambiarUsuario
+    usernameModified: string;
+    emailModified: string;
 
-    constructor(private ServicioLogin: LoginService, private ServicioUsuarios :UsuarioService, private Ruta: ActivatedRoute) {
+    constructor(private ServicioLogin: LoginService, private ServicioUsuarios :UsuarioService, private Ruta: ActivatedRoute, private ServicioVinetas: VinetasService) {
       //
     }
 
@@ -64,5 +68,41 @@ export class PerfilComponent implements OnInit {
       this.imgVineta = e.target.files;
     }
 
-    subirVineta() {}
+    avatarChange(e) {
+      this.imgAvatar = e.target.files;
+    }
+
+    subirVineta() {
+      if(this.imgVineta.length > 0) {
+        let file: File = this.imgVineta[0];
+        let formData: FormData = new FormData();
+
+        formData.append('file', file);
+        formData.append('titulo', this.tituloVineta);
+        formData.append('desc', this.descVineta);
+        formData.append('tags', this.tagVineta);
+
+        this.ServicioVinetas.publicarVineta(formData);
+      }
+    }
+
+    cambiarAvatar() {
+      if(this.imgAvatar.length > 0) {
+        let file: File = this.imgAvatar[0];
+        let formData: FormData = new FormData();
+
+        formData.append('file', file);
+
+        this.ServicioUsuarios.actualizarAvatar(formData);
+      }
+    }
+
+    cambiarUsuario() {
+        let formData: FormData = new FormData();
+
+        formData.append('nombre', this.usernameModified);
+        formData.append('email', this.emailModified);
+
+        this.ServicioUsuarios.actualizarDatos(formData);
+    }
 }

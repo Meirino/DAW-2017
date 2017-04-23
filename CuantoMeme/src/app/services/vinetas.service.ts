@@ -51,6 +51,10 @@ export class VinetasService {
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
+
+    publicarVineta(formulario: FormData) {
+        //Llamar a la API
+    }
     
     getVineta(id: number){
         return this.http.get(BASE_URL+id, { withCredentials: true }).map(
