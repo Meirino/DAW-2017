@@ -9,20 +9,14 @@ import { LoginService } from './services/login.service';
   styleUrls: ['./templates/css/sidemenu.css', './templates/font-awesome/css/font-awesome.css']
 })
 
-export class sideMenuComponent implements OnInit {
-    activeUser: Usuario;
+export class sideMenuComponent{
 
     constructor(private servicioLogin: LoginService) {
-      this.activeUser = this.servicioLogin.user;
     }
-
-    ngOnInit() {
-      this.servicioLogin.userUpdated.subscribe(
-        user => this.activeUser = user
-      );
-    }
-
     logOut() {
-      this.servicioLogin.logOut().subscribe(response => {this.activeUser = null; console.log(response)}, error => console.log(error));
+      this.servicioLogin.logOut().subscribe(
+        response => {
+          console.log(response)}, 
+          error => console.log(error));
     }
 }

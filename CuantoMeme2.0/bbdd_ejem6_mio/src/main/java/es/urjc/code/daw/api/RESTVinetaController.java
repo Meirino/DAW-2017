@@ -117,8 +117,12 @@ public class RESTVinetaController {
         		System.out.println("not before");
         		v.dislike();
         		this.vinvetaservice.save(v);
-        		this.userservice.save(user);}
-        	return new ResponseEntity<>(user.getVinetas_odiadas(), HttpStatus.OK);
+        		this.userservice.save(user);
+        		return new ResponseEntity<>(user.getVinetas_odiadas(), HttpStatus.OK);
+        		}
+        	else{
+        		return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+        	}
         }else{
         	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }    	
@@ -137,8 +141,12 @@ public class RESTVinetaController {
         		user.getVinetas_gustadas().add(v);
         		v.like();
         		this.vinvetaservice.save(v);
-        		this.userservice.save(user);}
-        	return new ResponseEntity<>(user.getVinetas_gustadas(), HttpStatus.OK);
+        		this.userservice.save(user);
+        		return new ResponseEntity<>(user.getVinetas_gustadas(), HttpStatus.OK);
+        	}
+        	else{
+        		return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+        	}  	
         }else{
         	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -157,8 +165,12 @@ public class RESTVinetaController {
         		System.out.println("not before");
         		user.getVinetas_favoritas().add(v);
         		this.vinvetaservice.save(v);
-        		this.userservice.save(user);}
-        	return new ResponseEntity<>(user.getVinetas_favoritas(), HttpStatus.OK);
+        		this.userservice.save(user);
+            	return new ResponseEntity<>(user.getVinetas_favoritas(), HttpStatus.OK);
+        }else{
+    		return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+    	} 
+        	
         }else{
         	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

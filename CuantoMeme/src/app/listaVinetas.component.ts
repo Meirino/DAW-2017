@@ -31,6 +31,7 @@ export class listaVinetasComponent {
           this.login.user.likes.push(likes[i]);
         }
         console.log(this.login.user)
+        viñeta.likes = viñeta.likes+1;
     },///console.log(likes),this.login.user.setLikes(likes.instanceof()),
         error => console.log(error)
       ); 
@@ -49,6 +50,7 @@ export class listaVinetasComponent {
           this.login.user.dislikes.push(dislikes[i]);
         }
         console.log(this.login.user)
+        viñeta.dislikes = viñeta.dislikes+1;
         },
         error => console.log(error)
       );
