@@ -11,7 +11,8 @@ import { vinetasDetalleComponent } from './vinetasDetalle.component';
 import { TagViewComponent } from './TagViewComponent.component';
 import { PerfilComponent } from './perfilComponent.component';
 import { LikesComponent } from './likesComponent.component';
-
+import { FavoritesComponent } from './favoritesComponent.component';
+import { DislikesComponent } from './dislikesComponent.component';
 const rutas: Routes = [
     { path: '', redirectTo: '/index', pathMatch: 'full' },
     { path: 'index', component: IndexComponent }, 
@@ -21,7 +22,9 @@ const rutas: Routes = [
     { path: 'vineta/:id', component: vinetasDetalleComponent },
     { path: 'tag/:nombre', component: TagViewComponent },
     { path: 'perfil/:id', component: PerfilComponent },
-    { path: 'likes', component: LikesComponent }
+    { path: 'likes', component: LikesComponent },
+    { path: 'favorites', component: FavoritesComponent },
+    { path: 'dislikes', component: DislikesComponent }
 ]
 
 export const routing = RouterModule.forRoot(rutas);

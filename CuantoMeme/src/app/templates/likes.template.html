@@ -1,6 +1,6 @@
 <div id="fondo">
 <h1 id="titulo" class="text-center display-4"><strong>{{title}}</strong></h1>
-<div class="row" *ngIf="userStatus">
+<div class="row" *ngIf="serviciologin.isLogged">
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <lista-vinetas [listaVinetas]="listaVinetas"></lista-vinetas>

@@ -8,8 +8,8 @@ export class Vineta {
     public titulo: string;
     public descripcion: string;
     public imgURL: string;
-    public likes: number;
-    public dislikes: number;
+    likes: number;
+    dislikes: number;
     public autor : Usuario;
     public tag : Tag;
 

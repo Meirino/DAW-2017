@@ -8,13 +8,13 @@ import { Usuario } from './classes/Usuario.class';
 import { Router, ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'likes-component',
+  selector: 'favorites-component',
   templateUrl: './templates/likes.template.html',
   styleUrls: ['./templates/css/index.css', './templates/font-awesome/css/font-awesome.css']
 })
 
-export class LikesComponent {
-  title = 'Viñetas que te han gustado';
+export class FavoritesComponent {
+  title = 'Tus vinetas favoritas';
   listaVinetas: Vineta[];
 
   constructor(private servicioVinetas: VinetasService, private serviciologin: LoginService, private router: Router) {}
@@ -22,8 +22,12 @@ export class LikesComponent {
   ngOnInit() {
     this.listaVinetas = [];
       if(this.serviciologin.isLogged) {
-          if(this.serviciologin.user.getlikes()) {
-            this.listaVinetas = this.serviciologin.user.getlikes();
+          if(this.serviciologin.user.favoritos) {
+            console.log("Estos son los favoritos")
+            console.log(this.serviciologin.user.getfavorites())
+            console.log("Estos hay en listavinetas")
+            console.log(this.listaVinetas)
+            this.listaVinetas = this.serviciologin.user.getfavorites();
           }
       } else {
           this.router.navigateByUrl('/login');

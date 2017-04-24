@@ -79,7 +79,7 @@ export class VinetasService {
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest'
     });
-    var url = BASE_URL+"favorites/"+id;
+    var url = BASE_URL+"favorite/"+id;
     console.log(url)
     const options = new RequestOptions({ withCredentials: true, headers });
             return this.http.put(url, null, options)

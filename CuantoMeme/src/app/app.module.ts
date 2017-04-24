@@ -22,6 +22,8 @@ import { PerfilComponent } from './perfilComponent.component';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { loggedUserService } from './services/logged-user.service';
 import { LikesComponent } from './likesComponent.component';
+import { DislikesComponent } from './dislikesComponent.component';
+import { FavoritesComponent } from './favoritesComponent.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { LikesComponent } from './likesComponent.component';
     TagViewComponent,
     sideMenuComponent,
     PerfilComponent,
-    LikesComponent
+    LikesComponent,
+    FavoritesComponent,
+    DislikesComponent
   ],
   imports: [
     BrowserModule,

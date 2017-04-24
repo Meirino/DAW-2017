@@ -35,6 +35,12 @@ export class Usuario {
     getlikes(): Vineta[] {
         return this.likes;
     }
+    getfavorites(): Vineta[] {
+        return this.favoritos;
+    }
+    getdislikes(): Vineta[] {
+        return this.dislikes;
+    }
     setLogged(logged:Boolean){
         this.isLogged = logged;
     }
