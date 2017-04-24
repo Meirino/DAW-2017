@@ -31,30 +31,28 @@ import es.urjc.code.daw.vineta.*;
 @RestController
 public class RESTVinetaController {
 	
-	interface VinetaView extends Vineta.BasicAtt , Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
+	interface VinetaDetailView extends Vineta.BasicAtt , Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
+	interface VinetaView extends Vineta.BasicAtt , Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt{}
+
 	interface UserView extends User.BasicAtt, User.VinetaupAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt, User.VinetafavAtt,
 	User.VinetadislikeAtt, User.VinetalikeAtt, User.SeguidoresAtt, User.RolesAtt, Vineta.TagAtt, Vineta.UserAtt{}
+	
 	@Autowired
 	private VinetaService vinvetaservice;
 	@Autowired
 	private UserComponent userComponent;
 	@Autowired
-	private utils utilservice;
-    
+	private utils utilservice; 
     @Autowired
-	private TagService tagservice;
-    
+	private TagService tagservice;   
     @Autowired
     private UserService userservice;
-	
 	@Autowired
-	private StorageService storageService;
-	
+	private StorageService storageService;	
 	@Autowired
     public void FileUploadController(StorageService storageService) {
         this.storageService = storageService;
     }
-	
 	@Autowired
 	private utils utilidades;
 	
@@ -66,7 +64,7 @@ public class RESTVinetaController {
 	}
 	
 	@CrossOrigin
-	@JsonView(VinetaView.class)
+	@JsonView(VinetaDetailView.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Vineta> getvineta(@PathVariable int id){
 		if(this.vinvetaservice.findOne((long) id) != null) {
@@ -105,6 +103,68 @@ public class RESTVinetaController {
 		return new ResponseEntity<>(user.getVinetas_odiadas(), HttpStatus.OK);
 	}
 	
+	
+	@CrossOrigin
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/dislikes/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<List<Vineta>> dislikeVineta(@PathVariable long id){
+		long id2 = userComponent.getLoggedUser().getId();
+		User user = this.userservice.findOne(id2);
+        Vineta v = vinvetaservice.findOne(id);
+        if (v != null){
+        	if (!v.isDislikedBefore(user)){
+        		user.getVinetas_odiadas().add(v);
+        		System.out.println("not before");
+        		v.dislike();
+        		this.vinvetaservice.save(v);
+        		this.userservice.save(user);}
+        	return new ResponseEntity<>(user.getVinetas_odiadas(), HttpStatus.OK);
+        }else{
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }    	
+	}
+	
+	@CrossOrigin
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/likes/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<List<Vineta>> likeVineta(@PathVariable long id){
+		long id2 = userComponent.getLoggedUser().getId();
+		User user = this.userservice.findOne(id2);
+        Vineta v = vinvetaservice.findOne(id);
+        if (v != null){
+        	if (!v.isLikedBefore(user)){
+        		System.out.println("not before");
+        		user.getVinetas_gustadas().add(v);
+        		v.like();
+        		this.vinvetaservice.save(v);
+        		this.userservice.save(user);}
+        	return new ResponseEntity<>(user.getVinetas_gustadas(), HttpStatus.OK);
+        }else{
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    	
+	}
+	
+	@CrossOrigin
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/favorite/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<List<Vineta>> favorite(@PathVariable long id){
+		long id2 = userComponent.getLoggedUser().getId();
+		User user = this.userservice.findOne(id2);
+        Vineta v = vinvetaservice.findOne(id);
+        if (v != null){
+        	if (!v.isFavoritedBefore(user)){
+        		System.out.println("not before");
+        		user.getVinetas_favoritas().add(v);
+        		this.vinvetaservice.save(v);
+        		this.userservice.save(user);}
+        	return new ResponseEntity<>(user.getVinetas_favoritas(), HttpStatus.OK);
+        }else{
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    	
+	}
+	
 	@CrossOrigin
 	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/busq/{texto}", method = RequestMethod.GET)
@@ -132,7 +192,7 @@ public class RESTVinetaController {
 	}
 	
 	@CrossOrigin
-	@JsonView(Vineta.BasicAtt.class)
+	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Vineta> deletevineta(@PathVariable int id, HttpServletRequest request) {
 		Principal p = request.getUserPrincipal();
@@ -148,7 +208,7 @@ public class RESTVinetaController {
 	}
 	
 	@CrossOrigin
-	@JsonView(Vineta.BasicAtt.class)
+	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<Vineta> postVineta(@RequestParam("titulo") String titulo, @RequestParam("desc") String desc, @RequestPart("file") MultipartFile file, @RequestParam("tags") String tag, HttpServletRequest request){
 		
@@ -191,67 +251,5 @@ public class RESTVinetaController {
         
         return new ResponseEntity<>(viñeta, HttpStatus.CREATED);
 	}
-
-	@CrossOrigin
-	@JsonView(UserView.class)
-	@RequestMapping(value = "/dislike/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<User> dislikeVineta(@PathVariable long id){
-		long id2 = userComponent.getLoggedUser().getId();
-		User user = this.userservice.findOne(id2);
-        Vineta v = vinvetaservice.findOne(id);
-        if (v != null){
-        	if (!v.isDislikedBefore(user)){
-        		user.getVinetas_odiadas().add(v);
-        		System.out.println("not before");
-        		v.dislike();
-        		this.vinvetaservice.save(v);
-        		this.userservice.save(user);}
-        	return new ResponseEntity<>(user, HttpStatus.OK);
-        }else{
-        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }    	
-	}
-	
-	@CrossOrigin
-	@JsonView(UserView.class)
-	@RequestMapping(value = "/like/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<User> likeVineta(@PathVariable long id){
-		long id2 = userComponent.getLoggedUser().getId();
-		User user = this.userservice.findOne(id2);
-        Vineta v = vinvetaservice.findOne(id);
-        if (v != null){
-        	if (!v.isLikedBefore(user)){
-        		System.out.println("not before");
-        		user.getVinetas_gustadas().add(v);
-        		v.like();
-        		this.vinvetaservice.save(v);
-        		this.userservice.save(user);}
-        	return new ResponseEntity<>(user, HttpStatus.OK);
-        }else{
-        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    	
-	}
-	
-	@CrossOrigin
-	@JsonView(UserView.class)
-	@RequestMapping(value = "/favorite/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<User> favorite(@PathVariable long id){
-		long id2 = userComponent.getLoggedUser().getId();
-		User user = this.userservice.findOne(id2);
-        Vineta v = vinvetaservice.findOne(id);
-        if (v != null){
-        	if (!v.isFavoritedBefore(user)){
-        		System.out.println("not before");
-        		user.getVinetas_favoritas().add(v);
-        		this.vinvetaservice.save(v);
-        		this.userservice.save(user);}
-        	return new ResponseEntity<>(user, HttpStatus.OK);
-        }else{
-        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    	
-	}
-	
 
 }

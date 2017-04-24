@@ -34,7 +34,7 @@ import es.urjc.code.daw.vineta.Vineta;
 public class RESTUserController {	
 	private final long bytes = 1048576;
 	
-	interface UserView extends User.BasicAtt {}
+	interface UserView extends User.BasicAtt, User.RolesAtt {}
 
 	@Autowired
 	private UserRepository userRepository;

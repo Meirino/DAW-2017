@@ -25,11 +25,15 @@ export class listaVinetasComponent {
     } else {
       //llamar a la API
       this.servicioVinetas.likeVineta(viñeta.id).subscribe(
-        response => console.log(response),
+        likes => {
+        this.login.user.setLikes([]);
+        for (var i = 0; i < likes["length"]; i++) { 
+          this.login.user.likes.push(likes[i]);
+        }
+        console.log(this.login.user)
+    },///console.log(likes),this.login.user.setLikes(likes.instanceof()),
         error => console.log(error)
-      );
-      this.login.user.addLike(viñeta);
-      viñeta.likes = viñeta.likes + 1;
+      ); 
     }
   }
 
@@ -39,11 +43,32 @@ export class listaVinetasComponent {
     } else {
       //llamar a la API
       this.servicioVinetas.dislikeVineta(viñeta.id).subscribe(
-        response => console.log(response),
+        dislikes => {
+        this.login.user.setDislikes([]);
+        for (var i = 0; i < dislikes["length"]; i++) { 
+          this.login.user.dislikes.push(dislikes[i]);
+        }
+        console.log(this.login.user)
+        },
         error => console.log(error)
       );
-      this.login.user.addDislike(viñeta);
-      viñeta.likes = viñeta.likes + 1;
+    }
+  }
+  favorite(viñeta: Vineta): void {
+    if(this.login.isLogged === false) {
+      this.router.navigateByUrl("/login");
+    } else {
+      //llamar a la API
+      this.servicioVinetas.favoriteVineta(viñeta.id).subscribe(
+        favorites => {
+        this.login.user.setFav([]);
+        for (var i = 0; i < favorites["length"]; i++) { 
+          this.login.user.favoritos.push(favorites[i]);
+        }
+        console.log(this.login.user)
+        },
+        error => console.log(error)
+      );
     }
   }
 
