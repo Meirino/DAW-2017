@@ -16,19 +16,15 @@ import { Router, ActivatedRoute} from '@angular/router';
 export class LikesComponent {
   title = 'Viñetas que te han gustado';
   listaVinetas: Vineta[];
-  userStatus: boolean;
-  loggedUser: Usuario;
 
   constructor(private servicioVinetas: VinetasService, private serviciologin: LoginService, private router: Router) {}
 
   ngOnInit() {
       this.listaVinetas = [];
-      this.userStatus = this.serviciologin.isLogged;
-      if(this.userStatus) {
+      if(this.serviciologin.isLogged) {
           if(this.serviciologin.user.getlikes()) {
             console.log(this.serviciologin.user);
-            this.loggedUser = this.serviciologin.user;
-            this.listaVinetas = this.loggedUser.getlikes();
+            this.listaVinetas = this.serviciologin.user.getlikes();
           }
       } else {
           this.router.navigateByUrl('/login');
