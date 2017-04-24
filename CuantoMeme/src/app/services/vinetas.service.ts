@@ -5,6 +5,7 @@ import { Tag } from '../classes/Tag.class';
 
 import { Injectable } from '@angular/core';
 import { Http, Response, JsonpModule, RequestOptions, Headers } from '@angular/http';
+import { LoginService } from './login.service';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -13,7 +14,6 @@ import 'rxjs/Rx';
 
 
 const BASE_URL = 'http://localhost:8080/api/vinetas/'
-//Es necesario que no termine en / ya que podemos meter filtros para el paginado
 
 @Injectable()
 export class VinetasService {
@@ -26,18 +26,37 @@ export class VinetasService {
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
-
+    likes(){
+        return this.http.get(BASE_URL+'/likes', { withCredentials: true })
+        .map(response => this.generateVinetas(response.json()))
+        .catch(error => this.handleError(error))
+    }
+    dislikes(){
+        return this.http.get(BASE_URL+'/dislikes', { withCredentials: true })
+        .map(response => this.generateVinetas(response.json()))
+        .catch(error => this.handleError(error))
+    }
+    favorites(){
+        return this.http.get(BASE_URL+'/favorites', { withCredentials: true })
+        .map(response => this.generateVinetas(response.json()))
+        .catch(error => this.handleError(error))
+    }
+    uploaded(){
+        return this.http.get(BASE_URL+'/uploaded', { withCredentials: true })
+        .map(response => this.generateVinetas(response.json()))
+        .catch(error => this.handleError(error))
+    }
     likeVineta(id: number) {
     const body = JSON.stringify("");
     const headers = new Headers({
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest'
     });
-    var url = BASE_URL+"like/"+id;
+    var url = BASE_URL+"likes/"+id;
     console.log(url)
     const options = new RequestOptions({ withCredentials: true, headers });
-            return this.http.put(url, null, options)
-                .map(response => response)
+    return this.http.put(url, null, options)
+                .map(response => this.generateVinetas(response.json()))
                 .catch(error => error);
     }
     dislikeVineta(id: number) {
@@ -46,11 +65,11 @@ export class VinetasService {
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest'
     });
-    var url = BASE_URL+"dislike/"+id;
+    var url = BASE_URL+"dislikes/"+id;
     console.log(url)
     const options = new RequestOptions({ withCredentials: true, headers });
             return this.http.put(url, null, options)
-                .map(response => response)
+                .map(response => this.generateVinetas(response.json()))
                 .catch(error => error);
     }
 
@@ -60,11 +79,11 @@ export class VinetasService {
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest'
     });
-    var url = BASE_URL+"favorite/"+id;
+    var url = BASE_URL+"favorites/"+id;
     console.log(url)
     const options = new RequestOptions({ withCredentials: true, headers });
             return this.http.put(url, null, options)
-                .map(response => response)
+                .map(response => this.generateVinetas(response.json()))
                 .catch(error => error);
     }
 

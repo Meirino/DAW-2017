@@ -42,18 +42,27 @@ export class LoginService {
         this.user  = new Usuario(response.id, response.username, response.AvatarURL)
         this.user.setRoles(response.roles)
         this.user.setLogged(true);
-        this.user.setSubidas(this.vinetaservice.generateVinetas(response.vinetas_subidas));
-        this.user.setDislikes(this.vinetaservice.generateVinetas(response.vinetas_odiadas));
-        this.user.setLikes(this.vinetaservice.generateVinetas(response.vinetas_gustadas));
-        this.user.setFav(this.vinetaservice.generateVinetas(response.vinetas_favoritas));
-
+        this.vinetaservice.likes().subscribe(
+            response => this.user.setLikes(response),
+            error => console.error(error)
+        )
+        this.vinetaservice.dislikes().subscribe(
+            response => this.user.setDislikes(response),
+            error => console.error(error)
+        )
+        this.vinetaservice.favorites().subscribe(
+            response => this.user.setFav(response),
+            error => console.error(error)
+        )
+        this.vinetaservice.uploaded().subscribe(
+            response => this.user.setSubidas(response),
+            error => console.error(error)
+        ) 
 }
 	
 
     logIn(user: string, pass: string) {
-
         const userPass = user + ':' + pass;
-
         const headers = new Headers({
             'Authorization': 'Basic ' + utf8_to_b64(userPass),
             'X-Requested-With': 'XMLHttpRequest'
@@ -64,6 +73,7 @@ export class LoginService {
 		console.log(url)
         return this.http.get(url, options).map(
             response => {
+                console.log(response)
                 this.processLogInResponse(response);
                 return this.user;
             }

@@ -12,9 +12,9 @@ export class Usuario {
     private seguidos: Usuario[];
     private seguidores: Usuario[];
     //private comentarios: Comentario[];
-    private likes: Vineta[];
-    private dislikes: Vineta[];
-    private favoritos: Vineta[];
+     likes: Vineta[];
+     dislikes: Vineta[];
+     favoritos: Vineta[];
     private subidas: Vineta[];
     private isLogged: Boolean = false;
     private roles: string[] = [];
