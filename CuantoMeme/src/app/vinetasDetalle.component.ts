@@ -2,6 +2,7 @@ import { Router, ActivatedRoute} from '@angular/router';
 import { Vineta } from './classes/Vineta.class';
 import { Component, Input, OnInit } from '@angular/core';
 import { VinetasService } from './services/vinetas.service';
+import { ComentariosService } from './services/comentario.service';
 import { LoginService } from './services/login.service';
 
 import 'rxjs/add/operator/switchMap';
@@ -18,8 +19,10 @@ export class vinetasDetalleComponent implements OnInit {
   private login: LoginService,
   private route: ActivatedRoute,
   private router: Router,
-  private servicioVinetas: VinetasService
-) {    console.log("llego1");
+  private servicioVinetas: VinetasService,
+  private serviciocomentarios: ComentariosService
+
+) {
 }
 
 //Consige el id de la viñeta a la que estamos accediendo
@@ -89,8 +92,28 @@ ngOnInit() {
     }
   }
 
-  comentar():void {
-    //Añadir la llamada a la API para crear un comentario
-  }
+  comentar(comentario: string):void {
+    var id = this.vineta.id
+     if(this.login.isLogged === false) {
+      this.router.navigateByUrl("/login");
+    } else {
+      //llamar a la API
+      this.serviciocomentarios.comentarVineta(this.vineta.id, comentario).subscribe(
+        vineta => {this.vineta = <Vineta>vineta,
+        console.log("-------")
+        console.log(this.vineta)
+        console.log("-------0")
+        console.log(vineta[0])
+        console.log("-------1")
+        console.log(vineta[1])
+        console.log("-------2")
+        console.log(vineta[2])
+        let link:any[] = ['/vineta', id];
+        this.router.navigate(link)
+    },
+    error => console.log(error)
+      );
+    }
 
+}
 }

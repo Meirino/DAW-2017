@@ -128,6 +128,7 @@ export class VinetasService {
         return v
     }
     generateVinetaWithComents(vineta: any){
+        console.log("llego a generar vineta with commetn"+vineta)
         var v : Vineta = this.generateVineta(vineta);
         var comentarios : Comentario[] = [];
         for(let comentario of vineta.comentarios){

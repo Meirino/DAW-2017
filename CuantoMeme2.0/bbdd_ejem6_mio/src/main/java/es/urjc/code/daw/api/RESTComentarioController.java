@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.urjc.code.daw.comentario.*;
+import es.urjc.code.daw.tag.Tag;
 import es.urjc.code.daw.user.*;
 import es.urjc.code.daw.vineta.*;
 
@@ -25,7 +27,8 @@ import es.urjc.code.daw.vineta.*;
 public class RESTComentarioController {
 	
 	interface ComentarioView extends Comentario.BasicAtt, Comentario.UserAtt, User.BasicAtt, Comentario.VinetaAtt, Vineta.BasicAtt{}
-	
+	interface VinetaDetailView extends Vineta.BasicAtt , Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt, Vineta.ComentariosAtt, Comentario.BasicAtt, Comentario.UserAtt{}
+
 	@Autowired
 	private ComentarioService comentarioservice;
 	
@@ -35,7 +38,12 @@ public class RESTComentarioController {
 	@Autowired
 	private VinetaService vinvetaservice;
 
+	@Autowired
+	private UserComponent userComponent;
 	
+    @Autowired
+    private UserService userservice;
+    
 	@JsonView(ComentarioView.class)
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<Comentario>> getComentarios(){
@@ -86,12 +94,14 @@ public class RESTComentarioController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	@JsonView(ComentarioView.class)
+	@CrossOrigin
+	@JsonView(VinetaDetailView.class)
 	@RequestMapping(value = "/vineta/{id}", method = RequestMethod.POST)
-	public ResponseEntity<Comentario> publicarcomentario(@PathVariable int id, @RequestParam("texto") String texto, HttpServletRequest request) {
-		Principal p = request.getUserPrincipal();
-    	User user = this.userRepository.findByUsername(p.getName());
+	public ResponseEntity<Vineta> publicarcomentario(@PathVariable int id, @RequestParam("texto") String texto) {
+		System.out.println("llego a comentar"+texto);
+		long id2 = userComponent.getLoggedUser().getId();
+		System.out.println("el id es: "+id2);
+		User user = this.userservice.findOne(id2);
     	
 		if(this.vinvetaservice.findOne((long) id) != null) {
 			Comentario comentario = new Comentario(texto);
@@ -99,8 +109,8 @@ public class RESTComentarioController {
 			Vineta viñeta = this.vinvetaservice.findOne((long) id);
 			comentario.setVineta(viñeta);
 			this.comentarioservice.save(comentario);
-			viñeta.addComentario(comentario);
-			return new ResponseEntity<>(comentario, HttpStatus.CREATED);
+			//viñeta.addComentario(comentario);
+			return new ResponseEntity<>(viñeta, HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

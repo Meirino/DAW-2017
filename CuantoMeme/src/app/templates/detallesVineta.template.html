@@ -30,9 +30,9 @@
             <p id="comentarP">Comentar</p>
             <hr id="comentarHR">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="¿Qué piensas?">
+                <input #ComentarioInput type="text" class="form-control" placeholder="¿Qué piensas?">
                 <span class="input-group-btn">
-                    <button class="btn btn-info" type="button">Enviar</button>
+                    <button class="btn btn-info" (click)="comentar(ComentarioInput.value); ComentarioInput.value = ''" type="button">Enviar</button>
                 </span>
             </div>
         </div>

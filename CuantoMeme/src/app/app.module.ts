@@ -18,6 +18,7 @@ import { routing }  from './appRouting.module';
 import { TagService } from './services/tag.service';
 import { sideMenuComponent } from './side-menu.component';
 import { LoginService } from './services/login.service';
+import { ComentariosService } from './services/comentario.service';
 import { PerfilComponent } from './perfilComponent.component';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { loggedUserService } from './services/logged-user.service';
@@ -48,7 +49,7 @@ import { FavoritesComponent } from './favoritesComponent.component';
     HttpModule,
     routing
   ],
-  providers: [VinetasService, UsuarioService, TagService, LoginService, loggedUserService],
+  providers: [VinetasService, UsuarioService, TagService, LoginService, loggedUserService, ComentariosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
