@@ -10,9 +10,9 @@
             <div class="row"> <img [src]="vineta.imgURL" class="img-responsive mx-auto d-block"> </div>
             <p class="text-center lead">{{vineta.descripcion}}</p>
             <div class="container text-center">
-                <button class="btn btn-warning btn-circle"> <i class="fa fa-star" aria-hidden="true"></i></button>
-                <button class="btn btn-success btn-circle" (click)="like(this)"> <i class="fa fa-thumbs-up" aria-hidden="true"></i> <span style="color:#5cb85c" class="badge">{{vineta.likes}}</span></button>
-                <button class="btn btn-danger btn-circle" (click)="dislike(this)"> <i class="fa fa-thumbs-down" aria-hidden="true"></i> <span style="color:#d9534f" class="badge">{{vineta.dislikes}}</span></button>
+                <button class="btn btn-warning btn-circle" (click)="favorite(vineta.id)"> <i class="fa fa-star" aria-hidden="true"></i></button>
+                <button class="btn btn-success btn-circle" (click)="like(vineta.id)"> <i class="fa fa-thumbs-up" aria-hidden="true"></i> <span style="color:#5cb85c" class="badge">{{vineta.likes}}</span></button>
+                <button class="btn btn-danger btn-circle" (click)="dislike(vineta.id)"> <i class="fa fa-thumbs-down" aria-hidden="true"></i> <span style="color:#d9534f" class="badge">{{vineta.dislikes}}</span></button>
             </div>
         </div>
         <div class="col-md-2">
