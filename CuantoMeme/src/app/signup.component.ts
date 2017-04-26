@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { LoginService } from './services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'signup-component',
@@ -7,12 +9,24 @@ import { Component } from '@angular/core';
 })
 
 export class SignUpComponent {
+    constructor(private ServicioLogin: LoginService, private redireccion: Router) {}
+
   //Comentario
   nombre: string = '';
   email: string = '';
   pass: string = '';
   fuerzaPass: string = 'nula';
+  signupuser(){
+    this.ServicioLogin.signup(this.nombre, this.email, this.pass).subscribe(
+      response => {
+                  if (response == 201){
+                      alert("Creado correctamente. \n Ahora se te redirigira al portal de Login")
+                      this.redireccion.navigateByUrl("/login");
 
+                  }
+      },
+      error => console.log(error))
+  }
   getPassStrength(): void {
     //Inicializo su fuerza a 0
     let fuerza: number = 0;

@@ -16,12 +16,12 @@
                     <form role="form">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Nombre de usuario" name="nombre-usuario" type="text" autofocus> </div>
+                                <input class="form-control" placeholder="Nombre de usuario" name="nombre-usuario" [(ngModel)]="nombre"type="text" autofocus> </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Correo electrónico" name="email" type="email" autofocus> </div>
+                                <input class="form-control" placeholder="Correo electrónico" name="email" type="email" [(ngModel)]="email" autofocus > </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Contraseña" name="password" type="password" (keypress)="getPassStrength()" [(ngModel)]="pass">Fuerza de la contraseña: {{fuerzaPass}} </div>
-                            <a href="index.html" class="btn btn-lg btn-success btn-block">Registro</a> </fieldset>
+                            <a (click)="signupuser()" class="btn btn-lg btn-success btn-block">Registro</a> </fieldset>
                     </form>
                 </div>
             </div>

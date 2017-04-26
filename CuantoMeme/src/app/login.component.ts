@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private ServicioLogin: LoginService, private servicioLogeado: loggedUserService, private redireccion: Router) {}
+  constructor(private ServicioLogin: LoginService, private redireccion: Router) {}
 
   username: string;
   pass: string;

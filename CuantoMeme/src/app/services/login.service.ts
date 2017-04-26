@@ -1,5 +1,5 @@
 import { Injectable, OnInit, EventEmitter } from '@angular/core';
-import { Http, RequestOptions, Headers } from '@angular/http';
+import { Http, Response, JsonpModule, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 import { Usuario } from '../classes/Usuario.class';
 import {VinetasService} from './vinetas.service'
 
@@ -79,7 +79,26 @@ export class LoginService {
             }
         );
     }
-
+    signup(username: string, email: string, pass: string) {
+        const headers = new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Requested-With': 'XMLHttpRequest'
+        });
+        const params = new URLSearchParams();
+        params.append('username', username);
+        params.append('pass', pass);
+        params.append('email', email);
+        const options = new RequestOptions();
+        options.withCredentials = true;
+        options.search = params;
+        options.headers = headers;
+		var url = BASE_URL + 'signup';
+		console.log(url)
+        return this.http.post(url, null, options).map(
+            response => { return response.status},
+            error => console.error(error)
+        );
+    }
     logOut() {
 
         return this.http.get(BASE_URL + 'logOut', { withCredentials: true }).map(
