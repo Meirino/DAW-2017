@@ -8,17 +8,17 @@ export class Usuario {
     public username: string;
     private password: string;
     public email: string;
-    private publicaciones: Vineta[];
-    private seguidos: Usuario[];
-    private seguidores: Usuario[];
+    public publicaciones: Vineta[];
+    public seguidos: Usuario[];
+    public seguidores: Usuario[];
     //private comentarios: Comentario[];
-     likes: Vineta[];
-     dislikes: Vineta[];
-     favoritos: Vineta[];
-    private subidas: Vineta[];
-    private isLogged: Boolean = false;
-    private roles: string[] = [];
-    private isAdmin: boolean;
+    public likes: Vineta[];
+    public dislikes: Vineta[];
+    public favoritos: Vineta[];
+    public subidas: Vineta[];
+    public isLogged: Boolean = false;
+    public roles: string[] = [];
+    public isAdmin: boolean;
 
 
     constructor(id: number, username: string, avatar: string) {

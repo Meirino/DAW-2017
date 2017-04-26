@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Vineta } from './classes/Vineta.class';
 import { listaVinetasComponent } from './listaVinetas.component';
 import { VinetasService } from './services/vinetas.service';
 import { UsuarioService } from './services/usuarios.service';
 import { LoginService } from './services/login.service';
 import { Usuario } from './classes/Usuario.class';
-import { Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'favorites-component',
@@ -13,7 +13,7 @@ import { Router, ActivatedRoute} from '@angular/router';
   styleUrls: ['./templates/css/index.css', './templates/font-awesome/css/font-awesome.css']
 })
 
-export class FavoritesComponent {
+export class FavoritesComponent implements OnInit {
   title = 'Tus vinetas favoritas';
   listaVinetas: Vineta[];
 
@@ -21,17 +21,17 @@ export class FavoritesComponent {
 
   ngOnInit() {
     this.listaVinetas = [];
-      if(this.serviciologin.isLogged) {
-          if(this.serviciologin.user.favoritos) {
-            console.log("Estos son los favoritos")
-            console.log(this.serviciologin.user.getfavorites())
-            console.log("Estos hay en listavinetas")
-            console.log(this.listaVinetas)
-            this.listaVinetas = this.serviciologin.user.getfavorites();
-          }
-      } else {
-          this.router.navigateByUrl('/login');
+    if(this.serviciologin.isLogged) {
+      if(this.serviciologin.user.favoritos) {
+        console.log("Estos son los favoritos")
+        console.log(this.serviciologin.user.getfavorites())
+        console.log("Estos hay en listavinetas")
+        console.log(this.listaVinetas)
+        this.listaVinetas = this.serviciologin.user.getfavorites();
       }
+    } else {
+      this.router.navigateByUrl('/login');
+    }
   }
 
 }
