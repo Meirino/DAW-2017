@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -150,6 +151,7 @@ public class RESTUserController {
 		}
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@JsonView(UserView.class)
 	public ResponseEntity<User> modifyUSer(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("email") String email, HttpServletRequest request) {
@@ -239,11 +241,10 @@ public class RESTUserController {
 			return new ResponseEntity<>(current_user, HttpStatus.OK);	
 		}
 	}
-	
 
-	
+	@CrossOrigin
 	@RequestMapping(value = "/avatar", method = RequestMethod.PUT)
-    public ResponseEntity<User> handleAvatarUpload(@RequestParam("file") MultipartFile avatar, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public ResponseEntity<User> handleAvatarUpload(@RequestPart("file") MultipartFile avatar, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 		System.out.println("he llegado a cambiar avatar");
 		if (!userComponent.isLoggedUser()){
 		     return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

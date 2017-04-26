@@ -47,8 +47,9 @@ export class UsuarioService {
     }
 
     actualizarAvatar(formulario: FormData) {
-        //Llamar a la API
-        //Actualizar avatar en local
+        //Llamada a la API
+        this.http.put(BASE_URL+'avatar', formulario, { withCredentials: true }).subscribe(data => console.log(data), error => console.log(error));
+        //Actualizar Avatar en local
     }
 
     actualizarDatos(formulario: FormData) {
