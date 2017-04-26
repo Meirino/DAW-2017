@@ -82,6 +82,8 @@ export class VinetasService {
 
     publicarVineta(formulario: FormData) {
         //Llamar a la API
+        let headers = new Headers();
+        this.http.post(BASE_URL, formulario, { withCredentials: true }).subscribe(data => console.log(data), error => console.log(error));
     }
     
     getVineta(id: number){
