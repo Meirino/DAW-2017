@@ -41,6 +41,15 @@ export class PerfilComponent implements OnInit {
     }
 
     ngOnInit() {
+      if(this.ServicioLogin.isLogged && (this.ServicioLogin.user.id ===this.Ruta.snapshot.params['id'])){
+        this.user = this.ServicioLogin.user;
+      }else{
+        this.ServicioUsuarios.getUser(this.Ruta.snapshot.params['id']).subscribe(
+          response => console.log(response)
+        )
+      }
+
+      /*
       this.ServicioUsuarios.getUser(this.Ruta.snapshot.params['id']).subscribe(
         user => {
           console.log(user);
@@ -57,7 +66,7 @@ export class PerfilComponent implements OnInit {
           this.username = this.user.getUsername();
         },
         error => console.log(error)
-      );
+      );*/
     }
 
     eleccion(opción: string): void {
