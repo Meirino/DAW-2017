@@ -189,7 +189,26 @@ public class RESTUserController {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
-	
+	@CrossOrigin
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/{id}/followers", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> getFollowerByid(@PathVariable long id){
+		if(this.userservice.findOne(id) != null) {
+			User user = this.userservice.findOne(id);
+			return new ResponseEntity<>(user.getFollowers(), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	@CrossOrigin
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/{id}/followings", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> getFollowingsByid(@PathVariable long id){
+		if(this.userservice.findOne(id) != null) {
+			User user = this.userservice.findOne(id);
+			return new ResponseEntity<>(user.getFollowing(), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
 	@RequestMapping(value = "/follow/{id}", method = RequestMethod.PUT)
 	@JsonView(UserView.class)
 	public ResponseEntity<User> followUSer(@PathVariable long id, HttpServletRequest request) {	
