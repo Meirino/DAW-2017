@@ -6,6 +6,7 @@ import { Tag } from '../classes/Tag.class';
 import { Injectable } from '@angular/core';
 import { Http, Response, JsonpModule, RequestOptions, Headers } from '@angular/http';
 import { LoginService } from './login.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -17,7 +18,8 @@ const BASE_URL = 'http://localhost:8080/api/vinetas/'
 
 @Injectable()
 export class VinetasService {
-    constructor(private http: Http){}
+
+    constructor(private http: Http, private router: Router){}
     
     getVinetas(page:number){
         var url = BASE_URL+"?page="+page;
@@ -26,39 +28,48 @@ export class VinetasService {
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
+
     likes(){
         return this.http.get(BASE_URL+'/likes', { withCredentials: true })
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
+
     dislikes(){
         return this.http.get(BASE_URL+'/dislikes', { withCredentials: true })
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
+
     favorites(){
         return this.http.get(BASE_URL+'/favorites', { withCredentials: true })
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
+
     uploaded(){
         return this.http.get(BASE_URL+'/uploaded', { withCredentials: true })
         .map(response => this.generateVinetas(response.json()))
         .catch(error => this.handleError(error))
     }
+
     likeVineta(id: number) {
     const body = JSON.stringify("");
     const headers = new Headers({
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest'
     });
+
     var url = BASE_URL+"likes/"+id;
-    console.log(url)
+
+    console.log(url);
+
     const options = new RequestOptions({ withCredentials: true, headers });
     return this.http.put(url, null, options)
                 .map(response => this.generateVinetas(response.json()))
                 .catch(error => error);
     }
+
     dislikeVineta(id: number) {
     const body = JSON.stringify("");
     const headers = new Headers({
@@ -99,8 +110,10 @@ export class VinetasService {
         .catch(error => this.handleError(error))
     }
 
-    publicarVineta(formulario: FormData) {
+    publicarVineta(formulario: FormData): void {
         //Llamar a la API
+        let headers = new Headers();
+        this.http.post(BASE_URL, formulario, { withCredentials: true }).subscribe(data => this.router.navigateByUrl('/vineta/' + data.json().id), error => console.log(error));
     }
     
     getVineta(id: number){

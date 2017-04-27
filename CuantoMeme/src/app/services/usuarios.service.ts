@@ -38,22 +38,55 @@ export class UsuarioService {
         )
     }
     generateFullUser(user: any){
-        var usuario : Usuario = new Usuario(user.id, user.username, user.AvatarURL)
-        usuario.setSubidas(this.serviciovineta.generateVinetas(user.vinetas_subidas))
-        usuario.setDislikes(this.serviciovineta.generateVinetas(user.vinetas_odiadas))
-        usuario.setLikes(this.serviciovineta.generateVinetas(user.vinetas_gustadas))
-        usuario.setFav(this.serviciovineta.generateVinetas(user.vinetas_favoritas))
-        return usuario
+        var usuario : Usuario = new Usuario(user.id, user.username, user.AvatarURL);
+        return usuario;
     }
 
-    actualizarAvatar(formulario: FormData) {
-        //Llamar a la API
-        //Actualizar avatar en local
+    actualizarAvatar(formulario: FormData): Observable<boolean> {
+        //Llamada a la API
+        return this.http.put(BASE_URL+'avatar', formulario, { withCredentials: true }).map(data => true, error => console.log(error));
     }
 
     actualizarDatos(formulario: FormData) {
         //Llamar a la API
         //Actualizar datos en local
+    }
+
+    getUserLikes (id: number): Observable<Vineta[]> {
+        return this.http.get(BASE_URL+id+'/likes').map(
+            response => this.serviciovineta.generateVinetas(response.json()),
+            error => console.log(error)
+        );
+    }
+
+    getUserDislikes (id: number): Observable<Vineta[]> {
+        return this.http.get(BASE_URL+id+'/dislikes').map(
+            response => this.serviciovineta.generateVinetas(response.json()),
+            error => console.log(error)
+        );
+    }
+
+    getUserFavoritas (id: number): Observable<Vineta[]> {
+        return this.http.get(BASE_URL+id+'/favorites').map(
+            response => this.serviciovineta.generateVinetas(response.json()),
+            error => console.log(error)
+        );
+    }
+
+    getUserPublicadas (id: number): Observable<Vineta[]> {
+        return this.http.get(BASE_URL+id+'/publicadas').map(
+            response => this.serviciovineta.generateVinetas(response.json()),
+            error => console.log(error)
+        );
+    }
+
+    recuperarAvatar(): string {
+        let url: string;
+        this.http.get(BASE_URL+'avatar', { withCredentials: true }).subscribe(
+            response => url = response.json(),
+            error => console.log(error)
+        );
+        return url;
     }
 
 

@@ -83,13 +83,6 @@ public class RESTVinetaController {
 	}
 	@CrossOrigin
 	@JsonView(VinetaView.class)
-	@RequestMapping(value = "/uploaded/{id}", method = RequestMethod.GET)
-	public ResponseEntity<List<Vineta>> getUploadedByid(@PathVariable long id){
-		User user = this.userservice.findOne(id);
-		return new ResponseEntity<>(user.getVinetas_subidas(), HttpStatus.OK);
-	}
-	@CrossOrigin
-	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/favorites", method = RequestMethod.GET)
 	public ResponseEntity<List<Vineta>> getFavorites(){
 		User user = this.userservice.findOne(this.userComponent.getLoggedUser().getId());
@@ -98,37 +91,17 @@ public class RESTVinetaController {
 	
 	@CrossOrigin
 	@JsonView(VinetaView.class)
-	@RequestMapping(value = "/users/{id}/favorites", method = RequestMethod.GET)
-	public ResponseEntity<List<Vineta>> getFavoritesByid(@PathVariable long id){
-		User user = this.userservice.findOne(id);
-		return new ResponseEntity<>(user.getVinetas_favoritas(), HttpStatus.OK);
-	}
-	@CrossOrigin
-	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/likes", method = RequestMethod.GET)
 	public ResponseEntity<List<Vineta>> getLike(){
 		User user = this.userservice.findOne(this.userComponent.getLoggedUser().getId());
 		return new ResponseEntity<>(user.getVinetas_gustadas(), HttpStatus.OK);
 	}
-	@CrossOrigin
-	@JsonView(VinetaView.class)
-	@RequestMapping(value = "/users/{id}/likes", method = RequestMethod.GET)
-	public ResponseEntity<List<Vineta>> getLikeByid(@PathVariable long id){
-		User user = this.userservice.findOne(id);
-		return new ResponseEntity<>(user.getVinetas_gustadas(), HttpStatus.OK);
-	}
+	
 	@CrossOrigin
 	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/dislikes", method = RequestMethod.GET)
 	public ResponseEntity<List<Vineta>> getDislike(){
 		User user = this.userservice.findOne(this.userComponent.getLoggedUser().getId());
-		return new ResponseEntity<>(user.getVinetas_odiadas(), HttpStatus.OK);
-	}
-	@CrossOrigin
-	@JsonView(VinetaView.class)
-	@RequestMapping(value = "/users/{id}/dislikes", method = RequestMethod.GET)
-	public ResponseEntity<List<Vineta>> getDisikeByid(@PathVariable long id){
-		User user = this.userservice.findOne(id);
 		return new ResponseEntity<>(user.getVinetas_odiadas(), HttpStatus.OK);
 	}
 	

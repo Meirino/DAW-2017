@@ -9,17 +9,16 @@ import { Usuario } from './classes/Usuario.class';
 import { Vineta } from './classes/Vineta.class';
 
 @Component({
-  selector: 'perfil-component',
-  templateUrl: './templates/perfil.template.html',
+  selector: 'home-component',
+  templateUrl: './templates/home.template.html',
   styleUrls: ['./templates/css/perfil.css', './templates/font-awesome/css/font-awesome.css']
 })
 
-export class PerfilComponent implements OnInit {
+export class HomeComponent implements OnInit {
     opcion: string = 'publicadas';
-    email: string = 'No disponible';
-    username: string = 'John Doe';
-    subidas: Vineta[];
-    avatar: string = '';
+    email: string = 'cuantomeme@cuantomeme.com';
+    subidas: Vineta[] = [];
+    propio: boolean = false;
 
     //Subir viñeta
     tituloVineta: string = '';
@@ -39,43 +38,15 @@ export class PerfilComponent implements OnInit {
     }
 
     ngOnInit() {
-      if (this.ServicioLogin.isLogged && (this.ServicioLogin.user.id === this.Ruta.snapshot.params['id'])) {
-            this.router.navigateByUrl('/home');
+      if(!this.ServicioLogin.isLogged) {
+        this.router.navigateByUrl('/');
       } else {
-          this.ServicioUsuarios.getUser(this.Ruta.snapshot.params['id']).subscribe(
-            response => {
-              console.log(response);
-              this.username = response.username;
-              this.avatar = response.avatarURL;
-              this.email = response.email;
-              //
-            },
+        this.ServicioUsuarios.getUserPublicadas(this.ServicioLogin.user.id).subscribe(
+            response => this.ServicioLogin.user.setSubidas(response),
             error => console.log(error)
-          );
-          this.ServicioUsuarios.getUserPublicadas(this.Ruta.snapshot.params['id']).subscribe(
-            response => this.subidas = response,
-            error => console.log(error)
-          );
+        );
+        console.log(this.ServicioLogin.user.getSubidas());
       }
-
-      /*
-      this.ServicioUsuarios.getUser(this.Ruta.snapshot.params['id']).subscribe(
-        user => {
-          console.log(user);
-          this.user = user;
-          if(this.ServicioLogin.user && this.user.id === this.ServicioLogin.user.id) {
-            this.propio = true;
-          }
-          this.avatar = this.user.getAvatar();
-          this.subidas = this.user.getSubidas();
-          for(let vineta of this.subidas) {
-            vineta.autor = this.user;
-          }
-          this.email = this.user.getEmail();
-          this.username = this.user.getUsername();
-        },
-        error => console.log(error)
-      );*/
     }
 
     eleccion(opción: string): void {
@@ -99,6 +70,7 @@ export class PerfilComponent implements OnInit {
         formData.append('titulo', this.tituloVineta);
         formData.append('desc', this.descVineta);
         formData.append('tags', this.tagVineta);
+
         this.ServicioVinetas.publicarVineta(formData);
       }
     }
@@ -109,8 +81,17 @@ export class PerfilComponent implements OnInit {
         let formData: FormData = new FormData();
 
         formData.append('file', file);
+        console.log('Nombre del avatar: ' + this.imgAvatar[0].name);
 
-        this.ServicioUsuarios.actualizarAvatar(formData);
+        this.ServicioUsuarios.actualizarAvatar(formData).subscribe(
+          data => {
+            this.ServicioLogin.user.avatarURL = 'http://localhost:8080/imgs/' + this.imgAvatar[0].name;
+            for(let vineta of this.ServicioLogin.user.getSubidas()) {
+              vineta.autor.avatarURL = this.ServicioLogin.user.avatarURL;
+            }
+          },
+          error => console.log(error)
+        );
       }
     }
 

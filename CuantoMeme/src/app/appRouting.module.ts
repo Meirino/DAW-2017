@@ -13,6 +13,8 @@ import { PerfilComponent } from './perfilComponent.component';
 import { LikesComponent } from './likesComponent.component';
 import { FavoritesComponent } from './favoritesComponent.component';
 import { DislikesComponent } from './dislikesComponent.component';
+import { HomeComponent } from './homeComponent.component';
+
 const rutas: Routes = [
     { path: '', redirectTo: '/index', pathMatch: 'full' },
     { path: 'index', component: IndexComponent }, 
@@ -24,7 +26,8 @@ const rutas: Routes = [
     { path: 'perfil/:id', component: PerfilComponent },
     { path: 'likes', component: LikesComponent },
     { path: 'favorites', component: FavoritesComponent },
-    { path: 'dislikes', component: DislikesComponent }
+    { path: 'dislikes', component: DislikesComponent },
+    { path: 'home', component: HomeComponent }
 ]
 
 export const routing = RouterModule.forRoot(rutas);

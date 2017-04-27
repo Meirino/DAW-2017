@@ -25,6 +25,7 @@ import { loggedUserService } from './services/logged-user.service';
 import { LikesComponent } from './likesComponent.component';
 import { DislikesComponent } from './dislikesComponent.component';
 import { FavoritesComponent } from './favoritesComponent.component';
+import { HomeComponent } from './homeComponent.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { FavoritesComponent } from './favoritesComponent.component';
     PerfilComponent,
     LikesComponent,
     FavoritesComponent,
-    DislikesComponent
+    DislikesComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

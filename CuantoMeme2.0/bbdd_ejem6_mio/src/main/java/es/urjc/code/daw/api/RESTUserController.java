@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -239,11 +240,19 @@ public class RESTUserController {
 		}
 	}
 	
-
+	@RequestMapping(value = "/avatar", method = RequestMethod.GET)
+    public ResponseEntity<String> getAvatar(RedirectAttributes redirectAttributes, HttpServletRequest request) {
+		if (!userComponent.isLoggedUser()){
+		     return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} else {
+			Principal p = request.getUserPrincipal();
+			User user = userRepository.findByUsername(p.getName());
+			return new ResponseEntity<>(user.getAvatarURL(), HttpStatus.OK);
+		}
+    }
 	
 	@RequestMapping(value = "/avatar", method = RequestMethod.PUT)
-    public ResponseEntity<User> handleAvatarUpload(@RequestParam("file") MultipartFile avatar, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		System.out.println("he llegado a cambiar avatar");
+    public ResponseEntity<String> handleAvatarUpload(@RequestPart("file") MultipartFile avatar, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 		if (!userComponent.isLoggedUser()){
 		     return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
@@ -254,11 +263,66 @@ public class RESTUserController {
 	    	user.setAvatarURL("http://localhost:8080/imgs/"+avatar.getOriginalFilename());
 	    	this.userRepository.save(user);
 	        storageService.store(avatar);
-
-	        return new ResponseEntity<>(user, HttpStatus.OK);
+	        System.out.println(user.getAvatarURL());
+	        return new ResponseEntity<>(user.getAvatarURL(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-    }	
+    }
+	
+	@CrossOrigin
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/{id}/favorites", method = RequestMethod.GET)
+	public ResponseEntity<List<Vineta>> getFavoritesByid(@PathVariable long id){
+		if(this.userservice.findOne(id) != null) {
+			User user = this.userservice.findOne(id);
+			return new ResponseEntity<>(user.getVinetas_favoritas(), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+	@CrossOrigin
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/{id}/likes", method = RequestMethod.GET)
+	public ResponseEntity<List<Vineta>> getLikesByid(@PathVariable long id){
+		if(this.userservice.findOne(id) != null) {
+			User user = this.userservice.findOne(id);
+			return new ResponseEntity<>(user.getVinetas_gustadas(), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+	@CrossOrigin
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/{id}/dislikes", method = RequestMethod.GET)
+	public ResponseEntity<List<Vineta>> getDislikesByid(@PathVariable long id){
+		if(this.userservice.findOne(id) != null) {
+			User user = this.userservice.findOne(id);
+			return new ResponseEntity<>(user.getVinetas_odiadas(), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+	@CrossOrigin
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/{id}/publicadas", method = RequestMethod.GET)
+	public ResponseEntity<List<Vineta>> getSubidasByid(@PathVariable long id){
+		if(this.userservice.findOne(id) != null) {
+			User user = this.userservice.findOne(id);
+			return new ResponseEntity<>(user.getVinetas_subidas(), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+	@CrossOrigin
+	@JsonView(VinetaView.class)
+	@RequestMapping(value = "/{id}/email", method = RequestMethod.GET)
+	public ResponseEntity<String> getEmail(@PathVariable long id){
+		if(this.userservice.findOne(id) != null) {
+			User user = this.userservice.findOne(id);
+			return new ResponseEntity<>(user.getEmail(), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
 
 }
