@@ -36,4 +36,8 @@ comentarVineta(id: number, comentario: string) {
                 .map(response => this.serviciovineta.generateVinetaWithComents(response.json()))
                 .catch(error => error);
     }
+
+    eliminarComentario(id: number) {
+        //Llamar a la API
+    }
 }

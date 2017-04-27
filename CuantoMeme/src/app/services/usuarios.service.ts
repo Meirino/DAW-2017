@@ -89,5 +89,9 @@ export class UsuarioService {
         return url;
     }
 
+    eliminarUsuario(id: number) {
+        //Hacer petición API
+    }
+
 
 }

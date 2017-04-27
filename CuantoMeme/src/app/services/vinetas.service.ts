@@ -53,6 +53,10 @@ export class VinetasService {
         .catch(error => this.handleError(error))
     }
 
+    eliminarViñeta(id: number) {
+        //Hacer petición API
+    }
+
     likeVineta(id: number) {
     const body = JSON.stringify("");
     const headers = new Headers({

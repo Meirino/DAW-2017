@@ -10,13 +10,20 @@ import { VinetasService } from './services/vinetas.service';
   styleUrls: ['./templates/css/listaVinetas.css', './templates/font-awesome/css/font-awesome.css']
 })
 
-export class listaVinetasComponent {
+export class listaVinetasComponent implements OnInit {
   
   //El componente recibe una lista de viñetas y las muestra
   @Input() listaVinetas: Vineta[];
+  isAdmin: boolean = false;
 
-  constructor(private login: LoginService, private router: Router, private servicioVinetas: VinetasService) {
+  constructor(private login: LoginService, private router: Router, private servicioVinetas: VinetasService, private ServicioLogin: LoginService) {
     //etc
+  }
+
+  ngOnInit() {
+    if(this.ServicioLogin.isLogged) {
+      this.isAdmin = this.ServicioLogin.user.isAdmin;
+    }
   }
 
   like(viñeta: Vineta): void {
@@ -72,6 +79,12 @@ export class listaVinetasComponent {
         error => console.log(error)
       );
     }
+  }
+
+  eliminarVineta(id: number, viñeta: Vineta) {
+    this.servicioVinetas.eliminarViñeta(id);
+    let index: number = this.listaVinetas.indexOf(viñeta);
+    this.listaVinetas.splice(index, 1);
   }
 
 }

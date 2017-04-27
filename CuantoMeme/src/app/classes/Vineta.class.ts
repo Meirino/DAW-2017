@@ -13,7 +13,7 @@ export class Vineta {
     public autor : Usuario;
     public tag : Tag;
 
-    public comentarios: Comentario [] = [];
+    public comentarios: Comentario[] = [];
 
     constructor(id: number, titulo: string, descripcion: string, imgURL: string, likes: number, dislikes: number, tag : Tag){
         this.id = id;

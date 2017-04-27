@@ -6,71 +6,18 @@
             <p class="lead text-center" *ngIf="email"><i class="fa fa-envelope" aria-hidden="true"></i> Email: {{email}}</p>
             <div *ngIf="!propio">
                 <button class="btn btn-block btn-info follow">Seguir</button>
+                <button *ngIf="isAdmin" (click)="eliminarUsuario()" class="btn btn-block btn-danger follow">Eliminar</button>
             </div>
             <hr>
         </div>
         <div class="col-md-9">
             <div class="btn-group" role="group" aria-label="aaa">
               <button type="button" [ngClass]="{'active': opcion == 'publicadas'}" (click)="eleccion('publicadas')"  class="btn btn-lg btn-link">Publicadas</button>
-              <div *ngIf="propio">
-              <button type="button" [ngClass]="{'active': opcion == 'timeline'}" (click)="eleccion('timeline')"  class="btn btn-lg btn-link active">Timeline</button>
-              <button type="button" [ngClass]="{'active': opcion == 'publicar'}" (click)="eleccion('publicar')"  class="btn btn-lg btn-link">Publicar viñeta</button>
-              <button type="button" [ngClass]="{'active': opcion == 'modificar'}" (click)="eleccion('modificar')"  class="btn btn-lg btn-link">Modificar perfil</button>
-              </div>
               <button type="button" [ngClass]="{'active': opcion == 'seguidos'}" (click)="eleccion('seguidos')"  class="btn btn-lg btn-link">Seguidos</button>
             </div>
             <hr>
             <div *ngIf="opcion == 'publicadas'">
                 <lista-vinetas [listaVinetas]="subidas"></lista-vinetas>
-            </div>
-            <div *ngIf="opcion == 'publicar'">
-               <div class="col-md-7">
-                    <form>
-                        <div class="form-group">
-                            <label for="tituloinput">Título</label>
-                            <input [(ngModel)]="tituloVineta" type="text" class="form-control" id="tituloinput" aria-describedby="emailHelp" placeholder="Ponle título" name="titulo">
-                        </div>
-                        <div class="form-group">
-                            <label for="descinput">Descripción</label>
-                            <input [(ngModel)]="descVineta" type="text" class="form-control" id="descinput" aria-describedby="emailHelp" placeholder="Dale una descripción corta" name="desc">
-                        </div>
-                        <div class="form-group">
-                            <label for="imageninput">Imagen</label>
-                            <input type="file" class="form-control" id="imageninput" name="file" (change)="fileChange($event)">
-                            <small>¡No más de 1mb!</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="taginput">Tag</label>
-                            <input [(ngModel)]="tagVineta" type="text" class="form-control" id="descinput" aria-describedby="emailHelp" placeholder="Dale un tag" name="tag">
-                            <small>Solo uno. Los espacios se borrarán.</small>
-                        </div>
-                        <button class="btn btn-info" type="button" (click)="subirVineta()">¡Enviar!</button>
-                    </form>
-               </div>
-            </div>
-            <div *ngIf="opcion == 'modificar'">
-               <div class="col-md-7">
-                    <form>
-                        <div class="form-group">
-                            <label for="avatarinput">Cambiar avatar</label>
-                            <input type="file" class="form-control" id="avatarinput" name="file" (change)="avatarChange($event)">
-                            <small>¡No más de 1mb!</small>
-                        </div>
-                        <button class="btn btn-info" type="button" (click)="cambiarAvatar()">¡Enviar!</button>
-                    </form>
-                    <hr>
-                    <form>
-                        <div class="form-group">
-                            <label for="usernameinput">Cambiar nombre de usuario</label>
-                            <input [(ngModel)]="usernameModified" type="text" class="form-control" id="usernameinput" placeholder="Nombre de usuario" name="username">
-                        </div>
-                        <div class="form-group">
-                            <label for="emailinput">Cambiar email</label>
-                            <input [(ngModel)]="emailModified" type="text" class="form-control" id="emailinput" placeholder="email" name="email">
-                        </div>
-                        <button class="btn btn-info" type="button" (click)="cambiarUsuario">¡Enviar!</button>
-                    </form>
-               </div>
             </div>
         </div>
     </div>

@@ -20,19 +20,7 @@ export class PerfilComponent implements OnInit {
     username: string = 'John Doe';
     subidas: Vineta[];
     avatar: string = '';
-
-    //Subir viñeta
-    tituloVineta: string = '';
-    descVineta: string = '';
-    tagVineta: string = '';
-    imgVineta: FileList;
-
-    //Cambiar avatar
-    imgAvatar: FileList;
-
-    //CambiarUsuario
-    usernameModified: string;
-    emailModified: string;
+    isAdmin: boolean = false;
 
     constructor(private ServicioLogin: LoginService, private ServicioUsuarios :UsuarioService, private Ruta: ActivatedRoute, private ServicioVinetas: VinetasService, private router: Router) {
       //
@@ -42,6 +30,9 @@ export class PerfilComponent implements OnInit {
       if (this.ServicioLogin.isLogged && (this.ServicioLogin.user.id === this.Ruta.snapshot.params['id'])) {
             this.router.navigateByUrl('/home');
       } else {
+          if(this.ServicioLogin.isLogged) {
+            this.isAdmin = this.ServicioLogin.user.isAdmin;
+          }
           this.ServicioUsuarios.getUser(this.Ruta.snapshot.params['id']).subscribe(
             response => {
               console.log(response);
@@ -82,44 +73,8 @@ export class PerfilComponent implements OnInit {
       this.opcion = opción;
     }
 
-    fileChange(e) {
-      this.imgVineta = e.target.files;
-    }
-
-    avatarChange(e) {
-      this.imgAvatar = e.target.files;
-    }
-
-    subirVineta() {
-      if(this.imgVineta.length > 0) {
-        let file: File = this.imgVineta[0];
-        let formData: FormData = new FormData();
-
-        formData.append('file', file);
-        formData.append('titulo', this.tituloVineta);
-        formData.append('desc', this.descVineta);
-        formData.append('tags', this.tagVineta);
-        this.ServicioVinetas.publicarVineta(formData);
-      }
-    }
-
-    cambiarAvatar() {
-      if(this.imgAvatar.length > 0) {
-        let file: File = this.imgAvatar[0];
-        let formData: FormData = new FormData();
-
-        formData.append('file', file);
-
-        this.ServicioUsuarios.actualizarAvatar(formData);
-      }
-    }
-
-    cambiarUsuario() {
-        let formData: FormData = new FormData();
-
-        formData.append('nombre', this.usernameModified);
-        formData.append('email', this.emailModified);
-
-        this.ServicioUsuarios.actualizarDatos(formData);
+    eliminarUsuario() {
+      this.ServicioUsuarios.eliminarUsuario(this.Ruta.snapshot.params['id']);
+      this.router.navigateByUrl('/');
     }
 }

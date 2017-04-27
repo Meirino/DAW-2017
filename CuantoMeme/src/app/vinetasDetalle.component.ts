@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { VinetasService } from './services/vinetas.service';
 import { ComentariosService } from './services/comentario.service';
 import { LoginService } from './services/login.service';
+import { Comentario } from './classes/Comentario.class';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -20,21 +21,24 @@ export class vinetasDetalleComponent implements OnInit {
   private route: ActivatedRoute,
   private router: Router,
   private servicioVinetas: VinetasService,
-  private serviciocomentarios: ComentariosService
-
-) {
+  private serviciocomentarios: ComentariosService,
+  private ServicioLogin: LoginService
+  ) {
 }
 
-//Consige el id de la viñeta a la que estamos accediendo
-ngOnInit() {
-      console.log("llego2 con el id"+this.route.snapshot.params['id'] );
+    isAdmin: boolean = false;
 
-  //this.route.params.subscribe((params: Params) => this.id = +params['id']);
-  this.servicioVinetas.getVineta(this.route.snapshot.params['id']).subscribe(
-    vineta=> this.vineta = vineta,
-    error => console.log(error)
-  );
-}
+    //Consige el id de la viñeta a la que estamos accediendo
+    ngOnInit() {
+
+      if(this.ServicioLogin.isLogged) {
+        this.isAdmin = this.ServicioLogin.user.isAdmin;
+      }
+      this.servicioVinetas.getVineta(this.route.snapshot.params['id']).subscribe(
+        vineta=> this.vineta = vineta,
+        error => console.log(error)
+      );
+    }
 
 
     like(id: number): void {
@@ -114,6 +118,21 @@ ngOnInit() {
     error => console.log(error)
       );
     }
+  }
 
-}
+  eliminarVineta(id: number): void {
+    this.servicioVinetas.eliminarViñeta(id);
+    this.router.navigateByUrl('/');
+  }
+
+  eliminarComentario(id: number, c: Comentario): void {
+    let index: number = -1;
+    //Llamar a la API
+    this.serviciocomentarios.eliminarComentario(id);
+    //Eliminar en local
+    index = this.vineta.comentarios.indexOf(c);
+    if(index > -1) {
+      this.vineta.comentarios.splice(index, 1);
+    }
+  }
 }

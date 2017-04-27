@@ -2,7 +2,7 @@ import { Vineta } from './Vineta.class';
 import { Usuario } from './Usuario.class';
 
 export class Comentario {
-    private ID: number;
+    public ID: number;
     private fecha: Date;
     private comentario: string;
     private autor_comentario: Usuario;
