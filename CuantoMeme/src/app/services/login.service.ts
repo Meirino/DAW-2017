@@ -2,7 +2,7 @@ import { Injectable, OnInit, EventEmitter } from '@angular/core';
 import { Http, Response, JsonpModule, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 import { Usuario } from '../classes/Usuario.class';
 import {VinetasService} from './vinetas.service'
-
+import {UsuarioService} from './usuarios.service'
 import 'rxjs/Rx';
 const BASE_URL = 'http://localhost:8080/api/usuarios/'
 
@@ -13,7 +13,7 @@ export class LoginService {
 	user : Usuario;
 	userUpdated:EventEmitter<Usuario> = new EventEmitter<Usuario>();
 
-	constructor(private http: Http, private  vinetaservice: VinetasService){
+	constructor(private http: Http, private  vinetaservice: VinetasService, private usuarioservice: UsuarioService){
 		this.reqIsLogged();
 	}
 	
@@ -57,7 +57,15 @@ export class LoginService {
         this.vinetaservice.uploaded().subscribe(
             response => this.user.setSubidas(response),
             error => console.error(error)
-        ) 
+        )
+        this.usuarioservice.getFollowers(this.user.id).subscribe(
+            response => this.user.setFollowers(response),
+            error => console.error(error)
+        )
+        this.usuarioservice.getFollowings(this.user.id).subscribe(
+            response => this.user.setFollowings(response),
+            error => console.error(error)
+        )
 }
 	
 

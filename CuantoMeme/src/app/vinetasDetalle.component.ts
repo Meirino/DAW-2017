@@ -16,6 +16,7 @@ import 'rxjs/add/operator/switchMap';
 
 export class vinetasDetalleComponent implements OnInit {
   private vineta: Vineta;
+  private followinguser = false;
   constructor(
   private login: LoginService,
   private route: ActivatedRoute,
