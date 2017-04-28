@@ -189,6 +189,7 @@ public class RESTUserController {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
+	
 	@CrossOrigin
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/{id}/followers", method = RequestMethod.GET)
@@ -199,6 +200,7 @@ public class RESTUserController {
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
+	
 	@CrossOrigin
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/{id}/followings", method = RequestMethod.GET)

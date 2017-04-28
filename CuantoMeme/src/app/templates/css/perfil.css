@@ -7,12 +7,12 @@
     padding-top: 20px;
 }
 
-.btn {
+.btn-select {
     padding: 20px;
     margin-top: 20px;
 }
 
-.btn.active {
+.btn-select.active {
     color: white;
     background-color: #5bc0de;
     border-radius: 50px;
@@ -25,4 +25,10 @@
     border-top-right-radius: 0px !important;
 }
 
-.follow {}
+.btn-follow {
+    margin: 5px;
+}
+
+.media {
+    margin: 20px;
+}

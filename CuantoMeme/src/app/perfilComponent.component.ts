@@ -21,6 +21,8 @@ export class PerfilComponent implements OnInit {
     subidas: Vineta[];
     avatar: string = '';
     isAdmin: boolean = false;
+    seguidores: Usuario[];
+    seguidos: Usuario[];
 
     constructor(private ServicioLogin: LoginService, private ServicioUsuarios :UsuarioService, private Ruta: ActivatedRoute, private ServicioVinetas: VinetasService, private router: Router) {
       //
@@ -47,6 +49,18 @@ export class PerfilComponent implements OnInit {
             response => this.subidas = response,
             error => console.log(error)
           );
+          this.ServicioUsuarios.getFollowers(this.Ruta.snapshot.params['id']).subscribe(seguidores => {
+            this.seguidores = seguidores; 
+            console.log(seguidores);
+          }, error => console.log(error)
+          );
+          
+          this.ServicioUsuarios.getFollowings(this.Ruta.snapshot.params['id']).subscribe(seguidos => {
+            this.seguidos = seguidos; 
+            console.log(seguidos);
+          }, error => console.log(error)
+          );
+          
       }
 
       /*
@@ -76,5 +90,9 @@ export class PerfilComponent implements OnInit {
     eliminarUsuario() {
       this.ServicioUsuarios.eliminarUsuario(this.Ruta.snapshot.params['id']);
       this.router.navigateByUrl('/');
+    }
+
+    seguir(): void {
+      //Llamar a la API con id el this.Ruta.snapshot.params['id']
     }
 }

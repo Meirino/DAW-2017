@@ -3,20 +3,24 @@
         <div class="col-md-3">
             <img id="user-avatar" [src]="this.ServicioLogin.user.avatarURL" width="300px" class="rounded img-fluid mx-auto d-block">
             <h1 class="display-4 text-center">{{this.ServicioLogin.user.username}}</h1>
-            <p class="lead text-center"><i class="fa fa-envelope" aria-hidden="true"></i> Email: {{email}}</p>
+            <p class="lead text-center"><i class="fa fa-envelope" aria-hidden="true"></i> Email: {{this.ServicioLogin.user.username}}@cuantomeme.com</p>
             <hr>
         </div>
         <div class="col-md-9">
             <div class="btn-group" role="group" aria-label="aaa">
-              <button type="button" [ngClass]="{'active': opcion == 'publicadas'}" (click)="eleccion('publicadas')"  class="btn btn-lg btn-link">Publicadas</button>
-              <button type="button" [ngClass]="{'active': opcion == 'timeline'}" (click)="eleccion('timeline')"  class="btn btn-lg btn-link active">Timeline</button>
-              <button type="button" [ngClass]="{'active': opcion == 'publicar'}" (click)="eleccion('publicar')"  class="btn btn-lg btn-link">Publicar viñeta</button>
-              <button type="button" [ngClass]="{'active': opcion == 'modificar'}" (click)="eleccion('modificar')"  class="btn btn-lg btn-link">Modificar perfil</button>
-              <button type="button" [ngClass]="{'active': opcion == 'seguidos'}" (click)="eleccion('seguidos')"  class="btn btn-lg btn-link">Seguidos</button>
+              <button type="button" [ngClass]="{'active': opcion == 'publicadas'}" (click)="eleccion('publicadas')"  class="btn btn-select btn-lg btn-link">Publicadas</button>
+              <button type="button" [ngClass]="{'active': opcion == 'timeline'}" (click)="eleccion('timeline')"  class="btn btn-select btn-lg btn-link active">Timeline</button>
+              <button type="button" [ngClass]="{'active': opcion == 'publicar'}" (click)="eleccion('publicar')"  class="btn btn-select btn-lg btn-link">Publicar viñeta</button>
+              <button type="button" [ngClass]="{'active': opcion == 'modificar'}" (click)="eleccion('modificar')"  class="btn btn-select btn-lg btn-link">Modificar perfil</button>
+              <button type="button" [ngClass]="{'active': opcion == 'seguidos'}" (click)="eleccion('seguidos')"  class="btn btn-select btn-lg btn-link">Seguidos</button>
+              <button type="button" [ngClass]="{'active': opcion == 'seguidores'}" (click)="eleccion('seguidores')"  class="btn btn-select btn-lg btn-link">Seguidores</button>
             </div>
             <hr>
             <div *ngIf="opcion == 'publicadas'">
                 <lista-vinetas [listaVinetas]="this.ServicioLogin.user.getSubidas()"></lista-vinetas>
+            </div>
+            <div *ngIf="opcion == 'publicadas'">
+                <!--<lista-vinetas [listaVinetas]="this.ServicioLogin.user.getTimeline()"></lista-vinetas>-->
             </div>
             <div *ngIf="opcion == 'publicar'">
                <div class="col-md-7">
@@ -54,6 +58,30 @@
                         <button class="btn btn-info" type="button" (click)="cambiarAvatar()">¡Enviar!</button>
                     </form>
                </div>
+            </div>
+            <div *ngIf="opcion == 'seguidos'">
+                <ul class="list-unstyled">
+                    <h2 *ngIf="seguidos.length < 1">¡No sigues a nadie!</h2>
+                    <li class="media" *ngFor="let usuario of seguidos">
+                        <img width="100px" class="d-flex mr-3 rounded-circle" [src]="usuario.avatarURL" alt="Generic placeholder image">
+                        <div class="media-body">
+                            <h4 class="mt-0 mb-1 display-4">{{usuario.username}}</h4>
+                            <button type="button" (click)="unfollow(usuario, seguidos)" class="btn btn-sm btn-follow btn-primary">Dejar de seguir</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div *ngIf="opcion == 'seguidores'">
+                <ul class="list-unstyled">
+                    <h2 *ngIf="seguidores.length < 1">¡No te sigue nadie!</h2>
+                    <li class="media" *ngFor="let usuario of seguidores">
+                        <img width="100px" class="d-flex mr-3 rounded-circle" [src]="usuario.avatarURL" alt="Generic placeholder image">
+                        <div class="media-body">
+                            <h4 class="mt-0 mb-1 display-4">{{usuario.username}}</h4>
+                            <button type="button" (click)="unfollow(usuario, seguidores)" class="btn btn-sm btn-follow btn-primary">Dejar de seguir</button>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

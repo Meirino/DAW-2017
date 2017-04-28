@@ -19,6 +19,8 @@ export class HomeComponent implements OnInit {
     email: string = 'cuantomeme@cuantomeme.com';
     subidas: Vineta[] = [];
     propio: boolean = false;
+    seguidos: Usuario[];
+    seguidores: Usuario[];
 
     //Subir viñeta
     tituloVineta: string = '';
@@ -46,6 +48,8 @@ export class HomeComponent implements OnInit {
             error => console.log(error)
         );
         console.log(this.ServicioLogin.user.getSubidas());
+        this.seguidos = this.ServicioLogin.user.seguidos;
+        this.seguidores = this.ServicioLogin.user.seguidores;
       }
     }
 
@@ -93,6 +97,14 @@ export class HomeComponent implements OnInit {
           error => console.log(error)
         );
       }
+    }
+
+    unfollow(user: Usuario, lista: Usuario[]) {
+      //Llamar a la API
+      //
+      //Eliminar en local
+      let index = lista.indexOf(user);
+      lista.splice(index, 1);
     }
 
     cambiarUsuario() {
