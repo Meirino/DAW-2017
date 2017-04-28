@@ -4,7 +4,7 @@ import { Comentario } from '../classes/Comentario.class';
 import { Tag } from '../classes/Tag.class';
 import {VinetasService} from './vinetas.service'
 import { Injectable } from '@angular/core';
-import { Http, Response, JsonpModule , Headers} from '@angular/http';
+import { Http, Response, JsonpModule, RequestOptions, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -30,6 +30,33 @@ export class UsuarioService {
             return this.http.get(BASE_URL+id+'/followings', { withCredentials: true }).map(
             response => this.generateUsers(response.json())//this.extractVinetas(response)
         )
+    }
+
+    followUser(id:number){
+        const body = JSON.stringify("");
+        const headers = new Headers({
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        });
+        var url = BASE_URL+"follow/"+id;
+        console.log(url)
+        const options = new RequestOptions({ withCredentials: true, headers });
+            return this.http.put(url, null, options)
+                .map(response => this.generateUsers(response.json()))
+                .catch(error => error);
+    }
+    unfollowUser(id:number){
+        const body = JSON.stringify("");
+        const headers = new Headers({
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        });
+        var url = BASE_URL+"unfollow/"+id;
+        console.log(url)
+        const options = new RequestOptions({ withCredentials: true, headers });
+            return this.http.put(url, null, options)
+                .map(response => this.generateUsers(response.json()))
+                .catch(error => error);
     }
     generateUsers(users: any[]){
       var lu: Usuario[] = [];
