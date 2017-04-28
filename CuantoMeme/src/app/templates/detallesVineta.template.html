@@ -13,7 +13,7 @@
                 <button class="btn btn-warning btn-circle" (click)="favorite(vineta.id)"> <i class="fa fa-star" aria-hidden="true"></i></button>
                 <button class="btn btn-success btn-circle" (click)="like(vineta.id)"> <i class="fa fa-thumbs-up" aria-hidden="true"></i> <span style="color:#5cb85c" class="badge">{{vineta.likes}}</span></button>
                 <button class="btn btn-danger btn-circle" (click)="dislike(vineta.id)"> <i class="fa fa-thumbs-down" aria-hidden="true"></i> <span style="color:#d9534f" class="badge">{{vineta.dislikes}}</span></button>
-                <button *ngIf="ServicioLogin.user.isAdmin" class="btn btn-secondary btn-circle" (click)="eliminarVineta(vineta.id)"> <i class="fa fa-crosshairs" aria-hidden="true"></i></button>
+                <button *ngIf="isAdmin" class="btn btn-secondary btn-circle" (click)="eliminarVineta(vineta.id)"> <i class="fa fa-crosshairs" aria-hidden="true"></i></button>
             </div>
         </div>
         <div class="col-md-2">
@@ -45,7 +45,7 @@
                 <div class="media comentario">
                     <img class="d-flex mr-3 rounded-circle" [src]="comentario.autor_comentario.avatarURL" height="70px" alt="Generic placeholder image">
                     <div class="media-body">
-                        <h5 class="mt-0 lead"><a href="#">{{comentario.autor_comentario.username}}</a> <button *ngIf="ServicioLogin.user.isAdmin" class="btn btn-link" (click)="eliminarComentario(comentario.ID, comentario)"><i class="fa fa-crosshairs" aria-hidden="true"></i> Eliminar</button></h5>
+                        <h5 class="mt-0 lead"><a href="#">{{comentario.autor_comentario.username}}</a> <button *ngIf="isAdmin" class="btn btn-link" (click)="eliminarComentario(comentario.ID, comentario)"><i class="fa fa-crosshairs" aria-hidden="true"></i> Eliminar</button></h5>
                         <p class="comentario-body">{{comentario.comentario}}</p>
                     </div>
                 </div>
