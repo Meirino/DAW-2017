@@ -157,7 +157,7 @@ export class VinetasService {
         //return new Vineta(vineta.id, vineta.titulo, vineta.descripcion, vineta.URL, vineta.likes, vineta.dislikes, autor);
     }
     generateAutor(autor: any){
-        return new Usuario(autor.id, autor.username, autor.AvatarURL);
+        return new Usuario(autor.id, autor.username, autor.AvatarURL, autor.email);
     }
     generateComentario(comentario: any){
         var autor : Usuario = this.generateAutor(comentario.autor_comentario);

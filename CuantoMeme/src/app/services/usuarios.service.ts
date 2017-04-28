@@ -66,7 +66,7 @@ export class UsuarioService {
       return lu;
     }
     generateUser(user: any){
-        return new Usuario(user.id, user.username, user.AvatarURL);
+        return new Usuario(user.id, user.username, user.AvatarURL, user.email);
     }
 
    getUser(id){
@@ -76,7 +76,7 @@ export class UsuarioService {
         )
     }
     generateFullUser(user: any){
-        var usuario : Usuario = new Usuario(user.id, user.username, user.AvatarURL);
+        var usuario : Usuario = new Usuario(user.id, user.username, user.AvatarURL, user.email);
         return usuario;
     }
 

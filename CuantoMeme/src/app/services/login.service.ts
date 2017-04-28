@@ -39,7 +39,7 @@ export class LoginService {
 	private processLogInResponse(response){
         var response = response.json()
         this.isLogged = true;
-        this.user  = new Usuario(response.id, response.username, response.AvatarURL)
+        this.user  = new Usuario(response.id, response.username, response.AvatarURL, response.email)
         this.user.setRoles(response.roles)
         this.user.setLogged(true);
         this.vinetaservice.likes().subscribe(

@@ -16,71 +16,48 @@ import { Vineta } from './classes/Vineta.class';
 
 export class PerfilComponent implements OnInit {
     opcion: string = 'publicadas';
-    email: string = 'No disponible';
-    username: string = 'John Doe';
+    followinguser = false;
     subidas: Vineta[];
-    avatar: string = '';
     isAdmin: boolean = false;
-    seguidores: Usuario[];
-    seguidos: Usuario[];
+    usuario : Usuario;
 
     constructor(private ServicioLogin: LoginService, private ServicioUsuarios :UsuarioService, private Ruta: ActivatedRoute, private ServicioVinetas: VinetasService, private router: Router) {
       //
     }
 
     ngOnInit() {
-      if (this.ServicioLogin.isLogged && (this.ServicioLogin.user.id === this.Ruta.snapshot.params['id'])) {
-            this.router.navigateByUrl('/home');
-      } else {
-          if(this.ServicioLogin.isLogged) {
-            this.isAdmin = this.ServicioLogin.user.isAdmin;
-          }
-          this.ServicioUsuarios.getUser(this.Ruta.snapshot.params['id']).subscribe(
-            response => {
-              console.log(response);
-              this.username = response.username;
-              this.avatar = response.avatarURL;
-              this.email = response.email;
+      if (this.ServicioLogin.isLogged){
+        this.isAdmin = this.ServicioLogin.user.isAdmin;
+          if (this.ServicioLogin.user.id === this.Ruta.snapshot.params['id']) {
+            this.router.navigateByUrl('/home');}
+      } 
+      this.ServicioUsuarios.getUser(this.Ruta.snapshot.params['id']).subscribe(
+            response => { 
+              this.usuario = response;
+              if (this.ServicioLogin.isLogged){
+                this.followinguser = this.ServicioLogin.user.isFollowed(this.usuario.id);
+              }
               //
             },
             error => console.log(error)
           );
-          this.ServicioUsuarios.getUserPublicadas(this.Ruta.snapshot.params['id']).subscribe(
-            response => this.subidas = response,
+      this.ServicioUsuarios.getUserPublicadas(this.Ruta.snapshot.params['id']).subscribe(
+            response => this.usuario.setSubidas(response),
             error => console.log(error)
           );
-          this.ServicioUsuarios.getFollowers(this.Ruta.snapshot.params['id']).subscribe(seguidores => {
-            this.seguidores = seguidores; 
-            console.log(seguidores);
+      this.ServicioUsuarios.getFollowers(this.Ruta.snapshot.params['id']).subscribe(seguidores => {
+            this.usuario.setFollowers(seguidores); 
           }, error => console.log(error)
           );
           
-          this.ServicioUsuarios.getFollowings(this.Ruta.snapshot.params['id']).subscribe(seguidos => {
-            this.seguidos = seguidos; 
+      this.ServicioUsuarios.getFollowings(this.Ruta.snapshot.params['id']).subscribe(seguidos => {
+            this.usuario.setFollowings(seguidos); 
             console.log(seguidos);
           }, error => console.log(error)
           );
           
-      }
+      
 
-      /*
-      this.ServicioUsuarios.getUser(this.Ruta.snapshot.params['id']).subscribe(
-        user => {
-          console.log(user);
-          this.user = user;
-          if(this.ServicioLogin.user && this.user.id === this.ServicioLogin.user.id) {
-            this.propio = true;
-          }
-          this.avatar = this.user.getAvatar();
-          this.subidas = this.user.getSubidas();
-          for(let vineta of this.subidas) {
-            vineta.autor = this.user;
-          }
-          this.email = this.user.getEmail();
-          this.username = this.user.getUsername();
-        },
-        error => console.log(error)
-      );*/
     }
 
     eleccion(opción: string): void {
@@ -92,7 +69,47 @@ export class PerfilComponent implements OnInit {
       this.router.navigateByUrl('/');
     }
 
-    seguir(): void {
-      //Llamar a la API con id el this.Ruta.snapshot.params['id']
+    followuser(){
+      if(this.ServicioLogin.isLogged === false) {
+        this.router.navigateByUrl("/login");
+      }else {
+        this.ServicioUsuarios.followUser(this.usuario.id).subscribe(
+        seguidos=>{
+              this.ServicioLogin.user.setFollowings([]);
+              for (var i = 0; i < seguidos["length"]; i++) { 
+                this.ServicioLogin.user.seguidos.push(seguidos[i]);
+            }
+            this.followinguser = this.ServicioLogin.user.isFollowed(this.usuario.id);
+            let link:any[] = ['/perfil', this.usuario.id];
+            this.router.navigate(link)
+    },
+    error => console.error(error)
+      )
+    }
+    }
+    unfollowuser(){
+      if(this.ServicioLogin.isLogged === false) {
+        this.router.navigateByUrl("/login");
+      }else {
+        this.ServicioUsuarios.unfollowUser(this.usuario.id).subscribe(
+        seguidos=>{
+              
+              this.ServicioLogin.user.setFollowings([]);
+              if(typeof seguidos !== "undefined"){
+                console.log("vamos a ver los seguidos")
+                console.log(seguidos)
+                for (var i = 0; i < seguidos["length"]; i++) { 
+                  this.ServicioLogin.user.seguidos.push(seguidos[i]);
+                }
+              }else{
+                console.log("no considero que haya nada")
+              }
+            this.followinguser = this.ServicioLogin.user.isFollowed(this.usuario.id);
+            let link:any[] = ['/perfil', this.usuario.id];
+            this.router.navigate(link)
+    },
+    error => console.error(error)
+      )
+    }
     }
 }

@@ -21,10 +21,11 @@ export class Usuario {
     public isAdmin: boolean;
 
 
-    constructor(id: number, username: string, avatar: string) {
+    constructor(id: number, username: string, avatar: string, email:string) {
         this.username = username;
         this.id = id;
         this.avatarURL = avatar;
+        this.email = email;
     }
     getAvatar(): string {
         return this.avatarURL;
