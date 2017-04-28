@@ -2,6 +2,7 @@ import { Router, ActivatedRoute} from '@angular/router';
 import { Vineta } from './classes/Vineta.class';
 import { Component, Input, OnInit } from '@angular/core';
 import { VinetasService } from './services/vinetas.service';
+import { UsuarioService } from './services/usuarios.service';
 import { ComentariosService } from './services/comentario.service';
 import { LoginService } from './services/login.service';
 import { Comentario } from './classes/Comentario.class';
@@ -23,7 +24,8 @@ export class vinetasDetalleComponent implements OnInit {
   private router: Router,
   private servicioVinetas: VinetasService,
   private serviciocomentarios: ComentariosService,
-  private ServicioLogin: LoginService
+  private ServicioLogin: LoginService,
+  private ServicioUsuario: UsuarioService
   ) {
 }
 
@@ -36,12 +38,60 @@ export class vinetasDetalleComponent implements OnInit {
         this.isAdmin = this.ServicioLogin.user.isAdmin;
       }
       this.servicioVinetas.getVineta(this.route.snapshot.params['id']).subscribe(
-        vineta=> this.vineta = vineta,
+        vineta=> {
+          this.vineta = vineta;
+          if(this.ServicioLogin.isLogged) {
+            this.followinguser = this.ServicioLogin.user.isFollowed(this.vineta.autor.id);
+            console.log("siguiendo al usuario: "+this.followinguser)
+          }
+          
+      },
         error => console.log(error)
       );
     }
-
-
+    followuser(id:number){
+      if(this.login.isLogged === false) {
+        this.router.navigateByUrl("/login");
+      }else {
+        this.ServicioUsuario.followUser(id).subscribe(
+        seguidos=>{
+              this.ServicioLogin.user.setFollowings([]);
+              for (var i = 0; i < seguidos["length"]; i++) { 
+                this.ServicioLogin.user.seguidos.push(seguidos[i]);
+            }
+            this.followinguser = this.ServicioLogin.user.isFollowed(this.vineta.autor.id);
+            let link:any[] = ['/vineta', id];
+            this.router.navigate(link)
+    },
+    error => console.error(error)
+      )
+    }
+    }
+    unfollowuser(id:number){
+      if(this.login.isLogged === false) {
+        this.router.navigateByUrl("/login");
+      }else {
+        this.ServicioUsuario.unfollowUser(id).subscribe(
+        seguidos=>{
+              
+              this.ServicioLogin.user.setFollowings([]);
+              if(typeof seguidos !== "undefined"){
+                console.log("vamos a ver los seguidos")
+                console.log(seguidos)
+                for (var i = 0; i < seguidos["length"]; i++) { 
+                  this.ServicioLogin.user.seguidos.push(seguidos[i]);
+                }
+              }else{
+                console.log("no considero que haya nada")
+              }
+            this.followinguser = this.ServicioLogin.user.isFollowed(this.vineta.autor.id);
+            let link:any[] = ['/vineta', id];
+            this.router.navigate(link)
+    },
+    error => console.error(error)
+      )
+    }
+    }
     like(id: number): void {
     if(this.login.isLogged === false) {
       this.router.navigateByUrl("/login");
@@ -104,17 +154,10 @@ export class vinetasDetalleComponent implements OnInit {
     } else {
       //llamar a la API
       this.serviciocomentarios.comentarVineta(this.vineta.id, comentario).subscribe(
-        vineta => {this.vineta = <Vineta>vineta,
-        console.log("-------")
-        console.log(this.vineta)
-        console.log("-------0")
-        console.log(vineta[0])
-        console.log("-------1")
-        console.log(vineta[1])
-        console.log("-------2")
-        console.log(vineta[2])
-        let link:any[] = ['/vineta', id];
-        this.router.navigate(link)
+        vineta => {
+          this.vineta = <Vineta>vineta
+          let link:any[] = ['/vineta', id];
+          this.router.navigate(link)
     },
     error => console.log(error)
       );

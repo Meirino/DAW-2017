@@ -69,7 +69,7 @@ export class Usuario {
     }
     
     isFollowed(id: number){
-        for (var i; i < this.seguidos.length; i++){
+        for (var i=0; i < this.seguidos.length; i++){
             if (this.seguidos[i].id === id){
                 return true;
             }
