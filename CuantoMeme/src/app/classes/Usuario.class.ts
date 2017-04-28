@@ -60,6 +60,22 @@ export class Usuario {
     setDislikes(vinetas: Vineta[]){
         this.dislikes= vinetas;
     }
+
+    setFollowers(followers: Usuario[]){
+        this.seguidores = followers
+    }
+    setFollowings(followings: Usuario[]){
+        this.seguidos = followings
+    }
+    
+    isFollowed(id: number){
+        for (var i; i < this.seguidos.length; i++){
+            if (this.seguidos[i].id === id){
+                return true;
+            }
+        }
+        return false;
+    }
     getRoles() {
         return this.roles;
     }

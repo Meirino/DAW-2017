@@ -16,7 +16,18 @@ export class UsuarioService {
     constructor(private http: Http, private serviciovineta: VinetasService){}
     
     getUsers(){
-        return this.http.get(BASE_URL).map(
+        return this.http.get(BASE_URL, { withCredentials: true }).map(
+            response => this.generateUsers(response.json())//this.extractVinetas(response)
+        )
+    }
+
+    getFollowers(id:number){
+            return this.http.get(BASE_URL+id+'/followers', { withCredentials: true }).map(
+            response => this.generateUsers(response.json())//this.extractVinetas(response)
+        )
+    }
+    getFollowings(id:number){
+            return this.http.get(BASE_URL+id+'/followings', { withCredentials: true }).map(
             response => this.generateUsers(response.json())//this.extractVinetas(response)
         )
     }

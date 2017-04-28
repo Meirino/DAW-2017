@@ -211,7 +211,7 @@ public class RESTUserController {
 	}
 	@RequestMapping(value = "/follow/{id}", method = RequestMethod.PUT)
 	@JsonView(UserView.class)
-	public ResponseEntity<User> followUSer(@PathVariable long id, HttpServletRequest request) {	
+	public ResponseEntity<List<User>> followUSer(@PathVariable long id, HttpServletRequest request) {	
 		User user_tofollow = this.userservice.findOne(id);
 		Principal p = request.getUserPrincipal();
 	    User current_user = userservice.findByUsername(p.getName());
@@ -220,7 +220,7 @@ public class RESTUserController {
 		}else{
 		    current_user.addFollowing(user_tofollow);
 		    this.userservice.save(current_user);
-			return new ResponseEntity<>(current_user, HttpStatus.OK);
+			return new ResponseEntity<>(current_user.getFollowers(), HttpStatus.OK);
 			
 		}
 	}
@@ -246,7 +246,7 @@ public class RESTUserController {
 	
 	@RequestMapping(value = "/unfollow/{id}", method = RequestMethod.PUT)
 	@JsonView(UserView.class)
-	public ResponseEntity<User> unfollowUSer(@PathVariable int id, HttpServletRequest request) {	
+	public ResponseEntity<List<User>> unfollowUSer(@PathVariable int id, HttpServletRequest request) {	
 		  User user_tounfollow = this.userservice.findOne(id);
 		  Principal p = request.getUserPrincipal();
 	      User current_user = this.userservice.findByUsername(p.getName());
@@ -255,7 +255,7 @@ public class RESTUserController {
 		}else{
 			current_user.getFollowing().remove(user_tounfollow);
 		    this.userservice.save(current_user);
-			return new ResponseEntity<>(current_user, HttpStatus.OK);	
+			return new ResponseEntity<>(current_user.getFollowers(), HttpStatus.OK);	
 		}
 	}
 	
