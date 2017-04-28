@@ -39,5 +39,6 @@ comentarVineta(id: number, comentario: string) {
 
     eliminarComentario(id: number) {
         //Llamar a la API
+        this.http.delete(BASE_URL+id, { withCredentials: true }).subscribe(response => console.log(response), error => console.log(error));
     }
 }

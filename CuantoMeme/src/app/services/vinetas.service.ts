@@ -55,6 +55,7 @@ export class VinetasService {
 
     eliminarViñeta(id: number) {
         //Hacer petición API
+        this.http.delete(BASE_URL+id, { withCredentials: true }).subscribe(response => console.log(response), error => console.log(error));
     }
 
     likeVineta(id: number) {
