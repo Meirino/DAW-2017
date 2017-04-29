@@ -52,7 +52,44 @@ export class HomeComponent implements OnInit {
         this.seguidores = this.ServicioLogin.user.seguidores;
       }
     }
+    followuser(id:number){
+      if(this.ServicioLogin.isLogged === false) {
+        this.router.navigateByUrl("/login");
+      }else {
+        this.ServicioUsuarios.followUser(id).subscribe(
+        seguidos=>{
+              this.ServicioLogin.user.setFollowings([]);
+              for (var i = 0; i < seguidos["length"]; i++) { 
+                this.ServicioLogin.user.seguidos.push(seguidos[i]);
+            }
+          this.seguidos = this.ServicioLogin.user.seguidos
 
+    },
+    error => console.error(error)
+      )
+    }
+    }
+    unfollowuser(id: number){
+      if(this.ServicioLogin.isLogged === false) {
+        this.router.navigateByUrl("/login");
+      }else {
+        this.ServicioUsuarios.unfollowUser(id).subscribe(
+        seguidos=>{
+              
+              this.ServicioLogin.user.setFollowings([]);
+              if(typeof seguidos !== "undefined"){
+                for (var i = 0; i < seguidos["length"]; i++) { 
+                  this.ServicioLogin.user.seguidos.push(seguidos[i]);
+                }
+              }else{
+                console.log("no considero que haya nada")
+              }
+              this.seguidos = this.ServicioLogin.user.seguidos
+  },
+    error => console.error(error)
+      )
+    }
+    }
     eleccion(opción: string): void {
       this.opcion = opción;
     }
@@ -60,7 +97,9 @@ export class HomeComponent implements OnInit {
     fileChange(e) {
       this.imgVineta = e.target.files;
     }
-
+    isFollowingUser(id:number){
+      return this.ServicioLogin.user.isFollowed(id)
+    }
     avatarChange(e) {
       this.imgAvatar = e.target.files;
     }

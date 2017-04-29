@@ -23,7 +23,7 @@
             </div>
             <div *ngIf="opcion == 'seguidos'">
                 <ul class="list-unstyled">
-                    <h2 *ngIf="usuario.seguidos.length < 1">¡No sigues a nadie!</h2>
+                    <h2 *ngIf="usuario.seguidos.length < 1">¡No sigue a nadie!</h2>
                     <li class="media" *ngFor="let usuario of usuario.seguidos">
                         <img width="100px" class="d-flex mr-3 rounded-circle" [src]="usuario.avatarURL" alt="Generic placeholder image">
                         <div class="media-body">
@@ -34,7 +34,7 @@
             </div>
             <div *ngIf="opcion == 'seguidores'">
                 <ul class="list-unstyled">
-                    <h2 *ngIf="usuario.seguidores.length < 1">¡No te sigue nadie!</h2>
+                    <h2 *ngIf="usuario.seguidores.length < 1">¡No le sigue nadie!</h2>
                     <li class="media" *ngFor="let usuario of usuario.seguidores">
                         <img width="100px" class="d-flex mr-3 rounded-circle" [src]="usuario.avatarURL" alt="Generic placeholder image">
                         <div class="media-body">

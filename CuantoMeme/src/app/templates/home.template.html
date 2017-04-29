@@ -62,11 +62,11 @@
             <div *ngIf="opcion == 'seguidos'">
                 <ul class="list-unstyled">
                     <h2 *ngIf="seguidos.length < 1">¡No sigues a nadie!</h2>
-                    <li class="media" *ngFor="let usuario of seguidos">
+                    <li class="media" *ngFor="let usuario of seguidos ">
                         <img width="100px" class="d-flex mr-3 rounded-circle" [src]="usuario.avatarURL" alt="Generic placeholder image">
                         <div class="media-body">
                             <h4 class="mt-0 mb-1 display-4">{{usuario.username}}</h4>
-                            <button type="button" (click)="unfollow(usuario, seguidos)" class="btn btn-sm btn-follow btn-primary">Dejar de seguir</button>
+                            <button type="button" (click)="unfollowuser(usuario.id)" class="btn btn-sm btn-follow btn-primary">Dejar de seguir</button>
                         </div>
                     </li>
                 </ul>
@@ -78,7 +78,9 @@
                         <img width="100px" class="d-flex mr-3 rounded-circle" [src]="usuario.avatarURL" alt="Generic placeholder image">
                         <div class="media-body">
                             <h4 class="mt-0 mb-1 display-4">{{usuario.username}}</h4>
-                            <button type="button" (click)="unfollow(usuario, seguidores)" class="btn btn-sm btn-follow btn-primary">Seguir</button>
+                            <button *ngIf="!isFollowingUser(usuario.id)" type="button" (click)="followuser(usuario.id)" class="btn btn-sm btn-follow btn-primary">Seguir</button>
+                            <button *ngIf="isFollowingUser(usuario.id)"  type="button" (click)="unfollowuser(usuario.id)" class="btn btn-sm btn-follow btn-primary">Dejar de Seguir</button>
+
                         </div>
                     </li>
                 </ul>
