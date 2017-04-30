@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import es.urjc.code.daw.api.CMRestControler.VinetaView;
 import es.urjc.code.daw.comentario.Comentario;
 import es.urjc.code.daw.storage.StorageService;
+import es.urjc.code.daw.tag.Tag;
 import es.urjc.code.daw.user.*;
 import es.urjc.code.daw.utils.utils;
 import es.urjc.code.daw.vineta.Vineta;
@@ -38,6 +39,8 @@ public class RESTUserController {
 	interface UserView extends User.BasicAtt, User.RolesAtt {}
 	interface UserViewDetails extends User.BasicAtt, User.VinetaupAtt, User.ComentarioAtt, Comentario.BasicAtt, Vineta.BasicAtt, User.VinetafavAtt,
 	User.VinetadislikeAtt, User.VinetalikeAtt, User.SeguidoresAtt, User.RolesAtt, Vineta.TagAtt, Vineta.UserAtt{}
+	interface VinetaView extends Vineta.BasicAtt , Vineta.UserAtt, User.BasicAtt, Vineta.TagAtt, Tag.BasicAtt{}
+
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -227,12 +230,10 @@ public class RESTUserController {
 		}
 	}
 	
-	@RequestMapping(value = "/timeline", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/timeline", method = RequestMethod.GET)
 	@JsonView(VinetaView.class)
-	public ResponseEntity<List<Vineta>> getTimeline(HttpServletRequest request) {	
-		Principal p = request.getUserPrincipal();
-	    User current_user = userservice.findByUsername(p.getName());
-	    System.out.println(current_user);
+	public ResponseEntity<List<Vineta>> getTimeline(@PathVariable long id) {	
+	    User current_user = userservice.findOne(id);
 		if (!current_user.getFollowing().isEmpty()) {
 			
 			ArrayList<Vineta> timeline = new ArrayList<Vineta>();

@@ -14,6 +14,7 @@ export class Usuario {
     //private comentarios: Comentario[];
     public likes: Vineta[];
     public dislikes: Vineta[];
+    public timeline: Vineta[];
     public favoritos: Vineta[];
     public subidas: Vineta[];
     public isLogged: Boolean = false;
@@ -61,7 +62,12 @@ export class Usuario {
     setDislikes(vinetas: Vineta[]){
         this.dislikes= vinetas;
     }
-
+    setTimeline(vinetas: Vineta[]){
+        this.timeline = vinetas;
+    }
+    getTimeline(){
+        return this.timeline;
+    }
     setFollowers(followers: Usuario[]){
         this.seguidores = followers
     }

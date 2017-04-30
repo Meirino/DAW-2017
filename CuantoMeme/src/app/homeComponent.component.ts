@@ -17,7 +17,7 @@ import { Vineta } from './classes/Vineta.class';
 export class HomeComponent implements OnInit {
     opcion: string = 'publicadas';
     email: string = 'cuantomeme@cuantomeme.com';
-    subidas: Vineta[] = [];
+    timeline: Vineta[] = [];
     propio: boolean = false;
     seguidos: Usuario[];
     seguidores: Usuario[];
@@ -48,7 +48,14 @@ export class HomeComponent implements OnInit {
             response => this.ServicioLogin.user.setSubidas(response),
             error => console.log(error)
         );
-        console.log(this.ServicioLogin.user.getSubidas());
+        this.ServicioUsuarios.getUserTimeline(this.ServicioLogin.user.id).subscribe(
+            response => {
+              this.ServicioLogin.user.setTimeline([])
+              this.ServicioLogin.user.setTimeline(response)
+              this.timeline= this.ServicioLogin.user.getTimeline()
+          },
+            error => console.log(error)
+        );
         this.seguidos = this.ServicioLogin.user.seguidos;
         this.seguidores = this.ServicioLogin.user.seguidores;
       }
