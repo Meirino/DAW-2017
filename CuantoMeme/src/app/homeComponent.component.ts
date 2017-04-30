@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
     propio: boolean = false;
     seguidos: Usuario[];
     seguidores: Usuario[];
+    timeline: Vineta[] = [];
 
     //Subir viñeta
     tituloVineta: string = '';
@@ -51,7 +52,9 @@ export class HomeComponent implements OnInit {
         this.seguidos = this.ServicioLogin.user.seguidos;
         this.seguidores = this.ServicioLogin.user.seguidores;
       }
+      this.getTimeline();
     }
+
     followuser(id:number){
       if(this.ServicioLogin.isLogged === false) {
         this.router.navigateByUrl("/login");
@@ -153,5 +156,11 @@ export class HomeComponent implements OnInit {
         formData.append('email', this.emailModified);
 
         this.ServicioUsuarios.actualizarDatos(formData);
+    }
+
+    getTimeline(): void {
+      this.ServicioUsuarios.getTimeline().subscribe(
+        response => this.timeline = response, error => console.log(error)
+      );
     }
 }

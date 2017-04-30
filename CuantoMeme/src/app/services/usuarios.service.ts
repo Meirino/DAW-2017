@@ -132,5 +132,9 @@ export class UsuarioService {
         this.http.delete(BASE_URL+id, { withCredentials: true }).subscribe(response => console.log(response), error => console.log(error));
     }
 
+    getTimeline(): Observable<Vineta[]> {
+        return this.http.get(BASE_URL+'timeline', { withCredentials: true }).map(response => this.serviciovineta.generateVinetas(response.json()), error => console.log(error));
+    }
+
 
 }

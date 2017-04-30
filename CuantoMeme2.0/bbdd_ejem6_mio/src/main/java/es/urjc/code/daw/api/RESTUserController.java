@@ -228,10 +228,11 @@ public class RESTUserController {
 	}
 	
 	@RequestMapping(value = "/timeline", method = RequestMethod.GET)
-	@JsonView(UserView.class)
+	@JsonView(VinetaView.class)
 	public ResponseEntity<List<Vineta>> getTimeline(HttpServletRequest request) {	
 		Principal p = request.getUserPrincipal();
 	    User current_user = userservice.findByUsername(p.getName());
+	    System.out.println(current_user);
 		if (!current_user.getFollowing().isEmpty()) {
 			
 			ArrayList<Vineta> timeline = new ArrayList<Vineta>();

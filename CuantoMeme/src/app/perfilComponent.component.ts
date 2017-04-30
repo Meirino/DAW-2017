@@ -51,8 +51,7 @@ export class PerfilComponent implements OnInit {
           );
           
       this.ServicioUsuarios.getFollowings(this.Ruta.snapshot.params['id']).subscribe(seguidos => {
-            this.usuario.setFollowings(seguidos); 
-            console.log(seguidos);
+            this.usuario.setFollowings(seguidos);
           }, error => console.log(error)
           );
           

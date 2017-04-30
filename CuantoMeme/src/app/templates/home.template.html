@@ -20,7 +20,7 @@
                 <lista-vinetas [listaVinetas]="this.ServicioLogin.user.getSubidas()"></lista-vinetas>
             </div>
             <div *ngIf="opcion == 'publicadas'">
-                <!--<lista-vinetas [listaVinetas]="this.ServicioLogin.user.getTimeline()"></lista-vinetas>-->
+                <lista-vinetas [listaVinetas]="getTimeline()"></lista-vinetas>
             </div>
             <div *ngIf="opcion == 'publicar'">
                <div class="col-md-7">
