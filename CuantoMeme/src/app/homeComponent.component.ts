@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
     propio: boolean = false;
     seguidos: Usuario[];
     seguidores: Usuario[];
-    timeline: Vineta[] = [];
 
     //Subir viñeta
     tituloVineta: string = '';
@@ -84,22 +83,32 @@ export class HomeComponent implements OnInit {
         this.router.navigateByUrl("/login");
       }else {
         this.ServicioUsuarios.unfollowUser(id).subscribe(
-        seguidos=>{
-              
-              this.ServicioLogin.user.setFollowings([]);
-              if(typeof seguidos !== "undefined"){
-                for (var i = 0; i < seguidos["length"]; i++) { 
-                  this.ServicioLogin.user.seguidos.push(seguidos[i]);
+        seguidos=> 
+        {
+          this.ServicioLogin.user.setFollowings([]);
+          if(typeof seguidos !== "undefined") {
+            for (var i = 0; i < seguidos["length"]; i++) { 
+              this.ServicioLogin.user.seguidos.push(seguidos[i]);
                 }
-              }else{
+              } else {
                 console.log("no considero que haya nada")
               }
-              this.seguidos = this.ServicioLogin.user.seguidos
-  },
-    error => console.error(error)
-      )
+              this.seguidos = this.ServicioLogin.user.seguidos;
+              let j: number = this.timeline.length;
+              while (j--) {
+                if(this.timeline[j].autor.id === id) {
+                  this.timeline.splice(j, 1);
+                }
+              }
+              for(let vineta of this.timeline) {
+                
+              }
+            },
+        error => console.error(error)
+        )
+      }
     }
-    }
+
     eleccion(opción: string): void {
       this.opcion = opción;
     }
