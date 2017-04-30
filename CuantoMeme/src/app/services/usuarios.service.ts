@@ -91,33 +91,38 @@ export class UsuarioService {
     }
 
     getUserLikes (id: number): Observable<Vineta[]> {
-        return this.http.get(BASE_URL+id+'/likes').map(
+        return this.http.get(BASE_URL+id+'/likes', { withCredentials: true }).map(
             response => this.serviciovineta.generateVinetas(response.json()),
             error => console.log(error)
         );
     }
 
     getUserDislikes (id: number): Observable<Vineta[]> {
-        return this.http.get(BASE_URL+id+'/dislikes').map(
+        return this.http.get(BASE_URL+id+'/dislikes', { withCredentials: true }).map(
             response => this.serviciovineta.generateVinetas(response.json()),
             error => console.log(error)
         );
     }
 
     getUserFavoritas (id: number): Observable<Vineta[]> {
-        return this.http.get(BASE_URL+id+'/favorites').map(
+        return this.http.get(BASE_URL+id+'/favorites', { withCredentials: true }).map(
             response => this.serviciovineta.generateVinetas(response.json()),
             error => console.log(error)
         );
     }
 
     getUserPublicadas (id: number): Observable<Vineta[]> {
-        return this.http.get(BASE_URL+id+'/publicadas').map(
+        return this.http.get(BASE_URL+id+'/publicadas', { withCredentials: true }).map(
             response => this.serviciovineta.generateVinetas(response.json()),
             error => console.log(error)
         );
     }
-
+    getUserTimeline (id: number): Observable<Vineta[]> {
+        return this.http.get(BASE_URL+id+'/timeline', { withCredentials: true }).map(
+            response => this.serviciovineta.generateVinetas(response.json()),
+            error => console.log(error)
+        );
+    }
     recuperarAvatar(): string {
         let url: string;
         this.http.get(BASE_URL+'avatar', { withCredentials: true }).subscribe(
