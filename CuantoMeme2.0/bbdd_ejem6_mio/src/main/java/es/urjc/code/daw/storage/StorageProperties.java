@@ -12,7 +12,7 @@ public class StorageProperties {
      */
 	File currentDir = new File("");
 	//System.out.println(currentDir.getAbsoluteFile()+"photos");
-    private String location = currentDir.getAbsoluteFile()+"/target/classes/static/imgs/";
+    private String location = "";//currentDir.getAbsoluteFile()+"/target/classes/static/imgs/";
 
     public String getLocation() {
         return location;

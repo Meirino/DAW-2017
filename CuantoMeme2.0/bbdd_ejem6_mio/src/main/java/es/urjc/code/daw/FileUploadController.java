@@ -30,7 +30,6 @@ import es.urjc.code.daw.storage.*;
 @Controller
 public class FileUploadController {
 
-    private final StorageService storageService;
     
     @Autowired
 	private VinetaRepository vinetarepository;
@@ -42,10 +41,6 @@ public class FileUploadController {
     private UserRepository usuarios;
     @Autowired
 	private S3Wrapper s3Wrapper;
-    @Autowired
-    public FileUploadController(StorageService storageService) {
-        this.storageService = storageService;
-    }
     
 
     /*@RequestMapping(value = "/subida", method = RequestMethod.GET)
@@ -55,7 +50,7 @@ public class FileUploadController {
 
         return "uploadForm";
     }*/
-
+    /*----------------
     @RequestMapping(value = "/files/{filename:.+}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
@@ -66,7 +61,7 @@ public class FileUploadController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
                 .body(file);
     }
-
+	-------------*/
     @RequestMapping(value = "/subida", method = RequestMethod.POST)
     public String handleFileUpload(@RequestParam("titulo") String titulo, @RequestParam("desc") String desc ,@RequestParam("file") MultipartFile[] file, @RequestParam("tags") String tag, HttpServletRequest request,RedirectAttributes redirectAttributes) {
     	

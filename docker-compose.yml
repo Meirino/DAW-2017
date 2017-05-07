@@ -1,0 +1,22 @@
+version: "2.0"
+
+services: 
+  dbcm:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password123123
+      - MYSQL_DATABASE=cuantomeme
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password123123
+  webapp:
+    image: rdbarrientosa/cmb
+    depends_on:
+      - dbcm
+    ports:
+      - 9003:8080
+    environment:
+      - CMURL=dbcm
+      - CMUSER=user
+      - CMPASS=password123123
+      - CMDB=cuantomeme
+      - CMPORT=3306

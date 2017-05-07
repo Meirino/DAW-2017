@@ -285,7 +285,7 @@ public class RESTUserController {
 		if(avatar[0].getSize() <= this.bytes) {
 			Principal p = request.getUserPrincipal();
 	    	User user = userRepository.findByUsername(p.getName());
-	    	user.setAvatarURL("http://localhost:8080/imgs/"+avatar[0].getOriginalFilename());
+	    	user.setAvatarURL("https://s3-eu-west-1.amazonaws.com/bucketdawfase5/"+avatar[0].getOriginalFilename());
 	    	this.userRepository.save(user);
 	    	s3Wrapper.upload(avatar);
 	        //storageService.store(avatar);
