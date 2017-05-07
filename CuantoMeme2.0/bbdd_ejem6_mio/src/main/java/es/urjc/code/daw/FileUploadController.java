@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
-
+import es.urjc.code.daw.storage.*;
 @Controller
 public class FileUploadController {
 
@@ -40,11 +40,13 @@ public class FileUploadController {
     
     @Autowired
     private UserRepository usuarios;
-
+    @Autowired
+	private S3Wrapper s3Wrapper;
     @Autowired
     public FileUploadController(StorageService storageService) {
         this.storageService = storageService;
     }
+    
 
     /*@RequestMapping(value = "/subida", method = RequestMethod.GET)
     public String listUploadedFiles(Model model) throws IOException {
@@ -66,7 +68,7 @@ public class FileUploadController {
     }
 
     @RequestMapping(value = "/subida", method = RequestMethod.POST)
-    public String handleFileUpload(@RequestParam("titulo") String titulo, @RequestParam("desc") String desc ,@RequestParam("file") MultipartFile file, @RequestParam("tags") String tag, HttpServletRequest request,RedirectAttributes redirectAttributes) {
+    public String handleFileUpload(@RequestParam("titulo") String titulo, @RequestParam("desc") String desc ,@RequestParam("file") MultipartFile[] file, @RequestParam("tags") String tag, HttpServletRequest request,RedirectAttributes redirectAttributes) {
     	
     	//Quito los espacios del string
     	tag = tag.trim();
@@ -89,8 +91,8 @@ public class FileUploadController {
     			found = true;
     		}
     	}
-    	
-    	Vineta viñeta = new Vineta(titulo, desc, "http://localhost:8080/imgs/"+file.getOriginalFilename());
+    	s3Wrapper.upload(file);
+    	Vineta viñeta = new Vineta(titulo, desc, "https://s3-eu-west-1.amazonaws.com/bucketdawfase5/"+file[0].getOriginalFilename());
     	Principal p = request.getUserPrincipal();
     	User user = usuarios.findByUsername(p.getName());
     	viñeta.setAutor(user);
@@ -104,9 +106,9 @@ public class FileUploadController {
     	};
     	
     	this.vinetarepository.save(viñeta);
-        storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
+        //storageService.store(file);
+        //redirectAttributes.addFlashAttribute("message",
+         //       "You successfully uploaded " + file.getOriginalFilename() + "!");
 
         return "redirect:/home";
     }
