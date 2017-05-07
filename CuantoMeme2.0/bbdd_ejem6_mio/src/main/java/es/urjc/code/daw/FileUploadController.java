@@ -114,13 +114,13 @@ public class FileUploadController {
     }
     
     @RequestMapping(value = "/subidaAvatar", method = RequestMethod.POST)
-    public String handleAvatarUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public String handleAvatarUpload(@RequestParam("file") MultipartFile[] file, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
     	Principal p = request.getUserPrincipal();
     	User user = usuarios.findByUsername(p.getName());
-    	user.setAvatarURL("http://localhost:8080/imgs/"+file.getOriginalFilename());
+    	user.setAvatarURL("https://s3-eu-west-1.amazonaws.com/bucketdawfase5/"+file[0].getOriginalFilename());
     	this.usuarios.save(user);
-        storageService.store(file);
+        //storageService.store(file);
 
         return "redirect:/home";
     }
