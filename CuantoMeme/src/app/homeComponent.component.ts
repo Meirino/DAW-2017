@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     usernameModified: string;
     emailModified: string;
 
-    constructor(private ServicioLogin: LoginService, private ServicioUsuarios :UsuarioService, private Ruta: ActivatedRoute, private ServicioVinetas: VinetasService, private router: Router) {
+    constructor(public ServicioLogin: LoginService, private ServicioUsuarios :UsuarioService, private Ruta: ActivatedRoute, private ServicioVinetas: VinetasService, private router: Router) {
       //
     }
 
@@ -147,7 +147,7 @@ export class HomeComponent implements OnInit {
 
         this.ServicioUsuarios.actualizarAvatar(formData).subscribe(
           data => {
-            this.ServicioLogin.user.avatarURL = 'http://localhost:8080/imgs/' + this.imgAvatar[0].name;
+            this.ServicioLogin.user.avatarURL = 'https://s3-eu-west-1.amazonaws.com/bucketdawfase5/' + this.imgAvatar[0].name;
             for(let vineta of this.ServicioLogin.user.getSubidas()) {
               vineta.autor.avatarURL = this.ServicioLogin.user.avatarURL;
             }

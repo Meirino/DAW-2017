@@ -11,7 +11,7 @@ import { LoginService } from './services/login.service';
 
 export class sideMenuComponent{
 
-    constructor(private servicioLogin: LoginService) {
+    constructor(public servicioLogin: LoginService) {
     }
     logOut() {
       this.servicioLogin.logOut().subscribe(

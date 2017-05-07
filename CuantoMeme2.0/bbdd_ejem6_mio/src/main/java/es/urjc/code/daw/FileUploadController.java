@@ -118,6 +118,7 @@ public class FileUploadController {
 
     	Principal p = request.getUserPrincipal();
     	User user = usuarios.findByUsername(p.getName());
+    	s3Wrapper.upload(file);
     	user.setAvatarURL("https://s3-eu-west-1.amazonaws.com/bucketdawfase5/"+file[0].getOriginalFilename());
     	this.usuarios.save(user);
         //storageService.store(file);

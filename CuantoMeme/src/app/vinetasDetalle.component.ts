@@ -16,7 +16,7 @@ import 'rxjs/add/operator/switchMap';
 })
 
 export class vinetasDetalleComponent implements OnInit {
-  private vineta: Vineta;
+  public vineta: Vineta;
   private followinguser = false;
   constructor(
   private login: LoginService,
@@ -24,7 +24,7 @@ export class vinetasDetalleComponent implements OnInit {
   private router: Router,
   private servicioVinetas: VinetasService,
   private serviciocomentarios: ComentariosService,
-  private ServicioLogin: LoginService,
+  public ServicioLogin: LoginService,
   private ServicioUsuario: UsuarioService
   ) {
 }

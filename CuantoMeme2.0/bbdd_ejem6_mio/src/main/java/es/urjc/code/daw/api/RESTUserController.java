@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import es.urjc.code.daw.api.CMRestControler.VinetaView;
 import es.urjc.code.daw.comentario.Comentario;
+import es.urjc.code.daw.storage.S3Wrapper;
 import es.urjc.code.daw.storage.StorageService;
 import es.urjc.code.daw.tag.Tag;
 import es.urjc.code.daw.user.*;
@@ -46,7 +47,8 @@ public class RESTUserController {
 	
 	@Autowired
 	private StorageService storageService;
-	
+    @Autowired
+	private S3Wrapper s3Wrapper;
 	@Autowired
 	private UserService userservice;
 	
@@ -275,17 +277,18 @@ public class RESTUserController {
     }
 	
 	@RequestMapping(value = "/avatar", method = RequestMethod.PUT)
-    public ResponseEntity<String> handleAvatarUpload(@RequestPart("file") MultipartFile avatar, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public ResponseEntity<String> handleAvatarUpload(@RequestPart("file") MultipartFile[] avatar, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 		if (!userComponent.isLoggedUser()){
 		     return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		
-		if(avatar.getSize() <= this.bytes) {
+		if(avatar[0].getSize() <= this.bytes) {
 			Principal p = request.getUserPrincipal();
 	    	User user = userRepository.findByUsername(p.getName());
-	    	user.setAvatarURL("http://localhost:8080/imgs/"+avatar.getOriginalFilename());
+	    	user.setAvatarURL("http://localhost:8080/imgs/"+avatar[0].getOriginalFilename());
 	    	this.userRepository.save(user);
-	        storageService.store(avatar);
+	    	s3Wrapper.upload(avatar);
+	        //storageService.store(avatar);
 	        System.out.println(user.getAvatarURL());
 	        return new ResponseEntity<>(user.getAvatarURL(), HttpStatus.OK);
 		} else {

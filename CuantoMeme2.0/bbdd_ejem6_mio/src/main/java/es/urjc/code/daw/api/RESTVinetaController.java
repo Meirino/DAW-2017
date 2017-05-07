@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.urjc.code.daw.comentario.*;
+import es.urjc.code.daw.storage.S3Wrapper;
 import es.urjc.code.daw.storage.StorageService;
 import es.urjc.code.daw.tag.*;
 import es.urjc.code.daw.user.*;
@@ -49,6 +50,8 @@ public class RESTVinetaController {
     private UserService userservice;
 	@Autowired
 	private StorageService storageService;	
+    @Autowired
+	private S3Wrapper s3Wrapper;
 	@Autowired
     public void FileUploadController(StorageService storageService) {
         this.storageService = storageService;
@@ -223,7 +226,7 @@ public class RESTVinetaController {
 	@CrossOrigin
 	@JsonView(VinetaView.class)
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<Vineta> postVineta(@RequestParam("titulo") String titulo, @RequestParam("desc") String desc, @RequestPart("file") MultipartFile file, @RequestParam("tags") String tag, HttpServletRequest request){
+	public ResponseEntity<Vineta> postVineta(@RequestParam("titulo") String titulo, @RequestParam("desc") String desc, @RequestPart("file") MultipartFile[] file, @RequestParam("tags") String tag, HttpServletRequest request){
 		
 		//Quito los espacios del string
     	tag = tag.trim();
@@ -246,7 +249,8 @@ public class RESTVinetaController {
     			found = true;
     		}
     	}
-    	Vineta viñeta = new Vineta(titulo, desc, "http://localhost:8080/imgs/"+file.getOriginalFilename());
+    	s3Wrapper.upload(file);
+    	Vineta viñeta = new Vineta(titulo, desc, "https://s3-eu-west-1.amazonaws.com/bucketdawfase5/"+file[0].getOriginalFilename());
     	Principal p = request.getUserPrincipal();
     	User user = userservice.findByUsername(p.getName());
     	viñeta.setAutor(user);
@@ -260,7 +264,7 @@ public class RESTVinetaController {
     	};
     	
     	this.vinvetaservice.save(viñeta);
-        storageService.store(file);
+        //storageService.store(file);
         
         return new ResponseEntity<>(viñeta, HttpStatus.CREATED);
 	}

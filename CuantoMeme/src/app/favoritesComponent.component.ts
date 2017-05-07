@@ -17,7 +17,7 @@ export class FavoritesComponent implements OnInit {
   title = 'Tus vinetas favoritas';
   listaVinetas: Vineta[];
 
-  constructor(private servicioVinetas: VinetasService, private serviciologin: LoginService, private router: Router) {}
+  constructor(private servicioVinetas: VinetasService, public serviciologin: LoginService, private router: Router) {}
 
   ngOnInit() {
     this.listaVinetas = [];

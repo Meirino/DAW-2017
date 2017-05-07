@@ -17,7 +17,7 @@ export class DislikesComponent {
   title = 'Viñetas que odias';
   listaVinetas: Vineta[];
 
-  constructor(private servicioVinetas: VinetasService, private serviciologin: LoginService, private router: Router) {}
+  constructor(private servicioVinetas: VinetasService, public serviciologin: LoginService, private router: Router) {}
 
   ngOnInit() {
     this.listaVinetas = [];
