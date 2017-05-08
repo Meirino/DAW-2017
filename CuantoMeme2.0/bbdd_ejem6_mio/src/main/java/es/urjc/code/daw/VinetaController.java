@@ -84,6 +84,18 @@ public class VinetaController {
 		     this.userservice.save(user);}	      
 	      return "redirect:"+page;
 	}
+	@RequestMapping(value = "/hacerfavorita/{id}")
+	public String hacerfavorita(Model model, @PathVariable long id, HttpServletRequest request) {
+		String page = this.utilservice.requestCurrentPage(request);
+		Principal p = request.getUserPrincipal();
+	    User user = userservice.findByUsername(p.getName());
+	    Vineta v = vinetaservice.findOne(id);
+        if (!v.isFavoritedBefore(user)){
+			 user.getVinetas_favoritas().add(v);
+	         this.vinetaservice.save(v);
+	         this.userservice.save(user);}
+	    return "redirect:"+page;
+	}
 	@RequestMapping(value = "/eliminarvineta/{id}")
 	public String eliminarVineta(Model model, @PathVariable long id, HttpServletRequest request ) {
 		  Principal p = request.getUserPrincipal();
@@ -111,17 +123,4 @@ public class VinetaController {
 		  return "redirect:"+page;
 	}
 	
-	@RequestMapping(value = "/hacerfavorita/{id}")
-	public String hacerfavorita(Model model, @PathVariable long id, HttpServletRequest request) {
-		String page = this.utilservice.requestCurrentPage(request);
-		Principal p = request.getUserPrincipal();
-	    User user = userservice.findByUsername(p.getName());
-	    Vineta v = vinetaservice.findOne(id);
-        if (!v.isFavoritedBefore(user)){
-			 user.getVinetas_odiadas().add(v);
-        	 v.dislike();
-	         this.vinetaservice.save(v);
-	         this.userservice.save(user);}
-	    return "redirect:"+page;
-	}
 }

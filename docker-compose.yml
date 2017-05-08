@@ -9,7 +9,7 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=password123123
   webapp:
-    image: rdbarrientosa/cuantomemebackendspring
+    image: rdbarrientosa/cuantomemespring3
     depends_on:
       - dbcm
     ports:
