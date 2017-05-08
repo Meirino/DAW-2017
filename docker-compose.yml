@@ -13,7 +13,7 @@ services:
     depends_on:
       - dbcm
     ports:
-      - 9004:8080
+      - 8080:8080
 
     links:
       - dbcm
@@ -23,3 +23,10 @@ services:
       - CMPASS=password123123
       - CMDB=cuantomeme
       - CMPORT=3306
+  cuantomemeAngular:
+    image: rdbarrientosa/cuantomemefrontend
+    depends_on:
+      - webapp
+    ports:
+      - 4200:80
+    
