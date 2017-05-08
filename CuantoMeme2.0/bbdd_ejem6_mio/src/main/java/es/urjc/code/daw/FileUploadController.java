@@ -1,7 +1,5 @@
 package es.urjc.code.daw;
 
-import es.urjc.code.daw.storage.StorageFileNotFoundException;
-import es.urjc.code.daw.storage.StorageService;
 import es.urjc.code.daw.tag.*;
 import es.urjc.code.daw.user.User;
 import es.urjc.code.daw.user.UserRepository;
@@ -121,9 +119,5 @@ public class FileUploadController {
         return "redirect:/home";
     }
 
-    @ExceptionHandler(StorageFileNotFoundException.class)
-    public ResponseEntity handleStorageFileNotFound(StorageFileNotFoundException exc) {
-        return ResponseEntity.notFound().build();
-    }
 
 }

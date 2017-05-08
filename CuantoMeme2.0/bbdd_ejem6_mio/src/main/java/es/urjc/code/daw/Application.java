@@ -9,24 +9,15 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import es.urjc.code.daw.storage.StorageProperties;
-import es.urjc.code.daw.storage.StorageService;
 
 @SpringBootApplication
-@EnableConfigurationProperties(StorageProperties.class)
 public class Application {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
 	
-	@Bean
-	CommandLineRunner init(StorageService storageService) {
-		return (args) -> {
-            storageService.deleteAll();
-            storageService.init();
-		};
-	}
+
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {

@@ -23,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import es.urjc.code.daw.comentario.*;
 import es.urjc.code.daw.storage.S3Wrapper;
-import es.urjc.code.daw.storage.StorageService;
 import es.urjc.code.daw.tag.*;
 import es.urjc.code.daw.user.*;
 import es.urjc.code.daw.utils.utils;
@@ -48,14 +47,10 @@ public class RESTVinetaController {
 	private TagService tagservice;   
     @Autowired
     private UserService userservice;
-	@Autowired
-	private StorageService storageService;	
+	
     @Autowired
 	private S3Wrapper s3Wrapper;
-	@Autowired
-    public void FileUploadController(StorageService storageService) {
-        this.storageService = storageService;
-    }
+
 	@Autowired
 	private utils utilidades;
 	

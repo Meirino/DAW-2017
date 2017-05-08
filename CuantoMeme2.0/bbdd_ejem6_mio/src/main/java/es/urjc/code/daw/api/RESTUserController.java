@@ -26,7 +26,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import es.urjc.code.daw.api.CMRestControler.VinetaView;
 import es.urjc.code.daw.comentario.Comentario;
 import es.urjc.code.daw.storage.S3Wrapper;
-import es.urjc.code.daw.storage.StorageService;
 import es.urjc.code.daw.tag.Tag;
 import es.urjc.code.daw.user.*;
 import es.urjc.code.daw.utils.utils;
@@ -45,8 +44,7 @@ public class RESTUserController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private StorageService storageService;
+
     @Autowired
 	private S3Wrapper s3Wrapper;
 	@Autowired
@@ -68,9 +66,6 @@ public class RESTUserController {
 		}
 	}
 
-    public void FileUploadController(StorageService storageService) {
-        this.storageService = storageService;
-    }
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	@JsonView(UserView.class)

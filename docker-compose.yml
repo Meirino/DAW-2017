@@ -9,11 +9,14 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=password123123
   webapp:
-    image: rdbarrientosa/cmb
+    image: rdbarrientosa/cmbt2
     depends_on:
       - dbcm
     ports:
-      - 9003:8080
+      - 9004:8080
+
+    links:
+      - dbcm
     environment:
       - CMURL=dbcm
       - CMUSER=user
